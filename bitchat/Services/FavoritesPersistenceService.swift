@@ -24,8 +24,8 @@ final class FavoritesPersistenceService: ObservableObject {
     
     // We intentionally do not track when we last sent our npub; sending happens only on favorite toggle.
 
-    private static let storageKey = "chat.bitchat.favorites"
-    private static let keychainService = "chat.bitchat.favorites"
+    private static let storageKey = "chat.gap.favorites"
+    private static let keychainService = "chat.gap.favorites"
     private let keychain: KeychainHelperProtocol
     
     @Published private(set) var favorites: [Data: FavoriteRelationship] = [:] // Noise pubkey -> relationship

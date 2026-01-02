@@ -17,7 +17,7 @@
                BlueprintIdentifier = "0576A29205865664C0937536"
                BuildableName = "Gap.app"
                BlueprintName = "gap_macOS"
-               ReferencedContainer = "container:Gap Mash.xcodeproj">
+               ReferencedContainer = "container:GapMash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,7 +33,7 @@
             BlueprintIdentifier = "0576A29205865664C0937536"
             BuildableName = "Gap.app"
             BlueprintName = "gap_macOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <Testables>
@@ -45,7 +45,7 @@
                BlueprintIdentifier = "47FF23248747DD7CB666CB91"
                BuildableName = "Gap.xctest"
                BlueprintName = "gapTests_macOS"
-               ReferencedContainer = "container:Gap Mash.xcodeproj">
+               ReferencedContainer = "container:GapMash.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -67,7 +67,7 @@
             BlueprintIdentifier = "0576A29205865664C0937536"
             BuildableName = "Gap.app"
             BlueprintName = "gap_macOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -91,7 +91,7 @@
             BlueprintIdentifier = "0576A29205865664C0937536"
             BuildableName = "Gap.app"
             BlueprintName = "gap_macOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

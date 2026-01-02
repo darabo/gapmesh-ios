@@ -115,6 +115,12 @@
             "value": "paylaşılan bağlantı",
             "comment": "Fallback title when saving a shared link"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لینک به اشتراک گذاشته شده"
+          }
         }
       }
     },
@@ -231,6 +237,12 @@
             "state": "translated",
             "value": "bağlantı kodlanamadı",
             "comment": "Shown when the share payload cannot be encoded"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رمزگذاری لینک ناموفق بود"
           }
         }
       }
@@ -349,6 +361,12 @@
             "value": "paylaşılabilir içerik yok",
             "comment": "Shown when provided content cannot be shared"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "محتوای قابل اشتراک‌گذاری وجود ندارد"
+          }
         }
       }
     },
@@ -466,6 +484,12 @@
             "value": "paylaşılacak bir şey yok",
             "comment": "Shown when the share extension receives no content"
           }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چیزی برای اشتراک‌گذاری نیست"
+          }
         }
       }
     },
@@ -475,113 +499,119 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ shared link to bitchat",
+            "value": "✓ shared link to Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ تم إرسال الرابط إلى bitchat",
+            "value": "✓ تم إرسال الرابط إلى Gap",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ link zu bitchat geteilt",
+            "value": "✓ link zu Gap geteilt",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ enlace compartido con bitchat",
+            "value": "✓ enlace compartido con Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ lien partagé vers bitchat",
+            "value": "✓ lien partagé vers Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ הקישור נשלח אל bitchat",
+            "value": "✓ הקישור נשלח אל Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ tautan dikirim ke bitchat",
+            "value": "✓ tautan dikirim ke Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ link inviato a bitchat",
+            "value": "✓ link inviato a Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchatにリンクを共有",
+            "value": "✓ Gapにリンクを共有",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ne": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchat मा लिङ्क पठाइयो",
+            "value": "✓ Gap मा लिङ्क पठाइयो",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ link enviado para bitchat",
+            "value": "✓ link enviado para Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ ссылка отправлена в bitchat",
+            "value": "✓ ссылка отправлена в Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ посилання надіслано в bitchat",
+            "value": "✓ посилання надіслано в Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ 已将链接分享至 bitchat",
+            "value": "✓ 已将链接分享至 Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchat으로 링크를 공유했습니다",
+            "value": "✓ Gap Mash으로 링크를 공유했습니다",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchat'e bağlantı paylaşıldı",
+            "value": "✓ Gap'e bağlantı paylaşıldı",
             "comment": "Confirmation after successfully sharing a link"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓ لینک به Gap ارسال شد"
           }
         }
       }
@@ -592,113 +622,119 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ shared text to bitchat",
+            "value": "✓ shared text to Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ تم إرسال النص إلى bitchat",
+            "value": "✓ تم إرسال النص إلى Gap",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ text zu bitchat geteilt",
+            "value": "✓ text zu Gap geteilt",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ texto compartido con bitchat",
+            "value": "✓ texto compartido con Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ texte partagé vers bitchat",
+            "value": "✓ texte partagé vers Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ הטקסט נשלח אל bitchat",
+            "value": "✓ הטקסט נשלח אל Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ teks dikirim ke bitchat",
+            "value": "✓ teks dikirim ke Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ testo inviato a bitchat",
+            "value": "✓ testo inviato a Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ja": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchatにテキストを共有",
+            "value": "✓ Gapにテキストを共有",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ne": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchat मा पाठ पठाइयो",
+            "value": "✓ Gap मा पाठ पठाइयो",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ texto enviado para bitchat",
+            "value": "✓ texto enviado para Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ текст отправлен в bitchat",
+            "value": "✓ текст отправлен в Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ текст надіслано в bitchat",
+            "value": "✓ текст надіслано в Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ 已将文本分享至 bitchat",
+            "value": "✓ 已将文本分享至 Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchat으로 텍스트를 공유했습니다",
+            "value": "✓ Gap Mash으로 텍스트를 공유했습니다",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "tr": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ bitchat'e metin paylaşıldı",
+            "value": "✓ Gap'e metin paylaşıldı",
             "comment": "Confirmation after successfully sharing text"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "✓ متن به Gap ارسال شد"
           }
         }
       }

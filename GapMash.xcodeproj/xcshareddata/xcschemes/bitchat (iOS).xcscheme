@@ -17,7 +17,7 @@
                BlueprintIdentifier = "57CA17A36A2532A6CFF367BB"
                BuildableName = "gapShareExtension.appex"
                BlueprintName = "gapShareExtension"
-               ReferencedContainer = "container:Gap Mash.xcodeproj">
+               ReferencedContainer = "container:GapMash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "AF077EA0474EDEDE2C72716C"
                BuildableName = "Gap.app"
                BlueprintName = "gap_iOS"
-               ReferencedContainer = "container:Gap Mash.xcodeproj">
+               ReferencedContainer = "container:GapMash.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
             BlueprintIdentifier = "AF077EA0474EDEDE2C72716C"
             BuildableName = "Gap.app"
             BlueprintName = "gap_iOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <CodeCoverageTargets>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "AF077EA0474EDEDE2C72716C"
             BuildableName = "Gap.app"
             BlueprintName = "gap_iOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -71,7 +71,7 @@
                BlueprintIdentifier = "6CB97DF2EA57234CB3E563B8"
                BuildableName = "Gap.xctest"
                BlueprintName = "gaptest"
-               ReferencedContainer = "container:Gap Mash.xcodeproj">
+               ReferencedContainer = "container:GapMash.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -93,7 +93,7 @@
             BlueprintIdentifier = "AF077EA0474EDEDE2C72716C"
             BuildableName = "Gap.app"
             BlueprintName = "gap_iOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -117,7 +117,7 @@
             BlueprintIdentifier = "AF077EA0474EDEDE2C72716C"
             BuildableName = "Gap.app"
             BlueprintName = "gap_iOS"
-            ReferencedContainer = "container:Gap Mash.xcodeproj">
+            ReferencedContainer = "container:GapMash.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

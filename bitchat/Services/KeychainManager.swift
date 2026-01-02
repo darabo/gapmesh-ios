@@ -211,6 +211,9 @@ final class KeychainManager: KeychainManagerProtocol {
                     "com.bitchat.deviceidentity",
                     "com.bitchat.noise.identity",
                     "chat.bitchat.passwords",
+                    "chat.gap.passwords",
+                    "chat.gap.nostr",
+                    "chat.gap.favorites",
                     "bitchat.keychain",
                     "bitchat",
                     "com.bitchat"
@@ -255,6 +258,9 @@ final class KeychainManager: KeychainManagerProtocol {
             "com.bitchat.noise.identity",
             "chat.bitchat.passwords",
             "chat.bitchat.nostr",
+            "chat.gap.passwords",
+            "chat.gap.nostr",
+            "chat.gap.favorites",
             "bitchat.keychain",
             "bitchat",
             "com.bitchat"

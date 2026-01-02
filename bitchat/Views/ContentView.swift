@@ -64,6 +64,7 @@ struct ContentView: View {
     @State private var isRecordingVoiceNote = false
     @State private var isPreparingVoiceNote = false
     @State private var recordingDuration: TimeInterval = 0
+    @State private var recordingLevel: Float = -160.0
     @State private var recordingTimer: Timer?
     @State private var recordingStartDate: Date?
 #if os(iOS)
@@ -268,8 +269,8 @@ struct ContentView: View {
                     .environmentObject(viewModel)
             }
         }
-        .alert("Recording Error", isPresented: $showRecordingAlert, actions: {
-            Button("OK", role: .cancel) {}
+        .alert("content.recording.error_title", isPresented: $showRecordingAlert, actions: {
+            Button("common.ok", role: .cancel) {}
         }, message: {
             Text(recordingAlertMessage)
         })
@@ -889,10 +890,10 @@ struct ContentView: View {
                             .frame(width: 32, height: 32)
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel("Close")
+                    .accessibilityLabel(String(localized: "content.accessibility.close"))
                 }
                 let activeText = String.localizedStringWithFormat(
-                    String(localized: "%@ active", comment: "Count of active users in the people sheet"),
+                    String(localized: "content.people_count_active", comment: "Count of active users in the people sheet"),
                     "\(peopleSheetActiveCount)"
                 )
 
@@ -1020,7 +1021,7 @@ struct ContentView: View {
                     }
                 
                     .buttonStyle(.plain)
-                    .accessibilityLabel("Close")
+                    .accessibilityLabel(String(localized: "content.accessibility.close"))
                 }
                 .frame(height: headerHeight)
                 .padding(.horizontal, 16)
@@ -1216,7 +1217,7 @@ struct ContentView: View {
     
     private var mainHeaderView: some View {
         HStack(spacing: 0) {
-            Text(verbatim: "bitchat/")
+            Text(verbatim: "Gap/")
                 .font(.bitchatSystem(size: 18, weight: .medium, design: .monospaced))
                 .foregroundColor(textColor)
                 .onTapGesture(count: 3) {
@@ -1716,15 +1717,16 @@ private extension ContentView {
 
     var recordingIndicator: some View {
         HStack(spacing: 12) {
-            Image(systemName: "waveform.circle.fill")
+            RecordingWaveformView(level: recordingLevel)
+                .frame(width: 30, height: 20)
                 .foregroundColor(.red)
-                .font(.bitchatSystem(size: 20))
+            
             Text("recording \(formattedRecordingDuration())", comment: "Voice note recording duration indicator")
                 .font(.bitchatSystem(size: 13, design: .monospaced))
                 .foregroundColor(.red)
             Spacer()
             Button(action: cancelVoiceRecording) {
-                Label("Cancel", systemImage: "xmark.circle")
+                Label("common.cancel", systemImage: "xmark.circle")
                     .labelStyle(.iconOnly)
                     .font(.bitchatSystem(size: 18))
                     .foregroundColor(.red)
@@ -1787,7 +1789,7 @@ private extension ContentView {
                 imagePickerSourceType = .camera
                 showImagePicker = true
             }
-            .accessibilityLabel("Tap for library, long press for camera")
+            .accessibilityLabel(String(localized: "content.accessibility.tap_library_long_camera"))
         #else
         Button(action: { showMacImagePicker = true }) {
             Image(systemName: "photo.circle.fill")
@@ -1796,7 +1798,7 @@ private extension ContentView {
                 .frame(width: 36, height: 36)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Choose photo")
+        .accessibilityLabel(String(localized: "content.accessibility.choose_photo"))
         #endif
     }
 
@@ -1836,7 +1838,7 @@ private extension ContentView {
                             .onEnded { _ in finishVoiceRecording(send: true) }
                     )
             )
-            .accessibilityLabel("Hold to record a voice note")
+            .accessibilityLabel(String(localized: "content.accessibility.hold_to_record"))
     }
 
     private func sendButtonView(enabled: Bool) -> some View {
@@ -1876,7 +1878,7 @@ private extension ContentView {
             let granted = await VoiceRecorder.shared.requestPermission()
             guard granted else {
                 isPreparingVoiceNote = false
-                recordingAlertMessage = "Microphone access is required to record voice notes."
+                recordingAlertMessage = String(localized: "content.recording.microphone_required")
                 showRecordingAlert = true
                 return
             }
@@ -1888,6 +1890,9 @@ private extension ContentView {
                 recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
                     if let start = recordingStartDate {
                         recordingDuration = Date().timeIntervalSince(start)
+                        withAnimation(.linear(duration: 0.05)) {
+                            recordingLevel = VoiceRecorder.shared.currentAveragePower()
+                        }
                     }
                 }
                 if let timer = recordingTimer {
@@ -1897,7 +1902,7 @@ private extension ContentView {
                 isRecordingVoiceNote = true
             } catch {
                 SecureLogger.error("Voice recording failed to start: \(error)", category: .session)
-                recordingAlertMessage = "Could not start recording."
+                recordingAlertMessage = String(localized: "content.recording.could_not_start")
                 showRecordingAlert = true
                 VoiceRecorder.shared.cancelRecording()
                 isPreparingVoiceNote = false
@@ -1936,8 +1941,8 @@ private extension ContentView {
                             try? FileManager.default.removeItem(at: url)
                         }
                         recordingAlertMessage = recordingDuration < minimumDuration
-                            ? "Recording is too short."
-                            : "Recording failed to save."
+                            ? String(localized: "content.recording.too_short")
+                            : String(localized: "content.recording.failed_to_save")
                         showRecordingAlert = true
                         return
                     }
@@ -2117,6 +2122,36 @@ struct ImagePreviewView: View {
 #endif
 }
 
+struct RecordingWaveformView: View {
+    var level: Float // in decibels, approx -160 to 0
+
+    // Normalize -60...0 dB to 0...1 range for visualizer
+    private var normalizedLevel: CGFloat {
+        let minDb: Float = -60.0
+        if level < minDb { return 0.1 } // Keep a small minimum to show it's alive
+        if level >= 0 { return 1.0 }
+        return CGFloat((level - minDb) / abs(minDb))
+    }
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 2) {
+            ForEach(0..<4) { i in
+                RoundedRectangle(cornerRadius: 2)
+                    .fill(Color.red)
+                    .frame(width: 3, height: barHeight(index: i))
+            }
+        }
+    }
+
+    private func barHeight(index: Int) -> CGFloat {
+        // Base height modulated by level, with some variance per bar to look like a wave
+        let baseFn = sin(Double(Date().timeIntervalSince1970 * 10) + Double(index))
+        let dynamic = normalizedLevel * 14.0 // Max height approx 14
+        let variance = CGFloat(abs(baseFn)) * 6.0
+        return 4.0 + dynamic + (normalizedLevel > 0.2 ? variance : 0)
+    }
+}
+
 #if os(iOS)
 // MARK: - Image Picker (Camera or Photo Library)
 struct ImagePickerView: UIViewControllerRepresentable {
@@ -2171,10 +2206,10 @@ struct MacImagePickerView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("Choose an image")
+            Text("content.choose_image")
                 .font(.headline)
 
-            Button("Select Image") {
+            Button("common.select_image") {
                 let panel = NSOpenPanel()
                 panel.allowsMultipleSelection = false
                 panel.canChooseDirectories = false
@@ -2190,7 +2225,7 @@ struct MacImagePickerView: View {
             }
             .buttonStyle(.borderedProminent)
 
-            Button("Cancel") {
+            Button("common.cancel") {
                 completion(nil)
             }
             .buttonStyle(.bordered)

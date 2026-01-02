@@ -22,8 +22,8 @@ final class BLEService: NSObject {
     static let serviceUUID = CBUUID(string: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C") // mainnet
     #endif
     static let characteristicUUID = CBUUID(string: "A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D")
-    private static let centralRestorationID = "chat.bitchat.ble.central"
-    private static let peripheralRestorationID = "chat.bitchat.ble.peripheral"
+    private static let centralRestorationID = "chat.gap.ble.central"
+    private static let peripheralRestorationID = "chat.gap.ble.peripheral"
     
     // Default per-fragment chunk size when link limits are unknown
     private let defaultFragmentSize = TransportConfig.bleDefaultFragmentSize
@@ -2833,7 +2833,7 @@ extension BLEService {
                 signature: nil,
                 ttl: messageTTL
             )
-            applyRouteIfAvailable(&packet, to: peerID)
+            // applyRouteIfAvailable(&packet, to: peerID)
             broadcastPacket(packet)
         } catch {
             SecureLogger.error("Failed to initiate handshake: \(error)")
@@ -3692,7 +3692,7 @@ extension BLEService {
                         signature: nil,
                         ttl: messageTTL
                     )
-                    applyRouteIfAvailable(&responsePacket, to: peerID)
+                    // applyRouteIfAvailable(&responsePacket, to: peerID)
                     // We're on messageQueue from delegate callback
                     broadcastPacket(responsePacket)
                 }

@@ -28,7 +28,7 @@ class NoiseSession {
     private var handshakeHash: Data?
     
     // Thread safety
-    private let sessionQueue = DispatchQueue(label: "chat.bitchat.noise.session", attributes: .concurrent)
+    private let sessionQueue = DispatchQueue(label: "chat.gap.noise.session", attributes: .concurrent)
     
     init(
         peerID: PeerID,

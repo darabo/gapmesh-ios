@@ -2,364 +2,7 @@
   "sourceLanguage" : "en",
   "strings" : {
     "%@" : {
-      "comment" : "Non-localizable symbol used in code",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@"
-          }
-        }
-      },
-      "shouldTranslate" : false
-    },
-    "%@ active" : {
-      "comment" : "A label at the bottom of the people list sheet showing the number of active users.",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ نشطين"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ সক্রিয়"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktiv"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ active"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ activos"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktibo"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ actifs"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ פעילים"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ सक्रिय"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktif"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ attivi"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ 人がアクティブ"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "활성 사용자 %@명"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktif"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ सक्रिय"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ actief"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktywni"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ ativos"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ ativos"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ активных"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktiva"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ செயலில்"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ กำลังใช้งาน"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ aktif"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ активних"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ فعال"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "%@ đang hoạt động"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "活跃用户 %@ 名"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "活躍使用者 %@ 位"
-          }
-        }
-      }
+
     },
     "app_info.app_name" : {
       "extractionState" : "manual",
@@ -367,175 +10,181 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat"
+            "value" : "Gap Mash"
           }
         }
       }
@@ -571,6 +220,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cerrar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بستن"
           }
         },
         "fil" : {
@@ -752,6 +407,12 @@
             "value" : "LISTO"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انجام شد"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -929,6 +590,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "mensajes privados cifrados con el protocolo Noise"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام‌های خصوصی با پروتکل نویز رمزنگاری می‌شوند"
           }
         },
         "fil" : {
@@ -1110,6 +777,12 @@
             "value" : "cifrado de extremo a extremo"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری سرتاسری"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1287,6 +960,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "los mensajes se retransmiten entre pares y llegan lejos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام‌ها از طریق همتایان عبور می‌کنند و مسافت را طی می‌کنند"
           }
         },
         "fil" : {
@@ -1468,6 +1147,12 @@
             "value" : "alcance ampliado"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برد گسترده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1645,6 +1330,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "recibe avisos cuando tus personas favoritas se conecten"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وقتی افراد موردعلاقه‌تان آنلاین می‌شوند آگاه شوید"
           }
         },
         "fil" : {
@@ -1826,6 +1517,12 @@
             "value" : "favoritos"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "موردعلاقه‌ها"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2003,6 +1700,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "canales geohash para chatear con personas en regiones cercanas a través de relays descentralizados anónimos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های جغرافیایی برای گفتگو با افراد مناطق نزدیک از طریق رله‌های ناشناس غیرمتمرکز"
           }
         },
         "fil" : {
@@ -2184,6 +1887,12 @@
             "value" : "canales locales"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های محلی"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2361,6 +2070,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "usa @nickname para avisar a personas concretas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از @نام‌مستعار برای اطلاع‌رسانی به افراد خاص استفاده کنید"
           }
         },
         "fil" : {
@@ -2542,6 +2257,12 @@
             "value" : "menciones"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشاره‌ها"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2719,6 +2440,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "funciona sin internet utilizando Bluetooth de bajo consumo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون اینترنت با بلوتوث کم‌مصرف کار می‌کند"
           }
         },
         "fil" : {
@@ -2900,6 +2627,12 @@
             "value" : "comunicación sin conexión"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارتباط آفلاین"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3077,6 +2810,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "FUNCIONES"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ویژگی‌ها"
           }
         },
         "fil" : {
@@ -3258,6 +2997,12 @@
             "value" : "• toca #mesh para cambiar de canal"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• روی #mesh بزنید تا کانال عوض شود"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3435,6 +3180,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "• toca tres veces el chat para limpiarlo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• سه بار روی چت بزنید تا پاک شود"
           }
         },
         "fil" : {
@@ -3616,6 +3367,12 @@
             "value" : "• escribe / para ver los comandos"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• برای دستورات / تایپ کنید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3793,6 +3550,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "• toca el ícono de personas para abrir la barra lateral"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• روی آیکون افراد برای نوار کناری بزنید"
           }
         },
         "fil" : {
@@ -3974,6 +3737,12 @@
             "value" : "• define tu apodo tocándolo"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• با ضربه روی نام مستعار آن را تنظیم کنید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4151,6 +3920,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "• toca el nombre de un participante para iniciar un MD"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "• روی نام یک همتا بزنید تا پیام مستقیم بفرستید"
           }
         },
         "fil" : {
@@ -4332,6 +4107,12 @@
             "value" : "CÓMO USARLO"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نحوه استفاده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4509,6 +4290,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "nuevo ID de peer generado periódicamente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شناسه همتای جدید به طور منظم ایجاد می‌شود"
           }
         },
         "fil" : {
@@ -4690,6 +4477,12 @@
             "value" : "identidad efímera"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هویت موقت"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -4867,6 +4660,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "sin servidores, cuentas ni recopilación de datos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون سرور، حساب یا جمع‌آوری داده"
           }
         },
         "fil" : {
@@ -5048,6 +4847,12 @@
             "value" : "sin seguimiento"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون ردیابی"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5225,6 +5030,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "toca el logotipo tres veces para borrar todos los datos al instante"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سه بار روی لوگو بزنید تا همه داده‌ها فوراً پاک شوند"
           }
         },
         "fil" : {
@@ -5406,6 +5217,12 @@
             "value" : "modo pánico"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حالت اضطراری"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5583,6 +5400,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PRIVACIDAD"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حریم خصوصی"
           }
         },
         "fil" : {
@@ -5764,6 +5587,12 @@
             "value" : "sidegroupchat"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چت گروهی جانبی"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -5941,6 +5770,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "la seguridad de los mensajes privados aún no ha sido auditada por completo. no lo uses en situaciones críticas hasta que este aviso desaparezca."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "امنیت پیام‌های خصوصی هنوز به طور کامل بررسی نشده است. تا زمانی که این هشدار ناپدید نشده برای موقعیت‌های حساس استفاده نکنید."
           }
         },
         "fil" : {
@@ -6122,6 +5957,12 @@
             "value" : "ADVERTENCIA"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدار"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6299,6 +6140,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cerrar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بستن"
           }
         },
         "fil" : {
@@ -6480,6 +6327,12 @@
             "value" : "cancelar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لغو"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -6657,6 +6510,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cerrar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بستن"
           }
         },
         "fil" : {
@@ -6838,6 +6697,12 @@
             "value" : "copiar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کپی"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7017,6 +6882,12 @@
             "value" : "aceptar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأیید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7163,6 +7034,23 @@
         }
       }
     },
+    "common.select_image" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Image"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب تصویر"
+          }
+        }
+      }
+    },
     "common.toggle.off" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -7194,6 +7082,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "desactivado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خاموش"
           }
         },
         "fil" : {
@@ -7375,6 +7269,12 @@
             "value" : "activado"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روشن"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7552,6 +7452,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "desconocido"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ناشناس"
           }
         },
         "fil" : {
@@ -7733,6 +7639,12 @@
             "value" : "agregar a favoritos"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افزودن به موردعلاقه‌ها"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -7910,6 +7822,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "disponible vía Nostr"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در دسترس از طریق ناستر"
           }
         },
         "fil" : {
@@ -8091,6 +8009,12 @@
             "value" : "volver al chat principal"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بازگشت به چت اصلی"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8237,6 +8161,40 @@
         }
       }
     },
+    "content.accessibility.choose_photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose photo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب عکس"
+          }
+        }
+      }
+    },
+    "content.accessibility.close" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Close"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بستن"
+          }
+        }
+      }
+    },
     "content.accessibility.connected_mesh" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -8268,6 +8226,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "conectado por mesh"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متصل از طریق مش"
           }
         },
         "fil" : {
@@ -8449,6 +8413,12 @@
             "value" : "estado de cifrado: %@"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وضعیت رمزنگاری: %@"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8595,6 +8565,23 @@
         }
       }
     },
+    "content.accessibility.hold_to_record" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold to record a voice note"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای ضبط یادداشت صوتی نگه دارید"
+          }
+        }
+      }
+    },
     "content.accessibility.location_channels" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -8626,6 +8613,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "canales de ubicación"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های مکانی"
           }
         },
         "fil" : {
@@ -8807,6 +8800,12 @@
             "value" : "notas de ubicación de este lugar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های مکانی برای این محل"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -8984,6 +8983,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "abrir chat privado sin leer"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "باز کردن چت خصوصی خوانده نشده"
           }
         },
         "fil" : {
@@ -9275,6 +9280,12 @@
                 }
               }
             }
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@people@"
           }
         },
         "fil" : {
@@ -9728,6 +9739,12 @@
             "value" : "chat privado con %@"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چت خصوصی با %@"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -9905,6 +9922,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "disponible por mesh"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قابل دسترسی از طریق مش"
           }
         },
         "fil" : {
@@ -10086,6 +10109,12 @@
             "value" : "quitar de favoritos"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف از موردعلاقه‌ها"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10263,6 +10292,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "introduce un mensaje para enviarlo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیامی برای ارسال وارد کنید"
           }
         },
         "fil" : {
@@ -10444,6 +10479,12 @@
             "value" : "toca dos veces para enviar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دو بار بزنید تا ارسال شود"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10623,6 +10664,12 @@
             "value" : "enviar mensaje"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارسال پیام"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -10769,6 +10816,23 @@
         }
       }
     },
+    "content.accessibility.tap_library_long_camera" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tap for library, long press for camera"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای کتابخانه بزنید، برای دوربین نگه دارید"
+          }
+        }
+      }
+    },
     "content.accessibility.toggle_bookmark" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -10800,6 +10864,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "alternar marcador para #%@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغییر نشان‌گذاری برای #%@"
           }
         },
         "fil" : {
@@ -10981,6 +11051,12 @@
             "value" : "toca dos veces para alternar el estado de favorito"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دو بار بزنید تا وضعیت موردعلاقه تغییر کند"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11158,6 +11234,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "toca para ver la huella de cifrado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای دیدن اثر انگشت رمزنگاری بزنید"
           }
         },
         "fil" : {
@@ -11339,6 +11421,12 @@
             "value" : "bloquear"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسدود کردن"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11516,6 +11604,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "mensaje directo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام مستقیم"
           }
         },
         "fil" : {
@@ -11697,6 +11791,12 @@
             "value" : "abrazo"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بغل کردن"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -11874,6 +11974,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "mencionar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشاره"
           }
         },
         "fil" : {
@@ -12055,6 +12161,12 @@
             "value" : "bofetada"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سیلی زدن"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12234,6 +12346,12 @@
             "value" : "acciones"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عملیات"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -12386,25 +12504,25 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth متوقف. فعّل bluetooth في الإعدادات لاستخدام bitchat."
+            "value" : "bluetooth متوقف. فعّل bluetooth في الإعدادات لاستخدام Gap."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ব্লুটুথ বন্ধ আছে। bitchat ব্যবহার করতে সেটিংসে ব্লুটুথ চালু করুন।"
+            "value" : "ব্লুটুথ বন্ধ আছে। Gap ব্যবহার করতে সেটিংসে ব্লুটুথ চালু করুন।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth ist ausgeschaltet. aktiviere bluetooth in den einstellungen, um bitchat zu verwenden."
+            "value" : "bluetooth ist ausgeschaltet. aktiviere bluetooth in den einstellungen, um Gap zu verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth is turned off. please turn on bluetooth in settings to use bitchat."
+            "value" : "bluetooth is turned off. please turn on bluetooth in settings to use Gap Mash."
           }
         },
         "es" : {
@@ -12413,148 +12531,154 @@
             "value" : "bluetooth está desactivado. Actívalo en Ajustes para usar BitChat."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بلوتوث خاموش است. لطفاً برای استفاده از  Mash Gap بلوتوث را در تنظیمات روشن کنید."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "naka-off ang bluetooth. pakibuksan sa settings para magamit ang bitchat."
+            "value" : "naka-off ang bluetooth. pakibuksan sa settings para magamit ang Gap."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth est désactivé. active le bluetooth dans réglages pour utiliser bitchat."
+            "value" : "bluetooth est désactivé. active le bluetooth dans réglages pour utiliser Gap."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth כבוי. הפעל bluetooth בהגדרות כדי להשתמש ב-bitchat."
+            "value" : "bluetooth כבוי. הפעל bluetooth בהגדרות כדי להשתמש ב-Gap Mash."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ब्लूटूथ बंद है। bitchat उपयोग करने के लिए सेटिंग्स में ब्लूटूथ चालू करें।"
+            "value" : "ब्लूटूथ बंद है। Gap उपयोग करने के लिए सेटिंग्स में ब्लूटूथ चालू करें।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth dimatikan. aktifkan bluetooth di pengaturan untuk memakai bitchat."
+            "value" : "bluetooth dimatikan. aktifkan bluetooth di pengaturan untuk memakai Gap."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth è disattivato. attiva bluetooth nelle impostazioni per usare bitchat."
+            "value" : "bluetooth è disattivato. attiva bluetooth nelle impostazioni per usare Gap."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetoothがオフです。設定でbluetoothをオンにしてbitchatを使ってください。"
+            "value" : "bluetoothがオフです。設定でbluetoothをオンにしてGapを使ってください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth가 꺼져 있습니다. bitchat을 사용하려면 설정에서 bluetooth를 켜주세요."
+            "value" : "bluetooth가 꺼져 있습니다. Gap Mash을 사용하려면 설정에서 bluetooth를 켜주세요."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth dimatikan. Hidupkan Bluetooth dalam Tetapan untuk menggunakan bitchat."
+            "value" : "Bluetooth dimatikan. Hidupkan Bluetooth dalam Tetapan untuk menggunakan Gap."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth बन्द छ। bitchat प्रयोग गर्न bluetooth सेटिङमा अन गर।"
+            "value" : "bluetooth बन्द छ। Gap प्रयोग गर्न bluetooth सेटिङमा अन गर।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth staat uit. zet bluetooth aan in instellingen om bitchat te gebruiken."
+            "value" : "bluetooth staat uit. zet bluetooth aan in instellingen om Gap te gebruiken."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth jest wyłączony. włącz bluetooth w ustawieniach, aby używać bitchat."
+            "value" : "bluetooth jest wyłączony. włącz bluetooth w ustawieniach, aby używać Gap."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Bluetooth está desligado. Ativa o Bluetooth em Definições para usar o bitchat."
+            "value" : "O Bluetooth está desligado. Ativa o Bluetooth em Definições para usar o Gap."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth está desligado. ative o bluetooth em ajustes para usar bitchat."
+            "value" : "bluetooth está desligado. ative o bluetooth em ajustes para usar Gap."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth выключен. включи bluetooth в настройках, чтобы использовать bitchat."
+            "value" : "bluetooth выключен. включи bluetooth в настройках, чтобы использовать Gap."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth är avstängt. slå på bluetooth i inställningar för att använda bitchat."
+            "value" : "bluetooth är avstängt. slå på bluetooth i inställningar för att använda Gap."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth அணைக்கப்பட்டுள்ளது. bitchat பயன்படுத்த அமைப்பில் Bluetooth ஐ இயக்கவும்."
+            "value" : "Bluetooth அணைக்கப்பட்டுள்ளது. Gap பயன்படுத்த அமைப்பில் Bluetooth ஐ இயக்கவும்."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ปิด Bluetooth อยู่ กรุณาเปิดในตั้งค่าเพื่อใช้ bitchat"
+            "value" : "ปิด Bluetooth อยู่ กรุณาเปิดในตั้งค่าเพื่อใช้ Gap"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth kapalı. bitchat'i kullanmak için ayarlardan Bluetooth'u açın."
+            "value" : "Bluetooth kapalı. Gap'i kullanmak için ayarlardan Bluetooth'u açın."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth вимкнений. увімкни bluetooth у налаштуваннях, щоб користуватися bitchat."
+            "value" : "bluetooth вимкнений. увімкни bluetooth у налаштуваннях, щоб користуватися Gap."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth بند ہے۔ bitchat استعمال کرنے کیلئے سیٹنگز میں Bluetooth آن کریں۔"
+            "value" : "Bluetooth بند ہے۔ Gap استعمال کرنے کیلئے سیٹنگز میں Bluetooth آن کریں۔"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth đang tắt. hãy bật trong cài đặt để dùng bitchat."
+            "value" : "bluetooth đang tắt. hãy bật trong cài đặt để dùng Gap."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth 已关闭。请在设置中开启以使用 bitchat。"
+            "value" : "bluetooth 已关闭。请在设置中开启以使用 Gap。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth 已關閉。請在設定中開啟以使用 bitchat。"
+            "value" : "bluetooth 已關閉。請在設定中開啟以使用 Gap。"
           }
         }
       }
@@ -12565,25 +12689,25 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تحتاج bitchat إلى إذن bluetooth للاتصال بالأجهزة القريبة. فعّل الوصول في الإعدادات."
+            "value" : "تحتاج Gap إلى إذن bluetooth للاتصال بالأجهزة القريبة. فعّل الوصول في الإعدادات."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "নিকটবর্তী ডিভাইসের সাথে যুক্ত হতে bitchat-এর ব্লুটুথ অনুমতি দরকার। দয়া করে সেটিংসে ব্লুটুথ অ্যাক্সেস সক্রিয় করুন।"
+            "value" : "নিকটবর্তী ডিভাইসের সাথে যুক্ত হতে Gap-এর ব্লুটুথ অনুমতি দরকার। দয়া করে সেটিংসে ব্লুটুথ অ্যাক্সেস সক্রিয় করুন।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat benötigt bluetooth-berechtigung, um sich mit geräten in der nähe zu verbinden. erlaube den zugriff in den einstellungen."
+            "value" : "Gap benötigt bluetooth-berechtigung, um sich mit geräten in der nähe zu verbinden. erlaube den zugriff in den einstellungen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat needs bluetooth permission to connect with nearby devices. please enable bluetooth access in settings."
+            "value" : "Gap Mash needs bluetooth permission to connect with nearby devices. please enable bluetooth access in settings."
           }
         },
         "es" : {
@@ -12592,148 +12716,154 @@
             "value" : "bitChat necesita permiso de Bluetooth para conectarse con dispositivos cercanos. Habilita el acceso en Ajustes."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash به دسترسی بلوتوث نیاز دارد تا با دستگاه‌های نزدیک ارتباط برقرار کند. لطفاً دسترسی بلوتوث را در تنظیمات فعال کنید."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kailangan ng bitchat ng pahintulot sa bluetooth upang kumonekta sa mga kalapit na device. pakiactivate sa settings."
+            "value" : "kailangan ng Gap ng pahintulot sa bluetooth upang kumonekta sa mga kalapit na device. pakiactivate sa settings."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat a besoin de l'autorisation bluetooth pour se connecter aux appareils proches. active l'accès dans réglages."
+            "value" : "Gap a besoin de l'autorisation bluetooth pour se connecter aux appareils proches. active l'accès dans réglages."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat צריכה הרשאת bluetooth כדי להתחבר למכשירים קרובים. אפשר גישה בהגדרות."
+            "value" : "Gap צריכה הרשאת bluetooth כדי להתחבר למכשירים קרובים. אפשר גישה בהגדרות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat को पास के उपकरणों से जुड़ने के लिए ब्लूटूथ अनुमति चाहिए। कृपया सेटिंग्स में ब्लूटूथ एक्सेस सक्षम करें।"
+            "value" : "Gap को पास के उपकरणों से जुड़ने के लिए ब्लूटूथ अनुमति चाहिए। कृपया सेटिंग्स में ब्लूटूथ एक्सेस सक्षम करें।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat memerlukan izin bluetooth untuk terhubung dengan perangkat dekat. aktifkan akses di pengaturan."
+            "value" : "Gap memerlukan izin bluetooth untuk terhubung dengan perangkat dekat. aktifkan akses di pengaturan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat richiede l'autorizzazione bluetooth per collegarsi ai dispositivi vicini. abilita l'accesso nelle impostazioni."
+            "value" : "Gap richiede l'autorizzazione bluetooth per collegarsi ai dispositivi vicini. abilita l'accesso nelle impostazioni."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchatは近くのデバイスと接続するためbluetooth権限が必要です。設定でアクセスを有効にしてください。"
+            "value" : "Gapは近くのデバイスと接続するためbluetooth権限が必要です。設定でアクセスを有効にしてください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat은 주변 기기와 연결하기 위해 bluetooth 권한이 필요합니다. 설정에서 bluetooth 접근을 활성화해주세요."
+            "value" : "Gap은 주변 기기와 연결하기 위해 bluetooth 권한이 필요합니다. 설정에서 bluetooth 접근을 활성화해주세요."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat memerlukan kebenaran Bluetooth untuk disambungkan kepada peranti berhampiran. Benarkan capaian dalam Tetapan."
+            "value" : "Gap memerlukan kebenaran Bluetooth untuk disambungkan kepada peranti berhampiran. Benarkan capaian dalam Tetapan."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat लाई नजिकका उपकरणसँग जडान हुन bluetooth अनुमति चाहिन्छ। सेटिङमा पहुँच सक्षम गर।"
+            "value" : "Gap लाई नजिकका उपकरणसँग जडान हुन bluetooth अनुमति चाहिन्छ। सेटिङमा पहुँच सक्षम गर।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat heeft bluetooth-toegang nodig om verbinding te maken met apparaten in de buurt. schakel dit in bij instellingen."
+            "value" : "Gap heeft bluetooth-toegang nodig om verbinding te maken met apparaten in de buurt. schakel dit in bij instellingen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat potrzebuje uprawnień bluetooth, aby łączyć się z pobliskimi urządzeniami. włącz dostęp w ustawieniach."
+            "value" : "Gap potrzebuje uprawnień bluetooth, aby łączyć się z pobliskimi urządzeniami. włącz dostęp w ustawieniach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O bitchat precisa de autorização de Bluetooth para se ligar a dispositivos próximos. Ativa o acesso em Definições."
+            "value" : "O Gap precisa de autorização de Bluetooth para se ligar a dispositivos próximos. Ativa o acesso em Definições."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat precisa de permissão de bluetooth para conectar com dispositivos próximos. habilite o acesso em ajustes."
+            "value" : "Gap precisa de permissão de bluetooth para conectar com dispositivos próximos. habilite o acesso em ajustes."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat нужен доступ к bluetooth, чтобы соединяться с ближайшими устройствами. включи разрешение в настройках."
+            "value" : "Gap нужен доступ к bluetooth, чтобы соединяться с ближайшими устройствами. включи разрешение в настройках."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat behöver bluetooth-behörighet för att ansluta till enheter i närheten. aktivera åtkomst i inställningar."
+            "value" : "Gap behöver bluetooth-behörighet för att ansluta till enheter i närheten. aktivera åtkomst i inställningar."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அருகிலுள்ள சாதனங்களை இணைக்க bitchat க்கு Bluetooth அனுமதி தேவை. அமைப்பில் அனுமதி வழங்கவும்."
+            "value" : "அருகிலுள்ள சாதனங்களை இணைக்க Gap க்கு Bluetooth அனுமதி தேவை. அமைப்பில் அனுமதி வழங்கவும்."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat ต้องการสิทธิ์ Bluetooth เพื่อเชื่อมต่อกับอุปกรณ์ใกล้เคียง กรุณาเปิดสิทธิ์ในตั้งค่า"
+            "value" : "Gap ต้องการสิทธิ์ Bluetooth เพื่อเชื่อมต่อกับอุปกรณ์ใกล้เคียง กรุณาเปิดสิทธิ์ในตั้งค่า"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat'in yakın cihazlara bağlanması için Bluetooth izni gerekir. lütfen ayarlardan Bluetooth erişimini etkinleştirin."
+            "value" : "Gap'in yakın cihazlara bağlanması için Bluetooth izni gerekir. lütfen ayarlardan Bluetooth erişimini etkinleştirin."
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat потребує дозволу bluetooth для з'єднання з пристроями поруч. ввімкни доступ у налаштуваннях."
+            "value" : "Gap потребує дозволу bluetooth для з'єднання з пристроями поруч. ввімкни доступ у налаштуваннях."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قریب کے آلات سے جڑنے کیلئے bitchat کو Bluetooth اجازت درکار ہے۔ سیٹنگز میں رسائی فعال کریں۔"
+            "value" : "قریب کے آلات سے جڑنے کیلئے Gap کو Bluetooth اجازت درکار ہے۔ سیٹنگز میں رسائی فعال کریں۔"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat cần quyền bluetooth để kết nối thiết bị gần. hãy bật quyền trong cài đặt."
+            "value" : "Gap cần quyền bluetooth để kết nối thiết bị gần. hãy bật quyền trong cài đặt."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat 需要 bluetooth 权限以连接附近设备。请在设置中启用访问。"
+            "value" : "Gap 需要 bluetooth 权限以连接附近设备。请在设置中启用访问。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bitchat 需要 bluetooth 權限以連線至附近裝置。請在設定中啟用存取權限。"
+            "value" : "Gap 需要 bluetooth 權限以連線至附近裝置。請在設定中啟用存取權限。"
           }
         }
       }
@@ -12769,6 +12899,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ajustes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنظیمات"
           }
         },
         "fil" : {
@@ -12950,6 +13086,12 @@
             "value" : "se requiere Bluetooth"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بلوتوث لازم است"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13101,176 +13243,182 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "هذا الجهاز لا يدعم bluetooth. يحتاج bitchat إلى bluetooth للعمل."
+            "state" : "needs_review",
+            "value" : "هذا الجهاز لا يدعم bluetooth. يحتاج Gap إلى bluetooth للعمل."
           }
         },
         "bn" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "এই ডিভাইস ব্লুটুথ সমর্থন করে না। bitchat চালাতে ব্লুটুথ দরকার।"
+            "state" : "needs_review",
+            "value" : "এই ডিভাইস ব্লুটুথ সমর্থন করে না। Gap চালাতে ব্লুটুথ দরকার।"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "dieses gerät unterstützt kein bluetooth. bitchat benötigt bluetooth zum funktionieren."
+            "state" : "needs_review",
+            "value" : "dieses gerät unterstützt kein bluetooth. Gap benötigt bluetooth zum funktionieren."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "this device does not support bluetooth. bitchat requires bluetooth to function."
+            "value" : "this device does not support bluetooth. Gap Mash requires bluetooth to function."
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "este dispositivo no admite Bluetooth. BitChat necesita Bluetooth para funcionar."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "این دستگاه از بلوتوث پشتیبانی نمی‌کند.  Mash Gap برای کار کردن به بلوتوث نیاز دارد."
           }
         },
         "fil" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "hindi sinusuportahan ng device na ito ang bluetooth. kailangan ito ng bitchat para gumana."
+            "state" : "needs_review",
+            "value" : "hindi sinusuportahan ng device na ito ang bluetooth. kailangan ito ng Gap para gumana."
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "cet appareil ne prend pas en charge le bluetooth. bitchat en a besoin pour fonctionner."
+            "state" : "needs_review",
+            "value" : "cet appareil ne prend pas en charge le bluetooth. Gap en a besoin pour fonctionner."
           }
         },
         "he" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "המכשיר הזה לא תומך ב-bluetooth. bitchat זקוקה ל-bluetooth כדי לעבוד."
+            "state" : "needs_review",
+            "value" : "המכשיר הזה לא תומך ב-bluetooth. Gap זקוקה ל-bluetooth כדי לעבוד."
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "यह डिवाइस ब्लूटूथ समर्थित नहीं है। bitchat चलाने के लिए ब्लूटूथ जरूरी है।"
+            "state" : "needs_review",
+            "value" : "यह डिवाइस ब्लूटूथ समर्थित नहीं है। Gap चलाने के लिए ब्लूटूथ जरूरी है।"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "perangkat ini tidak mendukung bluetooth. bitchat memerlukan bluetooth untuk berjalan."
+            "state" : "needs_review",
+            "value" : "perangkat ini tidak mendukung bluetooth. Gap memerlukan bluetooth untuk berjalan."
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "questo dispositivo non supporta bluetooth. bitchat richiede bluetooth per funzionare."
+            "state" : "needs_review",
+            "value" : "questo dispositivo non supporta bluetooth. Gap richiede bluetooth per funzionare."
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "このデバイスはbluetoothをサポートしていません。bitchatにはbluetoothが必要です。"
+            "state" : "needs_review",
+            "value" : "このデバイスはbluetoothをサポートしていません。Gapにはbluetoothが必要です。"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "이 기기는 bluetooth를 지원하지 않습니다. bitchat이 작동하려면 bluetooth가 필요합니다."
+            "state" : "needs_review",
+            "value" : "이 기기는 bluetooth를 지원하지 않습니다. Gap이 작동하려면 bluetooth가 필요합니다."
           }
         },
         "ms" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Peranti ini tidak menyokong Bluetooth. bitchat memerlukan Bluetooth untuk berfungsi."
+            "state" : "needs_review",
+            "value" : "Peranti ini tidak menyokong Bluetooth. Gap memerlukan Bluetooth untuk berfungsi."
           }
         },
         "ne" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "यो उपकरणले bluetooth समर्थन गर्दैन। bitchat चलाउन bluetooth चाहिन्छ।"
+            "state" : "needs_review",
+            "value" : "यो उपकरणले bluetooth समर्थन गर्दैन। Gap चलाउन bluetooth चाहिन्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "dit apparaat ondersteunt geen bluetooth. bitchat heeft bluetooth nodig om te werken."
+            "state" : "needs_review",
+            "value" : "dit apparaat ondersteunt geen bluetooth. Gap heeft bluetooth nodig om te werken."
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "to urządzenie nie obsługuje bluetooth. bitchat wymaga bluetooth do działania."
+            "state" : "needs_review",
+            "value" : "to urządzenie nie obsługuje bluetooth. Gap wymaga bluetooth do działania."
           }
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "Este dispositivo não suporta Bluetooth. O bitchat precisa de Bluetooth para funcionar."
+            "state" : "needs_review",
+            "value" : "Este dispositivo não suporta Bluetooth. O Gap precisa de Bluetooth para funcionar."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "este dispositivo não suporta bluetooth. bitchat precisa de bluetooth para funcionar."
+            "state" : "needs_review",
+            "value" : "este dispositivo não suporta bluetooth. Gap precisa de bluetooth para funcionar."
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "это устройство не поддерживает bluetooth. bitchat нужен bluetooth для работы."
+            "state" : "needs_review",
+            "value" : "это устройство не поддерживает bluetooth. Gap нужен bluetooth для работы."
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "denna enhet stöder inte bluetooth. bitchat behöver bluetooth för att fungera."
+            "state" : "needs_review",
+            "value" : "denna enhet stöder inte bluetooth. Gap behöver bluetooth för att fungera."
           }
         },
         "ta" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "இந்த சாதனம் Bluetooth ஐ ஆதரிக்காது. bitchat இயங்க Bluetooth தேவை."
+            "state" : "needs_review",
+            "value" : "இந்த சாதனம் Bluetooth ஐ ஆதரிக்காது. Gap இயங்க Bluetooth தேவை."
           }
         },
         "th" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "อุปกรณ์นี้ไม่รองรับ Bluetooth การใช้งาน bitchat ต้องใช้ Bluetooth"
+            "state" : "needs_review",
+            "value" : "อุปกรณ์นี้ไม่รองรับ Bluetooth การใช้งาน Gap ต้องใช้ Bluetooth"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "bu cihaz Bluetooth'u desteklemiyor. bitchat'in çalışması için Bluetooth gerekli."
+            "state" : "needs_review",
+            "value" : "bu cihaz Bluetooth'u desteklemiyor. Gap'in çalışması için Bluetooth gerekli."
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "цей пристрій не підтримує bluetooth. bitchat потрібен bluetooth для роботи."
+            "state" : "needs_review",
+            "value" : "цей пристрій не підтримує bluetooth. Gap потрібен bluetooth для роботи."
           }
         },
         "ur" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "یہ ڈیوائس Bluetooth کو سپورٹ نہیں کرتی۔ bitchat کو چلنے کیلئے Bluetooth چاہیے۔"
+            "state" : "needs_review",
+            "value" : "یہ ڈیوائس Bluetooth کو سپورٹ نہیں کرتی۔ Gap کو چلنے کیلئے Bluetooth چاہیے۔"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "thiết bị này không hỗ trợ bluetooth. bitchat cần bluetooth để hoạt động."
+            "state" : "needs_review",
+            "value" : "thiết bị này không hỗ trợ bluetooth. Gap cần bluetooth để hoạt động."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "此设备不支持 bluetooth。bitchat 需要 bluetooth 才能运行。"
+            "state" : "needs_review",
+            "value" : "此设备不支持 bluetooth。Gap 需要 bluetooth 才能运行。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "此裝置不支持 bluetooth。bitchat 需要 bluetooth 才能運行。"
+            "state" : "needs_review",
+            "value" : "此裝置不支持 bluetooth。Gap 需要 bluetooth 才能運行。"
           }
         }
       }
@@ -13306,6 +13454,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "las capturas de pantalla de los canales de ubicación revelarán tu ubicación. Piensa antes de compartirlas públicamente."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اسکرین‌شات از کانال‌های مکانی موقعیت شما را فاش می‌کند. قبل از اشتراک‌گذاری عمومی فکر کنید."
           }
         },
         "fil" : {
@@ -13487,6 +13641,12 @@
             "value" : "atención"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توجه"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -13633,6 +13793,192 @@
         }
       }
     },
+    "content.choose_image" : {
+      "comment" : "A label displayed above a button that allows the user to choose an image to send.",
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اختر صورة"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "একটি ছবি নির্বাচন করুন"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bild auswählen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose an image"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elige una imagen"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یک تصویر انتخاب کنید"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pumili ng larawan"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choisir une image"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "בחר תמונה"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एक चित्र चुनें"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih gambar"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli un’immagine"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画像を選択"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이미지를 선택하세요"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pilih imej"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "एउटा तस्वीर चयन गर्नुहोस्"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kies een afbeelding"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wybierz obraz"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolher uma imagem"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Escolha uma imagem"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Выберите изображение"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Välj en bild"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ஒரு படத்தைத் தேர்ந்தெடுக்கவும்"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "เลือกภาพ"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir görüntü seç"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Виберіть зображення"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ایک تصویر منتخب کریں"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chọn một hình ảnh"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "选择图像"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "選擇圖像"
+          }
+        }
+      }
+    },
     "content.commands.block" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -13664,6 +14010,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "bloquear o listar usuarios bloqueados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسدود کردن یا لیست افراد مسدود"
           }
         },
         "fil" : {
@@ -13845,6 +14197,12 @@
             "value" : "borrar los mensajes del chat"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاک کردن پیام‌های چت"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14022,6 +14380,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "agregar a favoritos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افزودن به موردعلاقه‌ها"
           }
         },
         "fil" : {
@@ -14203,6 +14567,12 @@
             "value" : "enviar un abrazo caluroso"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارسال یک بغل گرم"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14380,6 +14750,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "enviar mensaje privado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارسال پیام خصوصی"
           }
         },
         "fil" : {
@@ -14561,6 +14937,12 @@
             "value" : "abofetear a alguien con una trucha"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سیلی زدن با ماهی قزل‌آلا"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -14738,6 +15120,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "desbloquear a un usuario"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رفع مسدودیت یک همتا"
           }
         },
         "fil" : {
@@ -14919,6 +15307,12 @@
             "value" : "quitar de favoritos"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف از موردعلاقه‌ها"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15096,6 +15490,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ver quién está en línea"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ببینید چه کسی آنلاین است"
           }
         },
         "fil" : {
@@ -15277,6 +15677,12 @@
             "value" : "entregado a %1$d de %2$d miembros"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحویل داده شد به %1$d از %2$d عضو"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15454,6 +15860,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "entregado a %@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تحویل داده شد به %@"
           }
         },
         "fil" : {
@@ -15635,6 +16047,12 @@
             "value" : "falló: %@"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ناموفق: %@"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -15812,6 +16230,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "leído por %@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خوانده شده توسط %@"
           }
         },
         "fil" : {
@@ -15993,6 +16417,12 @@
             "value" : "el usuario está bloqueado"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کاربر مسدود است"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16170,6 +16600,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no puedes enviarte mensajes a ti mismo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توانید به خودتان پیام دهید"
           }
         },
         "fil" : {
@@ -16351,6 +16787,12 @@
             "value" : "error al enviar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطای ارسال"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16528,6 +16970,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "destinatario desconocido"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گیرنده ناشناس"
           }
         },
         "fil" : {
@@ -16709,6 +17157,12 @@
             "value" : "el destinatario no es alcanzable"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همتا در دسترس نیست"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -16886,6 +17340,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "PERSONAS"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افراد"
           }
         },
         "fil" : {
@@ -17067,6 +17527,12 @@
             "value" : "verificación: mostrar mi QR o escanear a un amigo"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأیید هویت: نمایش QR من یا اسکن دوست"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17213,6 +17679,191 @@
         }
       }
     },
+    "content.images_mesh_only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الصور متاحة فقط في محادثات الميش."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ছবি শুধু মেশ চ্যাটে উপলব্ধ।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder sind nur im Mesh-Chat verfügbar."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Images are only available in mesh chats."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las imágenes solo están disponibles en los chats de mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تصاویر فقط در چت‌های مش در دسترس هستند."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ang mga larawan ay available lamang sa mga mesh chat."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les images sont uniquement disponibles dans les discussions mesh."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "תמונות זמינות רק בצ׳אט של mesh."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "चित्र केवल मेश चैट में ही उपलब्ध हैं।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gambar hanya tersedia di obrolan mesh."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le immagini sono disponibili solo nelle chat mesh."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画像はメッシュチャットでのみ利用できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "이미지는 메쉬 채팅에서만 사용할 수 있습니다."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imej hanya tersedia dalam sembang mesh."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "तस्बिरहरू केवल मेष च्याटमा मात्र उपलब्ध छन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Afbeeldingen zijn alleen beschikbaar in mesh-chats."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Obrazy są dostępne tylko na czatach mesh."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As imagens só estão disponíveis nos chats mesh."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As imagens só estão disponíveis nos chats mesh."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Изображения доступны только в mesh-чатах."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bilder är bara tillgängliga i mesh-chattar."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "படங்கள் மெஷ் உரையாடல்களில் மட்டுமே கிடைக்கும்."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "รูปภาพใช้งานได้เฉพาะในแชต mesh เท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Görseller yalnızca mesh sohbetlerinde kullanılabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Зображення доступні лише в mesh-чатах."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تصاویر صرف میش چیٹس میں دستیاب ہیں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hình ảnh chỉ khả dụng trong các cuộc trò chuyện mesh."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图片仅可在 mesh 聊天中使用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "圖片僅能在 mesh 聊天中使用。"
+          }
+        }
+      }
+    },
     "content.input.message_placeholder" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -17244,6 +17895,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "escribe un mensaje..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام بنویسید..."
           }
         },
         "fil" : {
@@ -17425,6 +18082,12 @@
             "value" : "apodo"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام مستعار"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17602,6 +18265,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "activar ubicación"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال کردن موقعیت مکانی"
           }
         },
         "fil" : {
@@ -17783,6 +18452,12 @@
             "value" : "copiar mensaje"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کپی پیام"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -17960,6 +18635,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "mostrar menos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کمتر نشان بده"
           }
         },
         "fil" : {
@@ -18141,6 +18822,12 @@
             "value" : "mostrar más"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بیشتر نشان بده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18318,6 +19005,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ubicación no disponible"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مکان در دسترس نیست"
           }
         },
         "fil" : {
@@ -18499,6 +19192,12 @@
             "value" : "notas"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌ها"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -18676,6 +19375,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "pagar con Cashu"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پرداخت از طریق کشو"
           }
         },
         "fil" : {
@@ -18857,6 +19562,12 @@
             "value" : "pagar con Lightning"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پرداخت از طریق لایتنینگ"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19003,6 +19714,647 @@
         }
       }
     },
+    "content.people_count_active" : {
+      "comment" : "A label at the bottom of the people list sheet showing the number of active users.",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ نشطين"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ সক্রিয়"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktiv"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ active"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ activos"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ فعال"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktibo"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ actifs"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ פעילים"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ सक्रिय"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktif"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ attivi"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ 人がアクティブ"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "활성 사용자 %@명"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktif"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ सक्रिय"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ actief"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktywni"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ativos"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ ativos"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ активных"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktiva"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ செயலில்"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ กำลังใช้งาน"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ aktif"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ активних"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ فعال"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ đang hoạt động"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "活跃用户 %@ 名"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "活躍使用者 %@ 位"
+          }
+        }
+      }
+    },
+    "content.recording_duration" : {
+      "comment" : "Voice note recording duration indicator",
+      "extractionState" : "stale",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جارٍ التسجيل %@"
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "রেকর্ডিং %@"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aufnahme %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "recording %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "grabando %@"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال ضبط %@"
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nagre-record %@"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enregistrement %@"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הקלטה %@"
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रिकॉर्डिंग %@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "merekam %@"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "registrazione %@"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "録音中 %@"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "녹음 중 %@"
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "merakam %@"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "रेकर्डिङ %@"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opname %@"
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nagrywanie %@"
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "a gravar %@"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gravando %@"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "идет запись %@"
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "spelar in %@"
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "பதிவு %@"
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "กำลังบันทึก %@"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kaydediliyor %@"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "йде запис %@"
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ریکارڈنگ %@"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "đang ghi %@"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "录音中 %@"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "錄音中 %@"
+          }
+        }
+      }
+    },
+    "content.recording.could_not_start" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not start recording."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروع ضبط ممکن نبود."
+          }
+        }
+      }
+    },
+    "content.recording.error_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording Error"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطای ضبط"
+          }
+        }
+      }
+    },
+    "content.recording.failed_to_save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording failed to save."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره ضبط ناموفق بود."
+          }
+        }
+      }
+    },
+    "content.recording.microphone_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Microphone access is required to record voice notes."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای ضبط یادداشت‌های صوتی به دسترسی میکروفون نیاز است."
+          }
+        }
+      }
+    },
+    "content.recording.too_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording is too short."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ضبط خیلی کوتاه است."
+          }
+        }
+      }
+    },
+    "content.voice_notes_mesh_only" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "الملاحظات الصوتية متاحة فقط في محادثات الميش."
+          }
+        },
+        "bn" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ভয়েস নোট শুধু মেশ চ্যাটে উপলব্ধ।"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sprachnachrichten sind nur im Mesh-Chat verfügbar."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Voice notes are only available in mesh chats."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Las notas de voz solo están disponibles en los chats de mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های صوتی فقط در چت‌های مش در دسترس هستند."
+          }
+        },
+        "fil" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ang mga voice note ay available lamang sa mga mesh chat."
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Les notes vocales sont uniquement disponibles dans les discussions mesh."
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "הערות קוליות זמינות רק בצ׳אט של mesh."
+          }
+        },
+        "hi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "वॉइस नोट्स केवल मेश चैट में ही उपलब्ध हैं।"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Catatan suara hanya tersedia di obrolan mesh."
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le note vocali sono disponibili solo nelle chat mesh."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ボイスメモはメッシュチャットでのみ利用できます。"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "음성 메모는 메쉬 채팅에서만 사용할 수 있습니다."
+          }
+        },
+        "ms" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nota suara hanya tersedia dalam sembang mesh."
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "भ्वाइस नोटहरू केवल मेष च्याटमा मात्र उपलब्ध छन्।"
+          }
+        },
+        "nl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Spraaknotities zijn alleen beschikbaar in mesh-chats."
+          }
+        },
+        "pl" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notatki głosowe są dostępne tylko na czatach mesh."
+          }
+        },
+        "pt" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As notas de voz só estão disponíveis nos chats mesh."
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "As mensagens de voz só estão disponíveis nos chats mesh."
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Голосовые сообщения доступны только в mesh-чатах."
+          }
+        },
+        "sv" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Röstanteckningar är bara tillgängliga i mesh-chattar."
+          }
+        },
+        "ta" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "குரல் குறிப்புகள் மெஷ் உரையாடல்களில் மட்டுமே கிடைக்கும்."
+          }
+        },
+        "th" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "บันทึกเสียงใช้งานได้เฉพาะในแชต mesh เท่านั้น"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sesli notlar yalnızca mesh sohbetlerinde kullanılabilir."
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Голосові нотатки доступні лише в mesh-чатах."
+          }
+        },
+        "ur" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وائس نوٹس صرف میش چیٹس میں دستیاب ہیں۔"
+          }
+        },
+        "vi" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ghi chú giọng nói chỉ khả dụng trong các cuộc trò chuyện mesh."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "语音消息仅可在 mesh 聊天中使用。"
+          }
+        },
+        "zh-Hant" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "語音訊息僅能在 mesh 聊天中使用。"
+          }
+        }
+      }
+    },
     "encryption.accessibility.establishing" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -19034,6 +20386,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "estableciendo cifrado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال برقراری رمزنگاری"
           }
         },
         "fil" : {
@@ -19215,6 +20573,12 @@
             "value" : "cifrado fallido"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری ناموفق"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19392,6 +20756,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "sin cifrar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری نشده"
           }
         },
         "fil" : {
@@ -19573,6 +20943,12 @@
             "value" : "cifrado"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری شده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -19750,6 +21126,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cifrado y verificado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری و تأیید شده"
           }
         },
         "fil" : {
@@ -19931,6 +21313,12 @@
             "value" : "estableciendo cifrado..."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال برقراری رمزنگاری..."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20108,6 +21496,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cifrado fallido"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری ناموفق"
           }
         },
         "fil" : {
@@ -20289,6 +21683,12 @@
             "value" : "sin cifrar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری نشده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20466,6 +21866,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cifrado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری شده"
           }
         },
         "fil" : {
@@ -20647,6 +22053,12 @@
             "value" : "cifrado y verificado"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزنگاری و تأیید شده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -20824,6 +22236,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "marcar como verificado"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "علامت‌گذاری به عنوان تأیید شده"
           }
         },
         "fil" : {
@@ -21005,6 +22423,12 @@
             "value" : "eliminar verificación"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف تأیید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21182,6 +22606,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "⚠️ NO VERIFICADO"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "⚠️ تأیید نشده"
           }
         },
         "fil" : {
@@ -21363,6 +22793,12 @@
             "value" : "✓ VERIFICADO"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "✓ تأیید شده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21540,6 +22976,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no disponible: el handshake está en curso"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در دسترس نیست - دست‌دهی در حال انجام"
           }
         },
         "fil" : {
@@ -21721,6 +23163,12 @@
             "value" : "has verificado la identidad de esta persona."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شما هویت این شخص را تأیید کرده‌اید."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -21898,6 +23346,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "compara estas huellas con %@ mediante un canal seguro."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این اثر انگشت‌ها را با %@ از طریق یک کانال امن مقایسه کنید."
           }
         },
         "fil" : {
@@ -22079,6 +23533,12 @@
             "value" : "huella de la otra persona:"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اثر انگشت آن‌ها:"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22256,6 +23716,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "verificación de seguridad"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأیید امنیتی"
           }
         },
         "fil" : {
@@ -22437,6 +23903,12 @@
             "value" : "tu huella:"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اثر انگشت شما:"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22614,6 +24086,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "bloquear"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسدود کردن"
           }
         },
         "fil" : {
@@ -22795,6 +24273,12 @@
             "value" : "desbloquear"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رفع مسدودیت"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -22972,6 +24456,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "nadie cerca..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کسی در اطراف نیست..."
           }
         },
         "fil" : {
@@ -23153,6 +24643,12 @@
             "value" : "bloqueado en geohash"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسدود شده در جغرافیا"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23332,6 +24828,12 @@
             "value" : " (tú)"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " (شما)"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23478,6 +24980,108 @@
         }
       }
     },
+    "info.bluetooth_always" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash uses Bluetooth to create a secure mesh network for chatting with nearby users."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gap Mash از بلوتوث برای ایجاد یک شبکه مش امن برای گفتگو با کاربران نزدیک استفاده می‌کند."
+          }
+        }
+      }
+    },
+    "info.bluetooth_peripheral" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash uses Bluetooth to discover and connect with other Gap users nearby."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gap Mash از بلوتوث برای کشف و اتصال به سایر کاربران Gap در نزدیکی استفاده می‌کند."
+          }
+        }
+      }
+    },
+    "info.camera" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash uses the camera to scan QR codes to verify peers."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gap Mash از دوربین برای اسکن کدهای QR و تأیید همتایان استفاده می‌کند."
+          }
+        }
+      }
+    },
+    "info.location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gap Mash از موقعیت تقریبی شما برای محاسبه کانال‌های جغرافیایی محلی برای چت‌های عمومی اختیاری استفاده می‌کند. GPS دقیق هرگز به اشتراک گذاشته نمی‌شود."
+          }
+        }
+      }
+    },
+    "info.microphone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash uses the microphone to record voice notes that relay across the mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gap Mash از میکروفون برای ضبط یادداشت‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند."
+          }
+        }
+      }
+    },
+    "info.photo_library" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mash lets you pick images from your photo library to share with nearby peers."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Gap Mash به شما امکان می‌دهد تصاویر را از کتابخانه عکس خود انتخاب کنید تا با همتایان نزدیک به اشتراک بگذارید."
+          }
+        }
+      }
+    },
     "location_channels.action.open_settings" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -23509,6 +25113,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "abrir ajustes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "باز کردن تنظیمات"
           }
         },
         "fil" : {
@@ -23690,6 +25300,12 @@
             "value" : "eliminar acceso a la ubicación"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف دسترسی مکان"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -23836,6 +25452,23 @@
         }
       }
     },
+    "location_channels.permission_privacy_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required for location channels. Your location is never shared—only a geohash is used locally to connect you with nearby users via Tor."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای کانال‌های مکانی لازم است. موقعیت شما هرگز به اشتراک گذاشته نمی‌شود—فقط یک geohash به صورت محلی برای اتصال شما به کاربران نزدیک از طریق Tor استفاده می‌شود."
+          }
+        }
+      }
+    },
     "location_channels.action.request_permissions" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -23867,6 +25500,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "obtener mi ubicación y mis geohashes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دریافت موقعیت و جغرافیا‌های من"
           }
         },
         "fil" : {
@@ -24048,6 +25687,12 @@
             "value" : "teletransportar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتقال"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -24225,6 +25870,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "marcados"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نشان‌گذاری شده"
           }
         },
         "fil" : {
@@ -24406,6 +26057,12 @@
             "value" : "chatea con personas cercanas usando canales geohash. Solo se comparte un geohash aproximado, nunca GPS exacto. Tu IP se oculta al enrutar todo el tráfico por Tor."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "با افراد نزدیک از طریق کانال‌های جغرافیایی گفتگو کنید. فقط یک جغرافیای تقریبی به اشتراک گذاشته می‌شود، هرگز GPS دقیق نه. آدرس IP شما با مسیریابی تمام ترافیک از طریق تور پنهان می‌شود."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -24583,6 +26240,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "geohash no válido"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جغرافیای نامعتبر"
           }
         },
         "fil" : {
@@ -24764,6 +26427,12 @@
             "value" : "buscando canales cercanos…"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال یافتن کانال‌های نزدیک..."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -24943,6 +26612,12 @@
             "value" : "mesh"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبکه مش"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -25120,6 +26795,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "permiso de ubicación denegado. Actívalo en Ajustes para usar los canales de ubicación."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دسترسی موقعیت مکانی رد شد. برای استفاده از کانال‌های مکانی در تنظیمات فعال کنید."
           }
         },
         "fil" : {
@@ -25411,6 +27092,12 @@
                 }
               }
             }
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ [%2$#@people_count@]"
           }
         },
         "fil" : {
@@ -25864,6 +27551,12 @@
             "value" : "#%@ • %@"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%1$@ • %2$@"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26038,6 +27731,12 @@
           }
         },
         "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ • %2$@"
+          }
+        },
+        "fa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$@ • %2$@"
@@ -26222,6 +27921,12 @@
             "value" : "#canales de ubicación"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#کانال‌های مکانی"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26399,6 +28104,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "oculta tu IP para los canales de ubicación. Recomendado: activado."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IP شما را برای کانال‌های مکانی پنهان می‌کند. توصیه می‌شود: روشن."
           }
         },
         "fil" : {
@@ -26580,6 +28291,12 @@
             "value" : "enrutamiento Tor"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسیریابی تور"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -26757,6 +28474,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "bloque"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بلوک"
           }
         },
         "fil" : {
@@ -26938,6 +28661,12 @@
             "value" : "edificio"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ساختمان"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27115,6 +28844,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "ciudad"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شهر"
           }
         },
         "fil" : {
@@ -27296,6 +29031,12 @@
             "value" : "barrio"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محله"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27473,6 +29214,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "provincia"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استان"
           }
         },
         "fil" : {
@@ -27654,6 +29401,12 @@
             "value" : "región"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منطقه"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -27831,6 +29584,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "descartar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رد کردن"
           }
         },
         "fil" : {
@@ -28012,6 +29771,12 @@
             "value" : "reintentar"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تلاش مجدد"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -28189,6 +29954,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "añade notas permanentes cortas sobre este lugar para que otras personas las encuentren."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های کوتاه دائمی به این مکان اضافه کنید تا دیگران پیدا کنند."
           }
         },
         "fil" : {
@@ -28370,6 +30141,12 @@
             "value" : "sé la primera persona en añadir una en este lugar."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اولین نفر باشید که یکی برای این محل اضافه کند."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -28547,6 +30324,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "aún no hay notas"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هنوز یادداشتی نیست"
           }
         },
         "fil" : {
@@ -28728,6 +30511,12 @@
             "value" : "no se pudo enviar la nota. %@"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارسال یادداشت ناموفق بود. %@"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -28905,6 +30694,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no hay relays geográficos disponibles cerca de este lugar. Inténtalo de nuevo pronto."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رله جغرافیایی در نزدیکی این مکان در دسترس نیست. به زودی دوباره امتحان کنید."
           }
         },
         "fil" : {
@@ -29196,6 +30991,12 @@
                 }
               }
             }
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#%1$@ • %2$#@note_count@"
           }
         },
         "fil" : {
@@ -29649,6 +31450,12 @@
             "value" : "cargando notas…"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال بارگذاری یادداشت‌ها..."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -29826,6 +31633,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "cargando notas recientes…"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال بارگذاری یادداشت‌های اخیر..."
           }
         },
         "fil" : {
@@ -30007,6 +31820,12 @@
             "value" : "no hay relays geográficos cercanos"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رله جغرافیایی در نزدیکی نیست"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -30184,6 +32003,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "añade una nota para este lugar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشتی برای این مکان اضافه کنید"
           }
         },
         "fil" : {
@@ -30365,6 +32190,12 @@
             "value" : "relays geográficos no disponibles; notas en pausa"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رله‌های جغرافیایی در دسترس نیستند؛ یادداشت‌ها متوقف شده‌اند"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -30542,6 +32373,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "las notas dependen de los relays geográficos. Comprueba la conexión e inténtalo de nuevo."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌ها به رله‌های جغرافیایی نیاز دارند. اتصال را بررسی کنید و دوباره امتحان کنید."
           }
         },
         "fil" : {
@@ -30723,6 +32560,12 @@
             "value" : "nuevos mensajes"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام‌های جدید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -30870,183 +32713,7 @@
       }
     },
     "recording %@" : {
-      "comment" : "Voice note recording duration indicator",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "جارٍ التسجيل %@"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "রেকর্ডিং %@"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "aufnahme %@"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "recording %@"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "grabando %@"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nagre-record %@"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "enregistrement %@"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "הקלטה %@"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "रिकॉर्डिंग %@"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "merekam %@"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "registrazione %@"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "録音中 %@"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "녹음 중 %@"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "merakam %@"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "रेकर्डिङ %@"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "opname %@"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "nagrywanie %@"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "a gravar %@"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "gravando %@"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "идет запись %@"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "spelar in %@"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "பதிவு %@"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "กำลังบันทึก %@"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "kaydediliyor %@"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "йде запис %@"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ریکارڈنگ %@"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "đang ghi %@"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "录音中 %@"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "錄音中 %@"
-          }
-        }
-      }
+      "comment" : "Voice note recording duration indicator"
     },
     "save" : {
       "comment" : "Button to save media to device",
@@ -31079,6 +32746,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "guardar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره"
           }
         },
         "fil" : {
@@ -31260,6 +32933,12 @@
             "value" : "no se puede iniciar un chat con %@: el usuario está bloqueado."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توان با %@ چت را شروع کرد: شخص مسدود شده است."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31437,6 +33116,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no se puede iniciar un chat con %@: necesitas ser favoritos mutuos para mensajería sin conexión."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توان با %@ چت را شروع کرد: برای پیام آفلاین علاقه‌مندی متقابل لازم است."
           }
         },
         "fil" : {
@@ -31618,6 +33303,12 @@
             "value" : "usuario"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کاربر"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31795,6 +33486,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no se puede enviar el mensaje: el usuario está bloqueado."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توان پیام فرستاد: شخص مسدود شده است."
           }
         },
         "fil" : {
@@ -31976,6 +33673,12 @@
             "value" : "no se puede enviar un mensaje a %@: el usuario está bloqueado."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توان به %@ پیام فرستاد: شخص مسدود شده است."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -32153,6 +33856,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no se puede enviar un mensaje a %@: el destinatario no es alcanzable por mesh ni Nostr."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توان به %@ پیام فرستاد - همتا از طریق مش یا ناستر در دسترس نیست."
           }
         },
         "fil" : {
@@ -32334,6 +34043,12 @@
             "value" : "se bloqueó a %@ en los chats geohash"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ در چت‌های جغرافیایی مسدود شد"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -32511,6 +34226,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "se desbloqueó a %@ en los chats geohash"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ در چت‌های جغرافیایی رفع مسدودیت شد"
           }
         },
         "fil" : {
@@ -32692,6 +34413,12 @@
             "value" : "no se puede enviar: no estás en un canal de ubicación"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمی‌توان ارسال کرد: در کانال مکانی نیستید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -32869,6 +34596,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no se pudo enviar al canal de ubicación"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ارسال به کانال مکانی ناموفق بود"
           }
         },
         "fil" : {
@@ -33050,6 +34783,12 @@
             "value" : "compilación de desarrollo: bypass de Tor activado."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخه توسعه: دور زدن تور فعال است."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33227,6 +34966,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "tor se reinició. Se restauró el enrutamiento de la red."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور مجدداً راه‌اندازی شد. مسیریابی شبکه بازیابی شد."
           }
         },
         "fil" : {
@@ -33408,6 +35153,12 @@
             "value" : "tor se está reiniciando para recuperar la conectividad..."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور در حال راه‌اندازی مجدد برای بازیابی اتصال..."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33585,6 +35336,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "tor se inició. Todo el chat se enruta por Tor para privacidad."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور شروع شد. تمام چت‌ها برای حفظ حریم خصوصی IP از طریق تور مسیریابی می‌شوند."
           }
         },
         "fil" : {
@@ -33766,6 +35523,12 @@
             "value" : "iniciando Tor..."
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال شروع تور..."
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -33943,6 +35706,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "código QR de verificación"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کد QR تأیید"
           }
         },
         "fil" : {
@@ -34124,6 +35893,12 @@
             "value" : "escanea para verificarme"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای تأیید من اسکن کنید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -34301,6 +36076,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "QR no disponible"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QR در دسترس نیست"
           }
         },
         "fil" : {
@@ -34482,6 +36263,12 @@
             "value" : "pega el contenido del QR para validarlo:"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محتوای QR را برای اعتبارسنجی بچسبانید:"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -34659,6 +36446,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "escanea el QR de un amigo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کد QR دوست را اسکن کنید"
           }
         },
         "fil" : {
@@ -34840,6 +36633,12 @@
             "value" : "QR inválido o caducado"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بار QR نامعتبر یا منقضی شده"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -35017,6 +36816,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "no se encontró un peer coincidente"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همتای مطابق پیدا نشد"
           }
         },
         "fil" : {
@@ -35198,6 +37003,12 @@
             "value" : "se solicitó la verificación de %@"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "درخواست تأیید برای %@"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -35375,6 +37186,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "validar"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعتبارسنجی"
           }
         },
         "fil" : {
@@ -35556,6 +37373,12 @@
             "value" : "VERIFICAR"
           }
         },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تأیید"
+          }
+        },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
@@ -35702,540 +37525,36 @@
         }
       }
     },
-    "Voice notes are only available in mesh chats." : {
+    "verification.tab.scan_friend" : {
       "extractionState" : "manual",
       "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "الملاحظات الصوتية متاحة فقط في محادثات الميش."
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ভয়েস নোট শুধু মেশ চ্যাটে উপলব্ধ।"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sprachnachrichten sind nur im Mesh-Chat verfügbar."
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Voice notes are only available in mesh chats."
+            "value" : "scan someone else's qr"
           }
         },
-        "es" : {
+        "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Las notas de voz solo están disponibles en los chats de mesh."
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ang mga voice note ay available lamang sa mga mesh chat."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les notes vocales sont uniquement disponibles dans les discussions mesh."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "הערות קוליות זמינות רק בצ׳אט של mesh."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "वॉइस नोट्स केवल मेश चैट में ही उपलब्ध हैं।"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Catatan suara hanya tersedia di obrolan mesh."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le note vocali sono disponibili solo nelle chat mesh."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ボイスメモはメッシュチャットでのみ利用できます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "음성 메모는 메쉬 채팅에서만 사용할 수 있습니다."
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Nota suara hanya tersedia dalam sembang mesh."
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "भ्वाइस नोटहरू केवल मेष च्याटमा मात्र उपलब्ध छन्।"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Spraaknotities zijn alleen beschikbaar in mesh-chats."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notatki głosowe są dostępne tylko na czatach mesh."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As notas de voz só estão disponíveis nos chats mesh."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As mensagens de voz só estão disponíveis nos chats mesh."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Голосовые сообщения доступны только в mesh-чатах."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Röstanteckningar är bara tillgängliga i mesh-chattar."
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "குரல் குறிப்புகள் மெஷ் உரையாடல்களில் மட்டுமே கிடைக்கும்."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "บันทึกเสียงใช้งานได้เฉพาะในแชต mesh เท่านั้น"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Sesli notlar yalnızca mesh sohbetlerinde kullanılabilir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Голосові нотатки доступні лише в mesh-чатах."
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "وائس نوٹس صرف میش چیٹس میں دستیاب ہیں۔"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ghi chú giọng nói chỉ khả dụng trong các cuộc trò chuyện mesh."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "语音消息仅可在 mesh 聊天中使用。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "語音訊息僅能在 mesh 聊天中使用。"
+            "value" : "اسکن QR دیگری"
           }
         }
       }
     },
-    "Images are only available in mesh chats." : {
+    "verification.tab.show_my_qr" : {
       "extractionState" : "manual",
       "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "الصور متاحة فقط في محادثات الميش."
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ছবি শুধু মেশ চ্যাটে উপলব্ধ।"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bilder sind nur im Mesh-Chat verfügbar."
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Images are only available in mesh chats."
+            "value" : "show my qr"
           }
         },
-        "es" : {
+        "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Las imágenes solo están disponibles en los chats de mesh."
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ang mga larawan ay available lamang sa mga mesh chat."
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Les images sont uniquement disponibles dans les discussions mesh."
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "תמונות זמינות רק בצ׳אט של mesh."
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "चित्र केवल मेश चैट में ही उपलब्ध हैं।"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gambar hanya tersedia di obrolan mesh."
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Le immagini sono disponibili solo nelle chat mesh."
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "画像はメッシュチャットでのみ利用できます。"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "이미지는 메쉬 채팅에서만 사용할 수 있습니다."
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Imej hanya tersedia dalam sembang mesh."
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "तस्बिरहरू केवल मेष च्याटमा मात्र उपलब्ध छन्।"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Afbeeldingen zijn alleen beschikbaar in mesh-chats."
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Obrazy są dostępne tylko na czatach mesh."
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As imagens só estão disponíveis nos chats mesh."
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "As imagens só estão disponíveis nos chats mesh."
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Изображения доступны только в mesh-чатах."
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bilder är bara tillgängliga i mesh-chattar."
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "படங்கள் மெஷ் உரையாடல்களில் மட்டுமே கிடைக்கும்."
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "รูปภาพใช้งานได้เฉพาะในแชต mesh เท่านั้น"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Görseller yalnızca mesh sohbetlerinde kullanılabilir."
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Зображення доступні лише в mesh-чатах."
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تصاویر صرف میش چیٹس میں دستیاب ہیں۔"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Hình ảnh chỉ khả dụng trong các cuộc trò chuyện mesh."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "图片仅可在 mesh 聊天中使用。"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "圖片僅能在 mesh 聊天中使用。"
-          }
-        }
-      }
-    },
-    "Choose an image" : {
-      "comment" : "A label displayed above a button that allows the user to choose an image to send.",
-      "extractionState" : "manual",
-      "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اختر صورة"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "একটি ছবি নির্বাচন করুন"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bild auswählen"
-          }
-        },
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose an image"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Elige una imagen"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pumili ng larawan"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choisir une image"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "בחר תמונה"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "एक चित्र चुनें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pilih gambar"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Scegli un’immagine"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "画像を選択"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "이미지를 선택하세요"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Pilih imej"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "एउटा तस्वीर चयन गर्नुहोस्"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Kies een afbeelding"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Wybierz obraz"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Escolher uma imagem"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Escolha uma imagem"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Выберите изображение"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Välj en bild"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ஒரு படத்தைத் தேர்ந்தெடுக்கவும்"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "เลือกภาพ"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bir görüntü seç"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Виберіть зображення"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ایک تصویر منتخب کریں"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Chọn một hình ảnh"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "选择图像"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "選擇圖像"
+            "value" : "نمایش QR من"
           }
         }
       }

@@ -12,7 +12,7 @@ import UserNotifications
 
 @main
 struct BitchatApp: App {
-    static let bundleID = Bundle.main.bundleIdentifier ?? "chat.bitchat"
+    static let bundleID = Bundle.main.bundleIdentifier ?? "chat.gap"
     static let groupID = "group.\(bundleID)"
     
     @StateObject private var chatViewModel: ChatViewModel
@@ -133,7 +133,7 @@ struct BitchatApp: App {
     }
     
     private func handleURL(_ url: URL) {
-        if url.scheme == "bitchat" && url.host == "share" {
+        if (url.scheme == "bitchat" || url.scheme == "gap") && url.host == "share" {
             // Handle shared content
             checkForSharedContent()
         }

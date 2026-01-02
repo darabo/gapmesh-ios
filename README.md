@@ -1,5 +1,9 @@
 <img width="256" height="256" alt="icon_128x128@2x" src="https://github.com/user-attachments/assets/90133f83-b4f6-41c6-aab9-25d0859d2a47" />
 
+## Gap
+
+Gap is a fork of BitChat catered to the needs of Iranian users.
+
 ## bitchat
 
 A decentralized peer-to-peer messaging app with dual transport architecture: local Bluetooth mesh networks for offline communication and internet-based Nostr protocol for global reach. No accounts, no phone numbers, no central servers. It's the side-groupchat.
@@ -96,23 +100,24 @@ For detailed protocol documentation, see the [Technical Whitepaper](WHITEPAPER.m
 
 ### Option 1: Using Xcode
 
-   ```bash
-   cd bitchat
-   open bitchat.xcodeproj
-   ```
+```bash
+cd bitchat
+open bitchat.xcodeproj
+```
 
-   To run on a device there're a few steps to prepare the code:
-   - Clone the local configs: `cp Configs/Local.xcconfig.example Configs/Local.xcconfig`
-   - Add your Developer Team ID into the newly created `Configs/Local.xcconfig`
-      - Bundle ID would be set to `chat.bitchat.<team_id>` (unless you set to something else)
-   - Entitlements need to be updated manually (TODO: Automate):
-      - Search and replace `group.chat.bitchat` with `group.<your_bundle_id>` (e.g. `group.chat.bitchat.ABC123`)
+To run on a device there're a few steps to prepare the code:
+
+- Clone the local configs: `cp Configs/Local.xcconfig.example Configs/Local.xcconfig`
+- Add your Developer Team ID into the newly created `Configs/Local.xcconfig`
+  - Bundle ID would be set to `chat.bitchat.<team_id>` (unless you set to something else)
+- Entitlements need to be updated manually (TODO: Automate):
+  - Search and replace `group.chat.bitchat` with `group.<your_bundle_id>` (e.g. `group.chat.bitchat.ABC123`)
 
 ### Option 2: Using `just`
 
-   ```bash
-   brew install just
-   ```
+```bash
+brew install just
+```
 
 Want to try this on macos: `just run` will set it up and run from source.
 Run `just clean` afterwards to restore things to original state for mobile app building and development.

@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 import Tor
+import BitLogger
 
 extension ChatViewModel {
     
@@ -50,6 +51,13 @@ extension ChatViewModel {
                     String(localized: "system.tor.started", comment: "System message when Tor has started")
                 )
                 self.torInitialReadyAnnounced = true
+            }
+            
+            // Resubscribe to geohash channel now that Tor is ready
+            // This ensures subscriptions deferred due to Tor not being ready are properly established
+            if case .location = self.activeChannel {
+                SecureLogger.info("GeoDebug: Tor ready, resubscribing to geohash channel", category: .session)
+                self.resubscribeCurrentGeohash()
             }
         }
     }

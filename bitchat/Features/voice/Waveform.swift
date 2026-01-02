@@ -6,7 +6,7 @@ import BitLogger
 final class WaveformCache {
     static let shared = WaveformCache()
 
-    private let queue = DispatchQueue(label: "com.bitchat.waveform-cache", attributes: .concurrent)
+    private let queue = DispatchQueue(label: "com.gap.waveform-cache", attributes: .concurrent)
     private var cache: [URL: (waveform: [Float], lastAccess: Date)] = [:]
     private let maxCacheSize = 20  // Limit cache to prevent unbounded memory growth
 

@@ -231,6 +231,13 @@ extension ChatViewModel {
         let ts = Date().addingTimeInterval(-TransportConfig.nostrGeohashInitialLookbackSeconds)
         let filter = NostrFilter.geohashEphemeral(ch.geohash, since: ts, limit: TransportConfig.nostrGeohashInitialLimit)
         let subRelays = GeoRelayDirectory.shared.closestRelays(toGeohash: ch.geohash, count: 5)
+        
+        // Diagnostic logging for geohash subscription
+        SecureLogger.info("GeoDebug: switchLocationChannel geohash=\(ch.geohash) subID=\(subID) relays=\(subRelays.count) torReady=\(TorManager.shared.isReady)", category: .session)
+        if subRelays.isEmpty {
+            SecureLogger.warning("GeoDebug: NO RELAYS for geohash=\(ch.geohash) - messages will not work!", category: .session)
+        }
+        
         NostrRelayManager.shared.subscribe(filter: filter, id: subID, relayUrls: subRelays) { [weak self] event in
             self?.handleNostrEvent(event)
         }

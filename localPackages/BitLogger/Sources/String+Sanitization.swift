@@ -57,7 +57,7 @@ extension String {
 // MARK: - Cache Helpers
 
 private extension String {
-    static let queue = DispatchQueue(label: "chat.bitchat.securelogger.cache", attributes: .concurrent)
+    static let queue = DispatchQueue(label: "chat.gap.securelogger.cache", attributes: .concurrent)
 
     static let cache: NSCache<NSString, NSString> = {
         let cache = NSCache<NSString, NSString>()

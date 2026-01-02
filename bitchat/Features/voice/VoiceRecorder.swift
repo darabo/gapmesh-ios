@@ -12,7 +12,7 @@ final class VoiceRecorder: NSObject, AVAudioRecorderDelegate {
 
     static let shared = VoiceRecorder()
 
-    private let queue = DispatchQueue(label: "com.bitchat.voice-recorder")
+    private let queue = DispatchQueue(label: "com.gap.voice-recorder")
     private let paddingInterval: TimeInterval = 0.5
     private let maxRecordingDuration: TimeInterval = 120
 

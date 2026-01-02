@@ -21,6 +21,7 @@ struct LocationChannelsSheet: View {
         static let title: LocalizedStringKey = "location_channels.title"
         static let description: LocalizedStringKey = "location_channels.description"
         static let requestPermissions: LocalizedStringKey = "location_channels.action.request_permissions"
+        static let permissionPrivacyNote: LocalizedStringKey = "location_channels.permission_privacy_note"
         static let permissionDenied: LocalizedStringKey = "location_channels.permission_denied"
         static let openSettings: LocalizedStringKey = "location_channels.action.open_settings"
         static let loadingNearby: LocalizedStringKey = "location_channels.loading_nearby"
@@ -99,6 +100,12 @@ struct LocationChannelsSheet: View {
                                 .cornerRadius(6)
                         }
                         .buttonStyle(.plain)
+                        
+                        Text(Strings.permissionPrivacyNote)
+                            .font(.bitchatSystem(size: 10, design: .monospaced))
+                            .foregroundColor(.secondary)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 4)
                     case LocationChannelManager.PermissionState.denied, LocationChannelManager.PermissionState.restricted:
                         VStack(alignment: .leading, spacing: 8) {
                             Text(Strings.permissionDenied)
@@ -156,7 +163,7 @@ struct LocationChannelsSheet: View {
                 .frame(width: 32, height: 32)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Close")
+        .accessibilityLabel(String(localized: "content.accessibility.close"))
     }
 
     private var channelList: some View {

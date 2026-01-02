@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>fa</string>
 	<key>CFBundleDisplayName</key>
-	<string>bitchat</string>
+	<string>Gap Mash</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,17 +32,17 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>bitchat uses Bluetooth to create a secure mesh network for chatting with nearby users.</string>
+	<string>Gap Mash uses Bluetooth to create a secure mesh network for chatting with nearby users.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>bitchat uses Bluetooth to discover and connect with other bitchat users nearby.</string>
+	<string>Gap Mash uses Bluetooth to discover and connect with other bitchat users nearby.</string>
 	<key>NSCameraUsageDescription</key>
-	<string>bitchat uses the camera to scan QR codes to verify peers.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>bitchat lets you pick images from your photo library to share with nearby peers.</string>
-	<key>NSMicrophoneUsageDescription</key>
-	<string>bitchat uses the microphone to record voice notes that relay across the mesh.</string>
+	<string>Gap Mash uses the camera to scan QR codes to verify peers.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>bitchat uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared.</string>
+	<string>Gap Mash uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Gap Mash uses the microphone to record voice notes that relay across the mesh.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Gap Mash lets you pick images from your photo library to share with nearby peers.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>

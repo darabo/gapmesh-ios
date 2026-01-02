@@ -14,7 +14,7 @@ final class TransferProgressManager {
     }
 
     private let subject = PassthroughSubject<Event, Never>()
-    private let queue = DispatchQueue(label: "com.bitchat.transfer-progress", attributes: .concurrent)
+    private let queue = DispatchQueue(label: "com.gap.transfer-progress", attributes: .concurrent)
     private var states: [String: (sent: Int, total: Int)] = [:]
 
     var publisher: AnyPublisher<Event, Never> {

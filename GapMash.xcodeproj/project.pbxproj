@@ -320,7 +320,7 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 2620;
 			};
-			buildConfigurationList = 3EA424CBD51200895D361189 /* Build configuration list for PBXProject "Gap Mash" */;
+			buildConfigurationList = 3EA424CBD51200895D361189 /* Build configuration list for PBXProject "GapMash" */;
 			developmentRegion = fa;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -696,7 +696,7 @@
 			};
 			name = Release;
 		};
-		BF0D85727BCB6E346962F419 /* Release configuration for PBXProject "Gap Mash" */ = {
+		BF0D85727BCB6E346962F419 /* Release configuration for PBXProject "GapMash" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = A6E367C92E76469E0032EA8A /* Configs */;
 			baseConfigurationReferenceRelativePath = Release.xcconfig;
@@ -802,7 +802,7 @@
 			};
 			name = Debug;
 		};
-		D8C5BF109BB2630752185FA0 /* Debug configuration for PBXProject "Gap Mash" */ = {
+		D8C5BF109BB2630752185FA0 /* Debug configuration for PBXProject "GapMash" */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReferenceAnchor = A6E367C92E76469E0032EA8A /* Configs */;
 			baseConfigurationReferenceRelativePath = Release.xcconfig;
@@ -925,11 +925,11 @@
 			);
 			defaultConfigurationName = Debug;
 		};
-		3EA424CBD51200895D361189 /* Build configuration list for PBXProject "Gap Mash" */ = {
+		3EA424CBD51200895D361189 /* Build configuration list for PBXProject "GapMash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				D8C5BF109BB2630752185FA0 /* Debug configuration for PBXProject "Gap Mash" */,
-				BF0D85727BCB6E346962F419 /* Release configuration for PBXProject "Gap Mash" */,
+				D8C5BF109BB2630752185FA0 /* Debug configuration for PBXProject "GapMash" */,
+				BF0D85727BCB6E346962F419 /* Release configuration for PBXProject "GapMash" */,
 			);
 			defaultConfigurationName = Debug;
 		};

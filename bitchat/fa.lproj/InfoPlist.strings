@@ -1,0 +1,18 @@
+/* Localized permission description strings for Farsi */
+
+/* Bluetooth permission */
+"NSBluetoothAlwaysUsageDescription" = "گپ مش از بلوتوث برای ایجاد یک شبکه مش امن برای گفتگو با کاربران نزدیک استفاده می‌کند.";
+"NSBluetoothPeripheralUsageDescription" = "گپ مش از بلوتوث برای کشف و اتصال به سایر کاربران bitchat در نزدیکی استفاده می‌کند.";
+
+/* Camera permission */
+"NSCameraUsageDescription" = "گپ مش از دوربین برای اسکن کدهای QR و تأیید همتایان استفاده می‌کند.";
+
+/* Photo Library permission */
+"NSPhotoLibraryUsageDescription" = "گپ مش به شما امکان می‌دهد تصاویر را از کتابخانه عکس خود انتخاب کنید تا با همتایان نزدیک به اشتراک بگذارید.";
+
+/* Microphone permission */
+"NSMicrophoneUsageDescription" = "گپ مش از میکروفون برای ضبط یادداشت‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند.";
+
+/* Location permission */
+"NSLocationWhenInUseUsageDescription" = "گپ مش از موقعیت تقریبی شما برای محاسبه کانال‌های جغرافیایی محلی برای چت‌های عمومی اختیاری استفاده می‌کند. GPS دقیق هرگز به اشتراک گذاشته نمی‌شود.";
+

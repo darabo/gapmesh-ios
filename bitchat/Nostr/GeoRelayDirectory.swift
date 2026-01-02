@@ -46,7 +46,9 @@ final class GeoRelayDirectory {
     /// Returns up to `count` relay URLs (wss://) closest to the geohash center.
     func closestRelays(toGeohash geohash: String, count: Int = 5) -> [String] {
         let center = Geohash.decodeCenter(geohash)
-        return closestRelays(toLat: center.lat, lon: center.lon, count: count)
+        let relays = closestRelays(toLat: center.lat, lon: center.lon, count: count)
+        SecureLogger.info("GeoRelayDirectory: geohash=\(geohash) center=(\(center.lat), \(center.lon)) entries=\(entries.count) returning \(relays.count) relays: \(relays.prefix(3).joined(separator: ", "))\(relays.count > 3 ? "..." : "")", category: .session)
+        return relays
     }
 
     /// Returns up to `count` relay URLs (wss://) closest to the given coordinate.
@@ -209,7 +211,10 @@ final class GeoRelayDirectory {
            let data = try? Data(contentsOf: cache),
            let text = String(data: data, encoding: .utf8) {
             let arr = Self.parseCSV(text)
-            if !arr.isEmpty { return arr }
+            if !arr.isEmpty {
+                SecureLogger.info("GeoRelayDirectory: loaded \(arr.count) entries from cache", category: .session)
+                return arr
+            }
         }
 
         // Try bundled resource(s)
@@ -223,7 +228,10 @@ final class GeoRelayDirectory {
             if let data = try? Data(contentsOf: url),
                let text = String(data: data, encoding: .utf8) {
                 let arr = Self.parseCSV(text)
-                if !arr.isEmpty { return arr }
+                if !arr.isEmpty {
+                    SecureLogger.info("GeoRelayDirectory: loaded \(arr.count) entries from bundle: \(url.lastPathComponent)", category: .session)
+                    return arr
+                }
             }
         }
 

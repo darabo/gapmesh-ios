@@ -314,7 +314,7 @@ extension ChatViewModel {
         guard canSendMediaInCurrentContext else {
             SecureLogger.info("Voice note blocked outside mesh/private context", category: .session)
             try? FileManager.default.removeItem(at: url)
-            addSystemMessage("Voice notes are only available in mesh chats.")
+            addSystemMessage(String(localized: "content.voice_notes_mesh_only"))
             return
         }
 
@@ -369,7 +369,7 @@ extension ChatViewModel {
         guard canSendMediaInCurrentContext else {
             SecureLogger.info("Image send blocked outside mesh/private context", category: .session)
             cleanup?()
-            addSystemMessage("Images are only available in mesh chats.")
+            addSystemMessage(String(localized: "content.images_mesh_only"))
             return
         }
 
