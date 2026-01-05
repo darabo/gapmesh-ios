@@ -988,8 +988,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/21-DOT-DEV/swift-secp256k1";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 0.21.1;
+				kind = exactVersion;
+				version = 0.21.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
