@@ -484,6 +484,9 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         
         // Start mesh service immediately
         meshService.startServices()
+        
+        // Initialize WiFi Aware transport if supported (runs alongside BLE)
+        initializeWiFiAwareIfAvailable()
 
         publicMessagePipeline.delegate = self
         publicMessagePipeline.updateActiveChannel(activeChannel)
