@@ -536,13 +536,19 @@ final class NostrRelayManager: ObservableObject {
             if event.kind != 1059 {
                 SecureLogger.debug("📥 Event kind=\(event.kind) id=\(event.id.prefix(16))… relay=\(relayUrl)", category: .session)
             }
+            // Enhanced diagnostic logging for geohash events (kind 20000)
+            if event.kind == 20000 {
+                let gTag = event.tags.first(where: { $0.first == "g" })?.dropFirst().first ?? "?"
+                let nTag = event.tags.first(where: { $0.first == "n" })?.dropFirst().first ?? "?"
+                SecureLogger.info("🌍 GEOHASH-RX id=\(event.id.prefix(12))… pubkey=\(event.pubkey.prefix(8))… geohash=\(gTag) nick=\(nTag) sub=\(subId) relay=\(relayUrl) content=\(event.content.prefix(30))…", category: .session)
+            }
             if let index = self.relays.firstIndex(where: { $0.url == relayUrl }) {
                 self.relays[index].messagesReceived += 1
             }
             if let handler = self.messageHandlers[subId] {
                 handler(event)
             } else {
-                SecureLogger.warning("⚠️ No handler for subscription \(subId)", category: .session)
+                SecureLogger.warning("⚠️ No handler for subscription \(subId) (kind=\(event.kind))", category: .session)
             }
         case .eose(let subId):
             if var tracker = eoseTrackers[subId] {

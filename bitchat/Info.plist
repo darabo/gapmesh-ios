@@ -48,6 +48,19 @@
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
 	</array>
+	<key>WiFiAwareServices</key>
+	<array>
+		<dict>
+			<key>ServiceName</key>
+			<string>_gapmash._udp</string>
+			<key>Publishable</key>
+			<true/>
+			<key>Subscribable</key>
+			<true/>
+		</dict>
+	</array>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Gap Mash uses local network to discover and communicate with nearby devices over WiFi.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiresFullScreen</key>

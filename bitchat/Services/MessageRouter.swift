@@ -4,7 +4,7 @@ import Foundation
 /// Routes messages using available transports (Mesh, Nostr, etc.)
 @MainActor
 final class MessageRouter {
-    private let transports: [Transport]
+    private var transports: [Transport]
     private var outbox: [PeerID: [(content: String, nickname: String, messageID: String)]] = [:] // peerID -> queued messages
 
     init(transports: [Transport]) {
@@ -31,6 +31,12 @@ final class MessageRouter {
                     self.flushOutbox(for: peerID)
                 }
             }
+        }
+    }
+
+    func addTransport(_ transport: Transport) {
+        if !transports.contains(where: { $0 === transport }) {
+            transports.append(transport)
         }
     }
 

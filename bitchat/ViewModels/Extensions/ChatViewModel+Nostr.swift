@@ -38,7 +38,8 @@ extension ChatViewModel {
             count: TransportConfig.nostrGeoRelayCount
         )
         NostrRelayManager.shared.subscribe(filter: filter, id: subID, relayUrls: subRelays) { [weak self] event in
-            self?.subscribeNostrEvent(event)
+            guard let self = self else { return }
+            self.handleNostrEvent(event)
         }
         // Resubscribe geohash DMs for this identity
         if let dmSub = geoDmSubscriptionID {
@@ -242,18 +243,32 @@ extension ChatViewModel {
         }
         
         NostrRelayManager.shared.subscribe(filter: filter, id: subID, relayUrls: subRelays) { [weak self] event in
-            self?.handleNostrEvent(event)
+            guard let self = self else {
+                SecureLogger.warning("⚠️ GEOHASH-HANDLER self is nil! Event id=\(event.id.prefix(12))… will be dropped", category: .session)
+                return
+            }
+            self.handleNostrEvent(event)
         }
 
         subscribeToGeoChat(ch)
     }
     
     func handleNostrEvent(_ event: NostrEvent) {
+        // Diagnostic logging FIRST - before any guard statements
+        let gTag = event.tags.first(where: { $0.first == "g" })?.dropFirst().first ?? "?"
+        SecureLogger.info("📨 GEOHASH-HANDLE id=\(event.id.prefix(12))… kind=\(event.kind) pubkey=\(event.pubkey.prefix(8))… geohash=\(gTag) myGeohash=\(currentGeohash ?? "nil") content=\(event.content.prefix(30))…", category: .session)
+        
         // Only handle ephemeral kind 20000 with matching tag
-        guard event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue else { return }
+        guard event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue else {
+            SecureLogger.warning("📨 GEOHASH-SKIP-KIND expected=\(NostrProtocol.EventKind.ephemeralEvent.rawValue) got=\(event.kind)", category: .session)
+            return
+        }
         
         // Deduplicate
-        if deduplicationService.hasProcessedNostrEvent(event.id) { return }
+        if deduplicationService.hasProcessedNostrEvent(event.id) {
+            SecureLogger.debug("📨 GEOHASH-SKIP duplicate id=\(event.id.prefix(12))…", category: .session)
+            return
+        }
         deduplicationService.recordNostrEvent(event.id)
         
         // Log incoming tags for diagnostics
@@ -332,6 +347,7 @@ extension ChatViewModel {
         )
         
         Task { @MainActor in
+            SecureLogger.info("📬 GEOHASH-TIMELINE id=\(event.id.prefix(12))… sender=\(senderName) content=\(content.prefix(30))…", category: .session)
             handlePublicMessage(msg)
             checkForMentions(msg)
             sendHapticFeedback(for: msg)

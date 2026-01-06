@@ -77,3 +77,10 @@ protocol TransportPeerEventsDelegate: AnyObject {
 }
 
 extension BLEService: Transport {}
+
+// WiFi Aware transport conformance (iOS 26+)
+#if canImport(WiFiAware)
+@available(iOS 26.0, *)
+extension WiFiAwareTransport: Transport {}
+#endif
+
