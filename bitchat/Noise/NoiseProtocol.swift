@@ -1,6 +1,6 @@
 //
 // NoiseProtocol.swift
-// bitchat
+// Gap
 //
 // This is free and unencumbered software released into the public domain.
 // For more information, see <https://unlicense.org>
@@ -10,12 +10,12 @@
 /// # NoiseProtocol
 ///
 /// A complete implementation of the Noise Protocol Framework for end-to-end
-/// encryption in BitChat. This file contains the core cryptographic primitives
+/// encryption in Gap. This file contains the core cryptographic primitives
 /// and handshake logic that enable secure communication between peers.
 ///
 /// ## Overview
 /// The Noise Protocol Framework is a modern cryptographic framework designed
-/// for building secure protocols. BitChat uses Noise to provide:
+/// for building secure protocols. Gap uses Noise to provide:
 /// - Mutual authentication between peers
 /// - Forward secrecy for all messages
 /// - Protection against replay attacks
@@ -610,14 +610,20 @@ final class NoiseHandshakeState {
                         throw NoiseError.missingKeys
                     }
                     let shared = try localEphemeral.sharedSecretFromKeyAgreement(with: remoteStatic)
-                    symmetricState.mixKey(shared.withUnsafeBytes { Data($0) })
+                    var sharedData = shared.withUnsafeBytes { Data($0) }
+                    symmetricState.mixKey(sharedData)
+                    // Clear sensitive shared secret
+                    keychain.secureClear(&sharedData)
                 } else {
                     guard let localStatic = localStaticPrivate,
                           let remoteEphemeral = remoteEphemeralPublic else {
                         throw NoiseError.missingKeys
                     }
                     let shared = try localStatic.sharedSecretFromKeyAgreement(with: remoteEphemeral)
-                    symmetricState.mixKey(shared.withUnsafeBytes { Data($0) })
+                    var sharedData = shared.withUnsafeBytes { Data($0) }
+                    symmetricState.mixKey(sharedData)
+                    // Clear sensitive shared secret
+                    keychain.secureClear(&sharedData)
                 }
                 
             case .se:
@@ -628,14 +634,20 @@ final class NoiseHandshakeState {
                         throw NoiseError.missingKeys
                     }
                     let shared = try localStatic.sharedSecretFromKeyAgreement(with: remoteEphemeral)
-                    symmetricState.mixKey(shared.withUnsafeBytes { Data($0) })
+                    var sharedData = shared.withUnsafeBytes { Data($0) }
+                    symmetricState.mixKey(sharedData)
+                    // Clear sensitive shared secret
+                    keychain.secureClear(&sharedData)
                 } else {
                     guard let localEphemeral = localEphemeralPrivate,
                           let remoteStatic = remoteStaticPublic else {
                         throw NoiseError.missingKeys
                     }
                     let shared = try localEphemeral.sharedSecretFromKeyAgreement(with: remoteStatic)
-                    symmetricState.mixKey(shared.withUnsafeBytes { Data($0) })
+                    var sharedData = shared.withUnsafeBytes { Data($0) }
+                    symmetricState.mixKey(sharedData)
+                    // Clear sensitive shared secret
+                    keychain.secureClear(&sharedData)
                 }
                 
             case .ss:
@@ -724,8 +736,11 @@ final class NoiseHandshakeState {
                 throw NoiseError.missingKeys
             }
             let shared = try localEphemeral.sharedSecretFromKeyAgreement(with: remoteEphemeral)
-            symmetricState.mixKey(shared.withUnsafeBytes { Data($0) })
-            
+            var sharedData = shared.withUnsafeBytes { Data($0) }
+            symmetricState.mixKey(sharedData)
+            // Clear sensitive shared secret
+            keychain.secureClear(&sharedData)
+
         case .es:
             if role == .initiator {
                 guard let localEphemeral = localEphemeralPrivate,
@@ -778,8 +793,11 @@ final class NoiseHandshakeState {
                 throw NoiseError.missingKeys
             }
             let shared = try localStatic.sharedSecretFromKeyAgreement(with: remoteStatic)
-            symmetricState.mixKey(shared.withUnsafeBytes { Data($0) })
-            
+            var sharedData = shared.withUnsafeBytes { Data($0) }
+            symmetricState.mixKey(sharedData)
+            // Clear sensitive shared secret
+            keychain.secureClear(&sharedData)
+
         case .e, .s:
             break
         }

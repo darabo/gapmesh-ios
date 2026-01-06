@@ -8,7 +8,7 @@
 
 import Foundation
 import CryptoKit
-@testable import bitchat
+@testable import Gap_Mash
 
 final class TestNetworkHelper {
     // Public, read-only views for tests; mutation only through methods

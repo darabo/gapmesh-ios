@@ -1,6 +1,6 @@
 import Foundation
 import Testing
-@testable import bitchat
+@testable import Gap_Mash
 
 struct GossipSyncManagerTests {
 

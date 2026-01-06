@@ -9,7 +9,7 @@
 import Foundation
 import CryptoKit
 import Testing
-@testable import bitchat
+@testable import Gap_Mash
 
 struct IntegrationTests {
     

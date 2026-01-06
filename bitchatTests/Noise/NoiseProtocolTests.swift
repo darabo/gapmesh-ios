@@ -1,6 +1,6 @@
 //
 // NoiseProtocolTests.swift
-// bitchatTests
+// GapTests
 //
 // This is free and unencumbered software released into the public domain.
 // For more information, see <https://unlicense.org>
@@ -10,7 +10,7 @@ import CryptoKit
 import Foundation
 import Testing
 
-@testable import bitchat
+@testable import Gap_Mash
 
 // MARK: - Test Vector Support
 
@@ -788,5 +788,117 @@ struct NoiseProtocolTests {
                 decrypted == payload,
                 "Message \(index + 1): Decrypted payload should match original")
         }
+    }
+
+    // MARK: - DH Secret Clearing Tests
+
+    @Test func secureClearCalledDuringHandshake() throws {
+        // Use TrackingMockKeychain to count secureClear calls
+        let trackingKeychain = TrackingMockKeychain()
+
+        let aliceKey = Curve25519.KeyAgreement.PrivateKey()
+        let bobKey = Curve25519.KeyAgreement.PrivateKey()
+
+        let alice = NoiseSession(
+            peerID: PeerID(str: "alice"),
+            role: .initiator,
+            keychain: trackingKeychain,
+            localStaticKey: aliceKey
+        )
+        let bob = NoiseSession(
+            peerID: PeerID(str: "bob"),
+            role: .responder,
+            keychain: trackingKeychain,
+            localStaticKey: bobKey
+        )
+
+        // Perform handshake
+        let msg1 = try alice.startHandshake()
+        let msg2 = try bob.processHandshakeMessage(msg1)!
+        let msg3 = try alice.processHandshakeMessage(msg2)!
+        _ = try bob.processHandshakeMessage(msg3)
+
+        // XX pattern has 3 DH operations: ee, es, se
+        // Both initiator and responder perform these, so we expect at least 3 secureClear calls
+        // (some may be on read path, some on write path)
+        #expect(
+            trackingKeychain.secureClearDataCallCount >= 3,
+            "Expected at least 3 secureClear calls during XX handshake, got \(trackingKeychain.secureClearDataCallCount)"
+        )
+    }
+
+    @Test func encryptionWorksAfterSecureClear() throws {
+        // Verify that encryption still works correctly after DH secrets are cleared
+        let trackingKeychain = TrackingMockKeychain()
+
+        let aliceKey = Curve25519.KeyAgreement.PrivateKey()
+        let bobKey = Curve25519.KeyAgreement.PrivateKey()
+
+        let alice = NoiseSession(
+            peerID: PeerID(str: "alice"),
+            role: .initiator,
+            keychain: trackingKeychain,
+            localStaticKey: aliceKey
+        )
+        let bob = NoiseSession(
+            peerID: PeerID(str: "bob"),
+            role: .responder,
+            keychain: trackingKeychain,
+            localStaticKey: bobKey
+        )
+
+        // Perform handshake
+        let msg1 = try alice.startHandshake()
+        let msg2 = try bob.processHandshakeMessage(msg1)!
+        let msg3 = try alice.processHandshakeMessage(msg2)!
+        _ = try bob.processHandshakeMessage(msg3)
+
+        // Verify secureClear was called
+        #expect(trackingKeychain.secureClearDataCallCount > 0)
+
+        // Verify encryption/decryption still works
+        let plaintext = "Test message after secure clear".data(using: .utf8)!
+        let ciphertext = try alice.encrypt(plaintext)
+        let decrypted = try bob.decrypt(ciphertext)
+
+        #expect(decrypted == plaintext)
+    }
+
+    @Test func secureClearCalledInBothWriteAndReadPaths() throws {
+        // Verify secureClear is called in both write (sender) and read (receiver) paths
+        let aliceKeychain = TrackingMockKeychain()
+        let bobKeychain = TrackingMockKeychain()
+
+        let aliceKey = Curve25519.KeyAgreement.PrivateKey()
+        let bobKey = Curve25519.KeyAgreement.PrivateKey()
+
+        let alice = NoiseSession(
+            peerID: PeerID(str: "alice"),
+            role: .initiator,
+            keychain: aliceKeychain,
+            localStaticKey: aliceKey
+        )
+        let bob = NoiseSession(
+            peerID: PeerID(str: "bob"),
+            role: .responder,
+            keychain: bobKeychain,
+            localStaticKey: bobKey
+        )
+
+        // Perform handshake
+        let msg1 = try alice.startHandshake()
+        let msg2 = try bob.processHandshakeMessage(msg1)!
+        let msg3 = try alice.processHandshakeMessage(msg2)!
+        _ = try bob.processHandshakeMessage(msg3)
+
+        // Both Alice and Bob should have called secureClear
+        #expect(
+            aliceKeychain.secureClearDataCallCount > 0,
+            "Alice (initiator) should call secureClear during handshake"
+        )
+        #expect(
+            bobKeychain.secureClearDataCallCount > 0,
+            "Bob (responder) should call secureClear during handshake"
+        )
     }
 }

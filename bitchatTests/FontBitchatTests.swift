@@ -1,6 +1,6 @@
 import SwiftUI
 import XCTest
-@testable import bitchat
+@testable import Gap_Mash
 
 final class FontBitchatTests: XCTestCase {
 //    func testMonospacedMapping() {

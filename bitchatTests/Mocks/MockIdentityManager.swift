@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import bitchat
+@testable import Gap_Mash
 
 final class MockIdentityManager: SecureIdentityStateManagerProtocol {
     private let keychain: KeychainManagerProtocol

@@ -1,6 +1,6 @@
 //
 // MessageDeduplicationServiceTests.swift
-// bitchatTests
+// GapTests
 //
 // Tests for MessageDeduplicationService, LRUDeduplicationCache, and ContentNormalizer.
 // This is free and unencumbered software released into the public domain.
@@ -8,10 +8,12 @@
 
 import Testing
 import Foundation
-@testable import bitchat
+@testable import Gap_Mash
 
 // MARK: - LRU Deduplication Cache Tests
 
+@Suite("LRU Deduplication Cache")
+@MainActor
 struct LRUDeduplicationCacheTests {
 
     // MARK: - Basic Operations
@@ -163,6 +165,7 @@ struct LRUDeduplicationCacheTests {
 
 // MARK: - Content Normalizer Tests
 
+@Suite("Content Normalizer")
 struct ContentNormalizerTests {
 
     @Test func normalizedKey_basicContent() {
@@ -265,6 +268,8 @@ struct ContentNormalizerTests {
 
 // MARK: - Message Deduplication Service Tests
 
+@Suite("Message Deduplication Service")
+@MainActor
 struct MessageDeduplicationServiceTests {
 
     // MARK: - Content Deduplication

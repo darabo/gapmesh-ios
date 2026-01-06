@@ -1,6 +1,6 @@
 //import Foundation
 //import XCTest
-//@testable import bitchat
+//@testable import Gap_Mash
 //
 //private let localizationTestsDirectoryURL = URL(fileURLWithPath: #filePath).deletingLastPathComponent()
 //private let testsRootURL = localizationTestsDirectoryURL.deletingLastPathComponent()

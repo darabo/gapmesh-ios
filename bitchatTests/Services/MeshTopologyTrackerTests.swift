@@ -8,7 +8,7 @@
 
 import Testing
 import Foundation
-@testable import bitchat
+@testable import Gap_Mash
 
 struct MeshTopologyTrackerTests {
     private func hex(_ value: String) throws -> Data {

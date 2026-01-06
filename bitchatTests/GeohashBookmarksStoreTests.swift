@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import bitchat
+@testable import Gap_Mash
 
 struct GeohashBookmarksStoreTests {
     private let storeKey = "locationChannel.bookmarks"

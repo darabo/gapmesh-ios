@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import bitchat
+@testable import Gap_Mash
 
 final class MockBLEBus {
     private var registry: [PeerID: MockBLEService] = [:]

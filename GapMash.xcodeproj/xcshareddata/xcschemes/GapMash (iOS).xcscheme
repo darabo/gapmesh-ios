@@ -69,7 +69,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "6CB97DF2EA57234CB3E563B8"
-               BuildableName = "Gap Mash.xctest"
+               BuildableName = "Gap Mash Tests.xctest"
                BlueprintName = "gaptest"
                ReferencedContainer = "container:GapMash.xcodeproj">
             </BuildableReference>

@@ -1,5 +1,5 @@
 import XCTest
-@testable import bitchat
+@testable import Gap_Mash
 
 final class BitchatFilePacketTests: XCTestCase {
 

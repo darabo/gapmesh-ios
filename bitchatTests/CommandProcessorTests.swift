@@ -1,5 +1,5 @@
 import Testing
-@testable import bitchat
+@testable import Gap_Mash
 
 struct CommandProcessorTests {
     private var identityManager = MockIdentityManager(MockKeychain())
