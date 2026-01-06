@@ -19,6 +19,13 @@ A decentralized peer-to-peer messaging app with dual transport architecture: loc
 
 This project is released into the public domain. See the [LICENSE](LICENSE) file for details.
 
+## 📖 User Guides
+
+New to Gap Mesh? Start here:
+
+- 🇺🇸 **[English User Guide](docs/USER_GUIDE_EN.md)** – Complete guide for beginners
+- 🇮🇷 **[راهنمای فارسی](docs/USER_GUIDE_FA.md)** – راهنمای کامل به زبان فارسی
+
 ## Features
 
 - **Dual Transport Architecture**: Bluetooth mesh for offline + Nostr protocol for internet-based messaging
