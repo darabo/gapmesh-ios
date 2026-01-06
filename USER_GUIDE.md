@@ -1,5 +1,7 @@
 # Gap User Guide
 
+[**فارسی (Read in Farsi)**](USER_GUIDE_FA.md)
+
 Welcome to Gap! This guide will help you understand how to set up and use the Gap messaging app on your iOS or Android device.
 
 ## What is Gap?

@@ -4,7 +4,7 @@
 
 Gap is a fork of BitChat catered to the needs of Iranian users. It is a decentralized, offline-first messaging app that works without internet or cell service using Bluetooth Mesh, and connects to the world via the Nostr protocol when internet is available.
 
-👋 **New to Gap?** [**Read the User Guide**](USER_GUIDE.md) for simple instructions on how to install and use the app on iOS and Android.
+👋 **New to Gap?** [**Read the User Guide**](USER_GUIDE.md) ([**فارسی**](USER_GUIDE_FA.md)) for simple instructions on how to install and use the app on iOS and Android.
 
 ---
 
