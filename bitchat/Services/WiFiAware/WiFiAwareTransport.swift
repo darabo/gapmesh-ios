@@ -14,10 +14,6 @@ import BitLogger
 /// - Lower latency
 /// - Requires explicit pairing
 /// - Uses Network framework for connections
-///
-/// NOTE: This class requires iOS 26+ and the WiFiAware framework.
-/// The actual WiFiAware imports and usage are stubbed here for compilation,
-/// and should be uncommented when building with Xcode 26+ SDK.
 final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     
     // MARK: - Constants
@@ -128,19 +124,113 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     
     // MARK: - Network Services (Placeholder)
     
+    private var listener: NWListener?
+    private var browser: NWBrowser?
+    
     private func startNetworkServices() {
-        // This is a placeholder for the actual WiFi Aware implementation.
-        // When building with Xcode 26+ and WiFiAware framework:
-        //
-        // 1. Import WiFiAware
-        // 2. Create WAPublishableService and WASubscribableService
-        // 3. Create NWListener for incoming connections
-        // 4. Create NWBrowser for peer discovery
-        //
-        // For now, the transport compiles but doesn't do WiFi Aware operations.
-        // BLE will continue to work as the primary transport.
+        // Stop any existing services first
+        stopNetworkServices()
         
-        SecureLogger.info("WiFiAware: Network services placeholder active", category: .session)
+        do {
+            // 1. Setup Listener (Server)
+            let listener = try NWListener(using: .udp)
+            self.listener = listener
+            
+            // Advertise service
+            listener.service = NWListener.Service(name: myNickname, type: WiFiAwareTransport.serviceName)
+            
+            // Handle new connections
+            listener.newConnectionHandler = { [weak self] connection in
+                self?.handleIncomingConnection(connection)
+            }
+            
+            // Start listener
+            listener.stateUpdateHandler = { [weak self] state in
+                self?.handleListenerState(state)
+            }
+            listener.start(queue: queue)
+            
+            // 2. Setup Browser (Client/Peer Discovery)
+            let params = NWParameters.udp
+            params.includePeerToPeer = true
+            
+            let browser = NWBrowser(for: .bonjour(type: WiFiAwareTransport.serviceName, domain: nil), using: params)
+            self.browser = browser
+            
+            browser.browseResultsChangedHandler = { [weak self] results, changes in
+                self?.handleBrowseResults(results)
+            }
+            
+            browser.stateUpdateHandler = { [weak self] state in
+                self?.handleBrowserState(state)
+            }
+            
+            browser.start(queue: queue)
+            
+            SecureLogger.info("WiFiAware: Services started", category: .session)
+            
+        } catch {
+            SecureLogger.error("WiFiAware: Failed to start listener: \(error)", category: .session)
+        }
+    }
+    
+    private func stopNetworkServices() {
+        listener?.cancel()
+        listener = nil
+        
+        browser?.cancel()
+        browser = nil
+    }
+    
+    private func handleListenerState(_ state: NWListener.State) {
+        switch state {
+        case .ready:
+            if let port = listener?.port {
+                SecureLogger.info("WiFiAware: Listener ready on port \(port.rawValue)", category: .session)
+            } else {
+                SecureLogger.info("WiFiAware: Listener ready (port unknown)", category: .session)
+            }
+        case .failed(let error):
+            SecureLogger.error("WiFiAware: Listener failed: \(error)", category: .session)
+            // Retry after delay?
+        case .cancelled:
+            SecureLogger.info("WiFiAware: Listener cancelled", category: .session)
+        default:
+            break
+        }
+    }
+    
+    private func handleBrowserState(_ state: NWBrowser.State) {
+        switch state {
+        case .ready:
+            SecureLogger.info("WiFiAware: Browser ready", category: .session)
+        case .failed(let error):
+            SecureLogger.error("WiFiAware: Browser failed: \(error)", category: .session)
+        case .cancelled:
+            SecureLogger.info("WiFiAware: Browser cancelled", category: .session)
+        default:
+            break
+        }
+    }
+    
+    private func handleBrowseResults(_ results: Set<NWBrowser.Result>) {
+        for result in results {
+            if case .service(let name, _, _, _) = result.endpoint {
+                // Don't connect to self
+                if name == myNickname { continue }
+                
+                // Check if we are already connected to this endpoint
+                // (Note: This is a simplistic check; in production we might need more robust dedupe)
+                lock.lock()
+                let alreadyConnected = activeConnections.values.contains { $0.endpoint == result.endpoint }
+                lock.unlock()
+                
+                if !alreadyConnected {
+                    SecureLogger.info("WiFiAware: Discovered peer '\(name)', connecting...", category: .session)
+                    connectToEndpoint(result.endpoint)
+                }
+            }
+        }
     }
     
     // MARK: - Connection Management
@@ -151,7 +241,7 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     }
     
     private func connectToEndpoint(_ endpoint: NWEndpoint) {
-        let parameters = NWParameters()
+        let parameters = NWParameters.udp
         parameters.includePeerToPeer = true
         
         let connection = NWConnection(to: endpoint, using: parameters)

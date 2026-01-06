@@ -12510,13 +12510,13 @@
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ব্লুটুথ বন্ধ আছে। Gap ব্যবহার করতে সেটিংসে ব্লুটুথ চালু করুন।"
+            "value" : "ব্লুটুথ বন্ধ আছে। Gap Mash ব্যবহার করতে সেটিংসে ব্লুটুথ চালু করুন।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth ist ausgeschaltet. aktiviere bluetooth in den einstellungen, um Gap zu verwenden."
+            "value" : "bluetooth ist ausgeschaltet. aktiviere bluetooth in den einstellungen, um Gap Mash zu verwenden."
           }
         },
         "en" : {
@@ -12534,7 +12534,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بلوتوث خاموش است. لطفاً برای استفاده از  Mash Gap بلوتوث را در تنظیمات روشن کنید."
+            "value" : "بلوتوث خاموش است. لطفاً برای استفاده از  Mash Gap Mash بلوتوث را در تنظیمات روشن کنید."
           }
         },
         "fil" : {
@@ -12558,7 +12558,7 @@
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ब्लूटूथ बंद है। Gap उपयोग करने के लिए सेटिंग्स में ब्लूटूथ चालू करें।"
+            "value" : "ब्लूटूथ बंद है। Gap Mash उपयोग करने के लिए सेटिंग्स में ब्लूटूथ चालू करें।"
           }
         },
         "id" : {
@@ -12594,13 +12594,13 @@
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth बन्द छ। Gap प्रयोग गर्न bluetooth सेटिङमा अन गर।"
+            "value" : "bluetooth बन्द छ। Gap Mash प्रयोग गर्न bluetooth सेटिङमा अन गर।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth staat uit. zet bluetooth aan in instellingen om Gap te gebruiken."
+            "value" : "bluetooth staat uit. zet bluetooth aan in instellingen om Gap Mash te gebruiken."
           }
         },
         "pl" : {
@@ -12636,7 +12636,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth அணைக்கப்பட்டுள்ளது. Gap பயன்படுத்த அமைப்பில் Bluetooth ஐ இயக்கவும்."
+            "value" : "Bluetooth அணைக்கப்பட்டுள்ளது. Gap Mash பயன்படுத்த அமைப்பில் Bluetooth ஐ இயக்கவும்."
           }
         },
         "th" : {
@@ -12660,7 +12660,7 @@
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth بند ہے۔ Gap استعمال کرنے کیلئے سیٹنگز میں Bluetooth آن کریں۔"
+            "value" : "Bluetooth بند ہے۔ Gap Mash استعمال کرنے کیلئے سیٹنگز میں Bluetooth آن کریں۔"
           }
         },
         "vi" : {
@@ -12689,7 +12689,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تحتاج Gap إلى إذن bluetooth للاتصال بالأجهزة القريبة. فعّل الوصول في الإعدادات."
+            "value" : "تحتاج Gap Mash إلى إذن bluetooth للاتصال بالأجهزة القريبة. فعّل الوصول في الإعدادات."
           }
         },
         "bn" : {
@@ -12701,7 +12701,7 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap benötigt bluetooth-berechtigung, um sich mit geräten in der nähe zu verbinden. erlaube den zugriff in den einstellungen."
+            "value" : "Gap Mash benötigt bluetooth-berechtigung, um sich mit geräten in der nähe zu verbinden. erlaube den zugriff in den einstellungen."
           }
         },
         "en" : {
@@ -12725,37 +12725,37 @@
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kailangan ng Gap ng pahintulot sa bluetooth upang kumonekta sa mga kalapit na device. pakiactivate sa settings."
+            "value" : "kailangan ng Gap Mash ng pahintulot sa bluetooth upang kumonekta sa mga kalapit na device. pakiactivate sa settings."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap a besoin de l'autorisation bluetooth pour se connecter aux appareils proches. active l'accès dans réglages."
+            "value" : "Gap Mash a besoin de l'autorisation bluetooth pour se connecter aux appareils proches. active l'accès dans réglages."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap צריכה הרשאת bluetooth כדי להתחבר למכשירים קרובים. אפשר גישה בהגדרות."
+            "value" : "Gap Mash צריכה הרשאת bluetooth כדי להתחבר למכשירים קרובים. אפשר גישה בהגדרות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap को पास के उपकरणों से जुड़ने के लिए ब्लूटूथ अनुमति चाहिए। कृपया सेटिंग्स में ब्लूटूथ एक्सेस सक्षम करें।"
+            "value" : "Gap Mash को पास के उपकरणों से जुड़ने के लिए ब्लूटूथ अनुमति चाहिए। कृपया सेटिंग्स में ब्लूटूथ एक्सेस सक्षम करें।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap memerlukan izin bluetooth untuk terhubung dengan perangkat dekat. aktifkan akses di pengaturan."
+            "value" : "Gap Mash memerlukan izin bluetooth untuk terhubung dengan perangkat dekat. aktifkan akses di pengaturan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap richiede l'autorizzazione bluetooth per collegarsi ai dispositivi vicini. abilita l'accesso nelle impostazioni."
+            "value" : "Gap Mash richiede l'autorizzazione bluetooth per collegarsi ai dispositivi vicini. abilita l'accesso nelle impostazioni."
           }
         },
         "ja" : {
@@ -12773,61 +12773,61 @@
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap memerlukan kebenaran Bluetooth untuk disambungkan kepada peranti berhampiran. Benarkan capaian dalam Tetapan."
+            "value" : "Gap Mash memerlukan kebenaran Bluetooth untuk disambungkan kepada peranti berhampiran. Benarkan capaian dalam Tetapan."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap लाई नजिकका उपकरणसँग जडान हुन bluetooth अनुमति चाहिन्छ। सेटिङमा पहुँच सक्षम गर।"
+            "value" : "Gap Mash लाई नजिकका उपकरणसँग जडान हुन bluetooth अनुमति चाहिन्छ। सेटिङमा पहुँच सक्षम गर।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap heeft bluetooth-toegang nodig om verbinding te maken met apparaten in de buurt. schakel dit in bij instellingen."
+            "value" : "Gap Mash heeft bluetooth-toegang nodig om verbinding te maken met apparaten in de buurt. schakel dit in bij instellingen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap potrzebuje uprawnień bluetooth, aby łączyć się z pobliskimi urządzeniami. włącz dostęp w ustawieniach."
+            "value" : "Gap Mash potrzebuje uprawnień bluetooth, aby łączyć się z pobliskimi urządzeniami. włącz dostęp w ustawieniach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Gap precisa de autorização de Bluetooth para se ligar a dispositivos próximos. Ativa o acesso em Definições."
+            "value" : "O Gap Mash precisa de autorização de Bluetooth para se ligar a dispositivos próximos. Ativa o acesso em Definições."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap precisa de permissão de bluetooth para conectar com dispositivos próximos. habilite o acesso em ajustes."
+            "value" : "Gap Mash precisa de permissão de bluetooth para conectar com dispositivos próximos. habilite o acesso em ajustes."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap нужен доступ к bluetooth, чтобы соединяться с ближайшими устройствами. включи разрешение в настройках."
+            "value" : "Gap Mash нужен доступ к bluetooth, чтобы соединяться с ближайшими устройствами. включи разрешение в настройках."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap behöver bluetooth-behörighet för att ansluta till enheter i närheten. aktivera åtkomst i inställningar."
+            "value" : "Gap Mash behöver bluetooth-behörighet för att ansluta till enheter i närheten. aktivera åtkomst i inställningar."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அருகிலுள்ள சாதனங்களை இணைக்க Gap க்கு Bluetooth அனுமதி தேவை. அமைப்பில் அனுமதி வழங்கவும்."
+            "value" : "அருகிலுள்ள சாதனங்களை இணைக்க Gap Mash க்கு Bluetooth அனுமதி தேவை. அமைப்பில் அனுமதி வழங்கவும்."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap ต้องการสิทธิ์ Bluetooth เพื่อเชื่อมต่อกับอุปกรณ์ใกล้เคียง กรุณาเปิดสิทธิ์ในตั้งค่า"
+            "value" : "Gap Mash ต้องการสิทธิ์ Bluetooth เพื่อเชื่อมต่อกับอุปกรณ์ใกล้เคียง กรุณาเปิดสิทธิ์ในตั้งค่า"
           }
         },
         "tr" : {
@@ -12839,31 +12839,31 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap потребує дозволу bluetooth для з'єднання з пристроями поруч. ввімкни доступ у налаштуваннях."
+            "value" : "Gap Mash потребує дозволу bluetooth для з'єднання з пристроями поруч. ввімкни доступ у налаштуваннях."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قریب کے آلات سے جڑنے کیلئے Gap کو Bluetooth اجازت درکار ہے۔ سیٹنگز میں رسائی فعال کریں۔"
+            "value" : "قریب کے آلات سے جڑنے کیلئے Gap Mash کو Bluetooth اجازت درکار ہے۔ سیٹنگز میں رسائی فعال کریں۔"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap cần quyền bluetooth để kết nối thiết bị gần. hãy bật quyền trong cài đặt."
+            "value" : "Gap Mash cần quyền bluetooth để kết nối thiết bị gần. hãy bật quyền trong cài đặt."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap 需要 bluetooth 权限以连接附近设备。请在设置中启用访问。"
+            "value" : "Gap Mash 需要 bluetooth 权限以连接附近设备。请在设置中启用访问。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap 需要 bluetooth 權限以連線至附近裝置。請在設定中啟用存取權限。"
+            "value" : "Gap Mash 需要 bluetooth 權限以連線至附近裝置。請在設定中啟用存取權限。"
           }
         }
       }
@@ -13244,19 +13244,19 @@
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "هذا الجهاز لا يدعم bluetooth. يحتاج Gap إلى bluetooth للعمل."
+            "value" : "هذا الجهاز لا يدعم bluetooth. يحتاج Gap Mash إلى bluetooth للعمل."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "এই ডিভাইস ব্লুটুথ সমর্থন করে না। Gap চালাতে ব্লুটুথ দরকার।"
+            "value" : "এই ডিভাইস ব্লুটুথ সমর্থন করে না। Gap Mash চালাতে ব্লুটুথ দরকার।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "dieses gerät unterstützt kein bluetooth. Gap benötigt bluetooth zum funktionieren."
+            "value" : "dieses gerät unterstützt kein bluetooth. Gap Mash benötigt bluetooth zum funktionieren."
           }
         },
         "en" : {
@@ -13274,43 +13274,43 @@
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "این دستگاه از بلوتوث پشتیبانی نمی‌کند.  Mash Gap برای کار کردن به بلوتوث نیاز دارد."
+            "value" : "این دستگاه از بلوتوث پشتیبانی نمی‌کند.  Mash Gap Mash برای کار کردن به بلوتوث نیاز دارد."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "hindi sinusuportahan ng device na ito ang bluetooth. kailangan ito ng Gap para gumana."
+            "value" : "hindi sinusuportahan ng device na ito ang bluetooth. kailangan ito ng Gap Mash para gumana."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "cet appareil ne prend pas en charge le bluetooth. Gap en a besoin pour fonctionner."
+            "value" : "cet appareil ne prend pas en charge le bluetooth. Gap Mash en a besoin pour fonctionner."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "המכשיר הזה לא תומך ב-bluetooth. Gap זקוקה ל-bluetooth כדי לעבוד."
+            "value" : "המכשיר הזה לא תומך ב-bluetooth. Gap Mash זקוקה ל-bluetooth כדי לעבוד."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "यह डिवाइस ब्लूटूथ समर्थित नहीं है। Gap चलाने के लिए ब्लूटूथ जरूरी है।"
+            "value" : "यह डिवाइस ब्लूटूथ समर्थित नहीं है। Gap Mash चलाने के लिए ब्लूटूथ जरूरी है।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "perangkat ini tidak mendukung bluetooth. Gap memerlukan bluetooth untuk berjalan."
+            "value" : "perangkat ini tidak mendukung bluetooth. Gap Mash memerlukan bluetooth untuk berjalan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "questo dispositivo non supporta bluetooth. Gap richiede bluetooth per funzionare."
+            "value" : "questo dispositivo non supporta bluetooth. Gap Mash richiede bluetooth per funzionare."
           }
         },
         "ja" : {
@@ -13328,61 +13328,61 @@
         "ms" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Peranti ini tidak menyokong Bluetooth. Gap memerlukan Bluetooth untuk berfungsi."
+            "value" : "Peranti ini tidak menyokong Bluetooth. Gap Mash memerlukan Bluetooth untuk berfungsi."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "यो उपकरणले bluetooth समर्थन गर्दैन। Gap चलाउन bluetooth चाहिन्छ।"
+            "value" : "यो उपकरणले bluetooth समर्थन गर्दैन। Gap Mash चलाउन bluetooth चाहिन्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "dit apparaat ondersteunt geen bluetooth. Gap heeft bluetooth nodig om te werken."
+            "value" : "dit apparaat ondersteunt geen bluetooth. Gap Mash heeft bluetooth nodig om te werken."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "to urządzenie nie obsługuje bluetooth. Gap wymaga bluetooth do działania."
+            "value" : "to urządzenie nie obsługuje bluetooth. Gap Mash wymaga bluetooth do działania."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Este dispositivo não suporta Bluetooth. O Gap precisa de Bluetooth para funcionar."
+            "value" : "Este dispositivo não suporta Bluetooth. O Gap Mash precisa de Bluetooth para funcionar."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "este dispositivo não suporta bluetooth. Gap precisa de bluetooth para funcionar."
+            "value" : "este dispositivo não suporta bluetooth. Gap Mash precisa de bluetooth para funcionar."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "это устройство не поддерживает bluetooth. Gap нужен bluetooth для работы."
+            "value" : "это устройство не поддерживает bluetooth. Gap Mash нужен bluetooth для работы."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "denna enhet stöder inte bluetooth. Gap behöver bluetooth för att fungera."
+            "value" : "denna enhet stöder inte bluetooth. Gap Mash behöver bluetooth för att fungera."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "இந்த சாதனம் Bluetooth ஐ ஆதரிக்காது. Gap இயங்க Bluetooth தேவை."
+            "value" : "இந்த சாதனம் Bluetooth ஐ ஆதரிக்காது. Gap Mash இயங்க Bluetooth தேவை."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "อุปกรณ์นี้ไม่รองรับ Bluetooth การใช้งาน Gap ต้องใช้ Bluetooth"
+            "value" : "อุปกรณ์นี้ไม่รองรับ Bluetooth การใช้งาน Gap Mash ต้องใช้ Bluetooth"
           }
         },
         "tr" : {
@@ -13394,31 +13394,31 @@
         "uk" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "цей пристрій не підтримує bluetooth. Gap потрібен bluetooth для роботи."
+            "value" : "цей пристрій не підтримує bluetooth. Gap Mash потрібен bluetooth для роботи."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "یہ ڈیوائس Bluetooth کو سپورٹ نہیں کرتی۔ Gap کو چلنے کیلئے Bluetooth چاہیے۔"
+            "value" : "یہ ڈیوائس Bluetooth کو سپورٹ نہیں کرتی۔ Gap Mash کو چلنے کیلئے Bluetooth چاہیے۔"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "thiết bị này không hỗ trợ bluetooth. Gap cần bluetooth để hoạt động."
+            "value" : "thiết bị này không hỗ trợ bluetooth. Gap Mash cần bluetooth để hoạt động."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "此设备不支持 bluetooth。Gap 需要 bluetooth 才能运行。"
+            "value" : "此设备不支持 bluetooth。Gap Mash 需要 bluetooth 才能运行。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "此裝置不支持 bluetooth。Gap 需要 bluetooth 才能運行。"
+            "value" : "此裝置不支持 bluetooth。Gap Mash 需要 bluetooth 才能運行。"
           }
         }
       }
@@ -25003,13 +25003,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash uses Bluetooth to discover and connect with other Gap users nearby."
+            "value" : "Gap Mash uses Bluetooth to discover and connect with other Gap Mash users nearby."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash از بلوتوث برای کشف و اتصال به سایر کاربران Gap در نزدیکی استفاده می‌کند."
+            "value" : "Gap Mash از بلوتوث برای کشف و اتصال به سایر کاربران Gap Mash در نزدیکی استفاده می‌کند."
           }
         }
       }

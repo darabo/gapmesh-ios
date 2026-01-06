@@ -34,7 +34,7 @@
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Gap Mash uses Bluetooth to create a secure mesh network for chatting with nearby users.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Gap Mash uses Bluetooth to discover and connect with other bitchat users nearby.</string>
+	<string>Gap Mash uses Bluetooth to discover and connect with other Gap Mash users nearby.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Gap Mash uses the camera to scan QR codes to verify peers.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
@@ -58,6 +58,10 @@
 			<key>Subscribable</key>
 			<true/>
 		</dict>
+	</array>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_gapmash._udp</string>
 	</array>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>Gap Mash uses local network to discover and communicate with nearby devices over WiFi.</string>

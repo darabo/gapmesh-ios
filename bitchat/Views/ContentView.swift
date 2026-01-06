@@ -240,6 +240,8 @@ struct ContentView: View {
         dynamicTypeSize.isAccessibilitySize ? 2 : 1
     }
 
+    // MARK: - Subviews
+    
     private var peopleSheetTitle: String {
         String(localized: "content.header.people", comment: "Title for the people list sheet").lowercased()
     }
@@ -262,15 +264,18 @@ struct ContentView: View {
         }
     }
     
-    
     private struct PrivateHeaderContext {
         let headerPeerID: PeerID
         let peer: BitchatPeer?
         let displayName: String
         let isNostrAvailable: Bool
     }
+    
+    // MARK: - Subviews
+    
 
-// MARK: - Body
+
+    // MARK: - Body
 
     var body: some View {
         VStack(spacing: 0) {
@@ -1355,7 +1360,7 @@ struct ContentView: View {
     
     private var mainHeaderView: some View {
         HStack(spacing: 0) {
-            Text(verbatim: "Gap Mesh/")
+            Text(verbatim: "Gap Mash/")
                 .font(.bitchatSystem(size: 18, weight: .medium, design: .monospaced))
                 .foregroundColor(textColor)
                 .onTapGesture(count: 3) {

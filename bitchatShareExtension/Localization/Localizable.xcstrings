@@ -499,56 +499,56 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ shared link to Gap Mash",
+            "value": "✓ shared link to Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ تم إرسال الرابط إلى Gap",
+            "value": "✓ تم إرسال الرابط إلى Gap Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ link zu Gap geteilt",
+            "value": "✓ link zu Gap Mash geteilt",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ enlace compartido con Gap Mash",
+            "value": "✓ enlace compartido con Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ lien partagé vers Gap Mash",
+            "value": "✓ lien partagé vers Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ הקישור נשלח אל Gap Mash",
+            "value": "✓ הקישור נשלח אל Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ tautan dikirim ke Gap Mash",
+            "value": "✓ tautan dikirim ke Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ link inviato a Gap Mash",
+            "value": "✓ link inviato a Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
@@ -562,42 +562,42 @@
         "ne": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ Gap मा लिङ्क पठाइयो",
+            "value": "✓ Gap Mash मा लिङ्क पठाइयो",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ link enviado para Gap Mash",
+            "value": "✓ link enviado para Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ ссылка отправлена в Gap Mash",
+            "value": "✓ ссылка отправлена в Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ посилання надіслано в Gap Mash",
+            "value": "✓ посилання надіслано в Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ 已将链接分享至 Gap Mash",
+            "value": "✓ 已将链接分享至 Gap Mash Mash",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ Gap Mash으로 링크를 공유했습니다",
+            "value": "✓ Gap Mash Mash으로 링크를 공유했습니다",
             "comment": "Confirmation after successfully sharing a link"
           }
         },
@@ -611,7 +611,7 @@
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ لینک به Gap ارسال شد"
+            "value": "✓ لینک به Gap Mash ارسال شد"
           }
         }
       }
@@ -622,56 +622,56 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ shared text to Gap Mash",
+            "value": "✓ shared text to Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ تم إرسال النص إلى Gap",
+            "value": "✓ تم إرسال النص إلى Gap Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "de": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ text zu Gap geteilt",
+            "value": "✓ text zu Gap Mash geteilt",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "es": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ texto compartido con Gap Mash",
+            "value": "✓ texto compartido con Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "fr": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ texte partagé vers Gap Mash",
+            "value": "✓ texte partagé vers Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "he": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ הטקסט נשלח אל Gap Mash",
+            "value": "✓ הטקסט נשלח אל Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "id": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ teks dikirim ke Gap Mash",
+            "value": "✓ teks dikirim ke Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "it": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ testo inviato a Gap Mash",
+            "value": "✓ testo inviato a Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
@@ -685,42 +685,42 @@
         "ne": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ Gap मा पाठ पठाइयो",
+            "value": "✓ Gap Mash मा पाठ पठाइयो",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "pt-BR": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ texto enviado para Gap Mash",
+            "value": "✓ texto enviado para Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ru": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ текст отправлен в Gap Mash",
+            "value": "✓ текст отправлен в Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "uk": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ текст надіслано в Gap Mash",
+            "value": "✓ текст надіслано в Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "zh-Hans": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ 已将文本分享至 Gap Mash",
+            "value": "✓ 已将文本分享至 Gap Mash Mash",
             "comment": "Confirmation after successfully sharing text"
           }
         },
         "ko": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ Gap Mash으로 텍스트를 공유했습니다",
+            "value": "✓ Gap Mash Mash으로 텍스트를 공유했습니다",
             "comment": "Confirmation after successfully sharing text"
           }
         },
@@ -734,7 +734,7 @@
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "✓ متن به Gap ارسال شد"
+            "value": "✓ متن به Gap Mash ارسال شد"
           }
         }
       }

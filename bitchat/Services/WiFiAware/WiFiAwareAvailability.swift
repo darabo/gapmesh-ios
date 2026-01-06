@@ -8,34 +8,23 @@ import Foundation
 struct WiFiAwareAvailability {
     
     /// Check if WiFi Aware is supported on this device.
-    /// Returns false until iOS 26 SDK is available.
+    /// Uses Network framework (AWDL) for peer-to-peer connectivity.
     static var isSupported: Bool {
-        // TODO: When building with Xcode 26+ SDK, uncomment:
-        // #if canImport(WiFiAware)
-        // if #available(iOS 26.0, *) {
-        //     return WACapabilities.shared.isSupported
-        // }
-        // #endif
-        return false
+        // Network framework P2P is valid on these targets
+        return true
     }
     
     /// Check if WiFi Aware is currently available (supported + enabled).
     static var isAvailable: Bool {
-        // TODO: When building with Xcode 26+ SDK, uncomment:
-        // #if canImport(WiFiAware)
-        // if #available(iOS 26.0, *) {
-        //     return WACapabilities.shared.isAvailable
-        // }
-        // #endif
-        return false
+        return isSupported
     }
     
     /// Human-readable description of WiFi Aware status.
     static var statusDescription: String {
         if isSupported {
-            return isAvailable ? "WiFi Aware available" : "WiFi Aware supported but not available"
+            return "WiFi Aware available"
         } else {
-            return "WiFi Aware not supported (requires iOS 26+)"
+            return "WiFi Aware not supported"
         }
     }
 }
