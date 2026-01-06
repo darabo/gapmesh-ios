@@ -1,8 +1,8 @@
-<img width="256" height="256" alt="icon_128x128@2x" src="https://github.com/user-attachments/assets/90133f83-b4f6-41c6-aab9-25d0859d2a47" />
+<img width="256" height="256" alt="icon_128x128@2x" src="[[https://github.com/user-attachments/assets/90133f83-b4f6-41c6-aab9-25d0859d2a47](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/user-guide-and-readme-update-6318104636187094339/bitchat/Assets.xcassets/AppIcon.appiconset/ItunesArtwork%402x.png)](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/user-guide-and-readme-update-6318104636187094339/bitchat/Assets.xcassets/AppIcon.appiconset/ItunesArtwork%402x.png)" />
 
-# Gap / BitChat
+# Gap Mesh
 
-Gap is a fork of BitChat catered to the needs of Iranian users. It is a decentralized, offline-first messaging app that works without internet or cell service using Bluetooth Mesh, and connects to the world via the Nostr protocol when internet is available.
+Gap Mesh is a fork of BitChat catered to the needs of Iranian users. It is a decentralized, offline-first messaging app that works without internet or cell service using Bluetooth Mesh, and connects to the world via the Nostr protocol when internet is available.
 
 👋 **New to Gap?** [**Read the User Guide**](USER_GUIDE.md) ([**فارسی**](USER_GUIDE_FA.md)) for simple instructions on how to install and use the app on iOS and Android.
 
