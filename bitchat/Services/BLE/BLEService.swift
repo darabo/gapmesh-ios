@@ -688,7 +688,7 @@ final class BLEService: NSObject {
                 return
             }
 
-            let packet = BitchatPacket(
+            var packet = BitchatPacket(
                 type: MessageType.fileTransfer.rawValue,
                 senderID: self.myPeerIDData,
                 recipientID: nil,
@@ -698,6 +698,13 @@ final class BLEService: NSObject {
                 ttl: self.messageTTL,
                 version: 2
             )
+
+            // Sign the packet before broadcasting (required for cross-platform security validation)
+            guard let signedPacket = self.noiseService.signPacket(packet) else {
+                SecureLogger.error("❌ Failed to sign broadcast file packet - aborting", category: .security)
+                return
+            }
+            packet = signedPacket
 
             let senderHex = packet.senderID.hexEncodedString()
             let dedupID = "\(senderHex)-\(packet.timestamp)-\(packet.type)"
@@ -734,9 +741,12 @@ final class BLEService: NSObject {
 
             self.applyRouteIfAvailable(&packet, to: peerID)
 
-            if let signed = self.noiseService.signPacket(packet) {
-                packet = signed
+            // Enforce signing for private file transfers (required for cross-platform security validation)
+            guard let signedPacket = self.noiseService.signPacket(packet) else {
+                SecureLogger.error("❌ Failed to sign private file packet - aborting", category: .security)
+                return
             }
+            packet = signedPacket
 
             SecureLogger.debug("📁 Sending private file transfer to \(peerID.id.prefix(8))… bytes=\(payload.count)", category: .session)
             self.broadcastPacket(packet, transferId: transferId)
