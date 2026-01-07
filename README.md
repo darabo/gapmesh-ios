@@ -1,4 +1,4 @@
-<img width="256" height="256" src="(https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg?raw=true)" />
+![qr code](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg")
 
 ## Gap Mesh
 
