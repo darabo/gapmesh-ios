@@ -22,7 +22,7 @@
 ## شروع کار
 
 ### گام ۱: نصب برنامه
-[دانلود Gap Mesh از TestFlight (به‌زودی در اپ استور)]([g](https://testflight.apple.com/join/Vgbv1MTy)
+[دانلود Gap Mesh از TestFlight (به‌زودی در اپ استور)](https://testflight.apple.com/join/Vgbv1MTy)
 
 ### مرحله ۲: اعطای دسترسی‌ها
 
