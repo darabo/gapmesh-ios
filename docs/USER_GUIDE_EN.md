@@ -23,10 +23,8 @@ Gap Mesh is a **messaging app that works without the internet**. It connects you
 
 ### Step 1: Install the App
 
-Download Gap Mesh from the **App Store**:
+[Download Gap Mesh from the **TestFlight** (App Store Soon):](https://testflight.apple.com/join/Vgbv1MTy)
 
-- Search for "Gap Mesh" in the App Store
-- Or use this link: [Gap Mesh on App Store](https://apps.apple.com/us/app/bitchat-mesh/id6748219622)
 
 ### Step 2: Grant Permissions
 
