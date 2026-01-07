@@ -25,6 +25,7 @@ Gap Mesh is a **messaging app that works without the internet**. It connects you
 
 [Download Gap Mesh from the **TestFlight** (App Store Soon):](https://testflight.apple.com/join/Vgbv1MTy)
 
+![qr code](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg)
 
 ### Step 2: Grant Permissions
 
