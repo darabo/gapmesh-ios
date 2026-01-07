@@ -986,7 +986,10 @@ final class BLEService: NSObject {
         if let ch = characteristic {
             let targets = subscribedCentrals.filter { selectedCentralIDs.contains($0.identifier.uuidString) }
             if !targets.isEmpty {
-                _ = peripheralManager?.updateValue(data, for: ch, onSubscribedCentrals: targets)
+                let success = peripheralManager?.updateValue(data, for: ch, onSubscribedCentrals: targets) ?? false
+                if !success {
+                    enqueuePendingNotification(data: data, centrals: targets, context: "fragment")
+                }
             }
         }
     }
@@ -2011,8 +2014,13 @@ extension BLEService: CBPeripheralDelegate {
         state.assembler = assembler
         peripherals[peripheralUUID] = state
 
-        for byte in result.droppedPrefixes {
-            SecureLogger.warning("⚠️ Dropping byte from BLE stream (unexpected prefix \(String(format: "%02x", byte)))", category: .session)
+        if !result.droppedPrefixes.isEmpty {
+            let totalDropped = result.droppedPrefixes.values.reduce(0, +)
+            let prefixSummary = result.droppedPrefixes
+                .sorted { $0.value > $1.value }
+                .map { String(format: "%02x×%d", $0.key, $0.value) }
+                .joined(separator: ", ")
+            SecureLogger.warning("⚠️ Dropped \(totalDropped) bytes from BLE stream (prefixes: \(prefixSummary))", category: .session)
         }
 
         if result.reset {
@@ -2240,25 +2248,29 @@ extension BLEService: CBPeripheralManagerDelegate {
             self.pendingNotifications.removeAll()
             
             // Try to send pending notifications
-            for (data, centrals) in pending {
+            for (index, item) in pending.enumerated() {
+                let (data, centrals) = item
+                
+                var success = false
                 if let centrals = centrals {
                     // Send to specific centrals
-                    let success = self.peripheralManager?.updateValue(data, for: characteristic, onSubscribedCentrals: centrals) ?? false
-                    if !success {
-                        // Still full, re-queue
-                        self.pendingNotifications.append((data: data, centrals: centrals))
-                        SecureLogger.debug("⚠️ Notification queue still full, re-queuing", category: .session)
-                        break  // Stop trying, wait for next ready callback
-                    } else {
-                        SecureLogger.debug("✅ Sent pending notification from retry queue", category: .session)
-                    }
+                    success = self.peripheralManager?.updateValue(data, for: characteristic, onSubscribedCentrals: centrals) ?? false
                 } else {
                     // Broadcast to all
-                    let success = self.peripheralManager?.updateValue(data, for: characteristic, onSubscribedCentrals: nil) ?? false
-                    if !success {
-                        // Still full, re-queue
-                        self.pendingNotifications.append((data: data, centrals: nil))
-                        break
+                    success = self.peripheralManager?.updateValue(data, for: characteristic, onSubscribedCentrals: nil) ?? false
+                }
+                
+                if !success {
+                    // Still full, re-queue THIS item and ALL remaining items
+                    let remainingCount = pending.count - index
+                    self.pendingNotifications.append(contentsOf: pending[index...])
+                    
+                    SecureLogger.debug("⚠️ Notification queue full again after sending \(index) items. Re-queued \(remainingCount) items.", category: .session)
+                    break  // Stop trying, wait for next ready callback
+                } else {
+                    // Success for this item
+                    if index % 5 == 0 { // Log periodically to avoid spam
+                        SecureLogger.debug("✅ Sent pending notification \(index+1)/\(pending.count)", category: .session)
                     }
                 }
             }

@@ -17,6 +17,7 @@
 		A6F183FD2E948783006A9046 /* tor-nolzma.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6F183FC2E948783006A9046 /* tor-nolzma.xcframework */; };
 		E0A1B2C3D4E5F6012345678D /* relays/online_relays_gps.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A1B2C3D4E5F6012345678A /* relays/online_relays_gps.csv */; };
 		E0A1B2C3D4E5F6012345678E /* relays/online_relays_gps.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A1B2C3D4E5F6012345678A /* relays/online_relays_gps.csv */; };
+		EA1741802F0D9E400016A6D1 /* BitLogger in Frameworks */ = {isa = PBXBuildFile; productRef = EA17417F2F0D9E400016A6D1 /* BitLogger */; };
 		EA1C1E7E2F0CC42A000A58AE /* BitLogger in Frameworks */ = {isa = PBXBuildFile; productRef = EA1C1E7D2F0CC42A000A58AE /* BitLogger */; };
 /* End PBXBuildFile section */
 
@@ -169,6 +170,7 @@
 				A6E3E5702E77036A0032EA8A /* BitLogger in Frameworks */,
 				885BBED78092484A5B069461 /* P256K in Frameworks */,
 				EA1C1E7E2F0CC42A000A58AE /* BitLogger in Frameworks */,
+				EA1741802F0D9E400016A6D1 /* BitLogger in Frameworks */,
 				A6E3EA7F2E7706720032EA8A /* Tor in Frameworks */,
 			);
 		};
@@ -312,6 +314,7 @@
 				A6E3E56F2E77036A0032EA8A /* BitLogger */,
 				A6E3EA7E2E7706720032EA8A /* Tor */,
 				EA1C1E7D2F0CC42A000A58AE /* BitLogger */,
+				EA17417F2F0D9E400016A6D1 /* BitLogger */,
 			);
 			productName = bitchat_iOS;
 			productReference = 96D0D41CA19EE5A772AA8434 /* Gap Mash.app */;
@@ -353,7 +356,7 @@
 			packageReferences = (
 				B8C407587481BBB190741C93 /* XCRemoteSwiftPackageReference "swift-secp256k1" */,
 				EA1C1E782F0CC3A4000A58AE /* XCLocalSwiftPackageReference "localPackages/Tor" */,
-				EA1C1E7C2F0CC42A000A58AE /* XCLocalSwiftPackageReference "localPackages/BitLogger" */,
+				EA17417E2F0D9E400016A6D1 /* XCLocalSwiftPackageReference "localPackages/BitLogger" */,
 			);
 			preferredProjectObjectVersion = 90;
 			projectDirPath = "";
@@ -970,13 +973,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
+		EA17417E2F0D9E400016A6D1 /* XCLocalSwiftPackageReference "localPackages/BitLogger" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = localPackages/BitLogger;
+		};
 		EA1C1E782F0CC3A4000A58AE /* XCLocalSwiftPackageReference "localPackages/Tor" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = localPackages/Tor;
-		};
-		EA1C1E7C2F0CC42A000A58AE /* XCLocalSwiftPackageReference "localPackages/BitLogger" */ = {
-			isa = XCLocalSwiftPackageReference;
-			relativePath = localPackages/BitLogger;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -1017,6 +1020,10 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B8C407587481BBB190741C93 /* XCRemoteSwiftPackageReference "swift-secp256k1" */;
 			productName = P256K;
+		};
+		EA17417F2F0D9E400016A6D1 /* BitLogger */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BitLogger;
 		};
 		EA1C1E7A2F0CC3FF000A58AE /* Tor */ = {
 			isa = XCSwiftPackageProductDependency;

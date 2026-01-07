@@ -252,6 +252,10 @@ struct LocationChannelsSheet: View {
             .background(backgroundColor)
         }
         .background(backgroundColor)
+        #if os(iOS)
+        // Prevent keyboard constraint conflicts with third-party keyboards (e.g., Google Keyboard)
+        .scrollDismissesKeyboard(.interactively)
+        #endif
     }
 
     private var sectionDivider: some View {

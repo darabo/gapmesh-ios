@@ -20,13 +20,21 @@ struct NotificationStreamAssembler {
         pendingFrameExpectedLength = 0
     }
 
-    mutating func append(_ chunk: Data) -> (frames: [Data], droppedPrefixes: [UInt8], reset: Bool) {
-        guard !chunk.isEmpty else { return ([], [], false) }
+    /// Returns true if we're in the middle of assembling a frame and waiting for more bytes.
+    private var isAssemblingFrame: Bool {
+        pendingFrameExpectedLength > 0 && buffer.count > 0 && buffer.count < pendingFrameExpectedLength
+    }
 
+    mutating func append(_ chunk: Data) -> (frames: [Data], droppedPrefixes: [UInt8: Int], reset: Bool) {
+        guard !chunk.isEmpty else { return ([], [:], false) }
+
+        // Track if we were mid-frame BEFORE appending the new chunk
+        let wasMidFrame = isAssemblingFrame
+        
         buffer.append(chunk)
 
         var frames: [Data] = []
-        var dropped: [UInt8] = []
+        var dropped: [UInt8: Int] = [:]
         var didReset = false
         let now = DispatchTime.now()
         let maxFrameLength = TransportConfig.bleNotificationAssemblerHardCapBytes
@@ -35,20 +43,49 @@ struct NotificationStreamAssembler {
         if buffer.count > TransportConfig.bleNotificationAssemblerHardCapBytes {
             SecureLogger.error("❌ Notification assembler overflow (\(buffer.count) bytes); dropping partial frame", category: .session)
             resetState()
-            return ([], [], true)
+            return ([], [:], true)
+        }
+        
+        // If we're mid-frame and still don't have enough data, just wait for more
+        // This prevents dropping valid continuation bytes that don't start with version
+        if wasMidFrame && buffer.count < pendingFrameExpectedLength {
+            // Update stall timer
+            if let started = pendingFrameStartedAt {
+                let elapsed = now.uptimeNanoseconds - started.uptimeNanoseconds
+                let threshold = UInt64(TransportConfig.bleAssemblerStallResetMs) * 1_000_000
+                if elapsed >= threshold {
+                    let remaining = pendingFrameExpectedLength - buffer.count
+                    SecureLogger.debug("📉 Resetting notification assembler after waiting \(remaining)B for \(TransportConfig.bleAssemblerStallResetMs)ms", category: .session)
+                    resetState()
+                    return ([], [:], true)
+                }
+            }
+            return ([], [:], false)  // Still waiting, no drops
         }
 
         while buffer.count >= minimumFramePrefix {
             guard let version = buffer.first else { break }
             guard version == 1 || version == 2 else {
-                dropped.append(buffer.removeFirst())
-                pendingFrameStartedAt = nil
-                pendingFrameExpectedLength = 0
-                continue
+                // Only drop bytes if we're NOT mid-frame (expecting a new packet header)
+                // If pendingFrameExpectedLength > 0, we know the frame structure and shouldn't drop
+                if pendingFrameExpectedLength == 0 {
+                    let droppedByte = buffer.removeFirst()
+                    dropped[droppedByte, default: 0] += 1
+                    pendingFrameStartedAt = nil
+                    continue
+                } else {
+                    // Mid-frame: this shouldn't happen normally, but if it does,
+                    // the frame was corrupted - reset and try to recover
+                    SecureLogger.warning("⚠️ Unexpected byte mid-frame; resetting assembler", category: .session)
+                    resetState()
+                    didReset = true
+                    break
+                }
             }
 
             guard let headerSize = BinaryProtocol.headerSize(for: version) else {
-                dropped.append(buffer.removeFirst())
+                let droppedByte = buffer.removeFirst()
+                dropped[droppedByte, default: 0] += 1
                 pendingFrameStartedAt = nil
                 pendingFrameExpectedLength = 0
                 continue
