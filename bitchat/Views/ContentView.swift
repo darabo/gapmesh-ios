@@ -64,7 +64,6 @@ struct HoldToRecordButton: UIViewRepresentable {
         }
         
         func touchBegan() {
-            print("🎤 HoldToRecordButton: Touch BEGAN")
             guard !hasStarted else { return }
             
             // Cancel any pending start from a previous touch
@@ -77,7 +76,6 @@ struct HoldToRecordButton: UIViewRepresentable {
                 guard !self.hasStarted else { return }
                 self.hasStarted = true
                 self.startTime = Date()
-                print("🎤 HoldToRecordButton: Recording STARTED (after delay)")
                 self.parent.onStart()
             }
             startWorkItem = workItem
@@ -85,7 +83,6 @@ struct HoldToRecordButton: UIViewRepresentable {
         }
         
         func touchEnded() {
-            print("🎤 HoldToRecordButton: Touch ENDED")
             startWorkItem?.cancel()
             startWorkItem = nil
             
@@ -96,7 +93,6 @@ struct HoldToRecordButton: UIViewRepresentable {
         }
         
         func touchCancelled() {
-            print("🎤 HoldToRecordButton: Touch CANCELLED")
             startWorkItem?.cancel()
             startWorkItem = nil
             
@@ -106,13 +102,11 @@ struct HoldToRecordButton: UIViewRepresentable {
             // This prevents accidental cancels from system gesture interference
             let recordingDuration = startTime.map { Date().timeIntervalSince($0) } ?? 0
             if recordingDuration > 0.3 {
-                print("🎤 HoldToRecordButton: Cancel after \(recordingDuration)s of recording")
                 hasStarted = false
                 startTime = nil
                 parent.onCancel()
             } else {
                 // Just reset state, don't cancel the recording
-                print("🎤 HoldToRecordButton: Ignoring short cancel (\(recordingDuration)s)")
                 hasStarted = false
                 startTime = nil
             }
@@ -158,10 +152,6 @@ import UniformTypeIdentifiers
 import BitLogger
 
 // MARK: - Supporting Types
-
-//
-
-//
 
 private struct MessageDisplayItem: Identifiable {
     let id: String
@@ -217,7 +207,7 @@ struct ContentView: View {
     @ScaledMetric(relativeTo: .body) private var headerHeight: CGFloat = 44
     @ScaledMetric(relativeTo: .subheadline) private var headerPeerIconSize: CGFloat = 11
     @ScaledMetric(relativeTo: .subheadline) private var headerPeerCountFontSize: CGFloat = 12
-    // Timer-based refresh removed; use LocationChannelManager live updates instead
+
     // Window sizes for rendering (infinite scroll up)
     @State private var windowCountPublic: Int = 300
     @State private var windowCountPrivate: [PeerID: Int] = [:]
@@ -271,10 +261,6 @@ struct ContentView: View {
         let isNostrAvailable: Bool
     }
     
-    // MARK: - Subviews
-    
-
-
     // MARK: - Body
 
     var body: some View {
@@ -2026,7 +2012,6 @@ private extension ContentView {
         isPreparingVoiceNote = true
         Task { @MainActor in
             let granted = await VoiceRecorder.shared.requestPermission()
-            // Ensure user is still holding the button (didn't cancel during permission prompt)
             guard isPreparingVoiceNote else { return }
             guard granted else {
                 isPreparingVoiceNote = false
@@ -2132,7 +2117,6 @@ private extension ContentView {
 
 
     func applicationFilesDirectory() -> URL? {
-        // Cache the directory lookup to avoid repeated FileManager calls during view rendering
         struct Cache {
             static var cachedURL: URL?
             static var didAttempt = false
