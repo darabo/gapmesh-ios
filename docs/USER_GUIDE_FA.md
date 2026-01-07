@@ -21,12 +21,10 @@
 
 ## شروع کار
 
-### مرحله ۱: نصب برنامه
+### گام ۱: نصب برنامه
+[دانلود Gap Mesh از TestFlight (به‌زودی در اپ استور)](https://testflight.apple.com/join/Vgbv1MTy)
 
-گپ مش را از **اپ استور** دانلود کنید:
-
-- در اپ استور «Gap Mesh» را جستجو کنید
-- یا از این لینک استفاده کنید: [Gap Mesh در اپ استور](https://apps.apple.com/us/app/bitchat-mesh/id6748219622)
+![qr code](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg)
 
 ### مرحله ۲: اعطای دسترسی‌ها
 
