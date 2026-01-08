@@ -1,6 +1,6 @@
 # BitChat Backwards Compatibility
 
-**Gap Mesh** is a fork of [@permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat) catered to the needs of Iranian users. This document confirms the protocol-level compatibility between the two apps.
+**Gap Mash** (also referred to as Gap Mesh in documentation) is a fork of [@permissionlesstech/bitchat](https://github.com/permissionlesstech/bitchat) catered to the needs of Iranian users. This document confirms the protocol-level compatibility between the two apps.
 
 ## Status: ✅ FULLY COMPATIBLE
 
