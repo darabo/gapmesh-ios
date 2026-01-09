@@ -1,6 +1,57 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "attachments.photo_library" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose from Gallery"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب از گالری"
+          }
+        }
+      }
+    },
+    "attachments.take_photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take Photo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عکس گرفتن"
+          }
+        }
+      }
+    },
+    "attachments.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attach Media"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیوست رسانه"
+          }
+        }
+      }
+    },
     "%@" : {
 
     },
@@ -10,181 +61,181 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash"
+            "value" : "Gap Mesh"
           }
         }
       }
@@ -6108,6 +6159,128 @@
           }
         }
       }
+    },
+    "attachments.button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attachments"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیوست‌ها"
+          }
+        }
+      }
+    },
+    "camera.take_photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take Photo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گرفتن عکس"
+          }
+        }
+      }
+    },
+    "channels.city" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "City"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شهر"
+          }
+        }
+      }
+    },
+    "channels.mesh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesh Network"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبکه مش"
+          }
+        }
+      }
+    },
+    "channels.nearby" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearby Devices"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "دستگاه‌های اطراف"
+          }
+        }
+      }
+    },
+    "channels.neighborhood" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Neighborhood"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محله"
+          }
+        }
+      }
+    },
+    "channels.region" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Region"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "منطقه"
+          }
+        }
+      }
+    },
+    "Choose Language" : {
+
     },
     "close" : {
       "comment" : "Button to dismiss fullscreen media viewer",
@@ -12510,19 +12683,19 @@
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ব্লুটুথ বন্ধ আছে। Gap Mash ব্যবহার করতে সেটিংসে ব্লুটুথ চালু করুন।"
+            "value" : "ব্লুটুথ বন্ধ আছে। Gap Mesh ব্যবহার করতে সেটিংসে ব্লুটুথ চালু করুন।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth ist ausgeschaltet. aktiviere bluetooth in den einstellungen, um Gap Mash zu verwenden."
+            "value" : "bluetooth ist ausgeschaltet. aktiviere bluetooth in den einstellungen, um Gap Mesh zu verwenden."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth is turned off. please turn on bluetooth in settings to use Gap Mash."
+            "value" : "bluetooth is turned off. please turn on bluetooth in settings to use Gap Mesh."
           }
         },
         "es" : {
@@ -12534,7 +12707,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "بلوتوث خاموش است. لطفاً برای استفاده از  Mash Gap Mash بلوتوث را در تنظیمات روشن کنید."
+            "value" : "بلوتوث خاموش است. لطفاً برای استفاده از  Mesh Gap Mesh بلوتوث را در تنظیمات روشن کنید."
           }
         },
         "fil" : {
@@ -12552,13 +12725,13 @@
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth כבוי. הפעל bluetooth בהגדרות כדי להשתמש ב-Gap Mash."
+            "value" : "bluetooth כבוי. הפעל bluetooth בהגדרות כדי להשתמש ב-Gap Mesh."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ब्लूटूथ बंद है। Gap Mash उपयोग करने के लिए सेटिंग्स में ब्लूटूथ चालू करें।"
+            "value" : "ब्लूटूथ बंद है। Gap Mesh उपयोग करने के लिए सेटिंग्स में ब्लूटूथ चालू करें।"
           }
         },
         "id" : {
@@ -12582,7 +12755,7 @@
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth가 꺼져 있습니다. Gap Mash을 사용하려면 설정에서 bluetooth를 켜주세요."
+            "value" : "bluetooth가 꺼져 있습니다. Gap Mesh을 사용하려면 설정에서 bluetooth를 켜주세요."
           }
         },
         "ms" : {
@@ -12594,13 +12767,13 @@
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth बन्द छ। Gap Mash प्रयोग गर्न bluetooth सेटिङमा अन गर।"
+            "value" : "bluetooth बन्द छ। Gap Mesh प्रयोग गर्न bluetooth सेटिङमा अन गर।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bluetooth staat uit. zet bluetooth aan in instellingen om Gap Mash te gebruiken."
+            "value" : "bluetooth staat uit. zet bluetooth aan in instellingen om Gap Mesh te gebruiken."
           }
         },
         "pl" : {
@@ -12636,7 +12809,7 @@
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth அணைக்கப்பட்டுள்ளது. Gap Mash பயன்படுத்த அமைப்பில் Bluetooth ஐ இயக்கவும்."
+            "value" : "Bluetooth அணைக்கப்பட்டுள்ளது. Gap Mesh பயன்படுத்த அமைப்பில் Bluetooth ஐ இயக்கவும்."
           }
         },
         "th" : {
@@ -12660,7 +12833,7 @@
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bluetooth بند ہے۔ Gap Mash استعمال کرنے کیلئے سیٹنگز میں Bluetooth آن کریں۔"
+            "value" : "Bluetooth بند ہے۔ Gap Mesh استعمال کرنے کیلئے سیٹنگز میں Bluetooth آن کریں۔"
           }
         },
         "vi" : {
@@ -12689,7 +12862,7 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "تحتاج Gap Mash إلى إذن bluetooth للاتصال بالأجهزة القريبة. فعّل الوصول في الإعدادات."
+            "value" : "تحتاج Gap Mesh إلى إذن bluetooth للاتصال بالأجهزة القريبة. فعّل الوصول في الإعدادات."
           }
         },
         "bn" : {
@@ -12701,13 +12874,13 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash benötigt bluetooth-berechtigung, um sich mit geräten in der nähe zu verbinden. erlaube den zugriff in den einstellungen."
+            "value" : "Gap Mesh benötigt bluetooth-berechtigung, um sich mit geräten in der nähe zu verbinden. erlaube den zugriff in den einstellungen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash needs bluetooth permission to connect with nearby devices. please enable bluetooth access in settings."
+            "value" : "Gap Mesh needs bluetooth permission to connect with nearby devices. please enable bluetooth access in settings."
           }
         },
         "es" : {
@@ -12719,43 +12892,43 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash به دسترسی بلوتوث نیاز دارد تا با دستگاه‌های نزدیک ارتباط برقرار کند. لطفاً دسترسی بلوتوث را در تنظیمات فعال کنید."
+            "value" : "Gap Mesh به دسترسی بلوتوث نیاز دارد تا با دستگاه‌های نزدیک ارتباط برقرار کند. لطفاً دسترسی بلوتوث را در تنظیمات فعال کنید."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "kailangan ng Gap Mash ng pahintulot sa bluetooth upang kumonekta sa mga kalapit na device. pakiactivate sa settings."
+            "value" : "kailangan ng Gap Mesh ng pahintulot sa bluetooth upang kumonekta sa mga kalapit na device. pakiactivate sa settings."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash a besoin de l'autorisation bluetooth pour se connecter aux appareils proches. active l'accès dans réglages."
+            "value" : "Gap Mesh a besoin de l'autorisation bluetooth pour se connecter aux appareils proches. active l'accès dans réglages."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash צריכה הרשאת bluetooth כדי להתחבר למכשירים קרובים. אפשר גישה בהגדרות."
+            "value" : "Gap Mesh צריכה הרשאת bluetooth כדי להתחבר למכשירים קרובים. אפשר גישה בהגדרות."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash को पास के उपकरणों से जुड़ने के लिए ब्लूटूथ अनुमति चाहिए। कृपया सेटिंग्स में ब्लूटूथ एक्सेस सक्षम करें।"
+            "value" : "Gap Mesh को पास के उपकरणों से जुड़ने के लिए ब्लूटूथ अनुमति चाहिए। कृपया सेटिंग्स में ब्लूटूथ एक्सेस सक्षम करें।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash memerlukan izin bluetooth untuk terhubung dengan perangkat dekat. aktifkan akses di pengaturan."
+            "value" : "Gap Mesh memerlukan izin bluetooth untuk terhubung dengan perangkat dekat. aktifkan akses di pengaturan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash richiede l'autorizzazione bluetooth per collegarsi ai dispositivi vicini. abilita l'accesso nelle impostazioni."
+            "value" : "Gap Mesh richiede l'autorizzazione bluetooth per collegarsi ai dispositivi vicini. abilita l'accesso nelle impostazioni."
           }
         },
         "ja" : {
@@ -12773,61 +12946,61 @@
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash memerlukan kebenaran Bluetooth untuk disambungkan kepada peranti berhampiran. Benarkan capaian dalam Tetapan."
+            "value" : "Gap Mesh memerlukan kebenaran Bluetooth untuk disambungkan kepada peranti berhampiran. Benarkan capaian dalam Tetapan."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash लाई नजिकका उपकरणसँग जडान हुन bluetooth अनुमति चाहिन्छ। सेटिङमा पहुँच सक्षम गर।"
+            "value" : "Gap Mesh लाई नजिकका उपकरणसँग जडान हुन bluetooth अनुमति चाहिन्छ। सेटिङमा पहुँच सक्षम गर।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash heeft bluetooth-toegang nodig om verbinding te maken met apparaten in de buurt. schakel dit in bij instellingen."
+            "value" : "Gap Mesh heeft bluetooth-toegang nodig om verbinding te maken met apparaten in de buurt. schakel dit in bij instellingen."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash potrzebuje uprawnień bluetooth, aby łączyć się z pobliskimi urządzeniami. włącz dostęp w ustawieniach."
+            "value" : "Gap Mesh potrzebuje uprawnień bluetooth, aby łączyć się z pobliskimi urządzeniami. włącz dostęp w ustawieniach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "O Gap Mash precisa de autorização de Bluetooth para se ligar a dispositivos próximos. Ativa o acesso em Definições."
+            "value" : "O Gap Mesh precisa de autorização de Bluetooth para se ligar a dispositivos próximos. Ativa o acesso em Definições."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash precisa de permissão de bluetooth para conectar com dispositivos próximos. habilite o acesso em ajustes."
+            "value" : "Gap Mesh precisa de permissão de bluetooth para conectar com dispositivos próximos. habilite o acesso em ajustes."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash нужен доступ к bluetooth, чтобы соединяться с ближайшими устройствами. включи разрешение в настройках."
+            "value" : "Gap Mesh нужен доступ к bluetooth, чтобы соединяться с ближайшими устройствами. включи разрешение в настройках."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash behöver bluetooth-behörighet för att ansluta till enheter i närheten. aktivera åtkomst i inställningar."
+            "value" : "Gap Mesh behöver bluetooth-behörighet för att ansluta till enheter i närheten. aktivera åtkomst i inställningar."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "அருகிலுள்ள சாதனங்களை இணைக்க Gap Mash க்கு Bluetooth அனுமதி தேவை. அமைப்பில் அனுமதி வழங்கவும்."
+            "value" : "அருகிலுள்ள சாதனங்களை இணைக்க Gap Mesh க்கு Bluetooth அனுமதி தேவை. அமைப்பில் அனுமதி வழங்கவும்."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash ต้องการสิทธิ์ Bluetooth เพื่อเชื่อมต่อกับอุปกรณ์ใกล้เคียง กรุณาเปิดสิทธิ์ในตั้งค่า"
+            "value" : "Gap Mesh ต้องการสิทธิ์ Bluetooth เพื่อเชื่อมต่อกับอุปกรณ์ใกล้เคียง กรุณาเปิดสิทธิ์ในตั้งค่า"
           }
         },
         "tr" : {
@@ -12839,31 +13012,31 @@
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash потребує дозволу bluetooth для з'єднання з пристроями поруч. ввімкни доступ у налаштуваннях."
+            "value" : "Gap Mesh потребує дозволу bluetooth для з'єднання з пристроями поруч. ввімкни доступ у налаштуваннях."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "قریب کے آلات سے جڑنے کیلئے Gap Mash کو Bluetooth اجازت درکار ہے۔ سیٹنگز میں رسائی فعال کریں۔"
+            "value" : "قریب کے آلات سے جڑنے کیلئے Gap Mesh کو Bluetooth اجازت درکار ہے۔ سیٹنگز میں رسائی فعال کریں۔"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash cần quyền bluetooth để kết nối thiết bị gần. hãy bật quyền trong cài đặt."
+            "value" : "Gap Mesh cần quyền bluetooth để kết nối thiết bị gần. hãy bật quyền trong cài đặt."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash 需要 bluetooth 权限以连接附近设备。请在设置中启用访问。"
+            "value" : "Gap Mesh 需要 bluetooth 权限以连接附近设备。请在设置中启用访问。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash 需要 bluetooth 權限以連線至附近裝置。請在設定中啟用存取權限。"
+            "value" : "Gap Mesh 需要 bluetooth 權限以連線至附近裝置。請在設定中啟用存取權限。"
           }
         }
       }
@@ -13244,25 +13417,25 @@
         "ar" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "هذا الجهاز لا يدعم bluetooth. يحتاج Gap Mash إلى bluetooth للعمل."
+            "value" : "هذا الجهاز لا يدعم bluetooth. يحتاج Gap Mesh إلى bluetooth للعمل."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "এই ডিভাইস ব্লুটুথ সমর্থন করে না। Gap Mash চালাতে ব্লুটুথ দরকার।"
+            "value" : "এই ডিভাইস ব্লুটুথ সমর্থন করে না। Gap Mesh চালাতে ব্লুটুথ দরকার।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "dieses gerät unterstützt kein bluetooth. Gap Mash benötigt bluetooth zum funktionieren."
+            "value" : "dieses gerät unterstützt kein bluetooth. Gap Mesh benötigt bluetooth zum funktionieren."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "this device does not support bluetooth. Gap Mash requires bluetooth to function."
+            "value" : "this device does not support bluetooth. Gap Mesh requires bluetooth to function."
           }
         },
         "es" : {
@@ -13274,43 +13447,43 @@
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "این دستگاه از بلوتوث پشتیبانی نمی‌کند.  Mash Gap Mash برای کار کردن به بلوتوث نیاز دارد."
+            "value" : "این دستگاه از بلوتوث پشتیبانی نمی‌کند.  Mesh Gap Mesh برای کار کردن به بلوتوث نیاز دارد."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "hindi sinusuportahan ng device na ito ang bluetooth. kailangan ito ng Gap Mash para gumana."
+            "value" : "hindi sinusuportahan ng device na ito ang bluetooth. kailangan ito ng Gap Mesh para gumana."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "cet appareil ne prend pas en charge le bluetooth. Gap Mash en a besoin pour fonctionner."
+            "value" : "cet appareil ne prend pas en charge le bluetooth. Gap Mesh en a besoin pour fonctionner."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "המכשיר הזה לא תומך ב-bluetooth. Gap Mash זקוקה ל-bluetooth כדי לעבוד."
+            "value" : "המכשיר הזה לא תומך ב-bluetooth. Gap Mesh זקוקה ל-bluetooth כדי לעבוד."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "यह डिवाइस ब्लूटूथ समर्थित नहीं है। Gap Mash चलाने के लिए ब्लूटूथ जरूरी है।"
+            "value" : "यह डिवाइस ब्लूटूथ समर्थित नहीं है। Gap Mesh चलाने के लिए ब्लूटूथ जरूरी है।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "perangkat ini tidak mendukung bluetooth. Gap Mash memerlukan bluetooth untuk berjalan."
+            "value" : "perangkat ini tidak mendukung bluetooth. Gap Mesh memerlukan bluetooth untuk berjalan."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "questo dispositivo non supporta bluetooth. Gap Mash richiede bluetooth per funzionare."
+            "value" : "questo dispositivo non supporta bluetooth. Gap Mesh richiede bluetooth per funzionare."
           }
         },
         "ja" : {
@@ -13328,61 +13501,61 @@
         "ms" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Peranti ini tidak menyokong Bluetooth. Gap Mash memerlukan Bluetooth untuk berfungsi."
+            "value" : "Peranti ini tidak menyokong Bluetooth. Gap Mesh memerlukan Bluetooth untuk berfungsi."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "यो उपकरणले bluetooth समर्थन गर्दैन। Gap Mash चलाउन bluetooth चाहिन्छ।"
+            "value" : "यो उपकरणले bluetooth समर्थन गर्दैन। Gap Mesh चलाउन bluetooth चाहिन्छ।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "dit apparaat ondersteunt geen bluetooth. Gap Mash heeft bluetooth nodig om te werken."
+            "value" : "dit apparaat ondersteunt geen bluetooth. Gap Mesh heeft bluetooth nodig om te werken."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "to urządzenie nie obsługuje bluetooth. Gap Mash wymaga bluetooth do działania."
+            "value" : "to urządzenie nie obsługuje bluetooth. Gap Mesh wymaga bluetooth do działania."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Este dispositivo não suporta Bluetooth. O Gap Mash precisa de Bluetooth para funcionar."
+            "value" : "Este dispositivo não suporta Bluetooth. O Gap Mesh precisa de Bluetooth para funcionar."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "este dispositivo não suporta bluetooth. Gap Mash precisa de bluetooth para funcionar."
+            "value" : "este dispositivo não suporta bluetooth. Gap Mesh precisa de bluetooth para funcionar."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "это устройство не поддерживает bluetooth. Gap Mash нужен bluetooth для работы."
+            "value" : "это устройство не поддерживает bluetooth. Gap Mesh нужен bluetooth для работы."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "denna enhet stöder inte bluetooth. Gap Mash behöver bluetooth för att fungera."
+            "value" : "denna enhet stöder inte bluetooth. Gap Mesh behöver bluetooth för att fungera."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "இந்த சாதனம் Bluetooth ஐ ஆதரிக்காது. Gap Mash இயங்க Bluetooth தேவை."
+            "value" : "இந்த சாதனம் Bluetooth ஐ ஆதரிக்காது. Gap Mesh இயங்க Bluetooth தேவை."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "อุปกรณ์นี้ไม่รองรับ Bluetooth การใช้งาน Gap Mash ต้องใช้ Bluetooth"
+            "value" : "อุปกรณ์นี้ไม่รองรับ Bluetooth การใช้งาน Gap Mesh ต้องใช้ Bluetooth"
           }
         },
         "tr" : {
@@ -13394,31 +13567,31 @@
         "uk" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "цей пристрій не підтримує bluetooth. Gap Mash потрібен bluetooth для роботи."
+            "value" : "цей пристрій не підтримує bluetooth. Gap Mesh потрібен bluetooth для роботи."
           }
         },
         "ur" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "یہ ڈیوائس Bluetooth کو سپورٹ نہیں کرتی۔ Gap Mash کو چلنے کیلئے Bluetooth چاہیے۔"
+            "value" : "یہ ڈیوائس Bluetooth کو سپورٹ نہیں کرتی۔ Gap Mesh کو چلنے کیلئے Bluetooth چاہیے۔"
           }
         },
         "vi" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "thiết bị này không hỗ trợ bluetooth. Gap Mash cần bluetooth để hoạt động."
+            "value" : "thiết bị này không hỗ trợ bluetooth. Gap Mesh cần bluetooth để hoạt động."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "此设备不支持 bluetooth。Gap Mash 需要 bluetooth 才能运行。"
+            "value" : "此设备不支持 bluetooth。Gap Mesh 需要 bluetooth 才能运行。"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "此裝置不支持 bluetooth。Gap Mash 需要 bluetooth 才能運行。"
+            "value" : "此裝置不支持 bluetooth。Gap Mesh 需要 bluetooth 才能運行。"
           }
         }
       }
@@ -20085,6 +20258,23 @@
         }
       }
     },
+    "content.recording_hint" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hold to record"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نگه دارید برای ضبط"
+          }
+        }
+      }
+    },
     "content.recording.could_not_start" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -24055,6 +24245,12 @@
         }
       }
     },
+    "Gap Mesh" : {
+
+    },
+    "Gap Mesh/" : {
+
+    },
     "geohash_people.action.block" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -24986,13 +25182,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash uses Bluetooth to create a secure mesh network for chatting with nearby users."
+            "value" : "Gap Mesh uses Bluetooth to create a secure mesh network for chatting with nearby users."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash از بلوتوث برای ایجاد یک شبکه مش امن برای گفتگو با کاربران نزدیک استفاده می‌کند."
+            "value" : "Gap Mesh از بلوتوث برای ایجاد یک شبکه مش امن برای گفتگو با کاربران نزدیک استفاده می‌کند."
           }
         }
       }
@@ -25003,13 +25199,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash uses Bluetooth to discover and connect with other Gap Mash users nearby."
+            "value" : "Gap Mesh uses Bluetooth to discover and connect with other Gap Mesh users nearby."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash از بلوتوث برای کشف و اتصال به سایر کاربران Gap Mash در نزدیکی استفاده می‌کند."
+            "value" : "Gap Mesh از بلوتوث برای کشف و اتصال به سایر کاربران Gap Mesh در نزدیکی استفاده می‌کند."
           }
         }
       }
@@ -25020,13 +25216,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash uses the camera to scan QR codes to verify peers."
+            "value" : "Gap Mesh uses the camera to scan QR codes to verify peers."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash از دوربین برای اسکن کدهای QR و تأیید همتایان استفاده می‌کند."
+            "value" : "Gap Mesh از دوربین برای اسکن کدهای QR و تأیید همتایان استفاده می‌کند."
           }
         }
       }
@@ -25037,13 +25233,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared."
+            "value" : "Gap Mesh uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash از موقعیت تقریبی شما برای محاسبه کانال‌های جغرافیایی محلی برای چت‌های عمومی اختیاری استفاده می‌کند. GPS دقیق هرگز به اشتراک گذاشته نمی‌شود."
+            "value" : "Gap Mesh از موقعیت تقریبی شما برای محاسبه کانال‌های جغرافیایی محلی برای چت‌های عمومی اختیاری استفاده می‌کند. GPS دقیق هرگز به اشتراک گذاشته نمی‌شود."
           }
         }
       }
@@ -25054,13 +25250,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash uses the microphone to record voice notes that relay across the mesh."
+            "value" : "Gap Mesh uses the microphone to record voice notes that relay across the mesh."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash از میکروفون برای ضبط یادداشت‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند."
+            "value" : "Gap Mesh از میکروفون برای ضبط یادداشت‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند."
           }
         }
       }
@@ -25071,13 +25267,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Gap Mash lets you pick images from your photo library to share with nearby peers."
+            "value" : "Gap Mesh lets you pick images from your photo library to share with nearby peers."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Gap Mash به شما امکان می‌دهد تصاویر را از کتابخانه عکس خود انتخاب کنید تا با همتایان نزدیک به اشتراک بگذارید."
+            "value" : "Gap Mesh به شما امکان می‌دهد تصاویر را از کتابخانه عکس خود انتخاب کنید تا با همتایان نزدیک به اشتراک بگذارید."
           }
         }
       }
@@ -25448,23 +25644,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "移除位置存取權"
-          }
-        }
-      }
-    },
-    "location_channels.permission_privacy_note" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Required for location channels. Your location is never shared—only a geohash is used locally to connect you with nearby users via Tor."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "برای کانال‌های مکانی لازم است. موقعیت شما هرگز به اشتراک گذاشته نمی‌شود—فقط یک geohash به صورت محلی برای اتصال شما به کاربران نزدیک از طریق Tor استفاده می‌شود."
           }
         }
       }
@@ -26949,6 +27128,23 @@
         }
       }
     },
+    "location_channels.permission_privacy_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required for location channels. Your location is never shared—only a geohash is used locally to connect you with nearby users via Tor."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای کانال‌های مکانی لازم است. موقعیت شما هرگز به اشتراک گذاشته نمی‌شود—فقط یک geohash به صورت محلی برای اتصال شما به کاربران نزدیک از طریق Tor استفاده می‌شود."
+          }
+        }
+      }
+    },
     "location_channels.row_title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -28069,6 +28265,652 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "#位置頻道"
+          }
+        }
+      }
+    },
+    "onboarding.welcome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Gap Mesh"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "به گپ مش خوش آمدید"
+          }
+        }
+      }
+    },
+    "onboarding.identity_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your digital identity on the Mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هویت دیجیتال شما در مِش."
+          }
+        }
+      }
+    },
+    "onboarding.username_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Username"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام کاربری شما"
+          }
+        }
+      }
+    },
+    "onboarding.privacy_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note: Changing your username from the anonymous default may reduce your privacy if you choose a recognizable name."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توجه: تغییر نام کاربری از حالت ناشناس ممکن است حریم خصوصی شما را کاهش دهد اگر نام قابل شناسایی انتخاب کنید."
+          }
+        }
+      }
+    },
+    "onboarding.mesh_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How the Mesh Works"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مِش چگونه کار می‌کند"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mesh creates an offline network using Bluetooth. Messages hop from phone to phone. All chats are encrypted and never shared with any central server."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گپ مش یک شبکهٔ آفلاین با بلوتوث ایجاد می‌کند. پیام‌ها بین گوشی‌ها جابه‌جا می‌شوند. همهٔ چت‌ها رمزگذاری شده و هرگز با هیچ سرور مرکزی به اشتراک گذاشته نمی‌شوند."
+          }
+        }
+      }
+    },
+    "onboarding.features_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features & Status"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ویژگی‌ها و وضعیت"
+          }
+        }
+      }
+    },
+    "onboarding.feature_geo_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohashes (Location Chat)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مکانی (Geohash)"
+          }
+        }
+      }
+    },
+    "onboarding.feature_geo_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect with people in your precise area. Requires Tor connection (needs internet) to sync with the global location grid."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "با افراد در منطقهٔ دقیق خود ارتباط برقرار کنید. نیاز به اتصال Tor (اینترنت) برای همگام‌سازی با شبکهٔ جهانی مکان دارد."
+          }
+        }
+      }
+    },
+    "onboarding.feature_notes_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Notes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های مکانی"
+          }
+        }
+      }
+    },
+    "onboarding.feature_notes_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave digital notes at your current location. Others who visit this spot can read them. Like a digital graffiti wall!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های دیجیتال در موقعیت فعلی خود بگذارید. دیگران که از این نقطه بازدید می‌کنند می‌توانند آن‌ها را بخوانند. مثل دیوارنویسی دیجیتال!"
+          }
+        }
+      }
+    },
+    "onboarding.status_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection Status Icons"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آیکون‌های وضعیت اتصال"
+          }
+        }
+      }
+    },
+    "onboarding.status_green" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سبز"
+          }
+        }
+      }
+    },
+    "onboarding.status_green_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected / Online"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متصل / آنلاین"
+          }
+        }
+      }
+    },
+    "onboarding.status_orange" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نارنجی"
+          }
+        }
+      }
+    },
+    "onboarding.status_orange_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting / Starting"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال اتصال / راه‌اندازی"
+          }
+        }
+      }
+    },
+    "onboarding.status_red" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قرمز"
+          }
+        }
+      }
+    },
+    "onboarding.status_red_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnected / Offline"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قطع / آفلاین"
+          }
+        }
+      }
+    },
+    "onboarding.status_dynamic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The status dot is dynamic:\n• In Mesh chat: local mesh status\n• In Location chat: Tor status"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نقطهٔ وضعیت پویاست:\n• در چت مِش: وضعیت مِش محلی\n• در چت مکانی: وضعیت Tor"
+          }
+        }
+      }
+    },
+    "onboarding.emergency_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emergency Data Wipe"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاکسازی اضطراری داده"
+          }
+        }
+      }
+    },
+    "onboarding.emergency_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Triple-tap the Gap Mesh header to immediately wipe all data, keys, and messages."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سه بار روی عنوان گپ مش در سربرگ ضربه بزنید تا همهٔ داده‌ها، کلیدها و پیام‌ها فوراً پاک شوند."
+          }
+        }
+      }
+    },
+    "onboarding.next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعدی"
+          }
+        }
+      }
+    },
+    "onboarding.get_started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروع کنید"
+          }
+        }
+      }
+    },
+    "onboarding.language_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Your Language"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زبان خود را انتخاب کنید"
+          }
+        }
+      }
+    },
+    "onboarding.language_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your preferred language for the app."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زبان دلخواه خود را برای برنامه انتخاب کنید."
+          }
+        }
+      }
+    },
+    "onboarding.mesh_offline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Works offline via Bluetooth"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آفلاین از طریق بلوتوث کار می‌کند"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_encrypted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End-to-end encrypted"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزگذاری سرتاسری"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_noserver" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No central servers"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون سرور مرکزی"
+          }
+        }
+      }
+    },
+    "onboarding.permissions_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable Permissions"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال کردن مجوزها"
+          }
+        }
+      }
+    },
+    "onboarding.permissions_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mesh needs these permissions to work properly. Tap each to allow."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا اجازه دهید."
+          }
+        }
+      }
+    },
+    "onboarding.permission_bluetooth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بلوتوث"
+          }
+        }
+      }
+    },
+    "onboarding.permission_bluetooth_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required for mesh network communication"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای ارتباط شبکهٔ مِش لازم است"
+          }
+        }
+      }
+    },
+    "onboarding.permission_location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "موقعیت مکانی"
+          }
+        }
+      }
+    },
+    "onboarding.permission_location_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For geohash channels and location notes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای کانال‌های مکانی و یادداشت‌ها"
+          }
+        }
+      }
+    },
+    "onboarding.permission_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعلان‌ها"
+          }
+        }
+      }
+    },
+    "onboarding.permission_notifications_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get notified about new messages"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از پیام‌های جدید مطلع شوید"
+          }
+        }
+      }
+    },
+    "onboarding.permission_allow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اجازه"
+          }
+        }
+      }
+    },
+    "location_channels.tor.warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohash channels require Tor to function."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های جغرافیایی برای کارکردن به Tor نیاز دارند."
           }
         }
       }
@@ -32712,8 +33554,22 @@
         }
       }
     },
-    "recording %@" : {
-      "comment" : "Voice note recording duration indicator"
+    "photos.library" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Photo Library"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کتابخانه عکس‌ها"
+          }
+        }
+      }
     },
     "save" : {
       "comment" : "Button to save media to device",
@@ -32896,6 +33752,125 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "儲存"
+          }
+        }
+      }
+    },
+    "settings.features" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ویژگی‌ها"
+          }
+        }
+      }
+    },
+    "settings.help_info" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Help & Info"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "راهنما و اطلاعات"
+          }
+        }
+      }
+    },
+    "settings.how_to_use" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How to Use"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "راهنمای استفاده"
+          }
+        }
+      }
+    },
+    "settings.language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Language"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زبان"
+          }
+        }
+      }
+    },
+    "settings.profile" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Profile"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نمایه"
+          }
+        }
+      }
+    },
+    "settings.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنظیمات"
+          }
+        }
+      }
+    },
+    "settings.warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Warning"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هشدار"
           }
         }
       }
@@ -37558,6 +38533,9 @@
           }
         }
       }
+    },
+    "زبان را انتخاب کنید" : {
+
     }
   },
   "version" : "1.1"

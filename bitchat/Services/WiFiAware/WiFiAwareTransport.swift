@@ -19,7 +19,7 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     // MARK: - Constants
     
     /// Service name for WiFi Aware discovery (must match Info.plist)
-    static let serviceName = "_gapmash._udp"
+    static let serviceName = "_gapmesh._udp"
     
     // MARK: - Transport Protocol Properties
     
@@ -58,7 +58,7 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     // MARK: - State
     
     private var isRunning = false
-    private let queue = DispatchQueue(label: "com.gapmash.wifiaware", qos: .userInitiated)
+    private let queue = DispatchQueue(label: "com.gapmesh.wifiaware", qos: .userInitiated)
     
     /// Lock for thread-safe connection management
     private let lock = NSLock()

@@ -15,7 +15,7 @@ struct LocationChannelsSheet: View {
     @State private var customGeohash: String = ""
     @State private var customError: String? = nil
 
-    private var backgroundColor: Color { colorScheme == .dark ? .black : .white }
+    private var backgroundColor: Color { Theme.background(colorScheme) }
 
     private enum Strings {
         static let title: LocalizedStringKey = "location_channels.title"
@@ -30,6 +30,7 @@ struct LocationChannelsSheet: View {
         static let removeAccess: LocalizedStringKey = "location_channels.action.remove_access"
         static let torTitle: LocalizedStringKey = "location_channels.tor.title"
         static let torSubtitle: LocalizedStringKey = "location_channels.tor.subtitle"
+        static let torWarning: LocalizedStringKey = "location_channels.tor.warning"
         static let toggleOn: LocalizedStringKey = "common.toggle.on"
         static let toggleOff: LocalizedStringKey = "common.toggle.off"
 
@@ -228,10 +229,11 @@ struct LocationChannelsSheet: View {
                         .padding(.vertical, 8)
                 }
 
+                sectionDivider
+                torToggleSection
+                    .padding(.top, 12)
+
                 if manager.permissionState == LocationChannelManager.PermissionState.authorized {
-                    sectionDivider
-                    torToggleSection
-                        .padding(.top, 12)
                     Button(action: {
                         openSystemLocationSettings()
                     }) {
@@ -279,6 +281,7 @@ struct LocationChannelsSheet: View {
                     .textInputAutocapitalization(.never)
                     .autocorrectionDisabled(true)
                     .keyboardType(.asciiCapable)
+                    .submitLabel(.go)
                     #endif
                     .font(.bitchatSystem(size: 14, design: .monospaced))
                     .onChange(of: customGeohash) { newValue in
@@ -293,19 +296,18 @@ struct LocationChannelsSheet: View {
                             customGeohash = filtered
                         }
                     }
+                    .onSubmit {
+                        submitCustomGeohash()
+                    }
+                
                 let normalized = customGeohash
                     .trimmingCharacters(in: .whitespacesAndNewlines)
                     .lowercased()
                     .replacingOccurrences(of: "#", with: "")
                 let isValid = validateGeohash(normalized)
+                
                 Button(action: {
-                    let gh = normalized
-                    guard isValid else { customError = Strings.invalidGeohash; return }
-                    let level = levelForLength(gh.count)
-                    let ch = GeohashChannel(level: level, geohash: gh)
-                    manager.markTeleported(for: ch.geohash, true)
-                    manager.select(ChannelID.location(ch))
-                    isPresented = false
+                    submitCustomGeohash()
                 }) {
                     HStack(spacing: 6) {
                         Text(Strings.teleport)
@@ -329,6 +331,27 @@ struct LocationChannelsSheet: View {
                     .foregroundColor(.red)
             }
         }
+    }
+    
+    private func submitCustomGeohash() {
+        let normalized = customGeohash
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+            .replacingOccurrences(of: "#", with: "")
+        
+        guard validateGeohash(normalized) else {
+            customError = Strings.invalidGeohash
+            return
+        }
+        
+        // Clear error
+        customError = nil
+        
+        let level = levelForLength(normalized.count)
+        let ch = GeohashChannel(level: level, geohash: normalized)
+        manager.markTeleported(for: ch.geohash, true)
+        manager.select(ChannelID.location(ch))
+        isPresented = false
     }
 
     private func bookmarkedSection(_ entries: [String]) -> some View {
@@ -497,6 +520,19 @@ extension LocationChannelsSheet {
                 }
             }
             .toggleStyle(IRCToggleStyle(accent: standardGreen, onLabel: Strings.toggleOn, offLabel: Strings.toggleOff))
+            
+            if !network.userTorEnabled {
+                HStack(alignment: .top, spacing: 6) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.bitchatSystem(size: 11))
+                        .foregroundColor(.orange)
+                    Text(Strings.torWarning)
+                        .font(.bitchatSystem(size: 11, design: .monospaced))
+                        .foregroundColor(.orange)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.top, 4)
+            }
         }
         .padding(12)
         .background(Color.secondary.opacity(0.12))
@@ -504,10 +540,10 @@ extension LocationChannelsSheet {
     }
 
     private var standardGreen: Color {
-        (colorScheme == .dark) ? Color.green : Color(red: 0, green: 0.5, blue: 0)
+        Theme.legacyGreen(colorScheme)
     }
     private var standardBlue: Color {
-        Color(red: 0.0, green: 0.478, blue: 1.0)
+        Theme.meshChannel
     }
 }
 

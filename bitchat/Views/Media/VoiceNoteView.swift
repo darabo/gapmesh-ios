@@ -27,11 +27,11 @@ struct VoiceNoteView: View {
     }
 
     private var backgroundColor: Color {
-        colorScheme == .dark ? Color.black.opacity(0.6) : Color.white
+        Theme.background(colorScheme).opacity(colorScheme == .dark ? 0.6 : 1.0)
     }
 
     private var borderColor: Color {
-        colorScheme == .dark ? Color.green.opacity(0.3) : Color.green.opacity(0.2)
+        Theme.legacyGreen(colorScheme).opacity(colorScheme == .dark ? 0.3 : 0.2)
     }
 
     private var durationText: String {

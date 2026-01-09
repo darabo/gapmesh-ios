@@ -8,7 +8,7 @@
 import Testing
 import CryptoKit
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct NostrProtocolTests {
     

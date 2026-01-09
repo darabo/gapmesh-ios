@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct NotificationStreamAssemblerTests {
     private func makePacket(timestamp: UInt64 = 0x0102030405) -> BitchatPacket {

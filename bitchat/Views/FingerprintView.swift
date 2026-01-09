@@ -15,11 +15,11 @@ struct FingerprintView: View {
     @Environment(\.colorScheme) var colorScheme
     
     private var textColor: Color {
-        colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
+        Theme.legacyGreen(colorScheme)
     }
     
     private var backgroundColor: Color {
-        colorScheme == .dark ? Color.black : Color.white
+        Theme.background(colorScheme)
     }
 
     private enum Strings {

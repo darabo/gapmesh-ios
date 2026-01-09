@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Tor
 #if os(iOS)
 import UIKit
 
@@ -177,6 +178,8 @@ struct ContentView: View {
     @ObservedObject private var locationManager = LocationChannelManager.shared
     @ObservedObject private var bookmarks = GeohashBookmarksStore.shared
     @State private var messageText = ""
+    @AppStorage("onboarding_seen") private var onboardingSeen: Bool = false
+    @State private var showOnboarding: Bool = false
     @FocusState private var isTextFieldFocused: Bool
     @Environment(\.colorScheme) var colorScheme
     @Environment(\.dismiss) private var dismiss
@@ -210,6 +213,7 @@ struct ContentView: View {
     @State private var recordingStartDate: Date?
 #if os(iOS)
     @State private var showImagePicker = false
+    @State private var showAttachmentOptions = false
     @State private var imagePickerSourceType: UIImagePickerController.SourceType = .camera
 #else
     @State private var showMacImagePicker = false
@@ -225,16 +229,17 @@ struct ContentView: View {
     // MARK: - Computed Properties
     
     private var backgroundColor: Color {
-        colorScheme == .dark ? Color.black : Color.white
+        Theme.background(colorScheme)
     }
 
     private var textColor: Color {
-        colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
+        Theme.legacyGreen(colorScheme)
     }
 
     private var secondaryTextColor: Color {
-        colorScheme == .dark ? Color.green.opacity(0.8) : Color(red: 0, green: 0.5, blue: 0).opacity(0.8)
+        Theme.legacyGreenSecondary(colorScheme)
     }
+
 
     private var headerLineLimit: Int? {
         dynamicTypeSize.isAccessibilitySize ? 2 : 1
@@ -373,6 +378,16 @@ struct ContentView: View {
             }
             .environmentObject(viewModel)
             .ignoresSafeArea()
+        }
+        // Onboarding screen for first-time users
+        .fullScreenCover(isPresented: $showOnboarding) {
+            OnboardingView(isPresented: $showOnboarding)
+                .environmentObject(viewModel)
+        }
+        .onAppear {
+            if !onboardingSeen {
+                showOnboarding = true
+            }
         }
 #endif
 #if os(macOS)
@@ -721,7 +736,7 @@ struct ContentView: View {
 
     @ViewBuilder
     private var inputView: some View {
-        VStack(alignment: .leading, spacing: 6) {
+        VStack(alignment: .leading, spacing: 0) {
             // @mentions autocomplete
             if viewModel.showAutocomplete && !viewModel.autocompleteSuggestions.isEmpty {
                 VStack(alignment: .leading, spacing: 0) {
@@ -747,7 +762,7 @@ struct ContentView: View {
                 .background(backgroundColor)
                 .overlay(
                     RoundedRectangle(cornerRadius: 4)
-                        .stroke(secondaryTextColor.opacity(0.3), lineWidth: 1)
+                        .stroke(Theme.secondaryText(colorScheme).opacity(0.3), lineWidth: 1)
                 )
                 .padding(.horizontal, 12)
             }
@@ -762,34 +777,60 @@ struct ContentView: View {
             // Recording indicator
             if isPreparingVoiceNote || isRecordingVoiceNote {
                 recordingIndicator
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 6)
             }
 
-            HStack(alignment: .center, spacing: 4) {
+            HStack(alignment: .bottom, spacing: 10) {
+                if shouldShowMediaControls {
+                    Button(action: { showAttachmentOptions = true }) {
+                        Image(systemName: "camera.fill")
+                            .font(.bitchatSystem(size: 20, weight: .regular))
+                            .foregroundColor(composerAccentColor)
+                            .frame(width: 36, height: 36)
+                            .background(Theme.surface(colorScheme))
+                            .clipShape(Circle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(String(localized: "attachments.button"))
+                    .confirmationDialog(
+                        String(localized: "attachments.title"),
+                        isPresented: $showAttachmentOptions,
+                        titleVisibility: .visible
+                    ) {
+                        Button(String(localized: "attachments.take_photo")) {
+                            imagePickerSourceType = .camera
+                            showImagePicker = true
+                        }
+                        Button(String(localized: "attachments.photo_library")) {
+                            imagePickerSourceType = .photoLibrary
+                            showImagePicker = true
+                        }
+                        Button(String(localized: "common.cancel"), role: .cancel) {}
+                    }
+                }
+
                 TextField(
                     "",
                     text: $messageText,
-                    prompt: Text(
-                        String(localized: "content.input.message_placeholder", comment: "Placeholder shown in the chat composer")
-                    )
-                    .foregroundColor(secondaryTextColor.opacity(0.6))
+                    prompt: Text(String(localized: "content.input.message_placeholder"))
+                        .foregroundColor(Theme.secondaryText(colorScheme).opacity(0.6)),
+                    axis: .vertical
                 )
                 .textFieldStyle(.plain)
-                .font(.bitchatSystem(size: 15, design: .monospaced))
+                .font(.bitchatSystem(size: 16))
                 .foregroundColor(textColor)
                 .focused($isTextFieldFocused)
                 .autocorrectionDisabled(true)
-#if os(iOS)
+                #if os(iOS)
                 .textInputAutocapitalization(.sentences)
-#endif
-                .submitLabel(.send)
-                .onSubmit { sendMessage() }
-                .padding(.vertical, 4)
-                .padding(.horizontal, 6)
-                .background(
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .fill(colorScheme == .dark ? Color.black.opacity(0.35) : Color.white.opacity(0.7))
-                )
-                .frame(maxWidth: .infinity, alignment: .leading)
+                #endif
+                .padding(.vertical, 10)
+                .padding(.horizontal, 12)
+                .background(Theme.surface(colorScheme))
+                .cornerRadius(20)
+                .lineLimit(1...5)
+                .frame(minHeight: 36)
                 .onChange(of: messageText) { newValue in
                     autocompleteDebounceTimer?.invalidate()
                     autocompleteDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { [weak viewModel] _ in
@@ -800,20 +841,14 @@ struct ContentView: View {
                     }
                 }
 
-                HStack(alignment: .center, spacing: 4) {
-                    if shouldShowMediaControls {
-                        attachmentButton
-                    }
-
-                    sendOrMicButton
-                }
+                sendOrMicButton
             }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            .background(backgroundColor.opacity(0.95))
         }
-        .padding(.horizontal, 6)
-        .padding(.top, 6)
-        .padding(.bottom, 8)
-        .background(backgroundColor.opacity(0.95))
     }
+
     
     private func handleOpenURL(_ url: URL) {
         guard url.scheme == "bitchat" else { return }
@@ -1343,194 +1378,182 @@ struct ContentView: View {
         switch locationManager.selectedChannel {
         case .location:
             let n = viewModel.geohashPeople.count
-            let standardGreen = (colorScheme == .dark) ? Color.green : Color(red: 0, green: 0.5, blue: 0)
-            return (n + 1, n > 0 ? standardGreen : Color.secondary)
+            return (n + 1, n > 0 ? Theme.legacyGreen(colorScheme) : Color.secondary)
         case .mesh:
             let counts = viewModel.allPeers.reduce(into: (others: 0, mesh: 0)) { counts, peer in
                 guard peer.peerID != viewModel.meshService.myPeerID else { return }
                 if peer.isConnected { counts.mesh += 1; counts.others += 1 }
                 else if peer.isReachable { counts.others += 1 }
             }
-            let meshBlue = Color(hue: 0.60, saturation: 0.85, brightness: 0.82)
-            let color: Color = counts.mesh > 0 ? meshBlue : Color.secondary
+            let color: Color = counts.mesh > 0 ? Theme.meshChannel : Color.secondary
             return (counts.others + 1, color)
         }
     }
 
     
     private var mainHeaderView: some View {
-        HStack(spacing: 0) {
-            Text(verbatim: "Gap Mash/")
-                .font(.bitchatSystem(size: 18, weight: .medium, design: .monospaced))
-                .foregroundColor(textColor)
-                .onTapGesture(count: 3) {
-                    // PANIC: Triple-tap to clear all data
+        VStack(spacing: 6) {
+            // Row 1: App Title & Channel
+            HStack {
+                Button(action: { showAppInfo = true }) {
+                    HStack(spacing: 6) {
+                        Text("Gap Mesh")
+                            .font(.bitchatSystem(size: 18, weight: .bold))
+                            .foregroundColor(textColor)
+                        Image(systemName: "info.circle")
+                            .font(.bitchatSystem(size: 16))
+                            .foregroundColor(Theme.secondaryText(colorScheme))
+                    }
+                }
+                .buttonStyle(.plain)
+                .simultaneousGesture(TapGesture(count: 3).onEnded {
                     viewModel.panicClearAllData()
-                }
-                .onTapGesture(count: 1) {
-                    // Single tap for app info
-                    showAppInfo = true
-                }
-            
-            HStack(spacing: 0) {
-                Text(verbatim: "@")
-                    .font(.bitchatSystem(size: 14, design: .monospaced))
-                    .foregroundColor(secondaryTextColor)
-                
-                TextField("content.input.nickname_placeholder", text: $viewModel.nickname)
-                    .textFieldStyle(.plain)
-                    .font(.bitchatSystem(size: 14, design: .monospaced))
-                    .frame(maxWidth: 80)
-                    .foregroundColor(textColor)
-                    .focused($isNicknameFieldFocused)
-                    .autocorrectionDisabled(true)
-                    #if os(iOS)
-                    .textInputAutocapitalization(.never)
-                    #endif
-                    .onChange(of: isNicknameFieldFocused) { isFocused in
-                        if !isFocused {
-                            // Only validate when losing focus
-                            viewModel.validateAndSaveNickname()
-                        }
-                    }
-                    .onSubmit {
-                        viewModel.validateAndSaveNickname()
-                    }
-            }
-            
-            Spacer()
-            
-            // Channel badge + dynamic spacing + people counter
-            // Precompute header count and color outside the ViewBuilder expressions
-            let cc = channelPeopleCountAndColor()
-            let headerCountColor: Color = cc.1
-            let headerOtherPeersCount: Int = {
-                if case .location = locationManager.selectedChannel {
-                    return viewModel.visibleGeohashPeople().count
-                }
-                return cc.0
-            }()
+                })
+                .accessibilityLabel(String(localized: "app_info.app_name"))
 
-            HStack(spacing: 10) {
-                // Unread icon immediately to the left of the channel badge (independent from channel button)
-                
-                // Unread indicator (now shown on iOS and macOS)
-                if viewModel.hasAnyUnreadMessages {
-                    Button(action: { viewModel.openMostRelevantPrivateChat() }) {
-                        Image(systemName: "envelope.fill")
-                            .font(.bitchatSystem(size: 12))
-                            .foregroundColor(Color.orange)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(
-                        String(localized: "content.accessibility.open_unread_private_chat", comment: "Accessibility label for the unread private chat button")
-                    )
-                }
-                // Notes icon (mesh only and when location is authorized), to the left of #mesh
-                if case .mesh = locationManager.selectedChannel, locationManager.permissionState == .authorized {
-                    Button(action: {
-                        // Kick a one-shot refresh and show the sheet immediately.
-                        LocationChannelManager.shared.enableLocationChannels()
-                        LocationChannelManager.shared.refreshChannels()
-                        // If we already have a block geohash, pass it; otherwise wait in the sheet.
-                        notesGeohash = LocationChannelManager.shared.availableChannels.first(where: { $0.level == .building })?.geohash
-                        showLocationNotes = true
-                    }) {
-                        HStack(alignment: .center, spacing: 4) {
-                            Image(systemName: "note.text")
-                                .font(.bitchatSystem(size: 12))
-                                .foregroundColor(Color.orange.opacity(0.8))
-                                .padding(.top, 1)
-                        }
-                        .fixedSize(horizontal: true, vertical: false)
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(
-                        String(localized: "content.accessibility.location_notes", comment: "Accessibility label for location notes button")
-                    )
-                }
+                Spacer()
 
-                // Bookmark toggle (geochats): to the left of #geohash
-                if case .location(let ch) = locationManager.selectedChannel {
-                    Button(action: { GeohashBookmarksStore.shared.toggle(ch.geohash) }) {
-                        Image(systemName: GeohashBookmarksStore.shared.isBookmarked(ch.geohash) ? "bookmark.fill" : "bookmark")
-                            .font(.bitchatSystem(size: 12))
-                    }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel(
-                        String(
-                            format: String(localized: "content.accessibility.toggle_bookmark", comment: "Accessibility label for toggling a geohash bookmark"),
-                            locale: .current,
-                            ch.geohash
-                        )
-                    )
-                }
-
-                // Location channels button '#'
+                // Channel Selector
                 Button(action: { showLocationChannelsSheet = true }) {
                     let badgeText: String = {
                         switch locationManager.selectedChannel {
-                        case .mesh: return "#mesh"
+                        case .mesh: return String(localized: "channels.mesh")
                         case .location(let ch): return "#\(ch.geohash)"
                         }
                     }()
                     let badgeColor: Color = {
                         switch locationManager.selectedChannel {
-                        case .mesh:
-                            return Color(hue: 0.60, saturation: 0.85, brightness: 0.82)
-                        case .location:
-                            return (colorScheme == .dark) ? Color.green : Color(red: 0, green: 0.5, blue: 0)
+                        case .mesh: return Theme.meshChannel
+                        case .location: return Theme.legacyGreen(colorScheme)
                         }
                     }()
-                    Text(badgeText)
-                        .font(.bitchatSystem(size: 14, design: .monospaced))
-                        .foregroundColor(badgeColor)
-                        .lineLimit(headerLineLimit)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .layoutPriority(2)
-                        .accessibilityLabel(
-                            String(localized: "content.accessibility.location_channels", comment: "Accessibility label for the location channels button")
-                        )
+                    
+                    HStack(spacing: 4) {
+                        Text(badgeText)
+                            .font(.bitchatSystem(size: 15, weight: .medium, design: .monospaced))
+                            .foregroundColor(badgeColor)
+                        Image(systemName: "chevron.down")
+                            .font(.bitchatSystem(size: 12, weight: .bold))
+                            .foregroundColor(badgeColor.opacity(0.7))
+                    }
+                    .padding(.vertical, 4)
+                    .padding(.horizontal, 8)
+                    .background(badgeColor.opacity(0.1))
+                    .cornerRadius(8)
                 }
                 .buttonStyle(.plain)
-                .padding(.leading, 4)
-                .padding(.trailing, 2)
-
-                HStack(spacing: 4) {
-                    // People icon with count
-                    Image(systemName: "person.2.fill")
-                        .font(.system(size: headerPeerIconSize, weight: .regular))
-                        .accessibilityLabel(
-                            String(
-                                format: String(localized: "content.accessibility.people_count", comment: "Accessibility label announcing number of people in header"),
-                                locale: .current,
-                                headerOtherPeersCount
-                            )
-                        )
-                    Text("\(headerOtherPeersCount)")
-                        .font(.system(size: headerPeerCountFontSize, weight: .regular, design: .monospaced))
-                        .accessibilityHidden(true)
-                }
-                .foregroundColor(headerCountColor)
-                .padding(.leading, 2)
-                .lineLimit(headerLineLimit)
-                .fixedSize(horizontal: true, vertical: false)
-
-                // QR moved to the PEOPLE header in the sidebar when on mesh channel
+                .accessibilityLabel(String(localized: "content.accessibility.location_channels"))
+                
+                // Connection Status Indicator
+                ConnectionStatusDot(
+                    channel: locationManager.selectedChannel,
+                    meshConnected: !viewModel.allPeers.filter { $0.peerID != viewModel.meshService.myPeerID }.isEmpty
+                )
             }
-            .layoutPriority(3)
-            .onTapGesture {
-                withAnimation(.easeInOut(duration: TransportConfig.uiAnimationMediumSeconds)) {
-                    showSidebar.toggle()
+
+            // Row 2: User Profile and Status Icons
+            HStack(spacing: 0) {
+                HStack(spacing: 2) {
+                    Text(verbatim: "@")
+                        .font(.bitchatSystem(size: 15, design: .monospaced))
+                        .foregroundColor(Theme.secondaryText(colorScheme))
+                    
+                    TextField("content.input.nickname_placeholder", text: $viewModel.nickname)
+                        .textFieldStyle(.plain)
+                        .font(.bitchatSystem(size: 15, weight: .medium, design: .monospaced))
+                        .foregroundColor(textColor)
+                        .fixedSize(horizontal: true, vertical: false)
+                        .focused($isNicknameFieldFocused)
+                        .autocorrectionDisabled(true)
+                        #if os(iOS)
+                        .textInputAutocapitalization(.never)
+                        #endif
+                        .onChange(of: isNicknameFieldFocused) { isFocused in
+                            if !isFocused { viewModel.validateAndSaveNickname() }
+                        }
+                        .onSubmit { viewModel.validateAndSaveNickname() }
+                    
+                    if !isNicknameFieldFocused {
+                        Image(systemName: "pencil")
+                            .font(.bitchatSystem(size: 12))
+                            .foregroundColor(Theme.secondaryText(colorScheme).opacity(0.5))
+                            .padding(.leading, 4)
+                            .onTapGesture { isNicknameFieldFocused = true }
+                    }
                 }
-            }
-            .sheet(isPresented: $showVerifySheet) {
-                VerificationSheetView(isPresented: $showVerifySheet)
-                    .environmentObject(viewModel)
+                
+                Spacer()
+
+                HStack(spacing: 16) {
+                    if viewModel.hasAnyUnreadMessages {
+                        Button(action: { viewModel.openMostRelevantPrivateChat() }) {
+                            Image(systemName: "envelope.fill")
+                                .font(.bitchatSystem(size: 16))
+                                .foregroundColor(Theme.privateMessage)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(String(localized: "content.accessibility.open_unread_private_chat"))
+                    }
+
+                    if case .mesh = locationManager.selectedChannel, locationManager.permissionState == .authorized {
+                        Button(action: {
+                            LocationChannelManager.shared.enableLocationChannels()
+                            LocationChannelManager.shared.refreshChannels()
+                            notesGeohash = LocationChannelManager.shared.availableChannels.first(where: { $0.level == .building })?.geohash
+                            showLocationNotes = true
+                        }) {
+                            Image(systemName: "note.text")
+                                .font(.bitchatSystem(size: 16))
+                                .foregroundColor(Theme.privateMessage.opacity(0.8))
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(String(localized: "content.accessibility.location_notes"))
+                    }
+
+                    if case .location(let ch) = locationManager.selectedChannel {
+                        Button(action: { GeohashBookmarksStore.shared.toggle(ch.geohash) }) {
+                            Image(systemName: GeohashBookmarksStore.shared.isBookmarked(ch.geohash) ? "bookmark.fill" : "bookmark")
+                                .font(.bitchatSystem(size: 16))
+                                .foregroundColor(Theme.accent(colorScheme))
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel(String(localized: "content.accessibility.toggle_bookmark"))
+                    }
+                    
+                    let cc = channelPeopleCountAndColor()
+                    let countColor = cc.1
+                    let otherCount = {
+                        if case .location = locationManager.selectedChannel {
+                            return viewModel.visibleGeohashPeople().count
+                        }
+                        return cc.0
+                    }()
+                    
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: TransportConfig.uiAnimationMediumSeconds)) {
+                            showSidebar.toggle()
+                        }
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: "person.2.fill")
+                                .font(.bitchatSystem(size: 14))
+                            Text("\(otherCount)")
+                                .font(.bitchatSystem(size: 14, weight: .medium, design: .monospaced))
+                        }
+                        .foregroundColor(countColor)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel(String(localized: "content.accessibility.people_count"))
+                }
             }
         }
-        .frame(height: headerHeight)
-        .padding(.horizontal, 12)
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Theme.background(colorScheme).opacity(0.95))
+        .sheet(isPresented: $showVerifySheet) {
+            VerificationSheetView(isPresented: $showVerifySheet)
+                .environmentObject(viewModel)
+        }
         .sheet(isPresented: $showLocationChannelsSheet) {
             LocationChannelsSheet(isPresented: $showLocationChannelsSheet)
                 .environmentObject(viewModel)
@@ -1557,7 +1580,7 @@ struct ContentView: View {
                                     .frame(width: 32, height: 32)
                             }
                             .buttonStyle(.plain)
-                            .accessibilityLabel(String(localized: "common.close", comment: "Accessibility label for close buttons"))
+                            .accessibilityLabel(String(localized: "common.close"))
                         }
                         .frame(height: headerHeight)
                         .padding(.horizontal, 12)
@@ -1574,11 +1597,9 @@ struct ContentView: View {
                     }
                     .background(backgroundColor)
                     .foregroundColor(textColor)
-                    // per-sheet global onChange added below
                 }
             }
             .onAppear {
-                // Ensure we are authorized and start live location updates (distance-filtered)
                 LocationChannelManager.shared.enableLocationChannels()
                 LocationChannelManager.shared.beginLiveRefresh()
             }
@@ -1590,7 +1611,6 @@ struct ContentView: View {
                     notesGeohash != current {
                     notesGeohash = current
                     #if os(iOS)
-                    // Light taptic when geohash changes while the sheet is open
                     let generator = UIImpactFeedbackGenerator(style: .light)
                     generator.prepare()
                     generator.impactOccurred()
@@ -1624,8 +1644,8 @@ struct ContentView: View {
         } message: {
             Text("content.alert.screenshot.message")
         }
-        .background(backgroundColor.opacity(0.95))
     }
+
 
 }
 
@@ -1633,6 +1653,35 @@ struct ContentView: View {
 
 // Rounded payment chip button
 //
+
+struct ConnectionStatusDot: View {
+    let channel: ChannelID
+    let meshConnected: Bool
+    @ObservedObject private var torManager = TorManager.shared
+    @Environment(\.colorScheme) private var colorScheme
+    
+    var body: some View {
+        Circle()
+            .fill(statusColor)
+            .frame(width: 8, height: 8)
+            .padding(.leading, 4)
+    }
+    
+    private var statusColor: Color {
+        switch channel {
+        case .mesh:
+            return meshConnected ? Theme.success : Theme.error
+        case .location:
+            if torManager.isReady {
+                return Theme.success
+            } else if torManager.isStarting || (torManager.bootstrapProgress > 0 && torManager.bootstrapProgress < 100) {
+                return Theme.warning
+            } else {
+                return Theme.error
+            }
+        }
+    }
+}
 
 private enum MessageMedia {
     case voice(URL)
@@ -1864,7 +1913,7 @@ private extension ContentView {
                 .frame(width: 30, height: 20)
                 .foregroundColor(.red)
             
-            Text("recording \(formattedRecordingDuration())", comment: "Voice note recording duration indicator")
+            Text(String(format: String(localized: "content.recording_duration"), formattedRecordingDuration()))
                 .font(.bitchatSystem(size: 13, design: .monospaced))
                 .foregroundColor(.red)
             Spacer()
@@ -1912,7 +1961,7 @@ private extension ContentView {
     }
 
     private var composerAccentColor: Color {
-        viewModel.selectedPrivateChatPeer != nil ? Color.orange : textColor
+        viewModel.selectedPrivateChatPeer != nil ? Theme.privateMessage : Theme.legacyGreen(colorScheme)
     }
 
     var attachmentButton: some View {

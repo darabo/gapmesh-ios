@@ -1,6 +1,6 @@
 import Testing
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 @MainActor
 struct LocationNotesManagerTests {

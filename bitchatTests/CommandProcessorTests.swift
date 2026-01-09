@@ -1,5 +1,5 @@
 import Testing
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct CommandProcessorTests {
     private var identityManager = MockIdentityManager(MockKeychain())

@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreBluetooth
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 /// In-memory BLE test harness used by E2E/Integration tests.
 ///

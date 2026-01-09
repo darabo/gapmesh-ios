@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct TestConstants {
     static let defaultTimeout: TimeInterval = 5.0

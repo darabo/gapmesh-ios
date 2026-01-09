@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 final class MockKeychain: KeychainManagerProtocol {
     private var storage: [String: Data] = [:]

@@ -49,10 +49,10 @@ public final class TorManager: ObservableObject {
     // State
     // True only when SOCKS is reachable AND bootstrap has reached 100%.
     @Published private(set) public var isReady: Bool = false
-    @Published private(set) var isStarting: Bool = false
-    @Published private(set) var lastError: Error?
-    @Published private(set) var bootstrapProgress: Int = 0
-    @Published private(set) var bootstrapSummary: String = ""
+    @Published private(set) public var isStarting: Bool = false
+    @Published private(set) public var lastError: Error?
+    @Published private(set) public var bootstrapProgress: Int = 0
+    @Published private(set) public var bootstrapSummary: String = ""
     
     // Internal readiness trackers
     private var socksReady: Bool = false { didSet { recomputeReady() } }

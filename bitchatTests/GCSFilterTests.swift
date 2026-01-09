@@ -1,6 +1,6 @@
 import Testing
 import struct Foundation.Data
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct GCSFilterTests {
     @Test func buildFilterWithDuplicateIdsProducesStableEncoding() {
