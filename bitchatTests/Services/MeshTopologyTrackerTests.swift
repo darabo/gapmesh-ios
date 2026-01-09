@@ -22,7 +22,8 @@ struct MeshTopologyTrackerTests {
 
         tracker.recordDirectLink(between: a, and: b)
         let route = try #require(tracker.computeRoute(from: a, to: b))
-        #expect(route == [a, b])
+        // Direct connection returns empty route (no intermediate hops)
+        #expect(route == [])
     }
 
     @Test func multiHopRouteComputation() throws {
@@ -37,7 +38,8 @@ struct MeshTopologyTrackerTests {
         tracker.recordDirectLink(between: c, and: d)
 
         let route = try #require(tracker.computeRoute(from: a, to: d))
-        #expect(route == [a, b, c, d])
+        // Route should only contain intermediate hops (b, c), excluding start (a) and end (d)
+        #expect(route == [b, c])
     }
 
     @Test func recordRouteAddsEdges() throws {
@@ -50,8 +52,8 @@ struct MeshTopologyTrackerTests {
 
         a.append(Data(repeating: 0, count: BinaryProtocol.senderIDSize - a.count))
         let route = try #require(tracker.computeRoute(from: a, to: c))
-        #expect(route.first == a)
-        #expect(route.last == c)
+        // Route should only contain intermediate hops (b), excluding start (a) and end (c)
+        #expect(route == [b])
     }
 
     @Test func removingDirectLinkBreaksRoute() throws {
@@ -63,7 +65,8 @@ struct MeshTopologyTrackerTests {
         tracker.recordDirectLink(between: a, and: b)
         tracker.recordDirectLink(between: b, and: c)
         let initialRoute = try #require(tracker.computeRoute(from: a, to: c))
-        #expect(initialRoute == [a, b, c])
+        // Route should only contain intermediate hops (b), excluding start (a) and end (c)
+        #expect(initialRoute == [b])
 
         tracker.removeDirectLink(between: b, and: c)
         #expect(tracker.computeRoute(from: a, to: c) == nil)
@@ -77,10 +80,22 @@ struct MeshTopologyTrackerTests {
 
         tracker.recordRoute([a, b, c])
         let initialRoute = try #require(tracker.computeRoute(from: a, to: c))
-        #expect(initialRoute == [a, b, c])
+        // Route should only contain intermediate hops (b), excluding start (a) and end (c)
+        #expect(initialRoute == [b])
 
         tracker.removePeer(b)
         #expect(tracker.computeRoute(from: a, to: c) == nil)
+    }
+
+    @Test func sameStartAndEndReturnsEmptyRoute() throws {
+        let tracker = MeshTopologyTracker()
+        let a = try hex("0102030405060708")
+        let b = try hex("1112131415161718")
+
+        tracker.recordDirectLink(between: a, and: b)
+        // When start == end, route should be empty (no intermediate hops needed)
+        let route = try #require(tracker.computeRoute(from: a, to: a))
+        #expect(route == [])
     }
 
 }

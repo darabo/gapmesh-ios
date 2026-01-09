@@ -801,6 +801,13 @@ final class BLEService: NSObject {
     // MARK: - Packet Broadcasting
     
     private func broadcastPacket(_ packet: BitchatPacket, transferId: String? = nil) {
+        // Apply route if recipient exists (centralized route application)
+        let packetToSend: BitchatPacket
+        if let recipientPeerID = PeerID(hexData: packet.recipientID) {
+            packetToSend = applyRouteIfAvailable(packet, to: recipientPeerID)
+        } else {
+            packetToSend = packet
+        }
         // Encode once using a small per-type padding policy, then delegate by type
         let padForBLE = padPolicy(for: packet.type)
         if packet.type == MessageType.fileTransfer.rawValue {
@@ -2528,6 +2535,15 @@ extension BLEService {
 
         // No further hops: respect explicit route termination
         if index == route.count - 1 {
+            guard packet.ttl > 1 else { return true }
+            guard let destinationPeer = PeerID(hexData: packet.recipientID),
+                  isPeerConnected(destinationPeer) else {
+                return false
+            }
+            registerDirectLink(with: destinationPeer)
+            var relayPacket = packet
+            relayPacket.ttl = packet.ttl - 1
+            sendPacketDirected(relayPacket, to: destinationPeer)
             return true
         }
 
