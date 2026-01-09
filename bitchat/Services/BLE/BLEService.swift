@@ -17,8 +17,7 @@ final class BLEService: NSObject {
     // MARK: - Constants
     
     #if DEBUG
-    // Legacy static UUID for Bitchat compatibility - matches Android FALLBACK_UUID
-    static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
+    static let serviceUUID = CBUUID(string: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C") // testnet
     #else
     static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #endif
@@ -3037,7 +3036,21 @@ extension BLEService {
         }
         // Fragment the unpadded frame; each fragment will be encoded independently
         let fragmentID = Data((0..<8).map { _ in UInt8.random(in: 0...255) })
-        let chunk = context.maxChunk ?? defaultFragmentSize
+        // Dynamic Fragment Sizing (Source Routing v2)
+        // See docs/SOURCE_ROUTING.md Section 5.1
+        var fragmentVersion: UInt8 = 1
+        var calculatedChunk = defaultFragmentSize
+
+        if let route = packet.route, !route.isEmpty {
+            fragmentVersion = 2
+            // RouteSize = 1 + (Hops * 8)
+            let routeSize = 1 + (route.count * 8)
+            // Overhead = HeaderV2(16) + SenderID(8) + RecipientID(8) + RouteSize + FragmentHeader(13) + PaddingBuffer(16)
+            let overhead = 16 + 8 + 8 + routeSize + 13 + 16
+            calculatedChunk = 512 - overhead
+        }
+
+        let chunk = context.maxChunk ?? calculatedChunk
         let safeChunk = max(64, chunk)
         let fragments = stride(from: 0, to: fullData.count, by: safeChunk).map { offset in
             Data(fullData[offset..<min(offset + safeChunk, fullData.count)])
@@ -3096,6 +3109,7 @@ extension BLEService {
                 payload: payload,
                 signature: nil,
                 ttl: packet.ttl,
+                version: fragmentVersion,
                 route: packet.route
             )
 
