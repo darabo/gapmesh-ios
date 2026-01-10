@@ -27,6 +27,7 @@ final class BLEService: NSObject {
     
     // Default per-fragment chunk size when link limits are unknown
     private let defaultFragmentSize = TransportConfig.bleDefaultFragmentSize
+    private let bleMaxMTU = 512
     private let maxMessageLength = InputValidator.Limits.maxMessageLength
     private let messageTTL: UInt8 = TransportConfig.messageTTLDefault
     // Flood/battery controls
@@ -3047,7 +3048,7 @@ extension BLEService {
             let routeSize = 1 + (route.count * 8)
             // Overhead = HeaderV2(16) + SenderID(8) + RecipientID(8) + RouteSize + FragmentHeader(13) + PaddingBuffer(16)
             let overhead = 16 + 8 + 8 + routeSize + 13 + 16
-            calculatedChunk = 512 - overhead
+            calculatedChunk = max(64, bleMaxMTU - overhead)
         }
 
         let chunk = context.maxChunk ?? calculatedChunk
