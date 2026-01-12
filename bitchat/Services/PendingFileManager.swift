@@ -165,9 +165,11 @@ final class PendingFileManager {
 
     /// Accepts a pending file, saving it to disk and removing from pending queue.
     /// Returns the saved file URL, or nil if the file was not found or save failed.
+    /// Note: File is only removed from queue after successful save to prevent data loss.
     func acceptFile(id: String, saveHandler: (PendingFileTransfer) -> URL?) -> URL? {
-        let pending = queue.sync(flags: .barrier) { () -> PendingFileTransfer? in
-            pendingFiles.removeValue(forKey: id)
+        // First, get the pending file without removing it
+        let pending = queue.sync { () -> PendingFileTransfer? in
+            pendingFiles[id]
         }
 
         guard let pending = pending else {
@@ -175,9 +177,16 @@ final class PendingFileManager {
             return nil
         }
 
+        // Attempt to save the file
         guard let url = saveHandler(pending) else {
-            SecureLogger.error("Failed to save accepted file \(id.prefix(8))...", category: .session)
+            // Save failed - keep the file in queue so user can retry
+            SecureLogger.error("Failed to save accepted file \(id.prefix(8))... - keeping in queue for retry", category: .session)
             return nil
+        }
+
+        // Only remove from queue after successful save
+        _ = queue.sync(flags: .barrier) {
+            pendingFiles.removeValue(forKey: id)
         }
 
         SecureLogger.debug("Accepted and saved pending file \(id.prefix(8))... to \(url.lastPathComponent)", category: .session)

@@ -258,6 +258,38 @@ struct PendingFileManagerTests {
         }
     }
 
+    @Test("acceptFile keeps file in queue on save failure")
+    func acceptFile_keepsFileOnSaveFailure() {
+        let manager = PendingFileManager(config: .default)
+        defer { manager.clearAll() }
+
+        let content = Data(repeating: 0x42, count: 128)
+        let pending = manager.addPendingFile(
+            senderPeerID: PeerID(str: "AABBCCDD11223344"),
+            senderNickname: "TestUser",
+            fileName: "test.bin",
+            mimeType: "application/octet-stream",
+            content: content,
+            isPrivate: false
+        )
+
+        guard let id = pending?.id else {
+            Issue.record("Failed to add pending file")
+            return
+        }
+
+        #expect(manager.stats.count == 1)
+
+        // Simulate save failure by returning nil
+        let resultURL = manager.acceptFile(id: id) { _ in
+            return nil // Save failed
+        }
+
+        #expect(resultURL == nil)
+        #expect(manager.stats.count == 1) // Still in queue for retry
+        #expect(manager.getPendingFile(id: id) != nil) // Can still retrieve it
+    }
+
     @Test("displayName returns fileName or generates default")
     func displayName_returnsFileNameOrGeneratesDefault() {
         let manager = PendingFileManager(config: .default)
