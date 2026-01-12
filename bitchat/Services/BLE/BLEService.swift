@@ -17,10 +17,10 @@ final class BLEService: NSObject {
     // MARK: - Constants
     
     #if DEBUG
-    // Temporarily using Mainnet UUID to match Android Release build for testing
-    static let serviceUUID = CBUUID(string: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C") // mainnet
+    // Legacy static UUID for Bitchat compatibility - matches Android FALLBACK_UUID
+    static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #else
-    static let serviceUUID = CBUUID(string: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C") // mainnet
+    static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #endif
     static let characteristicUUID = CBUUID(string: "A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D")
     private static let centralRestorationID = "chat.gap.ble.central"
@@ -487,8 +487,12 @@ final class BLEService: NSObject {
 
         // Start BLE services if not already running
         if centralManager?.state == .poweredOn {
+            // Scan for all valid rotating UUIDs plus legacy static UUID
+            let validUUIDs = ServiceUuidRotation.shared.getValidServiceUUIDs(includeLegacy: true)
+                .map { CBUUID(nsuuid: $0) }
+            SecureLogger.debug("🔍 Starting scan with \(validUUIDs.count) UUIDs: \(validUUIDs.map { $0.uuidString.prefix(8) })", category: .session)
             centralManager?.scanForPeripherals(
-                withServices: [BLEService.serviceUUID],
+                withServices: validUUIDs,
                 options: [CBCentralManagerScanOptionAllowDuplicatesKey: false]
             )
         }
@@ -1580,10 +1584,13 @@ extension BLEService: CBCentralManagerDelegate {
         #endif
         
         
-        SecureLogger.info("🔍 BLE Scanning started for Service UUID: \(BLEService.serviceUUID.uuidString) (AllowDuplicates: \(allowDuplicates))", category: .session)
+        // Scan for all valid rotating UUIDs plus legacy static UUID
+        let validUUIDs = ServiceUuidRotation.shared.getValidServiceUUIDs(includeLegacy: true)
+            .map { CBUUID(nsuuid: $0) }
+        SecureLogger.info("🔍 BLE Scanning started with \(validUUIDs.count) UUIDs (AllowDuplicates: \(allowDuplicates))", category: .session)
         
         central.scanForPeripherals(
-                withServices: [BLEService.serviceUUID],
+            withServices: validUUIDs,
             options: [CBCentralManagerScanOptionAllowDuplicatesKey: allowDuplicates]
         )
     }
@@ -2393,8 +2400,22 @@ extension BLEService: CBPeripheralManagerDelegate {
 
 extension BLEService {
     private func buildAdvertisementData() -> [String: Any] {
+        // Use rotating UUID for privacy, or static UUID for legacy compatibility
+        let legacyMode = UserDefaults.standard.isLegacyCompatibilityEnabled
+        let advertisingUUID: CBUUID
+        
+        if legacyMode {
+            // Legacy mode: use static UUID so Bitchat devices can find us
+            advertisingUUID = CBUUID(nsuuid: ServiceUuidRotation.fallbackUUID)
+        } else {
+            // Privacy mode: use rotating UUID
+            advertisingUUID = CBUUID(nsuuid: ServiceUuidRotation.shared.getCurrentServiceUUID())
+        }
+        
+        SecureLogger.debug("📡 Advertising with UUID: \(advertisingUUID.uuidString.prefix(8))… (legacy: \(legacyMode))", category: .session)
+        
         let data: [String: Any] = [
-            CBAdvertisementDataServiceUUIDsKey: [BLEService.serviceUUID]
+            CBAdvertisementDataServiceUUIDsKey: [advertisingUUID]
         ]
         // No Local Name for privacy
         return data

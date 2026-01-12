@@ -1,57 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "attachments.photo_library" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose from Gallery"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "انتخاب از گالری"
-          }
-        }
-      }
-    },
-    "attachments.take_photo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Take Photo"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "عکس گرفتن"
-          }
-        }
-      }
-    },
-    "attachments.title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Attach Media"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پیوست رسانه"
-          }
-        }
-      }
-    },
     "%@" : {
 
     },
@@ -4680,6 +4629,40 @@
         }
       }
     },
+    "app_info.privacy.legacy_compat.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "use static UUID for Bitchat compatibility (may require restart)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استفاده از UUID ثابت برای سازگاری با بیت‌چت (ممکن است نیاز به راه‌اندازی مجدد داشته باشد)"
+          }
+        }
+      }
+    },
+    "app_info.privacy.legacy_compat.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "legacy compatibility"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سازگاری با نسخه قدیمی"
+          }
+        }
+      }
+    },
     "app_info.privacy.no_tracking.description" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6177,6 +6160,57 @@
         }
       }
     },
+    "attachments.photo_library" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose from Gallery"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب از گالری"
+          }
+        }
+      }
+    },
+    "attachments.take_photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take Photo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عکس گرفتن"
+          }
+        }
+      }
+    },
+    "attachments.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attach Media"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیوست رسانه"
+          }
+        }
+      }
+    },
     "camera.take_photo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6278,6 +6312,9 @@
           }
         }
       }
+    },
+    "Choose an image" : {
+
     },
     "Choose Language" : {
 
@@ -19889,6 +19926,7 @@
     },
     "content.people_count_active" : {
       "comment" : "A label at the bottom of the people list sheet showing the number of active users.",
+      "extractionState" : "stale",
       "localizations" : {
         "ar" : {
           "stringUnit" : {
@@ -24245,9 +24283,6 @@
         }
       }
     },
-    "Gap Mesh" : {
-
-    },
     "Gap Mesh/" : {
 
     },
@@ -28269,652 +28304,6 @@
         }
       }
     },
-    "onboarding.welcome" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Welcome to Gap Mesh"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "به گپ مش خوش آمدید"
-          }
-        }
-      }
-    },
-    "onboarding.identity_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your digital identity on the Mesh."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "هویت دیجیتال شما در مِش."
-          }
-        }
-      }
-    },
-    "onboarding.username_label" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Your Username"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نام کاربری شما"
-          }
-        }
-      }
-    },
-    "onboarding.privacy_note" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Note: Changing your username from the anonymous default may reduce your privacy if you choose a recognizable name."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "توجه: تغییر نام کاربری از حالت ناشناس ممکن است حریم خصوصی شما را کاهش دهد اگر نام قابل شناسایی انتخاب کنید."
-          }
-        }
-      }
-    },
-    "onboarding.mesh_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "How the Mesh Works"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "مِش چگونه کار می‌کند"
-          }
-        }
-      }
-    },
-    "onboarding.mesh_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gap Mesh creates an offline network using Bluetooth. Messages hop from phone to phone. All chats are encrypted and never shared with any central server."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "گپ مش یک شبکهٔ آفلاین با بلوتوث ایجاد می‌کند. پیام‌ها بین گوشی‌ها جابه‌جا می‌شوند. همهٔ چت‌ها رمزگذاری شده و هرگز با هیچ سرور مرکزی به اشتراک گذاشته نمی‌شوند."
-          }
-        }
-      }
-    },
-    "onboarding.features_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Features & Status"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ویژگی‌ها و وضعیت"
-          }
-        }
-      }
-    },
-    "onboarding.feature_geo_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Geohashes (Location Chat)"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "مکانی (Geohash)"
-          }
-        }
-      }
-    },
-    "onboarding.feature_geo_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connect with people in your precise area. Requires Tor connection (needs internet) to sync with the global location grid."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "با افراد در منطقهٔ دقیق خود ارتباط برقرار کنید. نیاز به اتصال Tor (اینترنت) برای همگام‌سازی با شبکهٔ جهانی مکان دارد."
-          }
-        }
-      }
-    },
-    "onboarding.feature_notes_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Location Notes"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "یادداشت‌های مکانی"
-          }
-        }
-      }
-    },
-    "onboarding.feature_notes_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Leave digital notes at your current location. Others who visit this spot can read them. Like a digital graffiti wall!"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "یادداشت‌های دیجیتال در موقعیت فعلی خود بگذارید. دیگران که از این نقطه بازدید می‌کنند می‌توانند آن‌ها را بخوانند. مثل دیوارنویسی دیجیتال!"
-          }
-        }
-      }
-    },
-    "onboarding.status_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connection Status Icons"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آیکون‌های وضعیت اتصال"
-          }
-        }
-      }
-    },
-    "onboarding.status_green" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Green"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "سبز"
-          }
-        }
-      }
-    },
-    "onboarding.status_green_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connected / Online"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "متصل / آنلاین"
-          }
-        }
-      }
-    },
-    "onboarding.status_orange" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Orange"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نارنجی"
-          }
-        }
-      }
-    },
-    "onboarding.status_orange_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Connecting / Starting"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "در حال اتصال / راه‌اندازی"
-          }
-        }
-      }
-    },
-    "onboarding.status_red" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Red"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "قرمز"
-          }
-        }
-      }
-    },
-    "onboarding.status_red_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disconnected / Offline"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "قطع / آفلاین"
-          }
-        }
-      }
-    },
-    "onboarding.status_dynamic" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "The status dot is dynamic:\n• In Mesh chat: local mesh status\n• In Location chat: Tor status"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "نقطهٔ وضعیت پویاست:\n• در چت مِش: وضعیت مِش محلی\n• در چت مکانی: وضعیت Tor"
-          }
-        }
-      }
-    },
-    "onboarding.emergency_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Emergency Data Wipe"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "پاکسازی اضطراری داده"
-          }
-        }
-      }
-    },
-    "onboarding.emergency_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Triple-tap the Gap Mesh header to immediately wipe all data, keys, and messages."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "سه بار روی عنوان گپ مش در سربرگ ضربه بزنید تا همهٔ داده‌ها، کلیدها و پیام‌ها فوراً پاک شوند."
-          }
-        }
-      }
-    },
-    "onboarding.next" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Next"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بعدی"
-          }
-        }
-      }
-    },
-    "onboarding.get_started" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Get Started"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "شروع کنید"
-          }
-        }
-      }
-    },
-    "onboarding.language_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Choose Your Language"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "زبان خود را انتخاب کنید"
-          }
-        }
-      }
-    },
-    "onboarding.language_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Select your preferred language for the app."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "زبان دلخواه خود را برای برنامه انتخاب کنید."
-          }
-        }
-      }
-    },
-    "onboarding.mesh_offline" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Works offline via Bluetooth"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "آفلاین از طریق بلوتوث کار می‌کند"
-          }
-        }
-      }
-    },
-    "onboarding.mesh_encrypted" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "End-to-end encrypted"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "رمزگذاری سرتاسری"
-          }
-        }
-      }
-    },
-    "onboarding.mesh_noserver" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No central servers"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بدون سرور مرکزی"
-          }
-        }
-      }
-    },
-    "onboarding.permissions_title" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enable Permissions"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "فعال کردن مجوزها"
-          }
-        }
-      }
-    },
-    "onboarding.permissions_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Gap Mesh needs these permissions to work properly. Tap each to allow."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا اجازه دهید."
-          }
-        }
-      }
-    },
-    "onboarding.permission_bluetooth" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Bluetooth"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "بلوتوث"
-          }
-        }
-      }
-    },
-    "onboarding.permission_bluetooth_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Required for mesh network communication"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "برای ارتباط شبکهٔ مِش لازم است"
-          }
-        }
-      }
-    },
-    "onboarding.permission_location" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Location"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "موقعیت مکانی"
-          }
-        }
-      }
-    },
-    "onboarding.permission_location_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "For geohash channels and location notes"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "برای کانال‌های مکانی و یادداشت‌ها"
-          }
-        }
-      }
-    },
-    "onboarding.permission_notifications" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notifications"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اعلان‌ها"
-          }
-        }
-      }
-    },
-    "onboarding.permission_notifications_desc" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Get notified about new messages"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "از پیام‌های جدید مطلع شوید"
-          }
-        }
-      }
-    },
-    "onboarding.permission_allow" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Allow"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "اجازه"
-          }
-        }
-      }
-    },
-    "location_channels.tor.warning" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Geohash channels require Tor to function."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "کانال‌های جغرافیایی برای کارکردن به Tor نیاز دارند."
-          }
-        }
-      }
-    },
     "location_channels.tor.subtitle" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -29281,6 +28670,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "tor 路由"
+          }
+        }
+      }
+    },
+    "location_channels.tor.warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohash channels require Tor to function."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های جغرافیایی برای کارکردن به Tor نیاز دارند."
           }
         }
       }
@@ -33554,6 +32960,635 @@
         }
       }
     },
+    "onboarding.emergency_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Triple-tap the Gap Mesh header to immediately wipe all data, keys, and messages."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سه بار روی عنوان گپ مش در سربرگ ضربه بزنید تا همهٔ داده‌ها، کلیدها و پیام‌ها فوراً پاک شوند."
+          }
+        }
+      }
+    },
+    "onboarding.emergency_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Emergency Data Wipe"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پاکسازی اضطراری داده"
+          }
+        }
+      }
+    },
+    "onboarding.feature_geo_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connect with people in your precise area. Requires Tor connection (needs internet) to sync with the global location grid."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "با افراد در منطقهٔ دقیق خود ارتباط برقرار کنید. نیاز به اتصال Tor (اینترنت) برای همگام‌سازی با شبکهٔ جهانی مکان دارد."
+          }
+        }
+      }
+    },
+    "onboarding.feature_geo_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohashes (Location Chat)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مکانی (Geohash)"
+          }
+        }
+      }
+    },
+    "onboarding.feature_notes_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Leave digital notes at your current location. Others who visit this spot can read them. Like a digital graffiti wall!"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های دیجیتال در موقعیت فعلی خود بگذارید. دیگران که از این نقطه بازدید می‌کنند می‌توانند آن‌ها را بخوانند. مثل دیوارنویسی دیجیتال!"
+          }
+        }
+      }
+    },
+    "onboarding.feature_notes_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Notes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "یادداشت‌های مکانی"
+          }
+        }
+      }
+    },
+    "onboarding.features_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Features & Status"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ویژگی‌ها و وضعیت"
+          }
+        }
+      }
+    },
+    "onboarding.get_started" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get Started"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروع کنید"
+          }
+        }
+      }
+    },
+    "onboarding.identity_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your digital identity on the Mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هویت دیجیتال شما در مِش."
+          }
+        }
+      }
+    },
+    "onboarding.language_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select your preferred language for the app."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زبان دلخواه خود را برای برنامه انتخاب کنید."
+          }
+        }
+      }
+    },
+    "onboarding.language_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose Your Language"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "زبان خود را انتخاب کنید"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mesh creates an offline network using Bluetooth. Messages hop from phone to phone. All chats are encrypted and never shared with any central server."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گپ مش یک شبکهٔ آفلاین با بلوتوث ایجاد می‌کند. پیام‌ها بین گوشی‌ها جابه‌جا می‌شوند. همهٔ چت‌ها رمزگذاری شده و هرگز با هیچ سرور مرکزی به اشتراک گذاشته نمی‌شوند."
+          }
+        }
+      }
+    },
+    "onboarding.mesh_encrypted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "End-to-end encrypted"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزگذاری سرتاسری"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_noserver" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No central servers"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بدون سرور مرکزی"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_offline" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Works offline via Bluetooth"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آفلاین از طریق بلوتوث کار می‌کند"
+          }
+        }
+      }
+    },
+    "onboarding.mesh_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How the Mesh Works"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مِش چگونه کار می‌کند"
+          }
+        }
+      }
+    },
+    "onboarding.next" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Next"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بعدی"
+          }
+        }
+      }
+    },
+    "onboarding.permission_allow" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Allow"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اجازه"
+          }
+        }
+      }
+    },
+    "onboarding.permission_bluetooth" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bluetooth"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "بلوتوث"
+          }
+        }
+      }
+    },
+    "onboarding.permission_bluetooth_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required for mesh network communication"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای ارتباط شبکهٔ مِش لازم است"
+          }
+        }
+      }
+    },
+    "onboarding.permission_location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "موقعیت مکانی"
+          }
+        }
+      }
+    },
+    "onboarding.permission_location_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "For geohash channels and location notes"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای کانال‌های مکانی و یادداشت‌ها"
+          }
+        }
+      }
+    },
+    "onboarding.permission_notifications" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifications"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اعلان‌ها"
+          }
+        }
+      }
+    },
+    "onboarding.permission_notifications_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Get notified about new messages"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از پیام‌های جدید مطلع شوید"
+          }
+        }
+      }
+    },
+    "onboarding.permissions_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gap Mesh needs these permissions to work properly. Tap each to allow."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا اجازه دهید."
+          }
+        }
+      }
+    },
+    "onboarding.permissions_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable Permissions"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال کردن مجوزها"
+          }
+        }
+      }
+    },
+    "onboarding.privacy_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Note: Changing your username from the anonymous default may reduce your privacy if you choose a recognizable name."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "توجه: تغییر نام کاربری از حالت ناشناس ممکن است حریم خصوصی شما را کاهش دهد اگر نام قابل شناسایی انتخاب کنید."
+          }
+        }
+      }
+    },
+    "onboarding.status_dynamic" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The status dot is dynamic:\n• In Mesh chat: local mesh status\n• In Location chat: Tor status"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نقطهٔ وضعیت پویاست:\n• در چت مِش: وضعیت مِش محلی\n• در چت مکانی: وضعیت Tor"
+          }
+        }
+      }
+    },
+    "onboarding.status_green" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Green"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سبز"
+          }
+        }
+      }
+    },
+    "onboarding.status_green_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connected / Online"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "متصل / آنلاین"
+          }
+        }
+      }
+    },
+    "onboarding.status_orange" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Orange"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نارنجی"
+          }
+        }
+      }
+    },
+    "onboarding.status_orange_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connecting / Starting"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "در حال اتصال / راه‌اندازی"
+          }
+        }
+      }
+    },
+    "onboarding.status_red" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Red"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قرمز"
+          }
+        }
+      }
+    },
+    "onboarding.status_red_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disconnected / Offline"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "قطع / آفلاین"
+          }
+        }
+      }
+    },
+    "onboarding.status_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Connection Status Icons"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آیکون‌های وضعیت اتصال"
+          }
+        }
+      }
+    },
+    "onboarding.username_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your Username"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام کاربری شما"
+          }
+        }
+      }
+    },
+    "onboarding.welcome" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Welcome to Gap Mesh"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "به گپ مش خوش آمدید"
+          }
+        }
+      }
+    },
     "photos.library" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33570,6 +33605,9 @@
           }
         }
       }
+    },
+    "recording %@" : {
+      "comment" : "Voice note recording duration indicator"
     },
     "save" : {
       "comment" : "Button to save media to device",
@@ -35721,6 +35759,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "無法發送到位置頻道"
+          }
+        }
+      }
+    },
+    "system.screenshot.public" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "* %@ took a screenshot *"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "* %@ از صفحه عکس گرفت *"
           }
         }
       }

@@ -67,11 +67,9 @@ struct LocationChannelsSheet: View {
         }
 
         private static func rowTitle(label: String, count: Int) -> String {
-            String(
-                format: String(localized: "location_channels.row_title", comment: "List row title with participant count"),
-                locale: .current,
-                label, count
-            )
+            // Use simpler format that works with runtime locale switching
+            // Format: "Label [N]" - the count is just a number, avoiding complex plural rules
+            "\(label) [\(count)]"
         }
     }
 

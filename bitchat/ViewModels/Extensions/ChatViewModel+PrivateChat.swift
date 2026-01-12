@@ -995,10 +995,20 @@ extension ChatViewModel {
                                message.content.contains("took a screenshot"))
         
         if isActionMessage {
+            // Receiver-side translation: Translate English to receiver's locale
+            var translatedContent = String(message.content.dropFirst(2).dropLast(2)) // Remove * * wrapper
+            
+            // Handle both variants: "you took a screenshot" (local) and "took a screenshot" (public)
+            if LanguageManager.shared.currentLanguage == .farsi {
+                translatedContent = translatedContent
+                    .replacingOccurrences(of: "you took a screenshot", with: "شما از صفحه عکس گرفتید")
+                    .replacingOccurrences(of: "took a screenshot", with: "از صفحه عکس گرفت")
+            }
+            
             return BitchatMessage(
                 id: message.id,
                 sender: "system",
-                content: String(message.content.dropFirst(2).dropLast(2)), // Remove * * wrapper
+                content: translatedContent,
                 timestamp: message.timestamp,
                 isRelay: message.isRelay,
                 originalSender: message.originalSender,

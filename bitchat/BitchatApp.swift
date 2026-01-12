@@ -53,10 +53,17 @@ struct BitchatApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(chatViewModel)
-                .environmentObject(languageManager)
-                .applyLanguageEnvironment(languageManager)
+            Group {
+                if onboardingSeen {
+                    ContentView()
+                } else {
+                    OnboardingView(isPresented: .constant(true))
+                }
+            }
+            .id(languageManager.refreshID)
+            .environmentObject(chatViewModel)
+            .environmentObject(languageManager)
+            .applyLanguageEnvironment(languageManager)
             .onAppear {
                 NotificationDelegate.shared.chatViewModel = chatViewModel
                 // Inject live Noise service into VerificationService to avoid creating new BLE instances
@@ -71,6 +78,7 @@ struct BitchatApp: App {
                 appDelegate.chatViewModel = chatViewModel
 
                 // Initialize network activation policy; will start Tor/Nostr only when allowed
+                // Services are started by OnboardingView.completeOnboarding() for new users
                 if onboardingSeen {
                     NetworkActivationService.shared.start()
                 }

@@ -49,6 +49,9 @@ final class LanguageManager: ObservableObject {
         }
     }
     
+    /// Unique ID that changes when language is switched, forcing SwiftUI to rebuild the view hierarchy
+    @Published var refreshID = UUID()
+    
     var isLanguageSet: Bool {
         UserDefaults.standard.bool(forKey: languageSetKey)
     }
@@ -70,8 +73,24 @@ final class LanguageManager: ObservableObject {
         UserDefaults.standard.set([currentLanguage.rawValue], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
         
-        // Force UI update via objectWillChange
-        objectWillChange.send()
+        // Force complete view hierarchy refresh by changing the ID
+        DispatchQueue.main.async {
+            self.refreshID = UUID()
+        }
+    }
+    
+    /// Bundle for the current language, used for runtime translation lookup
+    var localizedBundle: Bundle {
+        guard let path = Bundle.main.path(forResource: currentLanguage.rawValue, ofType: "lproj"),
+              let bundle = Bundle(path: path) else {
+            return .main
+        }
+        return bundle
+    }
+    
+    /// Get a localized string for the current language
+    func localizedString(_ key: String) -> String {
+        localizedBundle.localizedString(forKey: key, value: nil, table: nil)
     }
     
     /// Set language and mark as explicitly selected by user.

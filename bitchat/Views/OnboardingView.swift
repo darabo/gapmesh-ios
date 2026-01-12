@@ -14,6 +14,10 @@ struct OnboardingView: View {
     @State private var currentStep = 0
     private let totalSteps = 5
     
+    // Hoisted state for Identity Step to fix "Next" button persistence bug
+    @State private var isIdentityEditing = false
+    @State private var identityEditedName = ""
+    
     // Localized strings
     private enum Strings {
         static let next: LocalizedStringKey = "onboarding.next"
@@ -37,8 +41,12 @@ struct OnboardingView: View {
                 LanguageStep(languageManager: languageManager)
                     .tag(0)
                 
-                IdentityStep(viewModel: viewModel)
-                    .tag(1)
+                IdentityStep(
+                    viewModel: viewModel,
+                    isEditing: $isIdentityEditing,
+                    editedName: $identityEditedName
+                )
+                .tag(1)
                 
                 MeshStep()
                     .tag(2)
@@ -53,6 +61,16 @@ struct OnboardingView: View {
             
             // Navigation button
             Button(action: {
+                // Critical Fix: Save nickname if editing when clicking Next
+                if currentStep == 1 && isIdentityEditing {
+                    if !identityEditedName.trimmingCharacters(in: .whitespaces).isEmpty {
+                        viewModel.nickname = identityEditedName
+                    }
+                    isIdentityEditing = false
+                    // Dismiss keyboard explicitly before transition to avoid constraint errors
+                    UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                
                 if currentStep < totalSteps - 1 {
                     withAnimation { currentStep += 1 }
                 } else {
@@ -201,8 +219,10 @@ private struct LanguageOption: View {
 private struct IdentityStep: View {
     @ObservedObject var viewModel: ChatViewModel
     @Environment(\.colorScheme) var colorScheme
-    @State private var isEditing = false
-    @State private var editedName = ""
+    @Binding var isEditing: Bool
+    @Binding var editedName: String
+    
+    @FocusState private var isFocused: Bool
     
     var body: some View {
         ScrollView {
@@ -233,13 +253,17 @@ private struct IdentityStep: View {
                             TextField("Username", text: $editedName)
                                 .font(.system(.title2, design: .monospaced))
                                 .textFieldStyle(.roundedBorder)
-                            
-                            Button(action: {
-                                if !editedName.trimmingCharacters(in: .whitespaces).isEmpty {
-                                    viewModel.nickname = editedName
+                                .focused($isFocused)
+                                .submitLabel(.done)
+                                .onSubmit {
+                                    saveAndDismiss()
                                 }
-                                isEditing = false
-                            }) {
+                                .onAppear {
+                                    // Auto-focus when the field appears
+                                    isFocused = true
+                                }
+                            
+                            Button(action: saveAndDismiss) {
                                 Image(systemName: "checkmark.circle.fill")
                                     .font(.title2)
                                     .foregroundColor(Theme.legacyGreen(colorScheme))
@@ -249,13 +273,13 @@ private struct IdentityStep: View {
                         HStack {
                             Text(viewModel.nickname)
                                 .font(.system(.title2, design: .monospaced))
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .contentShape(Rectangle()) // Make entire area tappable
+                                .onTapGesture {
+                                    startEditing()
+                                }
                             
-                            Spacer()
-                            
-                            Button(action: {
-                                editedName = viewModel.nickname
-                                isEditing = true
-                            }) {
+                            Button(action: startEditing) {
                                 Image(systemName: "pencil.circle")
                                     .font(.title2)
                                     .foregroundColor(Theme.secondaryText(colorScheme))
@@ -283,6 +307,33 @@ private struct IdentityStep: View {
             }
             .padding(.horizontal, 24)
         }
+        // Sync focus state with editing state
+        .onChange(of: isEditing) { editing in
+            if editing {
+                isFocused = true
+            }
+        }
+    }
+    
+    private func startEditing() {
+        editedName = viewModel.nickname
+        isEditing = true
+    }
+    
+    private func saveAndDismiss() {
+        // Validation check
+        if !editedName.trimmingCharacters(in: .whitespaces).isEmpty {
+            viewModel.nickname = editedName
+        }
+        
+        // Critical: Dismiss keyboard BEFORE toggling isEditing
+        // This prevents constraint errors when the TextField is removed
+        isFocused = false
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        
+        // Add a small delay or just toggle state now? 
+        // Toggling immediately is usually fine if keyboard dismissal has started
+        isEditing = false
     }
 }
 
@@ -322,7 +373,7 @@ private struct MeshStep: View {
                 .padding()
                 .background(Theme.surface(colorScheme))
                 .cornerRadius(Theme.CornerRadius.medium)
-                
+                                
                 Spacer()
             }
             .padding(.horizontal, 24)

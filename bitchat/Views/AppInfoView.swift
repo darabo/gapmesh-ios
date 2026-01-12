@@ -152,6 +152,9 @@ struct AppInfoView: View {
                             InfoRow(info: Strings.Privacy.noTracking)
                             InfoRow(info: Strings.Privacy.ephemeral)
                             InfoRow(info: Strings.Privacy.panic)
+                            
+                            // Legacy Compatibility Toggle
+                            LegacyCompatibilityToggle()
                         }
                         .background(Theme.surface(colorScheme))
                         .cornerRadius(Theme.CornerRadius.large)
@@ -290,6 +293,43 @@ struct LanguageOptionButton: View {
             )
         }
         .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Legacy Compatibility Toggle
+
+struct LegacyCompatibilityToggle: View {
+    @State private var isEnabled = UserDefaults.standard.isLegacyCompatibilityEnabled
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: Theme.Spacing.md) {
+            Image(systemName: "antenna.radiowaves.left.and.right.circle")
+                .font(.system(size: 20))
+                .foregroundColor(Theme.accent(colorScheme))
+                .frame(width: 24)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(LocalizedStringKey("app_info.privacy.legacy_compat.title"))
+                    .font(Theme.bodyFont(size: 16).weight(.medium))
+                    .foregroundColor(Theme.primaryText(colorScheme))
+                
+                Text(LocalizedStringKey("app_info.privacy.legacy_compat.description"))
+                    .font(Theme.captionFont(size: 14))
+                    .foregroundColor(Theme.secondaryText(colorScheme))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            
+            Spacer()
+            
+            Toggle("", isOn: $isEnabled)
+                .labelsHidden()
+                .onChange(of: isEnabled) { newValue in
+                    UserDefaults.standard.isLegacyCompatibilityEnabled = newValue
+                }
+        }
+        .padding(Theme.Spacing.md)
+        .background(Theme.surface(colorScheme))
     }
 }
 

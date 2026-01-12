@@ -147,8 +147,19 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     @Published var messages: [BitchatMessage] = []
     @Published var currentColorScheme: ColorScheme = .light
+    
+    // Track last screenshot time for debouncing
+    @Published var lastScreenshotTime: Date? = nil
+    
     private let maxMessages = TransportConfig.meshTimelineCap // Maximum messages before oldest are removed
     @Published var isConnected = false
+    
+    enum TorConnectionStatus {
+        case off
+        case connecting
+        case connected
+    }
+    @Published var torStatus: TorConnectionStatus = .off
     private var recentlySeenPeers: Set<PeerID> = []
     private var lastNetworkNotificationTime = Date.distantPast
     private var networkResetTimer: Timer? = nil
@@ -165,6 +176,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             if !meshService.myPeerID.isEmpty {
                 meshService.setNickname(nickname)
             }
+            // Persist immediately
+            saveNickname()
         }
     }
     
@@ -1701,9 +1714,17 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             // Silently ignore screenshots of app info
             return
         }
+        
+        // Debounce: ignore if less than 2 seconds since last screenshot
+        let now = Date()
+        if let lastTime = lastScreenshotTime, now.timeIntervalSince(lastTime) < 2.0 {
+            return
+        }
+        lastScreenshotTime = now
 
         // Send screenshot notification based on current context
-        let screenshotMessage = "* \(nickname) took a screenshot *"
+        // Always send in English for consistency across devices with different locales
+        let screenshotMessage = "took a screenshot"
         
         if let peerID = selectedPrivateChatPeer {
             // In private chat - send to the other person
@@ -1724,7 +1745,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             // Show local notification immediately as system message (only in chat)
             let localNotification = BitchatMessage(
                 sender: "system",
-                content: "you took a screenshot",
+                content: LanguageManager.shared.currentLanguage == .farsi ? "شما از صفحه عکس گرفتید" : "you took a screenshot",
                 timestamp: Date(),
                 isRelay: false,
                 originalSender: nil,
@@ -1779,7 +1800,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             // Show local notification immediately as system message (only in chat)
             let localNotification = BitchatMessage(
                 sender: "system",
-                content: "you took a screenshot",
+                content: LanguageManager.shared.currentLanguage == .farsi ? "شما از صفحه عکس گرفتید" : "you took a screenshot",
                 timestamp: Date(),
                 isRelay: false
             )
