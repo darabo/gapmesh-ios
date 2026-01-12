@@ -298,6 +298,9 @@ extension ChatViewModel {
             }
         }
         
+        // Update participants last-seen for this pubkey
+        participantTracker.recordParticipant(pubkeyHex: event.pubkey)
+
         // Skip only very recent self-echo from relay; include older self events for hydration
         if isSelf {
             let eventTime = Date(timeIntervalSince1970: TimeInterval(event.created_at))
@@ -320,9 +323,6 @@ extension ChatViewModel {
         // Store mapping for geohash DM initiation
         nostrKeyMapping[PeerID(nostr_: event.pubkey)] = event.pubkey
         nostrKeyMapping[PeerID(nostr: event.pubkey)] = event.pubkey
-        
-        // Update participants last-seen for this pubkey
-        participantTracker.recordParticipant(pubkeyHex: event.pubkey)
         
         // If presence heartbeat (Kind 20001), stop here - no content to display
         if event.kind == NostrProtocol.EventKind.geohashPresence.rawValue {
