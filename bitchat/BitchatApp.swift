@@ -81,6 +81,8 @@ struct BitchatApp: App {
                 // Services are started by OnboardingView.completeOnboarding() for new users
                 if onboardingSeen {
                     NetworkActivationService.shared.start()
+                    // Start presence service (will wait for Tor readiness)
+                    GeohashPresenceService.shared.start()
                 }
                 // Check for shared content
                 checkForSharedContent()
