@@ -42,10 +42,31 @@ struct LocationChannelsSheet: View {
         }
 
         static func levelTitle(for level: GeohashChannelLevel, count: Int) -> String {
+            // High-precision uncertainty: if count is 0 for high-precision levels,
+            // show "?" because presence broadcasting is disabled for privacy.
+            let isHighPrecision = (level == .neighborhood || level == .block || level == .building)
+            if isHighPrecision && count == 0 {
+                return String(
+                    format: String(localized: "location_channels.row_title_unknown", defaultValue: "%@ [? people]"),
+                    locale: .current,
+                    level.displayName
+                )
+            }
             return rowTitle(label: level.displayName, count: count)
         }
 
         static func bookmarkTitle(geohash: String, count: Int) -> String {
+            // Check precision for bookmarks too
+            let len = geohash.count
+            // Neighborhood=6, Block=7, Building=8+
+            let isHighPrecision = (len >= 6)
+            if isHighPrecision && count == 0 {
+                return String(
+                    format: String(localized: "location_channels.row_title_unknown", defaultValue: "%@ [? people]"),
+                    locale: .current,
+                    "#\(geohash)"
+                )
+            }
             return rowTitle(label: "#\(geohash)", count: count)
         }
 

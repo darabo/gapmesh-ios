@@ -893,10 +893,10 @@ struct NostrFilter: Encodable {
         return filter
     }
 
-    // For location channels: geohash-scoped ephemeral events (kind 20000)
+    // For location channels: geohash-scoped ephemeral events (kind 20000) and presence (kind 20001)
     static func geohashEphemeral(_ geohash: String, since: Date? = nil, limit: Int = 200) -> NostrFilter {
         var filter = NostrFilter()
-        filter.kinds = [20000]
+        filter.kinds = [20000, 20001]
         filter.since = since?.timeIntervalSince1970.toInt()
         filter.tagFilters = ["g": [geohash]]
         filter.limit = limit

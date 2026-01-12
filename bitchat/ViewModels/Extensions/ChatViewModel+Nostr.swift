@@ -57,7 +57,8 @@ extension ChatViewModel {
     }
     
     func subscribeNostrEvent(_ event: NostrEvent) {
-        guard event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue,
+        guard (event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue || 
+               event.kind == NostrProtocol.EventKind.geohashPresence.rawValue),
               !deduplicationService.hasProcessedNostrEvent(event.id)
         else {
             return
@@ -86,6 +87,11 @@ extension ChatViewModel {
 
         // Update participants last-seen for this pubkey
         participantTracker.recordParticipant(pubkeyHex: event.pubkey)
+        
+        // If presence heartbeat (Kind 20001), stop here - no content to display
+        if event.kind == NostrProtocol.EventKind.geohashPresence.rawValue {
+            return
+        }
         
         // Track teleported tag (only our format ["t","teleport"]) for icon state
         let hasTeleportTag = event.tags.contains(where: { tag in
@@ -254,15 +260,9 @@ extension ChatViewModel {
     }
     
     func handleNostrEvent(_ event: NostrEvent) {
-        // Diagnostic logging FIRST - before any guard statements
-        let gTag = event.tags.first(where: { $0.first == "g" })?.dropFirst().first ?? "?"
-        SecureLogger.info("📨 GEOHASH-HANDLE id=\(event.id.prefix(12))… kind=\(event.kind) pubkey=\(event.pubkey.prefix(8))… geohash=\(gTag) myGeohash=\(currentGeohash ?? "nil") content=\(event.content.prefix(30))…", category: .session)
-        
-        // Only handle ephemeral kind 20000 with matching tag
-        guard event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue else {
-            SecureLogger.warning("📨 GEOHASH-SKIP-KIND expected=\(NostrProtocol.EventKind.ephemeralEvent.rawValue) got=\(event.kind)", category: .session)
-            return
-        }
+        // Only handle ephemeral kind 20000 or presence kind 20001 with matching tag
+        guard (event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue ||
+               event.kind == NostrProtocol.EventKind.geohashPresence.rawValue) else { return }
         
         // Deduplicate
         if deduplicationService.hasProcessedNostrEvent(event.id) {
@@ -323,6 +323,11 @@ extension ChatViewModel {
         
         // Update participants last-seen for this pubkey
         participantTracker.recordParticipant(pubkeyHex: event.pubkey)
+        
+        // If presence heartbeat (Kind 20001), stop here - no content to display
+        if event.kind == NostrProtocol.EventKind.geohashPresence.rawValue {
+            return
+        }
         
         let senderName = displayNameForNostrPubkey(event.pubkey)
         let content = event.content
@@ -493,7 +498,8 @@ extension ChatViewModel {
     }
     
     func subscribeNostrEvent(_ event: NostrEvent, gh: String) {
-        guard event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue else { return }
+        guard (event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue ||
+               event.kind == NostrProtocol.EventKind.geohashPresence.rawValue) else { return }
 
         // Compute current participant count (5-minute window) BEFORE updating with this event
         let existingCount = participantTracker.participantCount(for: gh)
