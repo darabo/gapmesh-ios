@@ -9,7 +9,7 @@
 import Testing
 import Foundation
 import CoreBluetooth
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct FragmentationTests {
     

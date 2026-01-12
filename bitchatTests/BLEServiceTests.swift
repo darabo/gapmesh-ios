@@ -8,7 +8,7 @@
 
 import Testing
 import CoreBluetooth
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct BLEServiceTests {
     private let service: MockBLEService

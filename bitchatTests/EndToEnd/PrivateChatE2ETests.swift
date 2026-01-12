@@ -9,7 +9,7 @@
 import Testing
 import CryptoKit
 import struct Foundation.UUID
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct PrivateChatE2ETests {
     

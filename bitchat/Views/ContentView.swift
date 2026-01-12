@@ -9,147 +9,6 @@
 import SwiftUI
 #if os(iOS)
 import UIKit
-
-// MARK: - Hold-to-Record Button (UIKit)
-// Uses direct touch handling to bypass iOS sheet gesture arbitration
-struct HoldToRecordButton: UIViewRepresentable {
-    let tintColor: Color
-    var onStart: () -> Void
-    var onEnd: () -> Void
-    var onCancel: () -> Void = {}
-
-    func makeUIView(context: Context) -> TouchTrackingView {
-        let touchView = TouchTrackingView()
-        touchView.coordinator = context.coordinator
-        
-        // Create the mic button/image view
-        let button = UIButton(type: .custom)
-        let config = UIImage.SymbolConfiguration(pointSize: 24, weight: .regular)
-        let uiImage = UIImage(systemName: "mic.circle.fill", withConfiguration: config)
-        button.setImage(uiImage, for: .normal)
-        button.tintColor = UIColor(tintColor)
-        button.imageView?.contentMode = .scaleAspectFit
-        button.isUserInteractionEnabled = false // Let the container handle touches
-        
-        button.translatesAutoresizingMaskIntoConstraints = false
-        touchView.addSubview(button)
-        touchView.button = button
-        NSLayoutConstraint.activate([
-            button.topAnchor.constraint(equalTo: touchView.topAnchor),
-            button.bottomAnchor.constraint(equalTo: touchView.bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: touchView.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: touchView.trailingAnchor)
-        ])
-        
-        return touchView
-    }
-
-    func updateUIView(_ uiView: TouchTrackingView, context: Context) {
-        uiView.button?.tintColor = UIColor(tintColor)
-        context.coordinator.parent = self
-    }
-
-    func makeCoordinator() -> Coordinator {
-        Coordinator(parent: self)
-    }
-
-    class Coordinator: NSObject {
-        var parent: HoldToRecordButton
-        var hasStarted = false
-        var startTime: Date?
-        var startWorkItem: DispatchWorkItem?
-
-        init(parent: HoldToRecordButton) {
-            self.parent = parent
-        }
-        
-        func touchBegan() {
-            print("🎤 HoldToRecordButton: Touch BEGAN")
-            guard !hasStarted else { return }
-            
-            // Cancel any pending start from a previous touch
-            startWorkItem?.cancel()
-            
-            // Delay start slightly to let system gestures settle
-            // This prevents the common pattern where touch begins then immediately cancels
-            let workItem = DispatchWorkItem { [weak self] in
-                guard let self = self else { return }
-                guard !self.hasStarted else { return }
-                self.hasStarted = true
-                self.startTime = Date()
-                print("🎤 HoldToRecordButton: Recording STARTED (after delay)")
-                self.parent.onStart()
-            }
-            startWorkItem = workItem
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15, execute: workItem)
-        }
-        
-        func touchEnded() {
-            print("🎤 HoldToRecordButton: Touch ENDED")
-            startWorkItem?.cancel()
-            startWorkItem = nil
-            
-            guard hasStarted else { return }
-            hasStarted = false
-            startTime = nil
-            parent.onEnd()
-        }
-        
-        func touchCancelled() {
-            print("🎤 HoldToRecordButton: Touch CANCELLED")
-            startWorkItem?.cancel()
-            startWorkItem = nil
-            
-            guard hasStarted else { return }
-            
-            // Only call onCancel if we've been recording for a meaningful duration
-            // This prevents accidental cancels from system gesture interference
-            let recordingDuration = startTime.map { Date().timeIntervalSince($0) } ?? 0
-            if recordingDuration > 0.3 {
-                print("🎤 HoldToRecordButton: Cancel after \(recordingDuration)s of recording")
-                hasStarted = false
-                startTime = nil
-                parent.onCancel()
-            } else {
-                // Just reset state, don't cancel the recording
-                print("🎤 HoldToRecordButton: Ignoring short cancel (\(recordingDuration)s)")
-                hasStarted = false
-                startTime = nil
-            }
-        }
-    }
-    
-    // Custom UIView that directly handles touches without gesture recognizers
-    class TouchTrackingView: UIView {
-        weak var coordinator: Coordinator?
-        weak var button: UIButton?
-        
-        override init(frame: CGRect) {
-            super.init(frame: frame)
-            self.isMultipleTouchEnabled = false
-            self.isExclusiveTouch = true
-        }
-        
-        required init?(coder: NSCoder) {
-            fatalError("init(coder:) has not been implemented")
-        }
-        
-        override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesBegan(touches, with: event)
-            coordinator?.touchBegan()
-        }
-        
-        override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesEnded(touches, with: event)
-            coordinator?.touchEnded()
-        }
-        
-        override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-            super.touchesCancelled(touches, with: event)
-            coordinator?.touchCancelled()
-        }
-    }
-}
 #endif
 #if os(macOS)
 import AppKit
@@ -205,7 +64,6 @@ struct ContentView: View {
     @State private var isRecordingVoiceNote = false
     @State private var isPreparingVoiceNote = false
     @State private var recordingDuration: TimeInterval = 0
-    @State private var recordingLevel: Float = -160.0
     @State private var recordingTimer: Timer?
     @State private var recordingStartDate: Date?
 #if os(iOS)
@@ -240,16 +98,14 @@ struct ContentView: View {
         dynamicTypeSize.isAccessibilitySize ? 2 : 1
     }
 
-    // MARK: - Subviews
-    
     private var peopleSheetTitle: String {
-        String(localized: "content.header.people", comment: "Title for the people list sheet").lowercased()
+        LanguageManager.shared.localizedString("content.header.people").lowercased()
     }
 
     private var peopleSheetSubtitle: String? {
         switch locationManager.selectedChannel {
         case .mesh:
-            return "#mesh"
+            return LanguageManager.shared.localizedString("channels.mesh")
         case .location(let channel):
             return "#\(channel.geohash.lowercased())"
         }
@@ -258,11 +114,12 @@ struct ContentView: View {
     private var peopleSheetActiveCount: Int {
         switch locationManager.selectedChannel {
         case .mesh:
-            return viewModel.allPeers.filter { $0.peerID != viewModel.meshService.myPeerID }.count + 1
+            return viewModel.allPeers.filter { $0.peerID != viewModel.meshService.myPeerID }.count
         case .location:
-            return viewModel.visibleGeohashPeople().count + 1
+            return viewModel.visibleGeohashPeople().count
         }
     }
+    
     
     private struct PrivateHeaderContext {
         let headerPeerID: PeerID
@@ -271,11 +128,20 @@ struct ContentView: View {
         let isNostrAvailable: Bool
     }
     
-    // MARK: - Subviews
-    
+    private var connectionStatusColor: Color {
+        switch locationManager.selectedChannel {
+        case .mesh:
+            return viewModel.isConnected ? Color.green : Color.red
+        case .location:
+            switch viewModel.torStatus {
+            case .connected: return Color.green
+            case .connecting: return Color.orange
+            case .off: return Color.red
+            }
+        }
+    }
 
-
-    // MARK: - Body
+// MARK: - Body
 
     var body: some View {
         VStack(spacing: 0) {
@@ -296,10 +162,13 @@ struct ContentView: View {
 
             Divider()
 
-            VStack(spacing: 0) {
-                messagesView(privatePeer: nil, isAtBottom: $isAtBottomPublic)
-                    .background(backgroundColor)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    messagesView(privatePeer: nil, isAtBottom: $isAtBottomPublic)
+                        .background(backgroundColor)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height)
             }
 
             Divider()
@@ -412,8 +281,8 @@ struct ContentView: View {
                     .environmentObject(viewModel)
             }
         }
-        .alert("content.recording.error_title", isPresented: $showRecordingAlert, actions: {
-            Button("common.ok", role: .cancel) {}
+        .alert("Recording Error", isPresented: $showRecordingAlert, actions: {
+            Button("OK", role: .cancel) {}
         }, message: {
             Text(recordingAlertMessage)
         })
@@ -769,7 +638,7 @@ struct ContentView: View {
                     "",
                     text: $messageText,
                     prompt: Text(
-                        String(localized: "content.input.message_placeholder", comment: "Placeholder shown in the chat composer")
+                        LanguageManager.shared.localizedString("content.input.message_placeholder")
                     )
                     .foregroundColor(secondaryTextColor.opacity(0.6))
                 )
@@ -1033,10 +902,10 @@ struct ContentView: View {
                             .frame(width: 32, height: 32)
                     }
                     .buttonStyle(.plain)
-                    .accessibilityLabel(String(localized: "content.accessibility.close"))
+                    .accessibilityLabel("Close")
                 }
                 let activeText = String.localizedStringWithFormat(
-                    String(localized: "content.people_count_active", comment: "Count of active users in the people sheet"),
+                    String(localized: "%@ active", comment: "Count of active users in the people sheet"),
                     "\(peopleSheetActiveCount)"
                 )
 
@@ -1164,7 +1033,7 @@ struct ContentView: View {
                     }
                 
                     .buttonStyle(.plain)
-                    .accessibilityLabel(String(localized: "content.accessibility.close"))
+                    .accessibilityLabel("Close")
                 }
                 .frame(height: headerHeight)
                 .padding(.horizontal, 16)
@@ -1344,7 +1213,7 @@ struct ContentView: View {
         case .location:
             let n = viewModel.geohashPeople.count
             let standardGreen = (colorScheme == .dark) ? Color.green : Color(red: 0, green: 0.5, blue: 0)
-            return (n + 1, n > 0 ? standardGreen : Color.secondary)
+            return (n, n > 0 ? standardGreen : Color.secondary)
         case .mesh:
             let counts = viewModel.allPeers.reduce(into: (others: 0, mesh: 0)) { counts, peer in
                 guard peer.peerID != viewModel.meshService.myPeerID else { return }
@@ -1353,14 +1222,14 @@ struct ContentView: View {
             }
             let meshBlue = Color(hue: 0.60, saturation: 0.85, brightness: 0.82)
             let color: Color = counts.mesh > 0 ? meshBlue : Color.secondary
-            return (counts.others + 1, color)
+            return (counts.others, color)
         }
     }
 
     
     private var mainHeaderView: some View {
         HStack(spacing: 0) {
-            Text(verbatim: "Gap Mash/")
+            Text(verbatim: "Gap Mesh/")
                 .font(.bitchatSystem(size: 18, weight: .medium, design: .monospaced))
                 .foregroundColor(textColor)
                 .onTapGesture(count: 3) {
@@ -1470,7 +1339,7 @@ struct ContentView: View {
                 Button(action: { showLocationChannelsSheet = true }) {
                     let badgeText: String = {
                         switch locationManager.selectedChannel {
-                        case .mesh: return "#mesh"
+                        case .mesh: return LanguageManager.shared.localizedString("channels.mesh")
                         case .location(let ch): return "#\(ch.geohash)"
                         }
                     }()
@@ -1482,12 +1351,29 @@ struct ContentView: View {
                             return (colorScheme == .dark) ? Color.green : Color(red: 0, green: 0.5, blue: 0)
                         }
                     }()
-                    Text(badgeText)
-                        .font(.bitchatSystem(size: 14, design: .monospaced))
-                        .foregroundColor(badgeColor)
-                        .lineLimit(headerLineLimit)
-                        .fixedSize(horizontal: true, vertical: false)
-                        .layoutPriority(2)
+                    HStack(alignment: .center, spacing: 6) {
+                        // Connection status dot
+                        if case .location = locationManager.selectedChannel {
+                            // In geohash channels, always show Tor status dot
+                            Circle()
+                                .fill(connectionStatusColor)
+                                .frame(width: 8, height: 8)
+                        } else {
+                            // In mesh, only show if connected (green) or keep the dot logic consistent?
+                            // Android logic: Green if connected, Red if not.
+                            // The user asked for "Green for connected, red for not".
+                            Circle()
+                                .fill(connectionStatusColor)
+                                .frame(width: 8, height: 8)
+                        }
+
+                        Text(badgeText)
+                            .font(.bitchatSystem(size: 14, design: .monospaced))
+                            .foregroundColor(badgeColor)
+                            .lineLimit(headerLineLimit)
+                            .fixedSize(horizontal: true, vertical: false)
+                            .layoutPriority(2)
+                    }
                         .accessibilityLabel(
                             String(localized: "content.accessibility.location_channels", comment: "Accessibility label for the location channels button")
                         )
@@ -1500,13 +1386,14 @@ struct ContentView: View {
                     // People icon with count
                     Image(systemName: "person.2.fill")
                         .font(.system(size: headerPeerIconSize, weight: .regular))
-                        .accessibilityLabel(
-                            String(
-                                format: String(localized: "content.accessibility.people_count", comment: "Accessibility label announcing number of people in header"),
-                                locale: .current,
-                                headerOtherPeersCount
-                            )
-                        )
+                        .accessibilityLabel({
+                            // Simple format that works with runtime locale switching
+                            let locale = LanguageManager.shared.currentLanguage.locale
+                            let countWord = headerOtherPeersCount == 1
+                                ? String(localized: "person", locale: locale)
+                                : String(localized: "people", locale: locale)
+                            return "\(headerOtherPeersCount) \(countWord)"
+                        }())
                     Text("\(headerOtherPeersCount)")
                         .font(.system(size: headerPeerCountFontSize, weight: .regular, design: .monospaced))
                         .accessibilityHidden(true)
@@ -1860,16 +1747,15 @@ private extension ContentView {
 
     var recordingIndicator: some View {
         HStack(spacing: 12) {
-            RecordingWaveformView(level: recordingLevel)
-                .frame(width: 30, height: 20)
+            Image(systemName: "waveform.circle.fill")
                 .foregroundColor(.red)
-            
+                .font(.bitchatSystem(size: 20))
             Text("recording \(formattedRecordingDuration())", comment: "Voice note recording duration indicator")
                 .font(.bitchatSystem(size: 13, design: .monospaced))
                 .foregroundColor(.red)
             Spacer()
             Button(action: cancelVoiceRecording) {
-                Label("common.cancel", systemImage: "xmark.circle")
+                Label("Cancel", systemImage: "xmark.circle")
                     .labelStyle(.iconOnly)
                     .font(.bitchatSystem(size: 18))
                     .foregroundColor(.red)
@@ -1932,7 +1818,7 @@ private extension ContentView {
                 imagePickerSourceType = .camera
                 showImagePicker = true
             }
-            .accessibilityLabel(String(localized: "content.accessibility.tap_library_long_camera"))
+            .accessibilityLabel("Tap for library, long press for camera")
         #else
         Button(action: { showMacImagePicker = true }) {
             Image(systemName: "photo.circle.fill")
@@ -1941,7 +1827,7 @@ private extension ContentView {
                 .frame(width: 36, height: 36)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel(String(localized: "content.accessibility.choose_photo"))
+        .accessibilityLabel("Choose photo")
         #endif
     }
 
@@ -1967,28 +1853,21 @@ private extension ContentView {
     private var micButtonView: some View {
         let tint = (isRecordingVoiceNote || isPreparingVoiceNote) ? Color.red : composerAccentColor
 
-        #if os(iOS)
-        return HoldToRecordButton(
-            tintColor: tint,
-            onStart: { startVoiceRecording() },
-            onEnd: { finishVoiceRecording(send: true) },
-            onCancel: { finishVoiceRecording(send: false) }
-        )
-        .frame(width: 36, height: 36)
-        .accessibilityLabel(String(localized: "content.accessibility.hold_to_record"))
-        #else
         return Image(systemName: "mic.circle.fill")
             .font(.bitchatSystem(size: 24))
             .foregroundColor(tint)
             .frame(width: 36, height: 36)
             .contentShape(Circle())
-            .gesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in startVoiceRecording() }
-                    .onEnded { _ in finishVoiceRecording(send: true) }
+            .overlay(
+                Color.clear
+                    .contentShape(Circle())
+                    .gesture(
+                        DragGesture(minimumDistance: 0)
+                            .onChanged { _ in startVoiceRecording() }
+                            .onEnded { _ in finishVoiceRecording(send: true) }
+                    )
             )
-            .accessibilityLabel(String(localized: "content.accessibility.hold_to_record"))
-        #endif
+            .accessibilityLabel("Hold to record a voice note")
     }
 
     private func sendButtonView(enabled: Bool) -> some View {
@@ -2026,11 +1905,9 @@ private extension ContentView {
         isPreparingVoiceNote = true
         Task { @MainActor in
             let granted = await VoiceRecorder.shared.requestPermission()
-            // Ensure user is still holding the button (didn't cancel during permission prompt)
-            guard isPreparingVoiceNote else { return }
             guard granted else {
                 isPreparingVoiceNote = false
-                recordingAlertMessage = String(localized: "content.recording.microphone_required")
+                recordingAlertMessage = "Microphone access is required to record voice notes."
                 showRecordingAlert = true
                 return
             }
@@ -2042,9 +1919,6 @@ private extension ContentView {
                 recordingTimer = Timer.scheduledTimer(withTimeInterval: 0.05, repeats: true) { _ in
                     if let start = recordingStartDate {
                         recordingDuration = Date().timeIntervalSince(start)
-                        withAnimation(.linear(duration: 0.05)) {
-                            recordingLevel = VoiceRecorder.shared.currentAveragePower()
-                        }
                     }
                 }
                 if let timer = recordingTimer {
@@ -2054,7 +1928,7 @@ private extension ContentView {
                 isRecordingVoiceNote = true
             } catch {
                 SecureLogger.error("Voice recording failed to start: \(error)", category: .session)
-                recordingAlertMessage = String(localized: "content.recording.could_not_start")
+                recordingAlertMessage = "Could not start recording."
                 showRecordingAlert = true
                 VoiceRecorder.shared.cancelRecording()
                 isPreparingVoiceNote = false
@@ -2093,8 +1967,8 @@ private extension ContentView {
                             try? FileManager.default.removeItem(at: url)
                         }
                         recordingAlertMessage = recordingDuration < minimumDuration
-                            ? String(localized: "content.recording.too_short")
-                            : String(localized: "content.recording.failed_to_save")
+                            ? "Recording is too short."
+                            : "Recording failed to save."
                         showRecordingAlert = true
                         return
                     }
@@ -2274,36 +2148,6 @@ struct ImagePreviewView: View {
 #endif
 }
 
-struct RecordingWaveformView: View {
-    var level: Float // in decibels, approx -160 to 0
-
-    // Normalize -60...0 dB to 0...1 range for visualizer
-    private var normalizedLevel: CGFloat {
-        let minDb: Float = -60.0
-        if level < minDb { return 0.1 } // Keep a small minimum to show it's alive
-        if level >= 0 { return 1.0 }
-        return CGFloat((level - minDb) / abs(minDb))
-    }
-
-    var body: some View {
-        HStack(alignment: .center, spacing: 2) {
-            ForEach(0..<4) { i in
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(Color.red)
-                    .frame(width: 3, height: barHeight(index: i))
-            }
-        }
-    }
-
-    private func barHeight(index: Int) -> CGFloat {
-        // Base height modulated by level, with some variance per bar to look like a wave
-        let baseFn = sin(Double(Date().timeIntervalSince1970 * 10) + Double(index))
-        let dynamic = normalizedLevel * 14.0 // Max height approx 14
-        let variance = CGFloat(abs(baseFn)) * 6.0
-        return 4.0 + dynamic + (normalizedLevel > 0.2 ? variance : 0)
-    }
-}
-
 #if os(iOS)
 // MARK: - Image Picker (Camera or Photo Library)
 struct ImagePickerView: UIViewControllerRepresentable {
@@ -2358,10 +2202,10 @@ struct MacImagePickerView: View {
 
     var body: some View {
         VStack(spacing: 16) {
-            Text("content.choose_image")
+            Text("Choose an image")
                 .font(.headline)
 
-            Button("common.select_image") {
+            Button("Select Image") {
                 let panel = NSOpenPanel()
                 panel.allowsMultipleSelection = false
                 panel.canChooseDirectories = false
@@ -2377,7 +2221,7 @@ struct MacImagePickerView: View {
             }
             .buttonStyle(.borderedProminent)
 
-            Button("common.cancel") {
+            Button("Cancel") {
                 completion(nil)
             }
             .buttonStyle(.bordered)

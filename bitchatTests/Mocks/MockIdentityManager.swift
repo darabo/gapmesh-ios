@@ -7,7 +7,7 @@
 //
 
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 final class MockIdentityManager: SecureIdentityStateManagerProtocol {
     private let keychain: KeychainManagerProtocol

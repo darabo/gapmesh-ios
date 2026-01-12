@@ -18,6 +18,7 @@ extension ChatViewModel {
         Task { @MainActor in
             if !self.torStatusAnnounced && TorManager.shared.torEnforced {
                 self.torStatusAnnounced = true
+                self.torStatus = .connecting
                 // Post only in geohash channels (queue if not active)
                 self.addGeohashOnlySystemMessage(
                     String(localized: "system.tor.starting", comment: "System message when Tor is starting")
@@ -29,6 +30,7 @@ extension ChatViewModel {
     @objc func handleTorWillRestart() {
         Task { @MainActor in
             self.torRestartPending = true
+            self.torStatus = .connecting
             // Post only in geohash channels (queue if not active)
             self.addGeohashOnlySystemMessage(
                 String(localized: "system.tor.restarting", comment: "System message when Tor is restarting")
@@ -44,9 +46,11 @@ extension ChatViewModel {
                 self.addGeohashOnlySystemMessage(
                     String(localized: "system.tor.restarted", comment: "System message when Tor has restarted")
                 )
+                self.torStatus = .connected
                 self.torRestartPending = false
             } else if TorManager.shared.torEnforced && !self.torInitialReadyAnnounced {
                 // Initial start completed
+                self.torStatus = .connected
                 self.addGeohashOnlySystemMessage(
                     String(localized: "system.tor.started", comment: "System message when Tor has started")
                 )
@@ -67,6 +71,11 @@ extension ChatViewModel {
             self.torStatusAnnounced = false
             self.torInitialReadyAnnounced = false
             self.torRestartPending = false
+            if !TorManager.shared.torEnforced {
+                self.torStatus = .off
+            } else {
+                self.torStatus = .connecting
+            }
         }
     }
 }

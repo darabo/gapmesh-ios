@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct BinaryProtocolPaddingTests {
     @Test func padded_vs_unpadded_length() throws {

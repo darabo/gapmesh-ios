@@ -8,7 +8,7 @@
 
 import Testing
 import struct Foundation.Data
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct XChaCha20Poly1305CompatTests {
 

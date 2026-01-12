@@ -3,18 +3,7 @@ import SwiftUI
 struct AppInfoView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(\.colorScheme) var colorScheme
-    
-    private var backgroundColor: Color {
-        colorScheme == .dark ? Color.black : Color.white
-    }
-    
-    private var textColor: Color {
-        colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
-    }
-    
-    private var secondaryTextColor: Color {
-        colorScheme == .dark ? Color.green.opacity(0.8) : Color(red: 0, green: 0.5, blue: 0).opacity(0.8)
-    }
+    @EnvironmentObject var languageManager: LanguageManager
     
     // MARK: - Constants
     private enum Strings {
@@ -93,127 +82,139 @@ struct AppInfoView: View {
     }
     
     var body: some View {
-        #if os(macOS)
-        VStack(spacing: 0) {
-            // Custom header for macOS
-            HStack {
-                Spacer()
-                Button("app_info.done") {
-                    dismiss()
-                }
-                .buttonStyle(.plain)
-                .foregroundColor(textColor)
-                .padding()
-            }
-            .background(backgroundColor.opacity(0.95))
+        ZStack {
+            Theme.background(colorScheme)
+                .ignoresSafeArea()
             
             ScrollView {
-                infoContent
-            }
-            .background(backgroundColor)
-        }
-        .frame(width: 600, height: 700)
-        #else
-        NavigationView {
-            ScrollView {
-                infoContent
-            }
-            .background(backgroundColor)
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: { dismiss() }) {
-                        Image(systemName: "xmark")
-                            .font(.bitchatSystem(size: 13, weight: .semibold, design: .monospaced))
-                            .foregroundColor(textColor)
-                            .frame(width: 32, height: 32)
+                VStack(spacing: Theme.Spacing.xl) {
+                    
+                    // MARK: - Header
+                    VStack(spacing: Theme.Spacing.sm) {
+                        Image(systemName: "app.connected.to.app.below.fill") // Placeholder branding
+                            .font(.system(size: 64))
+                            .foregroundColor(Theme.accent(colorScheme))
+                            .padding(.bottom, 8)
+                        
+                        Text(Strings.appName)
+                            .font(Theme.titleFont(size: 28, weight: .bold))
+                            .foregroundColor(Theme.primaryText(colorScheme))
+                        
+                        Text(Strings.tagline)
+                            .font(Theme.bodyFont())
+                            .foregroundColor(Theme.secondaryText(colorScheme))
+                            .multilineTextAlignment(.center)
+                            .padding(.horizontal)
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("app_info.close")
+                    .padding(.top, Theme.Spacing.xl)
+                    
+                    // MARK: - Language Settings
+                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                        SectionHeader(title: "Language")
+                        
+                        HStack(spacing: Theme.Spacing.md) {
+                            LanguageOptionButton(
+                                title: "English",
+                                isSelected: languageManager.currentLanguage == .english,
+                                action: { languageManager.setLanguage(.english) }
+                            )
+                            
+                            LanguageOptionButton(
+                                title: "فارسی",
+                                isSelected: languageManager.currentLanguage == .farsi,
+                                action: { languageManager.setLanguage(.farsi) }
+                            )
+                        }
+                    }
+                    .padding(.horizontal)
+                    
+                    // MARK: - Features
+                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                        SectionHeader(title: Strings.Features.title)
+                        
+                        VStack(spacing: 1) { // 1px spacing for divider effect
+                            InfoRow(info: Strings.Features.offlineComm)
+                            InfoRow(info: Strings.Features.encryption)
+                            InfoRow(info: Strings.Features.extendedRange)
+                            InfoRow(info: Strings.Features.favorites)
+                            InfoRow(info: Strings.Features.geohash)
+                        }
+                        .background(Theme.surface(colorScheme))
+                        .cornerRadius(Theme.CornerRadius.large)
+                    }
+                    .padding(.horizontal)
+                    
+                    // MARK: - Privacy
+                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                        SectionHeader(title: Strings.Privacy.title)
+                        
+                        VStack(spacing: 1) {
+                            InfoRow(info: Strings.Privacy.noTracking)
+                            InfoRow(info: Strings.Privacy.ephemeral)
+                            InfoRow(info: Strings.Privacy.panic)
+                            
+                            // Legacy Compatibility Toggle
+                            LegacyCompatibilityToggle()
+                        }
+                        .background(Theme.surface(colorScheme))
+                        .cornerRadius(Theme.CornerRadius.large)
+                    }
+                    .padding(.horizontal)
+                    
+                    // MARK: - Warning
+                    VStack(alignment: .leading, spacing: Theme.Spacing.md) {
+                        SectionHeader(title: Strings.Warning.title)
+                            .foregroundColor(Theme.error)
+                        
+                        VStack(alignment: .leading, spacing: Theme.Spacing.sm) {
+                            HStack(alignment: .top, spacing: Theme.Spacing.md) {
+                                Image(systemName: "exclamationmark.triangle.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(Theme.error)
+                                
+                                Text(Strings.Warning.message)
+                                    .font(Theme.bodyFont())
+                                    .foregroundColor(Theme.primaryText(colorScheme))
+                                    .fixedSize(horizontal: false, vertical: true)
+                            }
+                        }
+                        .padding(Theme.Spacing.md)
+                        .background(Theme.error.opacity(0.1))
+                        .cornerRadius(Theme.CornerRadius.large)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Theme.CornerRadius.large)
+                                .stroke(Theme.error.opacity(0.3), lineWidth: 1)
+                        )
+                    }
+                    .padding(.horizontal)
+                    .padding(.bottom, Theme.Spacing.xxl)
+                    
+                }
+                .padding(.bottom, 40)
+            }
+        }
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: { dismiss() }) {
+                    Text("app_info.done")
+                        .fontWeight(.semibold)
                 }
             }
         }
         #endif
-    }
-    
-    @ViewBuilder
-    private var infoContent: some View {
-        VStack(alignment: .leading, spacing: 24) {
-            // Header
-            VStack(alignment: .center, spacing: 8) {
-                Text(Strings.appName)
-                    .font(.bitchatSystem(size: 32, weight: .bold, design: .monospaced))
-                    .foregroundColor(textColor)
-                
-                Text(Strings.tagline)
-                    .font(.bitchatSystem(size: 16, design: .monospaced))
-                    .foregroundColor(secondaryTextColor)
+        #if os(macOS)
+        .toolbar {
+            ToolbarItem(placement: .cancellationAction) {
+                Button("app_info.done") { dismiss() }
             }
-            .frame(maxWidth: .infinity)
-            .padding(.vertical)
-            
-            // How to Use
-            VStack(alignment: .leading, spacing: 16) {
-                SectionHeader(Strings.HowToUse.title)
-
-                VStack(alignment: .leading, spacing: 8) {
-                    ForEach(Array(Strings.HowToUse.instructions.enumerated()), id: \.offset) { _, instruction in
-                        Text(instruction)
-                    }
-                }
-                .font(.bitchatSystem(size: 14, design: .monospaced))
-                .foregroundColor(textColor)
-            }
-
-            // Features
-            VStack(alignment: .leading, spacing: 16) {
-                SectionHeader(Strings.Features.title)
-
-                FeatureRow(info: Strings.Features.offlineComm)
-
-                FeatureRow(info: Strings.Features.encryption)
-
-                FeatureRow(info: Strings.Features.extendedRange)
-
-                FeatureRow(info: Strings.Features.favorites)
-
-                FeatureRow(info: Strings.Features.geohash)
-
-                FeatureRow(info: Strings.Features.mentions)
-            }
-
-            // Privacy
-            VStack(alignment: .leading, spacing: 16) {
-                SectionHeader(Strings.Privacy.title)
-
-                FeatureRow(info: Strings.Privacy.noTracking)
-
-                FeatureRow(info: Strings.Privacy.ephemeral)
-
-                FeatureRow(info: Strings.Privacy.panic)
-            }
-
-            // Warning
-            VStack(alignment: .leading, spacing: 6) {
-                SectionHeader(Strings.Warning.title)
-                    .foregroundColor(Color.red)
-                
-                Text(Strings.Warning.message)
-                    .font(.bitchatSystem(size: 14, design: .monospaced))
-                    .foregroundColor(Color.red)
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .padding(.top, 6)
-            .padding(.bottom, 16)
-            .padding(.horizontal)
-            .background(Color.red.opacity(0.1))
-            .cornerRadius(8)
-            
-            .padding(.top)
         }
-        .padding()
+        #endif
     }
 }
+
+// MARK: - Helper Components
 
 struct AppInfoFeatureInfo {
     let icon: String
@@ -225,67 +226,114 @@ struct SectionHeader: View {
     let title: LocalizedStringKey
     @Environment(\.colorScheme) var colorScheme
     
-    private var textColor: Color {
-        colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
-    }
-    
-    init(_ title: LocalizedStringKey) {
-        self.title = title
-    }
-    
     var body: some View {
         Text(title)
-            .font(.bitchatSystem(size: 16, weight: .bold, design: .monospaced))
-            .foregroundColor(textColor)
-            .padding(.top, 8)
+            .font(Theme.titleFont(size: 18, weight: .semibold))
+            .foregroundColor(Theme.primaryText(colorScheme))
+            .padding(.leading, 4)
     }
 }
 
-struct FeatureRow: View {
+struct InfoRow: View {
     let info: AppInfoFeatureInfo
     @Environment(\.colorScheme) var colorScheme
     
-    private var textColor: Color {
-        colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
-    }
-    
-    private var secondaryTextColor: Color {
-        colorScheme == .dark ? Color.green.opacity(0.8) : Color(red: 0, green: 0.5, blue: 0).opacity(0.8)
-    }
-    
     var body: some View {
-        HStack(alignment: .top, spacing: 12) {
+        HStack(alignment: .top, spacing: Theme.Spacing.md) {
             Image(systemName: info.icon)
-                .font(.bitchatSystem(size: 20))
-                .foregroundColor(textColor)
-                .frame(width: 30)
+                .font(.system(size: 20))
+                .foregroundColor(Theme.accent(colorScheme))
+                .frame(width: 24)
+                .padding(.top, 2)
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(info.title)
-                    .font(.bitchatSystem(size: 14, weight: .semibold, design: .monospaced))
-                    .foregroundColor(textColor)
+                    .font(Theme.bodyFont(size: 16).weight(.medium))
+                    .foregroundColor(Theme.primaryText(colorScheme))
                 
                 Text(info.description)
-                    .font(.bitchatSystem(size: 12, design: .monospaced))
-                    .foregroundColor(secondaryTextColor)
+                    .font(Theme.captionFont(size: 14))
+                    .foregroundColor(Theme.secondaryText(colorScheme))
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            Spacer()
+        }
+        .padding(Theme.Spacing.md)
+        .background(Theme.surface(colorScheme))
+    }
+}
+
+struct LanguageOptionButton: View {
+    let title: String
+    let isSelected: Bool
+    let action: () -> Void
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        Button(action: action) {
+            HStack {
+                Text(title)
+                    .font(Theme.bodyFont(size: 16).weight(isSelected ? .semibold : .regular))
+                
+                if isSelected {
+                    Spacer()
+                    Image(systemName: "checkmark")
+                        .font(.system(size: 14, weight: .bold))
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 16)
+            .background(isSelected ? Theme.accent(colorScheme).opacity(0.15) : Theme.surface(colorScheme))
+            .foregroundColor(isSelected ? Theme.accent(colorScheme) : Theme.primaryText(colorScheme))
+            .cornerRadius(Theme.CornerRadius.medium)
+            .overlay(
+                RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                    .stroke(isSelected ? Theme.accent(colorScheme) : Color.clear, lineWidth: 2)
+            )
+        }
+        .buttonStyle(.plain)
+    }
+}
+
+// MARK: - Legacy Compatibility Toggle
+
+struct LegacyCompatibilityToggle: View {
+    @State private var isEnabled = UserDefaults.standard.isLegacyCompatibilityEnabled
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: Theme.Spacing.md) {
+            Image(systemName: "antenna.radiowaves.left.and.right.circle")
+                .font(.system(size: 20))
+                .foregroundColor(Theme.accent(colorScheme))
+                .frame(width: 24)
+            
+            VStack(alignment: .leading, spacing: 4) {
+                Text(LocalizedStringKey("app_info.privacy.legacy_compat.title"))
+                    .font(Theme.bodyFont(size: 16).weight(.medium))
+                    .foregroundColor(Theme.primaryText(colorScheme))
+                
+                Text(LocalizedStringKey("app_info.privacy.legacy_compat.description"))
+                    .font(Theme.captionFont(size: 14))
+                    .foregroundColor(Theme.secondaryText(colorScheme))
                     .fixedSize(horizontal: false, vertical: true)
             }
             
             Spacer()
+            
+            Toggle("", isOn: $isEnabled)
+                .labelsHidden()
+                .onChange(of: isEnabled) { newValue in
+                    UserDefaults.standard.isLegacyCompatibilityEnabled = newValue
+                }
         }
+        .padding(Theme.Spacing.md)
+        .background(Theme.surface(colorScheme))
     }
 }
 
-#Preview("Default") {
+#Preview {
     AppInfoView()
-}
-
-#Preview("Dynamic Type XXL") {
-    AppInfoView()
-        .environment(\.sizeCategory, .accessibilityExtraExtraExtraLarge)
-}
-
-#Preview("Dynamic Type XS") {
-    AppInfoView()
-        .environment(\.sizeCategory, .extraSmall)
+        .environmentObject(LanguageManager.shared)
 }

@@ -8,7 +8,7 @@
 
 import Testing
 import struct Foundation.UUID
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct PublicChatE2ETests {
     

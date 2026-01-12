@@ -10,7 +10,7 @@ import CryptoKit
 import Foundation
 import Testing
 
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 // MARK: - Test Vector Support
 

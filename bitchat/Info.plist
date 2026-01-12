@@ -2,10 +2,12 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleAllowMixedLocalizations</key>
+	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>fa</string>
+	<string></string>
 	<key>CFBundleDisplayName</key>
-	<string>Gap Mash</string>
+	<string>Gap Mesh</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -32,39 +34,35 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Gap Mash uses Bluetooth to create a secure mesh network for chatting with nearby users.</string>
+	<string>Gap Mesh uses Bluetooth to create a secure mesh network for chatting with nearby users.
+(Gap Mesh از بلوتوث برای ایجاد یک شبکه مش امن جهت گفتگو با کاربران نزدیک استفاده می‌کند.)</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Gap Mash uses Bluetooth to discover and connect with other Gap Mash users nearby.</string>
+	<string>Gap Mesh uses Bluetooth to discover and connect with other Gap Mesh users nearby.
+(Gap Mesh از بلوتوث برای شناسایی و اتصال به سایر کاربران نزدیک استفاده می‌کند.)</string>
+	<key>NSBonjourServices</key>
+	<array>
+		<string>_gapmesh._udp</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Gap Mash uses the camera to scan QR codes to verify peers.</string>
+	<string>Gap Mesh uses the camera to scan QR codes to verify peers.
+(Gap Mesh از دوربین برای اسکن کدهای QR جهت تایید هویت همتایان استفاده می‌کند.)</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>Gap Mesh uses local network to discover and communicate with nearby devices over WiFi.
+(Gap Mesh از شبکه محلی برای شناسایی و ارتباط با دستگاه‌های نزدیک از طریق وای‌فای استفاده می‌کند.)</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Gap Mash uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared.</string>
+	<string>Gap Mesh uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared.
+(Gap Mesh از مکان تقریبی شما برای محاسبه کانال‌های ژئوهش محلی جهت گفتگوهای عمومی اختیاری استفاده می‌کند. مکان دقیق GPS هرگز به اشتراک گذاشته نمی‌شود.)</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Gap Mash uses the microphone to record voice notes that relay across the mesh.</string>
+	<string>Gap Mesh uses the microphone to record voice notes that relay across the mesh.
+(Gap Mesh از میکروفون برای ضبط پیام‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند.)</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Gap Mash lets you pick images from your photo library to share with nearby peers.</string>
+	<string>Gap Mesh lets you pick images from your photo library to share with nearby peers.
+(Gap Mesh به شما امکان می‌دهد تصاویری را از کتابخانه عکس خود برای اشتراک‌گذاری با همتایان نزدیک انتخاب کنید.)</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
 	</array>
-	<key>WiFiAwareServices</key>
-	<array>
-		<dict>
-			<key>ServiceName</key>
-			<string>_gapmash._udp</string>
-			<key>Publishable</key>
-			<true/>
-			<key>Subscribable</key>
-			<true/>
-		</dict>
-	</array>
-	<key>NSBonjourServices</key>
-	<array>
-		<string>_gapmash._udp</string>
-	</array>
-	<key>NSLocalNetworkUsageDescription</key>
-	<string>Gap Mash uses local network to discover and communicate with nearby devices over WiFi.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiresFullScreen</key>
@@ -72,6 +70,17 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>WiFiAwareServices</key>
+	<array>
+		<dict>
+			<key>Publishable</key>
+			<true/>
+			<key>ServiceName</key>
+			<string>_gapmesh._udp</string>
+			<key>Subscribable</key>
+			<true/>
+		</dict>
 	</array>
 </dict>
 </plist>

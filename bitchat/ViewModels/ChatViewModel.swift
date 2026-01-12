@@ -9,17 +9,29 @@
 ///
 /// # ChatViewModel
 ///
-/// The central business logic and state management component for BitChat.
-/// Coordinates between the UI layer and the networking/encryption services.
+/// The central "Brain" of the app. It creates a bridge between the User Interface (what you see) and the complex networking (how messages travel).
 ///
-/// ## Overview
-/// ChatViewModel implements the MVVM pattern, serving as the binding layer between
-/// SwiftUI views and the underlying BitChat services. It manages:
-/// - Message state and delivery
-/// - Peer connections and presence
-/// - Private chat sessions
-/// - Command processing
-/// - UI state like autocomplete and notifications
+/// ## Architecture Overview (Novice Friendly)
+///
+/// Imagine this app as a walkie-talkie that can also send letters.
+/// 1. **Mesh (The Walkie-Talkie):**
+///    - Devices talk directly to each other using Bluetooth.
+///    - Good for close range (like a room or a park).
+///    - No internet needed!
+///
+/// 2. **Nostr (The Postal Service):**
+///    - Uses "Relays" (Post Offices) on the internet to send messages far away.
+///    - Good when you are not close but have the internet.
+///
+/// 3. **Geohash (The Town Square):**
+///    - Chatrooms based on where you are physically standing (e.g. "San Francisco").
+///    - We use GPS to figure out the "Town Square" name.
+///
+/// ## Core Responsibilities
+/// This class handles:
+/// - **Sending Messages:** Deciding whether to use Bluetooth or Internet.
+/// - **Managing Friends:** Keeping a list of people you are talking to.
+/// - **Handling Commands:** Shortcuts like `/nick` to change your name.
 ///
 /// ## Architecture
 /// The ViewModel acts as:
@@ -135,8 +147,19 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     @Published var messages: [BitchatMessage] = []
     @Published var currentColorScheme: ColorScheme = .light
+    
+    // Track last screenshot time for debouncing
+    @Published var lastScreenshotTime: Date? = nil
+    
     private let maxMessages = TransportConfig.meshTimelineCap // Maximum messages before oldest are removed
     @Published var isConnected = false
+    
+    enum TorConnectionStatus {
+        case off
+        case connecting
+        case connected
+    }
+    @Published var torStatus: TorConnectionStatus = .off
     private var recentlySeenPeers: Set<PeerID> = []
     private var lastNetworkNotificationTime = Date.distantPast
     private var networkResetTimer: Timer? = nil
@@ -153,6 +176,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             if !meshService.myPeerID.isEmpty {
                 meshService.setNickname(nickname)
             }
+            // Persist immediately
+            saveNickname()
         }
     }
     
@@ -482,11 +507,9 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         // Set nickname before starting services
         meshService.setNickname(nickname)
         
-        // Start mesh service immediately
-        meshService.startServices()
-        
-        // Initialize WiFi Aware transport if supported (runs alongside BLE)
-        initializeWiFiAwareIfAvailable()
+        // Services will be manually started via startServices() 
+        // after onboarding is complete.
+
 
         publicMessagePipeline.delegate = self
         publicMessagePipeline.updateActiveChannel(activeChannel)
@@ -614,8 +637,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             }
             .store(in: &cancellables)
         
-        // Request notification permission (guards test environment internally)
-        NotificationService.shared.requestAuthorization()
+        // Listen for favorite status changes (Authorization moved to startServices)
         
         
         // Listen for favorite status changes
@@ -746,6 +768,24 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     deinit {
         // No need to force UserDefaults synchronization
+    }
+
+    /// Explicitly start all mesh and notification services.
+    /// This should be called after onboarding is complete to avoid premature permission prompts.
+    func startServices() {
+        // Request notification permission (guards test environment internally)
+        NotificationService.shared.requestAuthorization()
+        
+        // Ensure nickname is set before starting mesh
+        meshService.setNickname(nickname)
+        
+        // Start mesh service (BLE)
+        meshService.startServices()
+        
+        // Initialize WiFi Aware transport if supported (runs alongside BLE)
+        initializeWiFiAwareIfAvailable()
+        
+        SecureLogger.info("✅ All services started via ChatViewModel.startServices()", category: .session)
     }
 
 
@@ -1002,10 +1042,17 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     // MARK: - Message Sending
     
-    /// Sends a message through the BitChat network.
-    /// - Parameter content: The message content to send
-    /// - Note: Automatically handles command processing if content starts with '/'
-    ///         Routes to private chat if one is selected, otherwise broadcasts
+    /// Sends a message through the network.
+    /// This function acts as a smart "Router" to decide WHERE the message goes:
+    ///
+    /// - **Commands:** If it starts with `/`, it's a special action (e.g. `/nick`).
+    /// - **Private Chat:** If you are talking to one person, it tries to send it secretly to them.
+    ///   - First it tries **Mesh** (Direct Bluetooth).
+    ///   - If that fails/not connected, it tries **Nostr** (Internet).
+    /// - **Geohash:** If you are in a location channel, it sends it to that "Town Square" via the Internet.
+    /// - **Public Broadcast:** Otherwise, it shouts it out to everyone nearby via Bluetooth.
+    ///
+    /// - Parameter content: The text you typed.
     @MainActor
     func sendMessage(_ content: String) {
         // Ignore messages that are empty or whitespace-only to prevent blank lines
@@ -1667,9 +1714,17 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             // Silently ignore screenshots of app info
             return
         }
+        
+        // Debounce: ignore if less than 2 seconds since last screenshot
+        let now = Date()
+        if let lastTime = lastScreenshotTime, now.timeIntervalSince(lastTime) < 2.0 {
+            return
+        }
+        lastScreenshotTime = now
 
         // Send screenshot notification based on current context
-        let screenshotMessage = "* \(nickname) took a screenshot *"
+        // Always send in English for consistency across devices with different locales
+        let screenshotMessage = "took a screenshot"
         
         if let peerID = selectedPrivateChatPeer {
             // In private chat - send to the other person
@@ -1690,7 +1745,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             // Show local notification immediately as system message (only in chat)
             let localNotification = BitchatMessage(
                 sender: "system",
-                content: "you took a screenshot",
+                content: LanguageManager.shared.currentLanguage == .farsi ? "شما از صفحه عکس گرفتید" : "you took a screenshot",
                 timestamp: Date(),
                 isRelay: false,
                 originalSender: nil,
@@ -1745,7 +1800,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             // Show local notification immediately as system message (only in chat)
             let localNotification = BitchatMessage(
                 sender: "system",
-                content: "you took a screenshot",
+                content: LanguageManager.shared.currentLanguage == .farsi ? "شما از صفحه عکس گرفتید" : "you took a screenshot",
                 timestamp: Date(),
                 isRelay: false
             )

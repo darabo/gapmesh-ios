@@ -8,7 +8,7 @@
 
 import Testing
 import Foundation
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct PeerIDTests {
     private let hex16 = "0011223344556677"

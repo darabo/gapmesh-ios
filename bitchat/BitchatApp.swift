@@ -10,18 +10,25 @@ import Tor
 import SwiftUI
 import UserNotifications
 
+/// The Main Entry Point of the iOS App.
+///
+/// This is where the app "wakes up". It has two main jobs:
+/// 1. **Setup:** Create the objects that will run the app (like `ChatViewModel`).
+/// 2. **Lifecycle:** Handle what happens when you close the app or open it again.
 @main
 struct BitchatApp: App {
     static let bundleID = Bundle.main.bundleIdentifier ?? "chat.gap"
     static let groupID = "group.\(bundleID)"
     
     @StateObject private var chatViewModel: ChatViewModel
+    @StateObject private var languageManager = LanguageManager.shared
     #if os(iOS)
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     // Skip the very first .active-triggered Tor restart on cold launch
     @State private var didHandleInitialActive: Bool = false
     @State private var didEnterBackground: Bool = false
+    @AppStorage("onboarding_seen") private var onboardingSeen: Bool = false
     #elseif os(macOS)
     @NSApplicationDelegateAdaptor(MacAppDelegate.self) var appDelegate
     #endif
@@ -46,26 +53,38 @@ struct BitchatApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environmentObject(chatViewModel)
-                .onAppear {
-                    NotificationDelegate.shared.chatViewModel = chatViewModel
-                    // Inject live Noise service into VerificationService to avoid creating new BLE instances
-                    VerificationService.shared.configure(with: chatViewModel.meshService.getNoiseService())
-                    // Prewarm Nostr identity and QR to make first VERIFY sheet fast
-                    let nickname = chatViewModel.nickname
-                    DispatchQueue.global(qos: .utility).async {
-                        let npub = try? idBridge.getCurrentNostrIdentity()?.npub
-                        _ = VerificationService.shared.buildMyQRString(nickname: nickname, npub: npub)
-                    }
-
-                    appDelegate.chatViewModel = chatViewModel
-
-                    // Initialize network activation policy; will start Tor/Nostr only when allowed
-                    NetworkActivationService.shared.start()
-                    // Check for shared content
-                    checkForSharedContent()
+            Group {
+                if onboardingSeen {
+                    ContentView()
+                } else {
+                    OnboardingView(isPresented: .constant(true))
                 }
+            }
+            .id(languageManager.refreshID)
+            .environmentObject(chatViewModel)
+            .environmentObject(languageManager)
+            .applyLanguageEnvironment(languageManager)
+            .onAppear {
+                NotificationDelegate.shared.chatViewModel = chatViewModel
+                // Inject live Noise service into VerificationService to avoid creating new BLE instances
+                VerificationService.shared.configure(with: chatViewModel.meshService.getNoiseService())
+                // Prewarm Nostr identity and QR to make first VERIFY sheet fast
+                let nickname = chatViewModel.nickname
+                DispatchQueue.global(qos: .utility).async {
+                    let npub = try? idBridge.getCurrentNostrIdentity()?.npub
+                    _ = VerificationService.shared.buildMyQRString(nickname: nickname, npub: npub)
+                }
+
+                appDelegate.chatViewModel = chatViewModel
+
+                // Initialize network activation policy; will start Tor/Nostr only when allowed
+                // Services are started by OnboardingView.completeOnboarding() for new users
+                if onboardingSeen {
+                    NetworkActivationService.shared.start()
+                }
+                // Check for shared content
+                checkForSharedContent()
+            }
                 .onOpenURL { url in
                     handleURL(url)
                 }
@@ -85,8 +104,13 @@ struct BitchatApp: App {
                         NostrRelayManager.shared.disconnect()
                         didEnterBackground = true
                     case .active:
+                        // "Active" means the app is open on the screen and the user is using it.
+                        // We need to wake everything up!
+                        
                         // Restart services when becoming active
-                        chatViewModel.meshService.startServices()
+                        if onboardingSeen {
+                            chatViewModel.startServices()
+                        }
                         TorManager.shared.setAppForeground(true)
                         // On initial cold launch, Tor was just started in onAppear.
                         // Skip the deterministic restart the first time we become active.

@@ -8,7 +8,7 @@
 
 import Foundation
 import CryptoKit
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 final class TestNetworkHelper {
     // Public, read-only views for tests; mutation only through methods

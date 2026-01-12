@@ -50,6 +50,14 @@ final class NetworkActivationService: ObservableObject {
             }
             .store(in: &cancellables)
 
+        // React to channel selection changes (manual geohash entry)
+        LocationChannelManager.shared.$selectedChannel
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.reevaluate()
+            }
+            .store(in: &cancellables)
+
         // React to mutual favorites changes
         FavoritesPersistenceService.shared.$mutualFavorites
             .receive(on: DispatchQueue.main)
@@ -100,7 +108,14 @@ final class NetworkActivationService: ObservableObject {
     private func basePolicyAllowed() -> Bool {
         let permOK = LocationChannelManager.shared.permissionState == .authorized
         let hasMutual = !FavoritesPersistenceService.shared.mutualFavorites.isEmpty
-        return permOK || hasMutual
+        
+        // Also allow if user has explicitly selected a location channel
+        var isLocationChannel = false
+        if case .location = LocationChannelManager.shared.selectedChannel {
+            isLocationChannel = true
+        }
+        
+        return permOK || hasMutual || isLocationChannel
     }
 
     private func applyTorState(torDesired: Bool) {

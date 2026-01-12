@@ -9,7 +9,7 @@
 import Testing
 import Foundation
 import SwiftUI
-@testable import Gap_Mash
+@testable import Gap_Mesh
 
 struct MessageFormattingEngineTests {
 
