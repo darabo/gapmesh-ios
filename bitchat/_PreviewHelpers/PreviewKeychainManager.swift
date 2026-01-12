@@ -41,6 +41,19 @@ final class PreviewKeychainManager: KeychainManagerProtocol {
         storage["identity_noiseStaticKey"] != nil
     }
 
+    // BCH-01-009: New methods with proper error classification
+    func getIdentityKeyWithResult(forKey key: String) -> KeychainReadResult {
+        if let data = storage[key] {
+            return .success(data)
+        }
+        return .itemNotFound
+    }
+
+    func saveIdentityKeyWithResult(_ keyData: Data, forKey key: String) -> KeychainSaveResult {
+        storage[key] = keyData
+        return .success
+    }
+
     // MARK: - Generic Data Storage (consolidated from KeychainHelper)
 
     func save(key: String, data: Data, service: String, accessible: CFString?) {

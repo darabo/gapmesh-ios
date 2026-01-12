@@ -13,6 +13,10 @@ final class MockKeychain: KeychainManagerProtocol {
     private var storage: [String: Data] = [:]
     private var serviceStorage: [String: [String: Data]] = [:]
 
+    // BCH-01-009: Configurable error simulation for testing
+    var simulatedReadError: KeychainReadResult?
+    var simulatedSaveError: KeychainSaveResult?
+
     func saveIdentityKey(_ keyData: Data, forKey key: String) -> Bool {
         storage[key] = keyData
         return true
@@ -45,6 +49,25 @@ final class MockKeychain: KeychainManagerProtocol {
         storage["identity_noiseStaticKey"] != nil
     }
 
+    // BCH-01-009: New methods with proper error classification
+    func getIdentityKeyWithResult(forKey key: String) -> KeychainReadResult {
+        if let simulated = simulatedReadError {
+            return simulated
+        }
+        if let data = storage[key] {
+            return .success(data)
+        }
+        return .itemNotFound
+    }
+
+    func saveIdentityKeyWithResult(_ keyData: Data, forKey key: String) -> KeychainSaveResult {
+        if let simulated = simulatedSaveError {
+            return simulated
+        }
+        storage[key] = keyData
+        return .success
+    }
+
     // MARK: - Generic Data Storage (consolidated from KeychainHelper)
 
     func save(key: String, data: Data, service: String, accessible: CFString?) {
@@ -75,6 +98,10 @@ final class TrackingMockKeychain: KeychainManagerProtocol {
     private let lock = NSLock()
     private var _secureClearDataCallCount = 0
     private var _secureClearStringCallCount = 0
+
+    // BCH-01-009: Configurable error simulation for testing
+    var simulatedReadError: KeychainReadResult?
+    var simulatedSaveError: KeychainSaveResult?
 
     var secureClearDataCallCount: Int {
         lock.lock()
@@ -135,6 +162,25 @@ final class TrackingMockKeychain: KeychainManagerProtocol {
 
     func verifyIdentityKeyExists() -> Bool {
         storage["identity_noiseStaticKey"] != nil
+    }
+
+    // BCH-01-009: New methods with proper error classification
+    func getIdentityKeyWithResult(forKey key: String) -> KeychainReadResult {
+        if let simulated = simulatedReadError {
+            return simulated
+        }
+        if let data = storage[key] {
+            return .success(data)
+        }
+        return .itemNotFound
+    }
+
+    func saveIdentityKeyWithResult(_ keyData: Data, forKey key: String) -> KeychainSaveResult {
+        if let simulated = simulatedSaveError {
+            return simulated
+        }
+        storage[key] = keyData
+        return .success
     }
 
     func save(key: String, data: Data, service: String, accessible: CFString?) {
