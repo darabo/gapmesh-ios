@@ -2253,13 +2253,15 @@ extension BLEService: CBPeripheralManagerDelegate {
                 SecureLogger.warning("🛡️ BCH-01-004: Rate-limited announce for central \(centralUUID.prefix(8))... (backoff: \(Int(existingState.currentBackoffSeconds))s, attempts: \(existingState.attemptCount))", category: .security)
 
                 // Increment attempt count and increase backoff
+                // Update lastAnnounceTime to 'now' so each blocked attempt extends the suppression window
+                // This prevents attackers from waiting out the backoff while spamming attempts
                 let newAttemptCount = existingState.attemptCount + 1
                 let newBackoff = min(
                     existingState.currentBackoffSeconds * TransportConfig.bleSubscriptionRateLimitBackoffFactor,
                     TransportConfig.bleSubscriptionRateLimitMaxBackoffSeconds
                 )
                 centralSubscriptionRateLimits[centralUUID] = SubscriptionRateLimitState(
-                    lastAnnounceTime: existingState.lastAnnounceTime,
+                    lastAnnounceTime: now,  // Reset timer on each blocked attempt
                     attemptCount: newAttemptCount,
                     currentBackoffSeconds: newBackoff
                 )
