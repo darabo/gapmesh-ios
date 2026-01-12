@@ -275,6 +275,11 @@ extension ChatViewModel {
         let tagSummary = event.tags.map { "[" + $0.joined(separator: ",") + "]" }.joined(separator: ",")
         SecureLogger.debug("GeoTeleport: recv pub=\(event.pubkey.prefix(8))… tags=\(tagSummary)", category: .session)
         
+        // If this pubkey is blocked, skip mapping, participants, and timeline
+        if identityManager.isNostrBlocked(pubkeyHexLowercased: event.pubkey) {
+            return
+        }
+        
         // Track teleport tag for participants – only our format ["t", "teleport"]
         let hasTeleportTag: Bool = event.tags.contains { tag in
             tag.count >= 2 && tag[0].lowercased() == "t" && tag[1].lowercased() == "teleport"
@@ -313,11 +318,6 @@ extension ChatViewModel {
         if let nickTag = event.tags.first(where: { $0.first == "n" }), nickTag.count >= 2 {
             let nick = nickTag[1].trimmingCharacters(in: .whitespacesAndNewlines)
             geoNicknames[event.pubkey.lowercased()] = nick
-        }
-        
-        // If this pubkey is blocked, skip mapping, participants, and timeline
-        if identityManager.isNostrBlocked(pubkeyHexLowercased: event.pubkey) {
-            return
         }
         
         // Store mapping for geohash DM initiation
