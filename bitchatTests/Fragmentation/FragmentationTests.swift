@@ -134,19 +134,25 @@ struct FragmentationTests {
             ble._test_handlePacket(fragment, fromPeerID: remoteID)
         }
 
-        // Wait for delegate callback
-        try await capture.waitForReceivedMessages(count: 1, timeout: .seconds(2))
+        // BCH-01-002: Files are now held as pending until user accepts (no auto-save to disk)
+        try await capture.waitForPendingFiles(count: 1, timeout: .seconds(2))
 
-        let message = try #require(capture.receivedMessages.first, "Expected file transfer message")
-        #expect(message.content.hasPrefix("[file]"))
+        let pending = try #require(capture.pendingFiles.first, "Expected pending file transfer")
+        #expect(pending.mimeType == "application/octet-stream")
+        #expect(pending.fileSize == FileTransferLimits.maxPayloadBytes)
+        #expect(pending.fileName == "limit.bin")
 
-        if let fileName = message.content.split(separator: " ").last {
-            let base = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-            let filesRoot = base.appendingPathComponent("files", isDirectory: true)
-            let incoming = filesRoot.appendingPathComponent("files/incoming", isDirectory: true)
-            let url = incoming.appendingPathComponent(String(fileName))
-            try? FileManager.default.removeItem(at: url)
+        // Verify file was NOT written to disk (the whole point of BCH-01-002 fix)
+        let base = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+        let filesRoot = base.appendingPathComponent("files", isDirectory: true)
+        let incoming = filesRoot.appendingPathComponent("files/incoming", isDirectory: true)
+        if FileManager.default.fileExists(atPath: incoming.path) {
+            let files = try FileManager.default.contentsOfDirectory(atPath: incoming.path)
+            #expect(files.isEmpty, "Files should NOT be auto-saved to disk before user acceptance")
         }
+
+        // Clean up pending files
+        PendingFileManager.shared.clearAll()
     }
     
     @Test("Invalid fragment header is ignored")
@@ -201,10 +207,13 @@ extension FragmentationTests {
         private let lock = NSLock()
         private var _publicMessages: [(peerID: PeerID, nickname: String, content: String)] = []
         private var _receivedMessages: [BitchatMessage] = []
+        private var _pendingFiles: [PendingFileTransfer] = []
         private var publicMessageContinuation: CheckedContinuation<Void, Never>?
         private var receivedMessageContinuation: CheckedContinuation<Void, Never>?
+        private var pendingFileContinuation: CheckedContinuation<Void, Never>?
         private var expectedPublicMessageCount: Int = 0
         private var expectedReceivedMessageCount: Int = 0
+        private var expectedPendingFileCount: Int = 0
 
         var publicMessages: [(peerID: PeerID, nickname: String, content: String)] {
             lock.lock()
@@ -218,6 +227,12 @@ extension FragmentationTests {
             return _receivedMessages
         }
 
+        var pendingFiles: [PendingFileTransfer] {
+            lock.lock()
+            defer { lock.unlock() }
+            return _pendingFiles
+        }
+
         func didReceiveMessage(_ message: BitchatMessage) {
             lock.lock()
             _receivedMessages.append(message)
@@ -229,6 +244,22 @@ extension FragmentationTests {
             if count >= expected, let cont = continuation {
                 lock.lock()
                 receivedMessageContinuation = nil
+                lock.unlock()
+                cont.resume()
+            }
+        }
+
+        func didReceivePendingFileTransfer(_ pending: PendingFileTransfer) {
+            lock.lock()
+            _pendingFiles.append(pending)
+            let count = _pendingFiles.count
+            let expected = expectedPendingFileCount
+            let continuation = pendingFileContinuation
+            lock.unlock()
+
+            if count >= expected, let cont = continuation {
+                lock.lock()
+                pendingFileContinuation = nil
                 lock.unlock()
                 cont.resume()
             }
@@ -306,6 +337,38 @@ extension FragmentationTests {
                             return
                         }
                         self.receivedMessageContinuation = continuation
+                        self.lock.unlock()
+                    }
+                }
+                group.addTask {
+                    try await Task.sleep(for: timeout)
+                    throw CancellationError()
+                }
+                try await group.next()
+                group.cancelAll()
+            }
+        }
+
+        /// Waits for the specified number of pending files to be received
+        func waitForPendingFiles(count: Int, timeout: Duration = .seconds(2)) async throws {
+            lock.lock()
+            if _pendingFiles.count >= count {
+                lock.unlock()
+                return
+            }
+            expectedPendingFileCount = count
+            lock.unlock()
+
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                group.addTask {
+                    await withCheckedContinuation { continuation in
+                        self.lock.lock()
+                        if self._pendingFiles.count >= count {
+                            self.lock.unlock()
+                            continuation.resume()
+                            return
+                        }
+                        self.pendingFileContinuation = continuation
                         self.lock.unlock()
                     }
                 }

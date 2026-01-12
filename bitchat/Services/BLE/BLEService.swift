@@ -560,7 +560,7 @@ final class BLEService: NSObject {
     
     func emergencyDisconnectAll() {
         stopServices()
-        
+
         // Clear all sessions and peers
         let cancelledTransfers: [(id: String, items: [DispatchWorkItem])] = collectionsQueue.sync(flags: .barrier) {
             let entries = activeTransfers.map { ($0.key, $0.value.workItems) }
@@ -575,16 +575,19 @@ final class BLEService: NSObject {
             entry.items.forEach { $0.cancel() }
             TransferProgressManager.shared.cancel(id: entry.id)
         }
-        
+
         // Clear processed messages
         messageDeduplicator.reset()
-        
+
         // Clear peripheral references
         peripherals.removeAll()
         peerToPeripheralUUID.removeAll()
         subscribedCentrals.removeAll()
         centralToPeerID.removeAll()
         meshTopology.reset()
+
+        // BCH-01-002: Clear pending files held in memory
+        PendingFileManager.shared.clearAll()
     }
     
     // MARK: Connectivity and peers
@@ -1180,60 +1183,30 @@ final class BLEService: NSObject {
             return
         }
 
-        let fallbackExt = mime.defaultExtension
-        let subdirectory: String
-        switch mime.category {
-        case .audio:
-            subdirectory = "voicenotes/incoming"
-        case .image:
-            subdirectory = "images/incoming"
-        case .file:
-            subdirectory = "files/incoming"
-        }
-
-        guard let destination = saveIncomingFile(
-            data: filePacket.content,
-            preferredName: filePacket.fileName,
-            subdirectory: subdirectory,
-            fallbackExtension: fallbackExt,
-            defaultPrefix: mime.category.rawValue
-        ) else {
-            return
-        }
-
-        let marker: String
-        let fileName = destination.lastPathComponent
-        switch mime.category {
-        case .audio:
-            marker = "[voice] \(fileName)"
-        case .image:
-            marker = "[image] \(fileName)"
-        case .file:
-            marker = "[file] \(fileName)"
-        }
-
         let isPrivateMessage = PeerID(hexData: packet.recipientID) == myPeerID
 
         if isPrivateMessage {
             updatePeerLastSeen(peerID)
         }
 
-        let ts = Date(timeIntervalSince1970: Double(packet.timestamp) / 1000)
-        let message = BitchatMessage(
-            sender: senderNickname,
-            content: marker,
-            timestamp: ts,
-            isRelay: false,
-            originalSender: nil,
-            isPrivate: isPrivateMessage,
-            recipientNickname: nil,
-            senderPeerID: peerID
-        )
+        // BCH-01-002 Fix: Don't auto-save files to disk. Hold in memory as pending until user accepts.
+        // This prevents DoS via storage exhaustion from malicious peers flooding with files.
+        guard let pending = PendingFileManager.shared.addPendingFile(
+            senderPeerID: peerID,
+            senderNickname: senderNickname,
+            fileName: filePacket.fileName,
+            mimeType: filePacket.mimeType,
+            content: filePacket.content,
+            isPrivate: isPrivateMessage
+        ) else {
+            SecureLogger.warning("🚫 Rejected file transfer: pending file limits exceeded", category: .security)
+            return
+        }
 
-        SecureLogger.debug("📁 Stored incoming media from \(peerID.id.prefix(8))… -> \(destination.lastPathComponent)", category: .session)
+        SecureLogger.debug("📁 Queued pending file from \(peerID.id.prefix(8))… (\(filePacket.content.count) bytes, id: \(pending.id.prefix(8))…)", category: .session)
 
         notifyUI { [weak self] in
-            self?.delegate?.didReceiveMessage(message)
+            self?.delegate?.didReceivePendingFileTransfer(pending)
         }
     }
     
@@ -1414,6 +1387,40 @@ final class BLEService: NSObject {
             SecureLogger.error("❌ Failed to persist incoming media: \(error)", category: .session)
             return nil
         }
+    }
+
+    // MARK: - Pending File Management (BCH-01-002)
+
+    /// Accepts a pending file and saves it to disk.
+    /// Returns the saved file URL, or nil if the file was not found or save failed.
+    func acceptPendingFile(id: String) -> URL? {
+        return PendingFileManager.shared.acceptFile(id: id) { [weak self] pending in
+            guard let self = self else { return nil }
+
+            let mime = MimeType(pending.mimeType)
+            let subdirectory: String
+            switch mime?.category ?? .file {
+            case .audio:
+                subdirectory = "voicenotes/incoming"
+            case .image:
+                subdirectory = "images/incoming"
+            case .file:
+                subdirectory = "files/incoming"
+            }
+
+            return self.saveIncomingFile(
+                data: pending.content,
+                preferredName: pending.fileName,
+                subdirectory: subdirectory,
+                fallbackExtension: mime?.defaultExtension,
+                defaultPrefix: mime?.category.rawValue ?? "file"
+            )
+        }
+    }
+
+    /// Declines a pending file without saving to disk.
+    func declinePendingFile(id: String) {
+        PendingFileManager.shared.declineFile(id: id)
     }
 
     private func sendLeave() {
