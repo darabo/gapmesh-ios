@@ -52,6 +52,15 @@ final class BLEService: NSObject {
     // 2. BLE Centrals (when acting as peripheral)
     private var subscribedCentrals: [CBCentral] = []
     private var centralToPeerID: [String: PeerID] = [:]  // Central UUID -> Peer ID mapping
+
+    // BCH-01-004: Rate-limiting for subscription-triggered announces
+    // Tracks subscription attempts per central to prevent enumeration attacks
+    private struct SubscriptionRateLimitState {
+        var lastAnnounceTime: Date
+        var attemptCount: Int
+        var currentBackoffSeconds: TimeInterval
+    }
+    private var centralSubscriptionRateLimits: [String: SubscriptionRateLimitState] = [:]  // Central UUID -> rate limit state
     
     // 3. Peer Information (single source of truth)
     private struct PeerInfo {
@@ -588,6 +597,9 @@ final class BLEService: NSObject {
 
         // BCH-01-002: Clear pending files held in memory
         PendingFileManager.shared.clearAll()
+        
+        // BCH-01-004: Clear rate-limit state
+        centralSubscriptionRateLimits.removeAll()
     }
     
     // MARK: Connectivity and peers
@@ -2221,15 +2233,83 @@ extension BLEService: CBPeripheralManagerDelegate {
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-        SecureLogger.debug("📥 Central subscribed: \(central.identifier.uuidString)", category: .session)
+        let centralUUID = central.identifier.uuidString
+        SecureLogger.debug("📥 Central subscribed: \(centralUUID)", category: .session)
         subscribedCentrals.append(central)
-        // Send announce to the newly subscribed central after a small delay to avoid overwhelming
+
+        // BCH-01-004: Rate-limit subscription-triggered announces to prevent enumeration attacks
+        let now = Date()
+        var state = centralSubscriptionRateLimits[centralUUID]
+
+        // Clean up stale entries periodically
+        cleanupStaleSubscriptionRateLimits()
+
+        // Check if this central is rate-limited
+        if let existingState = state {
+            let timeSinceLastAnnounce = now.timeIntervalSince(existingState.lastAnnounceTime)
+
+            // If within backoff period, skip the announce
+            if timeSinceLastAnnounce < existingState.currentBackoffSeconds {
+                SecureLogger.warning("🛡️ BCH-01-004: Rate-limited announce for central \(centralUUID.prefix(8))... (backoff: \(Int(existingState.currentBackoffSeconds))s, attempts: \(existingState.attemptCount))", category: .security)
+
+                // Increment attempt count and increase backoff
+                let newAttemptCount = existingState.attemptCount + 1
+                let newBackoff = min(
+                    existingState.currentBackoffSeconds * TransportConfig.bleSubscriptionRateLimitBackoffFactor,
+                    TransportConfig.bleSubscriptionRateLimitMaxBackoffSeconds
+                )
+                centralSubscriptionRateLimits[centralUUID] = SubscriptionRateLimitState(
+                    lastAnnounceTime: existingState.lastAnnounceTime,
+                    attemptCount: newAttemptCount,
+                    currentBackoffSeconds: newBackoff
+                )
+
+                // If too many rapid attempts, this is likely an enumeration attack - don't respond
+                if newAttemptCount >= TransportConfig.bleSubscriptionRateLimitMaxAttempts {
+                    SecureLogger.warning("🚨 BCH-01-004: Possible enumeration attack from central \(centralUUID.prefix(8))... - suppressing announce", category: .security)
+                    return
+                }
+
+                // Still flush directed packets and rebroadcast for legitimate mesh operation
+                messageQueue.asyncAfter(deadline: .now() + TransportConfig.blePostAnnounceDelaySeconds) { [weak self] in
+                    self?.flushDirectedSpool()
+                    self?.rebroadcastRecentAnnounces()
+                }
+                return
+            }
+
+            // Outside backoff period - allow announce but track it
+            state = SubscriptionRateLimitState(
+                lastAnnounceTime: now,
+                attemptCount: 1,
+                currentBackoffSeconds: TransportConfig.bleSubscriptionRateLimitMinSeconds
+            )
+        } else {
+            // First subscription from this central - track it
+            state = SubscriptionRateLimitState(
+                lastAnnounceTime: now,
+                attemptCount: 1,
+                currentBackoffSeconds: TransportConfig.bleSubscriptionRateLimitMinSeconds
+            )
+        }
+        centralSubscriptionRateLimits[centralUUID] = state
+
+        // Send announce to the newly subscribed central after a small delay
         messageQueue.asyncAfter(deadline: .now() + TransportConfig.blePostAnnounceDelaySeconds) { [weak self] in
             self?.sendAnnounce(forceSend: true)
             // Flush any spooled directed packets now that we have a central subscribed
             self?.flushDirectedSpool()
             // Rebroadcast a couple of recent announces to seed the new link
             self?.rebroadcastRecentAnnounces()
+        }
+    }
+
+    /// BCH-01-004: Clean up stale rate-limit entries to prevent memory growth
+    private func cleanupStaleSubscriptionRateLimits() {
+        let now = Date()
+        let windowSeconds = TransportConfig.bleSubscriptionRateLimitWindowSeconds
+        centralSubscriptionRateLimits = centralSubscriptionRateLimits.filter { _, state in
+            now.timeIntervalSince(state.lastAnnounceTime) < windowSeconds
         }
     }
     
@@ -2519,35 +2599,11 @@ extension BLEService {
         meshTopology.computeRoute(from: myPeerIDData, to: routingData(for: peerID))
     }
 
-<<<<<<< HEAD
     private func applyRouteIfAvailable(_ packet: inout BitchatPacket, to recipient: PeerID) {
         guard let route = computeRoute(to: recipient), route.count >= 2 else { return }
         packet.route = route
         meshTopology.recordRoute(route)
-=======
-    private func applyRouteIfAvailable(_ packet: BitchatPacket, to recipient: PeerID) -> BitchatPacket {
-        guard let route = computeRoute(to: recipient), route.count >= 1 else {
-            return packet
-        }
-        // Create new packet with route applied and version upgraded to 2
-        let routedPacket = BitchatPacket(
-            type: packet.type,
-            senderID: packet.senderID,
-            recipientID: packet.recipientID,
-            timestamp: packet.timestamp,
-            payload: packet.payload,
-            signature: nil, // Will be re-signed below
-            ttl: packet.ttl,
-            version: 2,
-            route: route
-        )
-        // Re-sign the packet since route and version changed
-        guard let signedPacket = noiseService.signPacket(routedPacket) else {
-            SecureLogger.error("❌ Failed to re-sign packet with route", category: .security)
-            return packet // Return original packet if signing fails
-        }
-        return signedPacket
->>>>>>> eb3bbfd (source routing v2)
+    }
     }
 
     private func routingPeer(from data: Data) -> PeerID? {
@@ -2557,28 +2613,8 @@ extension BLEService {
     private func forwardAlongRouteIfNeeded(_ packet: BitchatPacket) -> Bool {
         guard let route = packet.route, !route.isEmpty else { return false }
         let myRoutingData = routingData(for: myPeerID) ?? (myPeerIDData.isEmpty ? nil : myPeerIDData)
-<<<<<<< HEAD
         guard let selfData = myRoutingData,
               let index = route.firstIndex(of: selfData) else { return false }
-=======
-        guard let selfData = myRoutingData else { return false }
-        
-        // Route contains only intermediate hops (start and end excluded)
-        // If we're not in the route, we're the sender - forward to first hop
-        guard let index = route.firstIndex(of: selfData) else {
-            // We're the sender, forward to first intermediate hop
-            guard packet.ttl > 1 else { return true }
-            let firstHopData = route[0]
-            guard let nextPeer = routingPeer(from: firstHopData),
-                  isPeerConnected(nextPeer) else {
-                return false
-            }
-            var relayPacket = packet
-            relayPacket.ttl = packet.ttl - 1
-            sendPacketDirected(relayPacket, to: nextPeer)
-            return true
-        }
->>>>>>> eb3bbfd (source routing v2)
 
         // No further hops: respect explicit route termination
         if index == route.count - 1 {
