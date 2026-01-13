@@ -107,8 +107,8 @@ For detailed protocol documentation, see the [Technical Whitepaper](WHITEPAPER.m
 ### Option 1: Using Xcode
 
 ```bash
-cd bitchat
-open bitchat.xcodeproj
+cd gapmesh
+open GapMesh.xcodeproj
 ```
 
 To run on a device there're a few steps to prepare the code:
