@@ -1,5 +1,3 @@
-![qr code](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg)
-
 ## Gap Mesh
 
 Gap is a fork of BitChat catered to the needs of Iranian users.
@@ -9,7 +7,8 @@ Gap is a fork of BitChat catered to the needs of Iranian users.
 A decentralized peer-to-peer messaging app with dual transport architecture: local Bluetooth mesh networks for offline communication and internet-based Nostr protocol for global reach. No accounts, no phone numbers, no central servers. It's the side-groupchat.
 
 
-📲 [TestFlight link (App Store soon)](https://testflight.apple.com/join/Vgbv1MTy)
+📲 [App Store](https://apps.apple.com/us/app/gap-mesh/id6757211522)
+[TestFlight for up-to-date builds](https://testflight.apple.com/join/Vgbv1MTy)
 
 > [!WARNING]
 > Private messages have not received external security review and may contain vulnerabilities. Do not use for sensitive use cases, and do not rely on its security until it has been reviewed. Now uses the [Noise Protocol](https://www.noiseprotocol.org) for identity and encryption. Public local chat (the main feature) has no security concerns.
