@@ -594,10 +594,6 @@ final class BLEService: NSObject {
         subscribedCentrals.removeAll()
         centralToPeerID.removeAll()
         meshTopology.reset()
-
-        // BCH-01-002: Clear pending files held in memory
-        PendingFileManager.shared.clearAll()
-        
         // BCH-01-004: Clear rate-limit state
         centralSubscriptionRateLimits.removeAll()
     }
@@ -1195,30 +1191,63 @@ final class BLEService: NSObject {
             return
         }
 
+        // BCH-01-002: Enforce storage quota before saving
+        enforceIncomingFilesQuota(reservingBytes: filePacket.content.count)
+
+        let fallbackExt = mime.defaultExtension
+        let subdirectory: String
+        switch mime.category {
+        case .audio:
+            subdirectory = "voicenotes/incoming"
+        case .image:
+            subdirectory = "images/incoming"
+        case .file:
+            subdirectory = "files/incoming"
+        }
+
+        guard let destination = saveIncomingFile(
+            data: filePacket.content,
+            preferredName: filePacket.fileName,
+            subdirectory: subdirectory,
+            fallbackExtension: fallbackExt,
+            defaultPrefix: mime.category.rawValue
+        ) else {
+            return
+        }
+
+        let marker: String
+        let fileName = destination.lastPathComponent
+        switch mime.category {
+        case .audio:
+            marker = "[voice] \(fileName)"
+        case .image:
+            marker = "[image] \(fileName)"
+        case .file:
+            marker = "[file] \(fileName)"
+        }
+
         let isPrivateMessage = PeerID(hexData: packet.recipientID) == myPeerID
 
         if isPrivateMessage {
             updatePeerLastSeen(peerID)
         }
 
-        // BCH-01-002 Fix: Don't auto-save files to disk. Hold in memory as pending until user accepts.
-        // This prevents DoS via storage exhaustion from malicious peers flooding with files.
-        guard let pending = PendingFileManager.shared.addPendingFile(
-            senderPeerID: peerID,
-            senderNickname: senderNickname,
-            fileName: filePacket.fileName,
-            mimeType: filePacket.mimeType,
-            content: filePacket.content,
-            isPrivate: isPrivateMessage
-        ) else {
-            SecureLogger.warning("🚫 Rejected file transfer: pending file limits exceeded", category: .security)
-            return
-        }
+        let ts = Date(timeIntervalSince1970: Double(packet.timestamp) / 1000)
+        let message = BitchatMessage(
+            sender: senderNickname,
+            content: marker,
+            timestamp: ts,
+            isRelay: false,
+            originalSender: nil,
+            isPrivate: isPrivateMessage,
+            recipientNickname: nil,
+            senderPeerID: peerID
+        )
 
-        SecureLogger.debug("📁 Queued pending file from \(peerID.id.prefix(8))… (\(filePacket.content.count) bytes, id: \(pending.id.prefix(8))…)", category: .session)
+        SecureLogger.debug("📁 Stored incoming media from \(peerID.id.prefix(8))… -> \(destination.lastPathComponent)", category: .session)
 
         notifyUI { [weak self] in
-            self?.delegate?.didReceivePendingFileTransfer(pending)
+            self?.delegate?.didReceiveMessage(message)
         }
     }
     
@@ -1401,38 +1430,70 @@ final class BLEService: NSObject {
         }
     }
 
-    // MARK: - Pending File Management (BCH-01-002)
+    // MARK: - Storage Quota Management (BCH-01-002)
 
-    /// Accepts a pending file and saves it to disk.
-    /// Returns the saved file URL, or nil if the file was not found or save failed.
-    func acceptPendingFile(id: String) -> URL? {
-        return PendingFileManager.shared.acceptFile(id: id) { [weak self] pending in
-            guard let self = self else { return nil }
+    /// Maximum total storage for incoming files (100 MB)
+    private static let incomingFilesQuota: Int64 = 100 * 1024 * 1024
 
-            let mime = MimeType(pending.mimeType)
-            let subdirectory: String
-            switch mime?.category ?? .file {
-            case .audio:
-                subdirectory = "voicenotes/incoming"
-            case .image:
-                subdirectory = "images/incoming"
-            case .file:
-                subdirectory = "files/incoming"
+    /// Enforces storage quota for incoming files by deleting oldest files when quota is exceeded.
+    /// Call before saving a new incoming file.
+    private func enforceIncomingFilesQuota(reservingBytes: Int) {
+        do {
+            let base = try applicationFilesDirectory()
+            let incomingDirs = [
+                base.appendingPathComponent("voicenotes/incoming", isDirectory: true),
+                base.appendingPathComponent("images/incoming", isDirectory: true),
+                base.appendingPathComponent("files/incoming", isDirectory: true)
+            ]
+
+            // Gather all incoming files with their sizes and modification dates
+            var allFiles: [(url: URL, size: Int64, modified: Date)] = []
+            let fileManager = FileManager.default
+
+            for dir in incomingDirs {
+                guard fileManager.fileExists(atPath: dir.path) else { continue }
+                guard let contents = try? fileManager.contentsOfDirectory(
+                    at: dir,
+                    includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey],
+                    options: [.skipsHiddenFiles]
+                ) else { continue }
+
+                for fileURL in contents {
+                    guard let attrs = try? fileURL.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey]),
+                          let size = attrs.fileSize,
+                          let modified = attrs.contentModificationDate else { continue }
+                    allFiles.append((url: fileURL, size: Int64(size), modified: modified))
+                }
             }
 
-            return self.saveIncomingFile(
-                data: pending.content,
-                preferredName: pending.fileName,
-                subdirectory: subdirectory,
-                fallbackExtension: mime?.defaultExtension,
-                defaultPrefix: mime?.category.rawValue ?? "file"
-            )
-        }
-    }
+            // Calculate current usage
+            let currentUsage = allFiles.reduce(0) { $0 + $1.size }
+            let targetUsage = Self.incomingFilesQuota - Int64(reservingBytes)
 
-    /// Declines a pending file without saving to disk.
-    func declinePendingFile(id: String) {
-        PendingFileManager.shared.declineFile(id: id)
+            guard currentUsage > targetUsage else { return }
+
+            // Sort by modification date (oldest first) and delete until under quota
+            let sortedFiles = allFiles.sorted { $0.modified < $1.modified }
+            var freedSpace: Int64 = 0
+            let needToFree = currentUsage - targetUsage
+
+            for file in sortedFiles {
+                guard freedSpace < needToFree else { break }
+                do {
+                    try fileManager.removeItem(at: file.url)
+                    freedSpace += file.size
+                    SecureLogger.debug("🗑️ BCH-01-002: Deleted old incoming file to free space: \(file.url.lastPathComponent)", category: .security)
+                } catch {
+                    SecureLogger.warning("⚠️ Failed to delete old file for quota: \(error)", category: .security)
+                }
+            }
+
+            if freedSpace > 0 {
+                SecureLogger.info("📊 BCH-01-002: Freed \(ByteCountFormatter.string(fromByteCount: freedSpace, countStyle: .file)) to stay within incoming files quota", category: .security)
+            }
+        } catch {
+            SecureLogger.warning("⚠️ Could not enforce storage quota: \(error)", category: .security)
+        }
     }
 
     private func sendLeave() {

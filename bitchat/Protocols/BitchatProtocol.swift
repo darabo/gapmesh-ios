@@ -182,9 +182,6 @@ protocol BitchatDelegate: AnyObject {
     // Bluetooth state updates for user notifications
     func didUpdateBluetoothState(_ state: CBManagerState)
     func didReceivePublicMessage(from peerID: PeerID, nickname: String, content: String, timestamp: Date, messageID: String?)
-
-    // Pending file transfer notification (file held in memory until user accepts)
-    func didReceivePendingFileTransfer(_ pending: PendingFileTransfer)
 }
 
 // Provide default implementation to make it effectively optional
@@ -202,10 +199,6 @@ extension BitchatDelegate {
     }
 
     func didReceivePublicMessage(from peerID: PeerID, nickname: String, content: String, timestamp: Date, messageID: String?) {
-        // Default empty implementation
-    }
-
-    func didReceivePendingFileTransfer(_ pending: PendingFileTransfer) {
         // Default empty implementation
     }
 }

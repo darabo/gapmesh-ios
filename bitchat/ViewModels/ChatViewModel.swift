@@ -3446,50 +3446,6 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         }
     }
 
-    // MARK: - Pending File Transfers (BCH-01-002)
-
-    func didReceivePendingFileTransfer(_ pending: PendingFileTransfer) {
-        Task { @MainActor in
-            // Check if sender is blocked
-            if blockedUsers.contains(pending.senderNickname) {
-                SecureLogger.debug("Ignoring pending file from blocked user: \(pending.senderNickname)", category: .session)
-                PendingFileManager.shared.declineFile(id: pending.id)
-                return
-            }
-
-            // Create a system message to notify user about the pending file
-            let fileDescription = "\(pending.displayName) (\(ByteCountFormatter.string(fromByteCount: Int64(pending.fileSize), countStyle: .file)))"
-            let message = BitchatMessage(
-                id: "pending-\(pending.id)",
-                sender: pending.senderNickname,
-                content: "[Pending file: \(fileDescription)] - Accept or decline in file transfers",
-                timestamp: pending.timestamp,
-                isRelay: false,
-                originalSender: nil,
-                isPrivate: pending.isPrivate,
-                recipientNickname: pending.isPrivate ? nickname : nil,
-                senderPeerID: pending.senderPeerID,
-                mentions: nil
-            )
-
-            // Route to appropriate chat
-            if pending.isPrivate {
-                handlePrivateMessage(message)
-            } else {
-                handlePublicMessage(message)
-            }
-
-            // Send notification
-            NotificationService.shared.sendLocalNotification(
-                title: "Incoming file from \(pending.senderNickname)",
-                body: fileDescription,
-                identifier: "pending-file-\(pending.id)"
-            )
-
-            SecureLogger.debug("📁 Notified UI of pending file: \(pending.id.prefix(8))... from \(pending.senderNickname)", category: .session)
-        }
-    }
-
     // MARK: - Peer Connection Events
 
     func didConnectToPeer(_ peerID: PeerID) {
