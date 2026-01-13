@@ -22,9 +22,9 @@
 ## شروع کار
 
 ### گام ۱: نصب برنامه
-[دانلود Gap Mesh از TestFlight (به‌زودی در اپ استور)](https://testflight.apple.com/join/Vgbv1MTy)
 
-![qr code](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg)
+📲 [فروشگاه برنامه](https://apps.apple.com/us/app/gap-mesh/id6757211522)
+[برای دریافت آخرین نسخه‌ها به TestFlight مراجعه کنید](https://testflight.apple.com/join/Vgbv1MTy)
 
 ### مرحله ۲: اعطای دسترسی‌ها
 
