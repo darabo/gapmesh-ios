@@ -6,46 +6,70 @@ final class MeshTopologyTracker {
 
     private let queue = DispatchQueue(label: "mesh.topology", attributes: .concurrent)
     private let hopSize = 8
-    // Directed claims: Key claims to see Value (neighbors)
-    private var claims: [RoutingID: Set<RoutingID>] = [:]
-    // Last time we received an update from a node
-    private var lastSeen: [RoutingID: Date] = [:]
+    private var adjacency: [RoutingID: Set<RoutingID>] = [:]
 
     func reset() {
         queue.sync(flags: .barrier) {
-            self.claims.removeAll()
-            self.lastSeen.removeAll()
+            self.adjacency.removeAll()
         }
     }
 
-    /// Update the topology with a node's self-reported neighbor list
-    func updateNeighbors(for sourceData: Data?, neighbors: [Data]) {
-        guard let source = sanitize(sourceData) else { return }
-        // Sanitize neighbors and exclude self-loops
-        let validNeighbors = Set(neighbors.compactMap { sanitize($0) }).subtracting([source])
-        
+    func recordDirectLink(between a: Data?, and b: Data?) {
+        guard let left = sanitize(a), let right = sanitize(b), left != right else { return }
         queue.sync(flags: .barrier) {
-            self.claims[source] = validNeighbors
-            self.lastSeen[source] = Date()
+            var setA = self.adjacency[left] ?? []
+            setA.insert(right)
+            self.adjacency[left] = setA
+
+            var setB = self.adjacency[right] ?? []
+            setB.insert(left)
+            self.adjacency[right] = setB
+        }
+    }
+
+    func removeDirectLink(between a: Data?, and b: Data?) {
+        guard let left = sanitize(a), let right = sanitize(b), left != right else { return }
+        queue.sync(flags: .barrier) {
+            if var setA = self.adjacency[left] {
+                setA.remove(right)
+                self.adjacency[left] = setA.isEmpty ? nil : setA
+            }
+            if var setB = self.adjacency[right] {
+                setB.remove(left)
+                self.adjacency[right] = setB.isEmpty ? nil : setB
+            }
         }
     }
 
     func removePeer(_ data: Data?) {
         guard let peer = sanitize(data) else { return }
         queue.sync(flags: .barrier) {
-            self.claims.removeValue(forKey: peer)
-            self.lastSeen.removeValue(forKey: peer)
+            guard let neighbors = self.adjacency.removeValue(forKey: peer) else { return }
+            for neighbor in neighbors {
+                if var set = self.adjacency[neighbor] {
+                    set.remove(peer)
+                    self.adjacency[neighbor] = set.isEmpty ? nil : set
+                }
+            }
         }
     }
-    
-    /// Prune nodes that haven't updated their topology in `age` seconds
-    func prune(olderThan age: TimeInterval) {
-        let deadline = Date().addingTimeInterval(-age)
+
+    func recordRoute(_ hops: [Data]) {
+        let sanitized = hops.compactMap { sanitize($0) }
+        guard sanitized.count >= 2 else { return }
         queue.sync(flags: .barrier) {
-            let stale = self.lastSeen.filter { $0.value < deadline }
-            for (peer, _) in stale {
-                self.claims.removeValue(forKey: peer)
-                self.lastSeen.removeValue(forKey: peer)
+            for idx in 0..<(sanitized.count - 1) {
+                let left = sanitized[idx]
+                let right = sanitized[idx + 1]
+                guard left != right else { continue }
+
+                var setA = self.adjacency[left] ?? []
+                setA.insert(right)
+                self.adjacency[left] = setA
+
+                var setB = self.adjacency[right] ?? []
+                setB.insert(left)
+                self.adjacency[right] = setB
             }
         }
     }
@@ -54,49 +78,36 @@ final class MeshTopologyTracker {
         guard let source = sanitize(start), let target = sanitize(goal) else { return nil }
         if source == target { return [] } // Direct connection, no intermediate hops
 
-        return queue.sync {
-            // BFS
-            var visited: Set<RoutingID> = [source]
-            // Queue stores paths: [Start, Hop1, Hop2, ..., Current]
-            var queuePaths: [[RoutingID]] = [[source]]
-            
-            while !queuePaths.isEmpty {
-                let path = queuePaths.removeFirst()
-                // Limit path length (path contains source + maxHops + target) -> maxHops intermediate
-                // If maxHops = 10, max edges = 11, max nodes = 12.
-                if path.count > maxHops + 1 { continue }
-                
-                guard let last = path.last else { continue }
-                
-                // Get neighbors that 'last' claims to see
-                guard let neighbors = claims[last] else { continue }
+        let graph = queue.sync { adjacency }
+        guard graph[source] != nil, graph[target] != nil else { return nil }
 
-                for neighbor in neighbors {
-                    if visited.contains(neighbor) { continue }
-                    
-                    // CONFIRMED EDGE CHECK:
-                    // 'last' claims 'neighbor' (checked above)
-                    // Does 'neighbor' claim 'last'?
-                    guard let neighborClaims = claims[neighbor],
-                          neighborClaims.contains(last) else {
-                        continue
-                    }
-                    
-                    var nextPath = path
-                    nextPath.append(neighbor)
-                    
-                    if neighbor == target {
-                        // Return only intermediate hops
-                        // Path: [Source, I1, I2, Target] -> [I1, I2]
-                        return Array(nextPath.dropFirst().dropLast())
-                    }
-                    
-                    visited.insert(neighbor)
+        var visited: Set<RoutingID> = [source]
+        var queuePaths: [[RoutingID]] = [[source]]
+        var index = 0
+
+        while index < queuePaths.count {
+            let path = queuePaths[index]
+            index += 1
+            guard path.count <= maxHops else { continue }
+            guard let last = path.last, let neighbors = graph[last] else { continue }
+
+            for neighbor in neighbors {
+                if visited.contains(neighbor) { continue }
+                var nextPath = path
+                nextPath.append(neighbor)
+                if neighbor == target {
+                    // Remove start and end, return only intermediate hops
+                    guard nextPath.count >= 2 else { return [] }
+                    return Array(nextPath.dropFirst().dropLast())
+                }
+                if nextPath.count <= maxHops {
                     queuePaths.append(nextPath)
                 }
+                visited.insert(neighbor)
             }
-            return nil
         }
+
+        return nil
     }
 
     // MARK: - Helpers

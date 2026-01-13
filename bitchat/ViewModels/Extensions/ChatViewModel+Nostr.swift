@@ -260,6 +260,10 @@ extension ChatViewModel {
     }
     
     func handleNostrEvent(_ event: NostrEvent) {
+        // Diagnostic logging FIRST - before any guard statements
+        let gTag = event.tags.first(where: { $0.first == "g" })?.dropFirst().first ?? "?"
+        SecureLogger.info("📨 GEOHASH-HANDLE id=\(event.id.prefix(12))… kind=\(event.kind) pubkey=\(event.pubkey.prefix(8))… geohash=\(gTag) myGeohash=\(currentGeohash ?? "nil") content=\(event.content.prefix(30))…", category: .session)
+        
         // Only handle ephemeral kind 20000 or presence kind 20001 with matching tag
         guard (event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue ||
                event.kind == NostrProtocol.EventKind.geohashPresence.rawValue) else { return }
@@ -274,11 +278,6 @@ extension ChatViewModel {
         // Log incoming tags for diagnostics
         let tagSummary = event.tags.map { "[" + $0.joined(separator: ",") + "]" }.joined(separator: ",")
         SecureLogger.debug("GeoTeleport: recv pub=\(event.pubkey.prefix(8))… tags=\(tagSummary)", category: .session)
-        
-        // If this pubkey is blocked, skip mapping, participants, and timeline
-        if identityManager.isNostrBlocked(pubkeyHexLowercased: event.pubkey) {
-            return
-        }
         
         // Track teleport tag for participants – only our format ["t", "teleport"]
         let hasTeleportTag: Bool = event.tags.contains { tag in
@@ -303,9 +302,6 @@ extension ChatViewModel {
             }
         }
         
-        // Update participants last-seen for this pubkey
-        participantTracker.recordParticipant(pubkeyHex: event.pubkey)
-
         // Skip only very recent self-echo from relay; include older self events for hydration
         if isSelf {
             let eventTime = Date(timeIntervalSince1970: TimeInterval(event.created_at))
@@ -320,9 +316,17 @@ extension ChatViewModel {
             geoNicknames[event.pubkey.lowercased()] = nick
         }
         
+        // If this pubkey is blocked, skip mapping, participants, and timeline
+        if identityManager.isNostrBlocked(pubkeyHexLowercased: event.pubkey) {
+            return
+        }
+        
         // Store mapping for geohash DM initiation
         nostrKeyMapping[PeerID(nostr_: event.pubkey)] = event.pubkey
         nostrKeyMapping[PeerID(nostr: event.pubkey)] = event.pubkey
+        
+        // Update participants last-seen for this pubkey
+        participantTracker.recordParticipant(pubkeyHex: event.pubkey)
         
         // If presence heartbeat (Kind 20001), stop here - no content to display
         if event.kind == NostrProtocol.EventKind.geohashPresence.rawValue {

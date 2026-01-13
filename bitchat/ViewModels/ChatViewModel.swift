@@ -1360,6 +1360,68 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         }
         return "user"
     }
+    
+    /// Find the PeerID for a given nickname
+    @MainActor
+    func peerIDForNickname(_ nickname: String) -> PeerID? {
+        // First check currently connected peers
+        for peer in allPeers {
+            if let peerNickname = meshService.peerNickname(peerID: peer.peerID),
+               peerNickname == nickname || nickname.hasPrefix(peerNickname + "#") {
+                return peer.peerID
+            }
+        }
+        
+        // Also check favorites
+        for (noiseKey, relationship) in FavoritesPersistenceService.shared.favorites {
+            if relationship.peerNickname == nickname || nickname.hasPrefix(relationship.peerNickname + "#") {
+                return PeerID(hexData: noiseKey)
+            }
+        }
+        
+        return nil
+    }
+    
+    /// Check if a user with nickname is favorited
+    @MainActor
+    func isFavorite(_ nickname: String) -> Bool {
+        if let peerID = peerIDForNickname(nickname) {
+            return isFavorite(peerID: peerID)
+        }
+        
+        // Check directly by nickname in favorites
+        for (_, relationship) in FavoritesPersistenceService.shared.favorites {
+            if (relationship.peerNickname == nickname || nickname.hasPrefix(relationship.peerNickname + "#")) &&
+               relationship.isFavorite {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /// Toggle favorite status for a peer with known peerID and nickname
+    @MainActor
+    func toggleFavorite(for peerID: PeerID, nickname: String) {
+        // Get the noise public key for this peer
+        if let peer = allPeers.first(where: { $0.peerID == peerID }) {
+            let noiseKey = peer.noisePublicKey
+            let currentStatus = FavoritesPersistenceService.shared.getFavoriteStatus(for: noiseKey)
+            
+            if currentStatus?.isFavorite == true {
+                FavoritesPersistenceService.shared.removeFavorite(peerNoisePublicKey: noiseKey)
+            } else {
+                FavoritesPersistenceService.shared.addFavorite(
+                    peerNoisePublicKey: noiseKey,
+                    peerNickname: nickname
+                )
+            }
+            objectWillChange.send()
+        } else {
+            // Try using the peerID as a noise key directly
+            toggleFavorite(peerID: peerID)
+        }
+    }
 
 
 

@@ -17,7 +17,8 @@ final class BLEService: NSObject {
     // MARK: - Constants
     
     #if DEBUG
-    static let serviceUUID = CBUUID(string: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5A") // testnet
+    // Legacy static UUID for Bitchat compatibility - matches Android FALLBACK_UUID
+    static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #else
     static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #endif
@@ -27,7 +28,6 @@ final class BLEService: NSObject {
     
     // Default per-fragment chunk size when link limits are unknown
     private let defaultFragmentSize = TransportConfig.bleDefaultFragmentSize
-    private let bleMaxMTU = 512
     private let maxMessageLength = InputValidator.Limits.maxMessageLength
     private let messageTTL: UInt8 = TransportConfig.messageTTLDefault
     // Flood/battery controls
@@ -52,15 +52,6 @@ final class BLEService: NSObject {
     // 2. BLE Centrals (when acting as peripheral)
     private var subscribedCentrals: [CBCentral] = []
     private var centralToPeerID: [String: PeerID] = [:]  // Central UUID -> Peer ID mapping
-
-    // BCH-01-004: Rate-limiting for subscription-triggered announces
-    // Tracks subscription attempts per central to prevent enumeration attacks
-    private struct SubscriptionRateLimitState {
-        var lastAnnounceTime: Date
-        var attemptCount: Int
-        var currentBackoffSeconds: TimeInterval
-    }
-    private var centralSubscriptionRateLimits: [String: SubscriptionRateLimitState] = [:]  // Central UUID -> rate limit state
     
     // 3. Peer Information (single source of truth)
     private struct PeerInfo {
@@ -569,7 +560,7 @@ final class BLEService: NSObject {
     
     func emergencyDisconnectAll() {
         stopServices()
-
+        
         // Clear all sessions and peers
         let cancelledTransfers: [(id: String, items: [DispatchWorkItem])] = collectionsQueue.sync(flags: .barrier) {
             let entries = activeTransfers.map { ($0.key, $0.value.workItems) }
@@ -584,18 +575,16 @@ final class BLEService: NSObject {
             entry.items.forEach { $0.cancel() }
             TransferProgressManager.shared.cancel(id: entry.id)
         }
-
+        
         // Clear processed messages
         messageDeduplicator.reset()
-
+        
         // Clear peripheral references
         peripherals.removeAll()
         peerToPeripheralUUID.removeAll()
         subscribedCentrals.removeAll()
         centralToPeerID.removeAll()
         meshTopology.reset()
-        // BCH-01-004: Clear rate-limit state
-        centralSubscriptionRateLimits.removeAll()
     }
     
     // MARK: Connectivity and peers
@@ -813,11 +802,9 @@ final class BLEService: NSObject {
     
     private func broadcastPacket(_ packet: BitchatPacket, transferId: String? = nil) {
         // Apply route if recipient exists (centralized route application)
-        let packetToSend: BitchatPacket
+        var packet = packet
         if let recipientPeerID = PeerID(hexData: packet.recipientID) {
-            packetToSend = applyRouteIfAvailable(packet, to: recipientPeerID)
-        } else {
-            packetToSend = packet
+            applyRouteIfAvailable(&packet, to: recipientPeerID)
         }
         // Encode once using a small per-type padding policy, then delegate by type
         let padForBLE = padPolicy(for: packet.type)
@@ -1191,9 +1178,6 @@ final class BLEService: NSObject {
             return
         }
 
-        // BCH-01-002: Enforce storage quota before saving
-        enforceIncomingFilesQuota(reservingBytes: filePacket.content.count)
-
         let fallbackExt = mime.defaultExtension
         let subdirectory: String
         switch mime.category {
@@ -1427,72 +1411,6 @@ final class BLEService: NSObject {
         } catch {
             SecureLogger.error("❌ Failed to persist incoming media: \(error)", category: .session)
             return nil
-        }
-    }
-
-    // MARK: - Storage Quota Management (BCH-01-002)
-
-    /// Maximum total storage for incoming files (100 MB)
-    private static let incomingFilesQuota: Int64 = 100 * 1024 * 1024
-
-    /// Enforces storage quota for incoming files by deleting oldest files when quota is exceeded.
-    /// Call before saving a new incoming file.
-    private func enforceIncomingFilesQuota(reservingBytes: Int) {
-        do {
-            let base = try applicationFilesDirectory()
-            let incomingDirs = [
-                base.appendingPathComponent("voicenotes/incoming", isDirectory: true),
-                base.appendingPathComponent("images/incoming", isDirectory: true),
-                base.appendingPathComponent("files/incoming", isDirectory: true)
-            ]
-
-            // Gather all incoming files with their sizes and modification dates
-            var allFiles: [(url: URL, size: Int64, modified: Date)] = []
-            let fileManager = FileManager.default
-
-            for dir in incomingDirs {
-                guard fileManager.fileExists(atPath: dir.path) else { continue }
-                guard let contents = try? fileManager.contentsOfDirectory(
-                    at: dir,
-                    includingPropertiesForKeys: [.fileSizeKey, .contentModificationDateKey],
-                    options: [.skipsHiddenFiles]
-                ) else { continue }
-
-                for fileURL in contents {
-                    guard let attrs = try? fileURL.resourceValues(forKeys: [.fileSizeKey, .contentModificationDateKey]),
-                          let size = attrs.fileSize,
-                          let modified = attrs.contentModificationDate else { continue }
-                    allFiles.append((url: fileURL, size: Int64(size), modified: modified))
-                }
-            }
-
-            // Calculate current usage
-            let currentUsage = allFiles.reduce(0) { $0 + $1.size }
-            let targetUsage = Self.incomingFilesQuota - Int64(reservingBytes)
-
-            guard currentUsage > targetUsage else { return }
-
-            // Sort by modification date (oldest first) and delete until under quota
-            let sortedFiles = allFiles.sorted { $0.modified < $1.modified }
-            var freedSpace: Int64 = 0
-            let needToFree = currentUsage - targetUsage
-
-            for file in sortedFiles {
-                guard freedSpace < needToFree else { break }
-                do {
-                    try fileManager.removeItem(at: file.url)
-                    freedSpace += file.size
-                    SecureLogger.debug("🗑️ BCH-01-002: Deleted old incoming file to free space: \(file.url.lastPathComponent)", category: .security)
-                } catch {
-                    SecureLogger.warning("⚠️ Failed to delete old file for quota: \(error)", category: .security)
-                }
-            }
-
-            if freedSpace > 0 {
-                SecureLogger.info("📊 BCH-01-002: Freed \(ByteCountFormatter.string(fromByteCount: freedSpace, countStyle: .file)) to stay within incoming files quota", category: .security)
-            }
-        } catch {
-            SecureLogger.warning("⚠️ Could not enforce storage quota: \(error)", category: .security)
         }
     }
 
@@ -1868,9 +1786,8 @@ func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeriph
                     peers[peerID] = info
                 }
             }
-            refreshLocalTopology()
+            clearDirectLink(with: peerID)
         }
-
         
         // Restart scanning with allow duplicates for faster rediscovery
         if centralManager?.state == .poweredOn {
@@ -2162,7 +2079,7 @@ extension BLEService: CBPeripheralDelegate {
                     peripherals[peripheralUUID] = state
                 }
                 peerToPeripheralUUID[senderID] = peripheralUUID
-                refreshLocalTopology()
+                registerDirectLink(with: senderID)
             }
 
             let msgID = makeMessageID(for: packet)
@@ -2294,85 +2211,15 @@ extension BLEService: CBPeripheralManagerDelegate {
     }
     
     func peripheralManager(_ peripheral: CBPeripheralManager, central: CBCentral, didSubscribeTo characteristic: CBCharacteristic) {
-        let centralUUID = central.identifier.uuidString
-        SecureLogger.debug("📥 Central subscribed: \(centralUUID)", category: .session)
+        SecureLogger.debug("📥 Central subscribed: \(central.identifier.uuidString)", category: .session)
         subscribedCentrals.append(central)
-
-        // BCH-01-004: Rate-limit subscription-triggered announces to prevent enumeration attacks
-        let now = Date()
-        var state = centralSubscriptionRateLimits[centralUUID]
-
-        // Clean up stale entries periodically
-        cleanupStaleSubscriptionRateLimits()
-
-        // Check if this central is rate-limited
-        if let existingState = state {
-            let timeSinceLastAnnounce = now.timeIntervalSince(existingState.lastAnnounceTime)
-
-            // If within backoff period, skip the announce
-            if timeSinceLastAnnounce < existingState.currentBackoffSeconds {
-                SecureLogger.warning("🛡️ BCH-01-004: Rate-limited announce for central \(centralUUID.prefix(8))... (backoff: \(Int(existingState.currentBackoffSeconds))s, attempts: \(existingState.attemptCount))", category: .security)
-
-                // Increment attempt count and increase backoff
-                // Update lastAnnounceTime to 'now' so each blocked attempt extends the suppression window
-                // This prevents attackers from waiting out the backoff while spamming attempts
-                let newAttemptCount = existingState.attemptCount + 1
-                let newBackoff = min(
-                    existingState.currentBackoffSeconds * TransportConfig.bleSubscriptionRateLimitBackoffFactor,
-                    TransportConfig.bleSubscriptionRateLimitMaxBackoffSeconds
-                )
-                centralSubscriptionRateLimits[centralUUID] = SubscriptionRateLimitState(
-                    lastAnnounceTime: now,  // Reset timer on each blocked attempt
-                    attemptCount: newAttemptCount,
-                    currentBackoffSeconds: newBackoff
-                )
-
-                // If too many rapid attempts, this is likely an enumeration attack - don't respond
-                if newAttemptCount >= TransportConfig.bleSubscriptionRateLimitMaxAttempts {
-                    SecureLogger.warning("🚨 BCH-01-004: Possible enumeration attack from central \(centralUUID.prefix(8))... - suppressing announce", category: .security)
-                    return
-                }
-
-                // Still flush directed packets and rebroadcast for legitimate mesh operation
-                messageQueue.asyncAfter(deadline: .now() + TransportConfig.blePostAnnounceDelaySeconds) { [weak self] in
-                    self?.flushDirectedSpool()
-                    self?.rebroadcastRecentAnnounces()
-                }
-                return
-            }
-
-            // Outside backoff period - allow announce but track it
-            state = SubscriptionRateLimitState(
-                lastAnnounceTime: now,
-                attemptCount: 1,
-                currentBackoffSeconds: TransportConfig.bleSubscriptionRateLimitMinSeconds
-            )
-        } else {
-            // First subscription from this central - track it
-            state = SubscriptionRateLimitState(
-                lastAnnounceTime: now,
-                attemptCount: 1,
-                currentBackoffSeconds: TransportConfig.bleSubscriptionRateLimitMinSeconds
-            )
-        }
-        centralSubscriptionRateLimits[centralUUID] = state
-
-        // Send announce to the newly subscribed central after a small delay
+        // Send announce to the newly subscribed central after a small delay to avoid overwhelming
         messageQueue.asyncAfter(deadline: .now() + TransportConfig.blePostAnnounceDelaySeconds) { [weak self] in
             self?.sendAnnounce(forceSend: true)
             // Flush any spooled directed packets now that we have a central subscribed
             self?.flushDirectedSpool()
             // Rebroadcast a couple of recent announces to seed the new link
             self?.rebroadcastRecentAnnounces()
-        }
-    }
-
-    /// BCH-01-004: Clean up stale rate-limit entries to prevent memory growth
-    private func cleanupStaleSubscriptionRateLimits() {
-        let now = Date()
-        let windowSeconds = TransportConfig.bleSubscriptionRateLimitWindowSeconds
-        centralSubscriptionRateLimits = centralSubscriptionRateLimits.filter { _, state in
-            now.timeIntervalSince(state.lastAnnounceTime) < windowSeconds
         }
     }
     
@@ -2399,7 +2246,7 @@ extension BLEService: CBPeripheralManagerDelegate {
             
             // Clean up mappings
             centralToPeerID.removeValue(forKey: centralUUID)
-            refreshLocalTopology()
+            clearDirectLink(with: peerID)
             
             // Update UI immediately
             notifyUI { [weak self] in
@@ -2522,7 +2369,7 @@ extension BLEService: CBPeripheralManagerDelegate {
                 if packet.type == MessageType.announce.rawValue {
                     if packet.ttl == messageTTL {
                         centralToPeerID[centralUUID] = senderID
-                        refreshLocalTopology()
+                        registerDirectLink(with: senderID)
                     }
                     // Record ingress link for last-hop suppression then process
                     let msgID = makeMessageID(for: packet)
@@ -2651,11 +2498,17 @@ extension BLEService {
         peerID.toShort().routingData
     }
 
-    private func refreshLocalTopology() {
-        let neighbors: [Data] = collectionsQueue.sync {
-            peers.values.filter { $0.isConnected }.compactMap { $0.peerID.routingData }
-        }
-        meshTopology.updateNeighbors(for: myPeerIDData, neighbors: neighbors)
+    private func registerDirectLink(with peerID: PeerID) {
+        meshTopology.recordDirectLink(between: myPeerIDData, and: routingData(for: peerID))
+    }
+
+    private func clearDirectLink(with peerID: PeerID) {
+        meshTopology.removeDirectLink(between: myPeerIDData, and: routingData(for: peerID))
+    }
+
+    private func registerRoute(_ route: [Data]?) {
+        guard let hops = route, !hops.isEmpty else { return }
+        meshTopology.recordRoute(hops)
     }
 
     private func computeRoute(to peerID: PeerID) -> [Data]? {
@@ -2666,7 +2519,6 @@ extension BLEService {
         guard let route = computeRoute(to: recipient), route.count >= 2 else { return }
         packet.route = route
         meshTopology.recordRoute(route)
-    }
     }
 
     private func routingPeer(from data: Data) -> PeerID? {
@@ -2686,6 +2538,7 @@ extension BLEService {
                   isPeerConnected(destinationPeer) else {
                 return false
             }
+            registerDirectLink(with: destinationPeer)
             var relayPacket = packet
             relayPacket.ttl = packet.ttl - 1
             sendPacketDirected(relayPacket, to: destinationPeer)
@@ -2700,6 +2553,7 @@ extension BLEService {
             return false
         }
 
+        registerDirectLink(with: nextPeer)
         var relayPacket = packet
         relayPacket.ttl = packet.ttl - 1
         sendPacketDirected(relayPacket, to: nextPeer)
@@ -3181,21 +3035,7 @@ extension BLEService {
         }
         // Fragment the unpadded frame; each fragment will be encoded independently
         let fragmentID = Data((0..<8).map { _ in UInt8.random(in: 0...255) })
-        // Dynamic Fragment Sizing (Source Routing v2)
-        // See docs/SOURCE_ROUTING.md Section 5.1
-        var fragmentVersion: UInt8 = 1
-        var calculatedChunk = defaultFragmentSize
-
-        if let route = packet.route, !route.isEmpty {
-            fragmentVersion = 2
-            // RouteSize = 1 + (Hops * 8)
-            let routeSize = 1 + (route.count * 8)
-            // Overhead = HeaderV2(16) + SenderID(8) + RecipientID(8) + RouteSize + FragmentHeader(13) + PaddingBuffer(16)
-            let overhead = 16 + 8 + 8 + routeSize + 13 + 16
-            calculatedChunk = max(64, bleMaxMTU - overhead)
-        }
-
-        let chunk = context.maxChunk ?? calculatedChunk
+        let chunk = context.maxChunk ?? defaultFragmentSize
         let safeChunk = max(64, chunk)
         let fragments = stride(from: 0, to: fullData.count, by: safeChunk).map { offset in
             Data(fullData[offset..<min(offset + safeChunk, fullData.count)])
@@ -3254,7 +3094,6 @@ extension BLEService {
                 payload: payload,
                 signature: nil,
                 ttl: packet.ttl,
-                version: fragmentVersion,
                 route: packet.route
             )
 
@@ -3480,6 +3319,10 @@ extension BLEService {
             return
         }
 
+        registerRoute(packet.route)
+        if peerID != myPeerID && packet.ttl == messageTTL {
+            registerDirectLink(with: peerID)
+        }
         
         // Deduplication (thread-safe)
         let senderID = PeerID(hexData: packet.senderID)
@@ -3607,11 +3450,6 @@ extension BLEService {
         guard let announcement = AnnouncementPacket.decode(from: packet.payload) else {
             SecureLogger.error("❌ Failed to decode announce packet from \(peerID)", category: .session)
             return
-        }
-        
-        // Update topology with their claimed neighbors
-        if let neighbors = announcement.directNeighbors {
-            meshTopology.updateNeighbors(for: peerID.routingData, neighbors: neighbors)
         }
         
         // Verify that the sender's derived ID from the announced noise public key matches the packet senderID
@@ -4219,11 +4057,6 @@ extension BLEService {
                 self.delegate?.didUpdatePeerList(currentPeerIDs)
             }
         }
-        
-        // Refresh local topology to keep our own entry fresh and sync any changes
-        refreshLocalTopology()
-        // Prune stale topology nodes (using safe retention window)
-        meshTopology.prune(olderThan: 60.0)
     }
     
     private func performCleanup() {

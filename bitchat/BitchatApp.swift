@@ -55,7 +55,7 @@ struct BitchatApp: App {
         WindowGroup {
             Group {
                 if onboardingSeen {
-                    ContentView()
+                    MainTabView()
                 } else {
                     OnboardingView(isPresented: .constant(true))
                 }
