@@ -30,8 +30,14 @@ struct PeopleTabView: View {
         colorScheme == .dark ? Color.black : Color.white
     }
     
-    private var activeCount: Int {
-        viewModel.allPeers.filter { $0.isConnected }.count
+    // Total active count depends on channel
+    private var totalActiveCount: Int {
+        switch locationManager.selectedChannel {
+        case .mesh:
+            return viewModel.allPeers.filter { $0.isConnected && $0.peerID != viewModel.meshService.myPeerID }.count
+        case .location(let ch):
+            return viewModel.geohashParticipantCount(for: ch.geohash)
+        }
     }
     
     // Current channel description
@@ -44,7 +50,7 @@ struct PeopleTabView: View {
         }
     }
     
-    // Favorite peers (online)
+    // Favorite peers (online mesh peers)
     private var favoritePeers: [BitchatPeer] {
         viewModel.allPeers.filter { peer in
             peer.isConnected && 
@@ -53,13 +59,26 @@ struct PeopleTabView: View {
         }
     }
     
-    // Non-favorite active peers
-    private var otherActivePeers: [BitchatPeer] {
+    // Non-favorite active mesh peers
+    private var otherActiveMeshPeers: [BitchatPeer] {
         viewModel.allPeers.filter { peer in
             peer.isConnected && 
             peer.peerID != viewModel.meshService.myPeerID &&
             favoritesService.favorites[peer.noisePublicKey]?.isFavorite != true
         }
+    }
+    
+    // Geohash participants (for location channels)
+    private var geohashParticipants: [GeoPerson] {
+        viewModel.visibleGeohashPeople()
+    }
+    
+    // Check if we're in a geohash channel
+    private var isInGeohashChannel: Bool {
+        if case .location = locationManager.selectedChannel {
+            return true
+        }
+        return false
     }
     
     var body: some View {
@@ -84,7 +103,7 @@ struct PeopleTabView: View {
                         Spacer()
                         let activeText = String.localizedStringWithFormat(
                             NSLocalizedString("%d active", comment: "Active peer count"),
-                            activeCount
+                            totalActiveCount
                         )
                         Text(activeText)
                             .font(.caption)
@@ -92,26 +111,51 @@ struct PeopleTabView: View {
                     }
                 }
                 
-                // Favorites section
+                // Favorites section (always show if there are favorites)
                 if !favoritePeers.isEmpty {
                     Section(header: Text(LanguageManager.shared.localizedString("people.favorites"))) {
                         ForEach(favoritePeers, id: \.peerID) { peer in
-                            peerRow(for: peer, isFavorite: true)
+                            meshPeerRow(for: peer, isFavorite: true)
                         }
                     }
                 }
                 
-                // Other active peers
-                if !otherActivePeers.isEmpty {
-                    Section(header: Text(LanguageManager.shared.localizedString("people.active"))) {
-                        ForEach(otherActivePeers, id: \.peerID) { peer in
-                            peerRow(for: peer, isFavorite: false)
+                // Active section - show based on current channel
+                if isInGeohashChannel {
+                    // Show geohash participants
+                    if !geohashParticipants.isEmpty {
+                        Section(header: Text(LanguageManager.shared.localizedString("people.active"))) {
+                            ForEach(geohashParticipants) { person in
+                                geohashPersonRow(for: person)
+                            }
+                        }
+                    }
+                    
+                    // Also show mesh peers if any
+                    if !otherActiveMeshPeers.isEmpty {
+                        Section(header: Text(LanguageManager.shared.localizedString("people.nearby_mesh"))) {
+                            ForEach(otherActiveMeshPeers, id: \.peerID) { peer in
+                                meshPeerRow(for: peer, isFavorite: false)
+                            }
+                        }
+                    }
+                } else {
+                    // Mesh channel - show mesh peers
+                    if !otherActiveMeshPeers.isEmpty {
+                        Section(header: Text(LanguageManager.shared.localizedString("people.active"))) {
+                            ForEach(otherActiveMeshPeers, id: \.peerID) { peer in
+                                meshPeerRow(for: peer, isFavorite: false)
+                            }
                         }
                     }
                 }
                 
                 // No peers message
-                if favoritePeers.isEmpty && otherActivePeers.isEmpty {
+                let noActiveUsers = isInGeohashChannel 
+                    ? (geohashParticipants.isEmpty && otherActiveMeshPeers.isEmpty && favoritePeers.isEmpty)
+                    : (otherActiveMeshPeers.isEmpty && favoritePeers.isEmpty)
+                
+                if noActiveUsers {
                     Section {
                         HStack {
                             Spacer()
@@ -136,7 +180,7 @@ struct PeopleTabView: View {
     
     // MARK: - Rows
     
-    private func peerRow(for peer: BitchatPeer, isFavorite: Bool) -> some View {
+    private func meshPeerRow(for peer: BitchatPeer, isFavorite: Bool) -> some View {
         let nickname = viewModel.meshService.peerNickname(peerID: peer.peerID) ?? peer.peerID.id.prefix(8).uppercased()
         
         return HStack {
@@ -175,6 +219,30 @@ struct PeopleTabView: View {
             viewModel.startPrivateChat(with: peer.peerID)
             showPrivateChatSheet = true
         }
+    }
+    
+    private func geohashPersonRow(for person: GeoPerson) -> some View {
+        return HStack {
+            // Status indicator (green = active in geohash)
+            Circle()
+                .fill(Color.green)
+                .frame(width: 8, height: 8)
+            
+            // Display name
+            Text(person.displayName)
+                .font(.body)
+                .foregroundColor(textColor)
+                .lineLimit(1)
+            
+            Spacer()
+            
+            // Note: Geohash users can't be favorited or PM'd directly via mesh
+            // They use Nostr-based identities
+            Text(LanguageManager.shared.localizedString("people.via_nostr"))
+                .font(.caption2)
+                .foregroundColor(secondaryTextColor.opacity(0.6))
+        }
+        .contentShape(Rectangle())
     }
 }
 

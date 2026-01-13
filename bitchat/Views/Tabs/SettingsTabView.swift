@@ -13,6 +13,7 @@ struct SettingsTabView: View {
     @StateObject private var languageManager = LanguageManager.shared
     @ObservedObject private var locationManager = LocationChannelManager.shared
     @Environment(\.colorScheme) var colorScheme
+    @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     @State private var showingNameEditSheet = false
     @State private var editingName = ""
     
@@ -83,6 +84,39 @@ struct SettingsTabView: View {
                                 editingName = viewModel.nickname
                                 showingNameEditSheet = true
                             }
+                        }
+                        .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                    
+                    // MARK: - Appearance Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionHeaderView(title: LanguageManager.shared.localizedString("settings.appearance").uppercased(), colorScheme: colorScheme)
+                        
+                        VStack(spacing: 1) {
+                            HStack {
+                                Image(systemName: "paintbrush.fill")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(accentBlue)
+                                    .frame(width: 24)
+                                
+                                Text(LanguageManager.shared.localizedString("settings.theme"))
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                
+                                Spacer()
+                                
+                                Picker("", selection: $appearanceMode) {
+                                    Text(LanguageManager.shared.localizedString("settings.theme_system")).tag(0)
+                                    Text(LanguageManager.shared.localizedString("settings.theme_light")).tag(1)
+                                    Text(LanguageManager.shared.localizedString("settings.theme_dark")).tag(2)
+                                }
+                                .pickerStyle(.menu)
+                                .tint(textColor)
+                            }
+                            .padding()
+                            .background(surfaceColor)
                         }
                         .cornerRadius(12)
                     }

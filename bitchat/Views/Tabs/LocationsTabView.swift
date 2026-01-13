@@ -14,6 +14,7 @@ struct LocationsTabView: View {
     @ObservedObject private var bookmarks = GeohashBookmarksStore.shared
     @State private var customGeohash = ""
     @State private var geohashError: String? = nil
+    @State private var locationServicesEnabled = true
     @Environment(\.colorScheme) var colorScheme
     
     private var textColor: Color {
@@ -140,6 +141,49 @@ struct LocationsTabView: View {
                                 .font(.caption)
                                 .foregroundColor(.red)
                         }
+                    }
+                    .padding(.horizontal)
+                    
+                    // Location Services Toggle
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text(LanguageManager.shared.localizedString("settings.location").uppercased())
+                            .font(.caption)
+                            .fontWeight(.semibold)
+                            .foregroundColor(.gray)
+                            .padding(.horizontal, 4)
+                        
+                        HStack {
+                            Image(systemName: "location.fill")
+                                .font(.system(size: 20))
+                                .foregroundColor(locationServicesEnabled ? textColor : .gray)
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(LanguageManager.shared.localizedString("settings.location"))
+                                    .font(.body)
+                                    .fontWeight(.medium)
+                                    .foregroundColor(colorScheme == .dark ? .white : .black)
+                                
+                                Text(LanguageManager.shared.localizedString("settings.location_description"))
+                                    .font(.caption)
+                                    .foregroundColor(.gray)
+                            }
+                            
+                            Spacer()
+                            
+                            Toggle("", isOn: $locationServicesEnabled)
+                                .labelsHidden()
+                                .tint(textColor)
+                                .onChange(of: locationServicesEnabled) { newValue in
+                                    if newValue {
+                                        locationManager.enableLocationChannels()
+                                    } else {
+                                        locationManager.select(.mesh)
+                                    }
+                                }
+                        }
+                        .padding()
+                        .background(colorScheme == .dark ? Color(white: 0.1) : Color(white: 0.95))
+                        .cornerRadius(12)
                     }
                     .padding(.horizontal)
                     

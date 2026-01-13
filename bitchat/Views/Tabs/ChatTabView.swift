@@ -10,6 +10,7 @@ import UniformTypeIdentifiers
 import AVFoundation
 
 struct ChatTabView: View {
+    @Binding var selectedTab: MainTabView.Tab
     @EnvironmentObject var viewModel: ChatViewModel
     @ObservedObject private var locationManager = LocationChannelManager.shared
     @Environment(\.colorScheme) var colorScheme
@@ -19,6 +20,10 @@ struct ChatTabView: View {
     @State private var messageText = ""
     @FocusState private var isTextFieldFocused: Bool
     @FocusState private var isNicknameFieldFocused: Bool
+    
+    // Private Chat Sheet
+    @State private var showPrivateChatSheet = false
+    @State private var selectedPeerForChat: PeerID? = nil
     @State private var isAtBottom: Bool = true
     @State private var lastScrollTime: Date = .distantPast
     @State private var scrollThrottleTimer: Timer?
@@ -179,6 +184,12 @@ struct ChatTabView: View {
         ) {
             messageActions
         }
+        .sheet(isPresented: $showPrivateChatSheet) {
+            if let peerID = selectedPeerForChat {
+                PrivateChatSheetView(peerID: peerID)
+                    .environmentObject(viewModel)
+            }
+        }
     }
     
     // MARK: - Header View
@@ -213,7 +224,7 @@ struct ChatTabView: View {
             
             Spacer()
             
-            // Channel badge with connection status
+            // Channel badge with connection status - tappable to go to locations
             HStack(spacing: 6) {
                 // Connection status dot
                 Circle()
@@ -225,6 +236,10 @@ struct ChatTabView: View {
                     .font(.bitchatSystem(size: 14, design: .monospaced))
                     .foregroundColor(locationManager.selectedChannel.isMesh ? Color(hue: 0.60, saturation: 0.85, brightness: 0.82) : textColor)
                     .lineLimit(1)
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                selectedTab = .locations
             }
         }
         .padding(.horizontal, 12)
@@ -346,9 +361,9 @@ struct ChatTabView: View {
                                 if item.message.sender != "system" && item.message.sender != viewModel.nickname {
                                     Button {
                                         if let peerID = viewModel.peerIDForNickname(item.message.sender) {
-                                            selectedMessageSenderID = peerID
+                                            selectedPeerForChat = peerID
                                             viewModel.startPrivateChat(with: peerID)
-                                            showMessageActions = false
+                                            showPrivateChatSheet = true
                                         }
                                     } label: {
                                         Label(LanguageManager.shared.localizedString("content.actions.direct_message"), systemImage: "envelope.fill")
@@ -661,11 +676,13 @@ struct ChatTabView: View {
     
     @ViewBuilder
     private func textMessageRow(_ message: BitchatMessage) -> some View {
-        // Simplified text row
-        VStack(alignment: .leading, spacing: 2) {
-             Text(viewModel.formatMessageHeader(message, colorScheme: colorScheme))
+        // Only show if message has actual content
+        let trimmedContent = message.content.trimmingCharacters(in: .whitespacesAndNewlines)
+        if !trimmedContent.isEmpty {
+            // formatMessageAsText includes the <@sender> prefix, content, and timestamp
             Text(viewModel.formatMessageAsText(message, colorScheme: colorScheme))
         }
+        // If empty, show nothing (EmptyView implied by @ViewBuilder)
     }
     
     @ViewBuilder

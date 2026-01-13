@@ -22,6 +22,7 @@ struct BitchatApp: App {
     
     @StateObject private var chatViewModel: ChatViewModel
     @StateObject private var languageManager = LanguageManager.shared
+    @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     #if os(iOS)
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -32,6 +33,15 @@ struct BitchatApp: App {
     #elseif os(macOS)
     @NSApplicationDelegateAdaptor(MacAppDelegate.self) var appDelegate
     #endif
+    
+    // Computed property for preferred color scheme
+    private var preferredColorScheme: ColorScheme? {
+        switch appearanceMode {
+        case 1: return .light
+        case 2: return .dark
+        default: return nil // System default
+        }
+    }
     
     private let idBridge = NostrIdentityBridge()
     
@@ -64,6 +74,7 @@ struct BitchatApp: App {
             .environmentObject(chatViewModel)
             .environmentObject(languageManager)
             .applyLanguageEnvironment(languageManager)
+            .preferredColorScheme(preferredColorScheme)
             .onAppear {
                 NotificationDelegate.shared.chatViewModel = chatViewModel
                 // Inject live Noise service into VerificationService to avoid creating new BLE instances

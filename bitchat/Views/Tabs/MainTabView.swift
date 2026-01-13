@@ -32,7 +32,7 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            ChatTabView()
+            ChatTabView(selectedTab: $selectedTab)
                 .tabItem {
                     Label(
                         LanguageManager.shared.localizedString("tabs.chat"),
