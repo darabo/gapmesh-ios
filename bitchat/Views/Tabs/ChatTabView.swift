@@ -617,7 +617,9 @@ struct ChatTabView: View {
                     viewModel.sendImage(from: processedURL)
                 }
             } catch {
+                #if DEBUG
                 print("Image processing failed: \(error)")
+                #endif
             }
         }
     }
@@ -631,7 +633,9 @@ struct ChatTabView: View {
                     viewModel.sendImage(from: processedURL)
                 }
             } catch {
+                #if DEBUG
                 print("Image processing failed: \(error)")
+                #endif
             }
         }
     }
