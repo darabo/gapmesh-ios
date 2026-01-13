@@ -29,6 +29,15 @@ struct LocationsTabView: View {
         colorScheme == .dark ? Color.black : Color.white
     }
     
+    // Recent channels that aren't in nearby or bookmarks
+    private var filteredRecentChannels: [String] {
+        let nearbyGeohashes = Set(locationManager.availableChannels.map { $0.geohash })
+        let bookmarkedGeohashes = Set(bookmarks.bookmarks)
+        return locationManager.recentChannels.filter { geohash in
+            !nearbyGeohashes.contains(geohash) && !bookmarkedGeohashes.contains(geohash)
+        }
+    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -73,6 +82,27 @@ struct LocationsTabView: View {
                             VStack(spacing: 1) {
                                 ForEach(Array(bookmarks.bookmarks).sorted(), id: \.self) { geohash in
                                     bookmarkedChannelRow(for: geohash)
+                                        .padding()
+                                        .background(colorScheme == .dark ? Color(white: 0.1) : Color(white: 0.95))
+                                }
+                            }
+                            .cornerRadius(12)
+                        }
+                        .padding(.horizontal)
+                    }
+                    
+                    // Recent/Custom Channels (teleported geohashes)
+                    if !filteredRecentChannels.isEmpty {
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text(LanguageManager.shared.localizedString("channels.recent"))
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.gray)
+                                .padding(.horizontal, 4)
+                            
+                            VStack(spacing: 1) {
+                                ForEach(filteredRecentChannels, id: \.self) { geohash in
+                                    recentChannelRow(for: geohash)
                                         .padding()
                                         .background(colorScheme == .dark ? Color(white: 0.1) : Color(white: 0.95))
                                 }
@@ -334,6 +364,57 @@ struct LocationsTabView: View {
         .contentShape(Rectangle())
         .onTapGesture {
             selectGeohashChannel(channel.geohash)
+            selectedTab = .chat
+        }
+    }
+    
+    private func recentChannelRow(for geohash: String) -> some View {
+        let level = GeohashChannelLevel.levelForGeohashLength(geohash.count)
+        let peerCount = viewModel.geohashParticipantCount(for: geohash)
+        let isBookmarked = bookmarks.bookmarks.contains(geohash)
+        let isSelected = isChannelSelected(geohash)
+        
+        return HStack {
+            Image(systemName: "clock.arrow.circlepath")
+                .font(.title2)
+                .foregroundColor(.orange)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                HStack {
+                    Text("#\(geohash)")
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(textColor)
+                    
+                    if peerCount > 0 {
+                        Text("\(peerCount) \(LanguageManager.shared.localizedString("channels.people"))")
+                            .font(.caption)
+                            .foregroundColor(secondaryTextColor)
+                    }
+                }
+                
+                Text(level.displayName)
+                    .font(.caption)
+                    .foregroundColor(secondaryTextColor)
+            }
+            
+            Spacer()
+            
+            // Bookmark button
+            Button(action: { bookmarks.toggle(geohash) }) {
+                Image(systemName: isBookmarked ? "bookmark.fill" : "bookmark")
+                    .foregroundColor(isBookmarked ? .yellow : .gray)
+            }
+            .buttonStyle(.plain)
+            
+            if isSelected {
+                Image(systemName: "checkmark.circle.fill")
+                    .foregroundColor(textColor)
+            }
+        }
+        .contentShape(Rectangle())
+        .onTapGesture {
+            selectGeohashChannel(geohash)
             selectedTab = .chat
         }
     }

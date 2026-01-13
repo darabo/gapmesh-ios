@@ -38,6 +38,7 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
     private let teleportedStoreKey = "locationChannel.teleportedSet"
     private let bookmarksKey = "locationChannel.bookmarks"
     private let bookmarkNamesKey = "locationChannel.bookmarkNames"
+    private let recentChannelsKey = "locationChannel.recentChannels"
 
     // MARK: - Published State (Channel)
 
@@ -51,6 +52,7 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
 
     @Published private(set) var bookmarks: [String] = []
     @Published private(set) var bookmarkNames: [String: String] = [:]
+    @Published private(set) var recentChannels: [String] = [] // Custom/teleported geohashes visited recently
 
     // MARK: - Private State
 
@@ -128,6 +130,12 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
         if let data = storage.data(forKey: bookmarkNamesKey),
            let dict = try? JSONDecoder().decode([String: String].self, from: data) {
             bookmarkNames = dict
+        }
+        
+        // Load recent channels
+        if let data = storage.data(forKey: recentChannelsKey),
+           let arr = try? JSONDecoder().decode([String].self, from: data) {
+            recentChannels = arr
         }
     }
 
@@ -223,8 +231,35 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
                     }
                 } else {
                     self.teleported = self.teleportedSet.contains(ch.geohash)
+                    // Track custom/teleported channels in recent
+                    self.addToRecent(ch.geohash)
                 }
             }
+        }
+    }
+    
+    /// Add a geohash to recent channels (for custom/teleported channels)
+    private func addToRecent(_ geohash: String) {
+        let gh = Self.normalizeGeohash(geohash)
+        guard !gh.isEmpty else { return }
+        
+        // Remove if already exists (to move to front)
+        recentChannels.removeAll { $0 == gh }
+        
+        // Add to front
+        recentChannels.insert(gh, at: 0)
+        
+        // Keep only last 10
+        if recentChannels.count > 10 {
+            recentChannels = Array(recentChannels.prefix(10))
+        }
+        
+        persistRecentChannels()
+    }
+    
+    private func persistRecentChannels() {
+        if let data = try? JSONEncoder().encode(recentChannels) {
+            storage.set(data, forKey: recentChannelsKey)
         }
     }
 

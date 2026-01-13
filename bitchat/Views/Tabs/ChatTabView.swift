@@ -8,6 +8,7 @@
 import SwiftUI
 import UniformTypeIdentifiers
 import AVFoundation
+import Tor
 
 struct ChatTabView: View {
     @Binding var selectedTab: MainTabView.Tab
@@ -84,9 +85,17 @@ struct ChatTabView: View {
             let meshPeers = viewModel.allPeers.filter { $0.isConnected && $0.peerID != viewModel.meshService.myPeerID }
             return meshPeers.isEmpty ? .red : .green
         case .location:
-            // For geohash channels, show Tor status
-            return .green // Simplified - could check actual Tor status
+            // For geohash channels, show Tor status - red if disconnected
+            return TorManager.shared.isReady ? .green : .red
         }
+    }
+    
+    // Check if Tor is disconnected while in geohash
+    private var isGeohashDisconnected: Bool {
+        if case .location = locationManager.selectedChannel {
+            return !TorManager.shared.isReady
+        }
+        return false
     }
     
     // Current channel display text
@@ -195,56 +204,101 @@ struct ChatTabView: View {
     // MARK: - Header View
     
     private var headerView: some View {
-        HStack(spacing: 0) {
-            // Gap Mesh logo (triple-tap to clear all data)
-            Text(verbatim: "Gap Mesh/")
-                .font(.bitchatSystem(size: 18, weight: .medium, design: .monospaced))
-                .foregroundColor(textColor)
-                .onTapGesture(count: 3) {
-                    // PANIC: Triple-tap to clear all data
-                    viewModel.panicClearAllData()
-                }
-            
-            // Username (tap to edit)
+        VStack(spacing: 0) {
             HStack(spacing: 0) {
-                Text(verbatim: "@")
-                    .font(.bitchatSystem(size: 14, design: .monospaced))
-                    .foregroundColor(secondaryTextColor)
-                
-                Text(viewModel.nickname)
-                    .font(.bitchatSystem(size: 14, design: .monospaced))
+                // Gap Mesh logo (triple-tap to clear all data)
+                Text(verbatim: "Gap Mesh/")
+                    .font(.bitchatSystem(size: 18, weight: .medium, design: .monospaced))
                     .foregroundColor(textColor)
-                    .lineLimit(1)
-            }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                editingName = viewModel.nickname
-                showingNameEditSheet = true
-            }
-            
-            Spacer()
-            
-            // Channel badge with connection status - tappable to go to locations
-            HStack(spacing: 6) {
-                // Connection status dot
-                Circle()
-                    .fill(connectionStatusColor)
-                    .frame(width: 8, height: 8)
+                    .onTapGesture(count: 3) {
+                        // PANIC: Triple-tap to clear all data
+                        viewModel.panicClearAllData()
+                    }
                 
-                // Channel name
-                Text(currentChannelText)
-                    .font(.bitchatSystem(size: 14, design: .monospaced))
-                    .foregroundColor(locationManager.selectedChannel.isMesh ? Color(hue: 0.60, saturation: 0.85, brightness: 0.82) : textColor)
-                    .lineLimit(1)
+                // Username (tap to edit)
+                HStack(spacing: 0) {
+                    Text(verbatim: "@")
+                        .font(.bitchatSystem(size: 14, design: .monospaced))
+                        .foregroundColor(secondaryTextColor)
+                    
+                    Text(viewModel.nickname)
+                        .font(.bitchatSystem(size: 14, design: .monospaced))
+                        .foregroundColor(textColor)
+                        .lineLimit(1)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    editingName = viewModel.nickname
+                    showingNameEditSheet = true
+                }
+                
+                Spacer()
+                
+                // Channel badge - tappable to go to locations
+                channelBadge
             }
-            .contentShape(Rectangle())
-            .onTapGesture {
-                selectedTab = .locations
+            .padding(.horizontal, 12)
+            .padding(.vertical, 10)
+            
+            // Disconnection warning banner for geohash
+            if isGeohashDisconnected {
+                HStack(spacing: 6) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .font(.caption)
+                    Text(LanguageManager.shared.localizedString("chat.tor_disconnected_warning"))
+                        .font(.caption)
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 6)
+                .frame(maxWidth: .infinity)
+                .background(Color.red.opacity(0.9))
             }
         }
-        .padding(.horizontal, 12)
-        .padding(.vertical, 10)
         .background(backgroundColor)
+    }
+    
+    // Channel badge with prominent geohash display
+    private var channelBadge: some View {
+        Group {
+            switch locationManager.selectedChannel {
+            case .mesh:
+                // Simple badge for mesh
+                HStack(spacing: 6) {
+                    Circle()
+                        .fill(connectionStatusColor)
+                        .frame(width: 8, height: 8)
+                    Text(currentChannelText)
+                        .font(.bitchatSystem(size: 14, design: .monospaced))
+                        .foregroundColor(Color(hue: 0.60, saturation: 0.85, brightness: 0.82))
+                        .lineLimit(1)
+                }
+                .contentShape(Rectangle())
+                .onTapGesture { selectedTab = .locations }
+                
+            case .location(let ch):
+                // Prominent pill badge for geohash
+                HStack(spacing: 6) {
+                    Circle()
+                        .fill(connectionStatusColor)
+                        .frame(width: 8, height: 8)
+                    Image(systemName: "location.fill")
+                        .font(.caption)
+                    Text("#\(ch.geohash)")
+                        .font(.bitchatSystem(size: 14, weight: .semibold, design: .monospaced))
+                        .lineLimit(1)
+                }
+                .foregroundColor(.white)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(
+                    Capsule()
+                        .fill(isGeohashDisconnected ? Color.red.opacity(0.8) : textColor)
+                )
+                .contentShape(Rectangle())
+                .onTapGesture { selectedTab = .locations }
+            }
+        }
     }
     
     // MARK: - Edit Name Sheet

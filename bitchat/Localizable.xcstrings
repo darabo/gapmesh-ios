@@ -6498,13 +6498,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nearby Devices"
+            "value" : "Nearby Channels"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "دستگاه‌های اطراف"
+            "value" : "کانال‌های نزدیک"
           }
         }
       }
@@ -6577,6 +6577,23 @@
         }
       }
     },
+    "channels.recent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های اخیر"
+          }
+        }
+      }
+    },
     "chat.choose_photo" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6630,6 +6647,23 @@
     },
     "Choose an image" : {
 
+    },
+    "chat.tor_disconnected_warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tor disconnected - Cannot send messages to this channel"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور قطع شده - امکان ارسال پیام به این کانال وجود ندارد"
+          }
+        }
+      }
     },
     "Choose Language" : {
 
@@ -33861,23 +33895,6 @@
         }
       }
     },
-    "people.no_peers" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "No peers connected"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "هیچ همتایی متصل نیست"
-          }
-        }
-      }
-    },
     "people.nearby_mesh" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33895,6 +33912,23 @@
         }
       }
     },
+    "people.no_peers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No peers connected"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هیچ همتایی متصل نیست"
+          }
+        }
+      }
+    },
     "people.via_nostr" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33908,6 +33942,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "از طریق Nostr"
+          }
+        }
+      }
+    },
+    "people.nostr_pm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private Messages via Nostr"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام خصوصی از طریق Nostr"
+          }
+        }
+      }
+    },
+    "people.nostr_pm_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This user is connected via Nostr relay, not local Bluetooth mesh. Direct private messaging with Nostr users uses encrypted relay messages. To mention them, use @username in the chat."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این کاربر از طریق رله Nostr متصل است، نه شبکه مش بلوتوث محلی. پیام خصوصی مستقیم با کاربران Nostr از پیام‌های رمزگذاری شده رله استفاده می‌کند. برای اشاره به آن‌ها، از @نام‌کاربری در چت استفاده کنید."
           }
         }
       }
@@ -34147,6 +34215,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "نسخه برنامه"
+          }
+        }
+      }
+    },
+    "settings.appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ظاهر"
           }
         }
       }
@@ -34423,6 +34508,74 @@
         }
       }
     },
+    "settings.theme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم"
+          }
+        }
+      }
+    },
+    "settings.theme_dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاریک"
+          }
+        }
+      }
+    },
+    "settings.theme_light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روشن"
+          }
+        }
+      }
+    },
+    "settings.theme_system" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سیستم"
+          }
+        }
+      }
+    },
     "settings.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -34538,91 +34691,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "هشدار"
-          }
-        }
-      }
-    },
-    "settings.appearance" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Appearance"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ظاهر"
-          }
-        }
-      }
-    },
-    "settings.theme" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Theme"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تم"
-          }
-        }
-      }
-    },
-    "settings.theme_system" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "System"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "سیستم"
-          }
-        }
-      }
-    },
-    "settings.theme_light" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Light"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "روشن"
-          }
-        }
-      }
-    },
-    "settings.theme_dark" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Dark"
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "تاریک"
           }
         }
       }

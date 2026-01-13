@@ -17,6 +17,8 @@ struct PeopleTabView: View {
     // State for private chat sheet
     @State private var showPrivateChatSheet = false
     @State private var selectedPeerForChat: PeerID? = nil
+    @State private var showNostrPMAlert = false
+    @State private var selectedNostrPerson: GeoPerson? = nil
     
     private var textColor: Color {
         colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
@@ -176,6 +178,14 @@ struct PeopleTabView: View {
                     .environmentObject(viewModel)
             }
         }
+        .alert(
+            LanguageManager.shared.localizedString("people.nostr_pm_title"),
+            isPresented: $showNostrPMAlert
+        ) {
+            Button(LanguageManager.shared.localizedString("common.ok"), role: .cancel) {}
+        } message: {
+            Text(LanguageManager.shared.localizedString("people.nostr_pm_message"))
+        }
     }
     
     // MARK: - Rows
@@ -236,6 +246,11 @@ struct PeopleTabView: View {
             
             Spacer()
             
+            // Envelope icon for PM (shows explanation on tap)
+            Image(systemName: "envelope.fill")
+                .foregroundColor(secondaryTextColor.opacity(0.5))
+                .font(.caption)
+            
             // Note: Geohash users can't be favorited or PM'd directly via mesh
             // They use Nostr-based identities
             Text(LanguageManager.shared.localizedString("people.via_nostr"))
@@ -243,6 +258,11 @@ struct PeopleTabView: View {
                 .foregroundColor(secondaryTextColor.opacity(0.6))
         }
         .contentShape(Rectangle())
+        .onTapGesture {
+            // Show explanation about Nostr PM
+            selectedNostrPerson = person
+            showNostrPMAlert = true
+        }
     }
 }
 
