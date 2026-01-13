@@ -8,6 +8,7 @@ A decentralized peer-to-peer messaging app with dual transport architecture: loc
 
 
 📲 [App Store](https://apps.apple.com/us/app/gap-mesh/id6757211522)
+
 [TestFlight for up-to-date builds](https://testflight.apple.com/join/Vgbv1MTy)
 
 > [!WARNING]
