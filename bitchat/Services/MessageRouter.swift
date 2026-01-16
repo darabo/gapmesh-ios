@@ -1,16 +1,22 @@
 import BitLogger
 import Foundation
 
-/// Routes messages using available transports (Mesh, Nostr, etc.)
+/// The central routing engine that decides how to deliver a message.
+/// It implements the "Dual Transport Architecture" by choosing between
+/// Bluetooth Mesh (local/offline) and Nostr (internet/global) based on availability.
+/// - Note: This class manages the "smart queuing" logic when no transport is available.
 @MainActor
 final class MessageRouter {
+    // List of available transports (e.g., MeshService, NostrTransport)
     private var transports: [Transport]
-    private var outbox: [PeerID: [(content: String, nickname: String, messageID: String)]] = [:] // peerID -> queued messages
+    // Queue for messages that cannot be sent immediately (PeerID -> List of Messages)
+    private var outbox: [PeerID: [(content: String, nickname: String, messageID: String)]] = [:]
 
     init(transports: [Transport]) {
         self.transports = transports
 
-        // Observe favorites changes to learn Nostr mapping and flush queued messages
+        // Observe favorites changes. If we learn a new Nostr key or identity for a peer (via "favorites"),
+        // we might now be able to reach them, so we try to flush the outbox.
         NotificationCenter.default.addObserver(
             forName: .favoriteStatusChanged,
             object: nil,
@@ -34,41 +40,44 @@ final class MessageRouter {
         }
     }
 
+    // Registers a new transport method dynamically.
     func addTransport(_ transport: Transport) {
         if !transports.contains(where: { $0 === transport }) {
             transports.append(transport)
         }
     }
 
+    /// Sends a private message to a specific peer.
+    /// 1. Checks if the peer is reachable via any transport (Mesh first, then Nostr).
+    /// 2. If reachable, sends immediately.
+    /// 3. If not, queues the message in the outbox.
     func sendPrivate(_ content: String, to peerID: PeerID, recipientNickname: String, messageID: String) {
         // Try to find a reachable transport
         if let transport = transports.first(where: { $0.isPeerReachable(peerID) }) {
             SecureLogger.debug("Routing PM via \(type(of: transport)) to \(peerID.id.prefix(8))… id=\(messageID.prefix(8))…", category: .session)
             transport.sendPrivateMessage(content, to: peerID, recipientNickname: recipientNickname, messageID: messageID)
         } else {
-            // Queue for later
+            // No transport reachable right now. Queue for later.
             if outbox[peerID] == nil { outbox[peerID] = [] }
             outbox[peerID]?.append((content, recipientNickname, messageID))
             SecureLogger.debug("Queued PM for \(peerID.id.prefix(8))… (no reachable transport) id=\(messageID.prefix(8))…", category: .session)
         }
     }
 
+    /// Sends a read receipt to acknowledge that a message was viewed.
+    /// - Note: Read receipts are "best effort" and not queued if delivery fails.
     func sendReadReceipt(_ receipt: ReadReceipt, to peerID: PeerID) {
         if let transport = transports.first(where: { $0.isPeerReachable(peerID) }) {
             SecureLogger.debug("Routing READ ack via \(type(of: transport)) to \(peerID.id.prefix(8))… id=\(receipt.originalMessageID.prefix(8))…", category: .session)
             transport.sendReadReceipt(receipt, to: peerID)
         } else if !transports.isEmpty {
-            // Fallback to last transport (usually Nostr) if neither is explicitly reachable?
-            // Or better: just try the first one that supports it?
-            // Existing logic preferred mesh, then nostr.
-            // If neither reachable, existing logic queued it (via mesh usually) or sent via nostr.
-            // Let's stick to "try reachable". If none, maybe pick the first one to queue?
-            // Actually, for READ receipts, we might want to just fire-and-forget on the "best effort" transport.
-            // But let's stick to the reachable check.
+            // Fallback strategy could go here, but currently we just log the failure.
             SecureLogger.debug("No reachable transport for READ ack to \(peerID.id.prefix(8))…", category: .session)
         }
     }
 
+    /// Sends a delivery acknowledgment (distinct from read receipt).
+    /// Indicates the message arrived at the device, not necessarily read by user.
     func sendDeliveryAck(_ messageID: String, to peerID: PeerID) {
         if let transport = transports.first(where: { $0.isPeerReachable(peerID) }) {
             SecureLogger.debug("Routing DELIVERED ack via \(type(of: transport)) to \(peerID.id.prefix(8))… id=\(messageID.prefix(8))…", category: .session)
@@ -76,21 +85,22 @@ final class MessageRouter {
         }
     }
 
+    /// Notifies a peer that they have been added/removed as a favorite.
+    /// This is often used to exchange public keys or handshake.
     func sendFavoriteNotification(to peerID: PeerID, isFavorite: Bool) {
         if let transport = transports.first(where: { $0.isPeerConnected(peerID) }) {
             transport.sendFavoriteNotification(to: peerID, isFavorite: isFavorite)
         } else if let transport = transports.first(where: { $0.isPeerReachable(peerID) }) {
              transport.sendFavoriteNotification(to: peerID, isFavorite: isFavorite)
         } else {
-            // Fallback: try all? or just the last one?
-            // Old logic: if mesh connected, mesh. Else nostr.
-            // Note: NostrTransport.isPeerReachable now returns true if mapped.
-            // If not mapped, we can't send via Nostr anyway.
+            // If peer is not reachable, we cannot notify them.
         }
     }
 
     // MARK: - Outbox Management
 
+    /// Retries sending queued messages for a specific peer.
+    /// Called when a peer becomes reachable (e.g., they come into Bluetooth range or we find their Nostr key).
     func flushOutbox(for peerID: PeerID) {
         guard let queued = outbox[peerID], !queued.isEmpty else { return }
         SecureLogger.debug("Flushing outbox for \(peerID.id.prefix(8))… count=\(queued.count)", category: .session)
@@ -112,6 +122,7 @@ final class MessageRouter {
         }
     }
 
+    /// Flushes the outbox for all peers.
     func flushAllOutbox() {
         for key in Array(outbox.keys) { flushOutbox(for: key) }
     }

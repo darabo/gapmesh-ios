@@ -133,15 +133,25 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
 
     // MARK: - Published Properties
     
+    // The main list of public messages displayed in the UI.
     @Published var messages: [BitchatMessage] = []
+
+    // Tracks the current system color scheme (light/dark) to adjust UI elements.
     @Published var currentColorScheme: ColorScheme = .light
+
     private let maxMessages = TransportConfig.meshTimelineCap // Maximum messages before oldest are removed
+
+    // Indicates if we are currently connected to any peers in the mesh.
     @Published var isConnected = false
+
+    // State for tracking "peers nearby" notifications to avoid spamming the user.
     private var recentlySeenPeers: Set<PeerID> = []
     private var lastNetworkNotificationTime = Date.distantPast
     private var networkResetTimer: Timer? = nil
     private var networkEmptyTimer: Timer? = nil
     private let networkResetGraceSeconds: TimeInterval = TransportConfig.networkResetGraceSeconds // avoid refiring on short drops/reconnects
+
+    // The user's visible nickname. Changes here automatically update the mesh service.
     @Published var nickname: String = "" {
         didSet {
             // Trim whitespace whenever nickname is set
@@ -158,6 +168,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     // MARK: - Service Delegates
 
+    // Core services responsible for specific functional areas.
     let commandProcessor: CommandProcessor
     let messageRouter: MessageRouter
     let privateChatManager: PrivateChatManager
@@ -393,6 +404,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     // MARK: - Initialization
 
+    // Convenience initializer for the production app (uses real BLEService).
     @MainActor
     convenience init(
         keychain: KeychainManagerProtocol,
@@ -435,9 +447,14 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         self.commandProcessor = CommandProcessor(identityManager: identityManager)
         self.privateChatManager = PrivateChatManager(meshService: meshService)
         self.unifiedPeerService = UnifiedPeerService(meshService: meshService, idBridge: idBridge, identityManager: identityManager)
+
+        // Initialize Nostr transport for internet fallback
         let nostrTransport = NostrTransport(keychain: keychain, idBridge: idBridge)
         nostrTransport.senderPeerID = meshService.myPeerID
+
+        // MessageRouter orchestrates sending via Mesh or Nostr
         self.messageRouter = MessageRouter(transports: [meshService, nostrTransport])
+
         // Route receipts from PrivateChatManager through MessageRouter
         self.privateChatManager.messageRouter = self.messageRouter
         // Allow PrivateChatManager to look up peer info for message consolidation
@@ -1003,16 +1020,17 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     // MARK: - Message Sending
     
     /// Sends a message through the BitChat network.
+    /// This is the primary entry point for sending user messages.
     /// - Parameter content: The message content to send
     /// - Note: Automatically handles command processing if content starts with '/'
-    ///         Routes to private chat if one is selected, otherwise broadcasts
+    ///         Routes to private chat if one is selected, otherwise broadcasts to the active channel.
     @MainActor
     func sendMessage(_ content: String) {
         // Ignore messages that are empty or whitespace-only to prevent blank lines
         let trimmed = content.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmed.isEmpty else { return }
 
-        // Check for commands
+        // Check for commands (e.g. /nick, /who)
         if content.hasPrefix("/") {
             Task { @MainActor in
                 handleCommand(content)
@@ -1020,8 +1038,9 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             return
         }
 
+        // Private Message Routing
         if selectedPrivateChatPeer != nil {
-            // Update peer ID in case it changed due to reconnection
+            // Update peer ID in case it changed due to reconnection (e.g. peer rotated identity)
             updatePrivateChatPeerIfNeeded()
 
             if let selectedPeer = selectedPrivateChatPeer {
@@ -1030,12 +1049,13 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             return
         }
 
+        // Public Message Routing (Mesh or Geohash)
         // Parse mentions from the content (use original content for user intent)
         let mentions = parseMentions(from: content)
 
         var geoContext: GeoOutgoingContext? = nil
 
-        // Add message to local display
+        // Prepare message metadata for local display
         var displaySender = nickname
         var localSenderPeerID = meshService.myPeerID
         var messageID: String? = nil
@@ -1043,14 +1063,19 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
 
         switch activeChannel {
         case .mesh:
+            // Standard mesh broadcast
             break
         case .location(let ch):
+            // Location-based channel using Nostr
             do {
+                // Derive a deterministic identity for this geohash
                 let identity = try idBridge.deriveIdentity(forGeohash: ch.geohash)
                 let suffix = String(identity.publicKeyHex.suffix(4))
                 displaySender = nickname + "#" + suffix
                 localSenderPeerID = PeerID(nostr: identity.publicKeyHex)
                 let teleported = LocationChannelManager.shared.teleported
+
+                // Create signed Nostr event
                 let event = try NostrProtocol.createEphemeralGeohashEvent(
                     content: trimmed,
                     geohash: ch.geohash,
@@ -1070,6 +1095,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             }
         }
 
+        // Optimistically create the message object for the UI
         let message = BitchatMessage(
             id: messageID,
             sender: displaySender,
@@ -1080,10 +1106,11 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             mentions: mentions.isEmpty ? nil : mentions
         )
 
+        // Add to local timeline store immediately for responsiveness
         timelineStore.append(message, to: activeChannel)
         refreshVisibleMessages(from: activeChannel)
 
-        // Update content LRU for near-dup detection
+        // Update content LRU for near-dup detection (prevents us from re-processing our own echo)
         let ckey = deduplicationService.normalizedContentKey(message.content)
         deduplicationService.recordContentKey(ckey, timestamp: message.timestamp)
 
@@ -1091,6 +1118,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
 
         // UI updates automatically via @Published var messages
 
+        // Perform the actual network send
         updateChannelActivityTimeThenSend(content: content,
                                           trimmed: trimmed,
                                           mentions: mentions,
@@ -2126,9 +2154,11 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     // MARK: - Message Formatting
     
+    // Formats a message for display, handling mentions, hashtags, URLs, and styling.
+    // Results are cached to improve scroll performance.
     @MainActor
     func formatMessageAsText(_ message: BitchatMessage, colorScheme: ColorScheme) -> AttributedString {
-        // Determine if this message was sent by self (mesh, geo, or DM)
+        // 1. Determine if this message was sent by self (mesh, geo, or DM) to style it distinctly
         let isSelf: Bool = {
             if let spid = message.senderPeerID {
                 // In geohash channels, compare against our per-geohash nostr short ID
@@ -2155,13 +2185,14 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             if message.sender.hasPrefix(nickname + "#") { return true }
             return false
         }()
-        // Check cache first (key includes dark mode + self flag)
+
+        // 2. Check cache first (key includes dark mode + self flag)
         let isDark = colorScheme == .dark
         if let cachedText = message.getCachedFormattedText(isDark: isDark, isSelf: isSelf) {
             return cachedText
         }
         
-        // Not cached, format the message
+        // 3. Not cached, begin formatting
         var result = AttributedString()
         
         let baseColor: Color = isSelf ? .orange : peerColor(for: message, isDark: isDark)
