@@ -169,13 +169,13 @@ To minimize bandwidth, `BitchatPacket`s are serialized into a compact binary for
 
 | Field           | Size (bytes) | Description                                                                                             |
 |-----------------|--------------|---------------------------------------------------------------------------------------------------------|
-| **Header**      | **13**       | **Fixed-size header**                                                                                   |
+| **Header**      | **14**       | **Fixed-size header (v1), 16 bytes for v2**                                                             |
 | Version         | 1            | Protocol version (currently `1`).                                                                       |
 | Type            | 1            | Message type (e.g., `message`, `deliveryAck`, `noiseHandshakeInit`). See `MessageType` enum.            |
 | TTL             | 1            | Time-To-Live for mesh network routing. Decremented at each hop.                                         |
 | Timestamp       | 8            | `UInt64` millisecond timestamp of packet creation.                                                      |
-| Flags           | 1            | Bitmask for optional fields (`hasRecipient`, `hasSignature`, `isCompressed`).                           |
-| Payload Length  | 2            | `UInt16` length of the payload field.                                                                   |
+| Flags           | 1            | Bitmask for optional fields (`hasRecipient`, `hasSignature`, `isCompressed`, `hasRoute`).               |
+| Payload Length  | 2 (v1) / 4 (v2)| `UInt16` (v1) or `UInt32` (v2) length of the payload field.                                             |
 | **Variable**    | **...**      | **Variable-size fields**                                                                                |
 | Sender ID       | 8            | 8-byte truncated peer ID of the sender.                                                                 |
 | Recipient ID    | 8 (optional) | 8-byte truncated peer ID of the recipient. Present if `hasRecipient` flag is set. Broadcast if `0xFF..FF`. |
