@@ -212,36 +212,36 @@ struct SettingsTabView: View {
                         VStack(spacing: 1) {
                             FeatureRow(
                                 icon: "wifi.slash",
-                                title: String(localized: "app_info.features.offline.title"),
-                                description: String(localized: "app_info.features.offline.description"),
+                                title: LanguageManager.shared.localizedString("app_info.features.offline.title"),
+                                description: LanguageManager.shared.localizedString("app_info.features.offline.description"),
                                 accentColor: accentBlue
                             )
                             
                             FeatureRow(
                                 icon: "lock.shield",
-                                title: String(localized: "app_info.features.encryption.title"),
-                                description: String(localized: "app_info.features.encryption.description"),
+                                title: LanguageManager.shared.localizedString("app_info.features.encryption.title"),
+                                description: LanguageManager.shared.localizedString("app_info.features.encryption.description"),
                                 accentColor: accentBlue
                             )
                             
                             FeatureRow(
                                 icon: "antenna.radiowaves.left.and.right",
-                                title: String(localized: "app_info.features.extended_range.title"),
-                                description: String(localized: "app_info.features.extended_range.description"),
+                                title: LanguageManager.shared.localizedString("app_info.features.extended_range.title"),
+                                description: LanguageManager.shared.localizedString("app_info.features.extended_range.description"),
                                 accentColor: accentBlue
                             )
                             
                             FeatureRow(
                                 icon: "star.fill",
-                                title: String(localized: "app_info.features.favorites.title"),
-                                description: String(localized: "app_info.features.favorites.description"),
+                                title: LanguageManager.shared.localizedString("app_info.features.favorites.title"),
+                                description: LanguageManager.shared.localizedString("app_info.features.favorites.description"),
                                 accentColor: accentBlue
                             )
                             
                             FeatureRow(
                                 icon: "number",
-                                title: String(localized: "app_info.features.geohash.title"),
-                                description: String(localized: "app_info.features.geohash.description"),
+                                title: LanguageManager.shared.localizedString("app_info.features.geohash.title"),
+                                description: LanguageManager.shared.localizedString("app_info.features.geohash.description"),
                                 accentColor: accentBlue
                             )
                         }
@@ -257,30 +257,30 @@ struct SettingsTabView: View {
                         VStack(spacing: 1) {
                             FeatureRow(
                                 icon: "eye.slash",
-                                title: String(localized: "app_info.privacy.no_tracking.title"),
-                                description: String(localized: "app_info.privacy.no_tracking.description"),
+                                title: LanguageManager.shared.localizedString("app_info.privacy.no_tracking.title"),
+                                description: LanguageManager.shared.localizedString("app_info.privacy.no_tracking.description"),
                                 accentColor: accentBlue
                             )
                             
                             FeatureRow(
                                 icon: "shuffle",
-                                title: String(localized: "app_info.privacy.ephemeral.title"),
-                                description: String(localized: "app_info.privacy.ephemeral.description"),
+                                title: LanguageManager.shared.localizedString("app_info.privacy.ephemeral.title"),
+                                description: LanguageManager.shared.localizedString("app_info.privacy.ephemeral.description"),
                                 accentColor: accentBlue
                             )
                             
                             FeatureRow(
                                 icon: "hand.raised.fill",
-                                title: String(localized: "app_info.privacy.panic.title"),
-                                description: String(localized: "app_info.privacy.panic.description"),
+                                title: LanguageManager.shared.localizedString("app_info.privacy.panic.title"),
+                                description: LanguageManager.shared.localizedString("app_info.privacy.panic.description"),
                                 accentColor: accentBlue
                             )
                             
                             // Legacy Compatibility Toggle
                             ToggleRow(
                                 icon: "antenna.radiowaves.left.and.right.circle",
-                                title: String(localized: "app_info.privacy.legacy_compat.title"),
-                                description: String(localized: "app_info.privacy.legacy_compat.description"),
+                                title: LanguageManager.shared.localizedString("app_info.privacy.legacy_compat.title"),
+                                description: LanguageManager.shared.localizedString("app_info.privacy.legacy_compat.description"),
                                 isOn: $legacyCompatibility,
                                 accentColor: accentBlue
                             )
@@ -302,7 +302,7 @@ struct SettingsTabView: View {
                                 .font(.system(size: 24))
                                 .foregroundColor(.red)
                             
-                            Text("app_info.warning.message")
+                            Text(LanguageManager.shared.localizedString("app_info.warning.message"))
                                 .font(.body)
                                 .foregroundColor(colorScheme == .dark ? .white : .black)
                                 .fixedSize(horizontal: false, vertical: true)
