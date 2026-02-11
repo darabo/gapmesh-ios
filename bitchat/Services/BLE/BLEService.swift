@@ -17,11 +17,13 @@ final class BLEService: NSObject {
     // MARK: - Constants
     
     #if DEBUG
-    // Legacy static UUID for Bitchat compatibility - matches Android FALLBACK_UUID
+    // Gap Mesh static UUID - matches Android FALLBACK_UUID
     static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #else
     static let serviceUUID = CBUUID(string: "7ACD9057-811D-4D17-AB14-DA891780FA3A")
     #endif
+    // Original Bitchat/Noghteha BLE Service UUID for legacy cross-app compatibility
+    static let bitchatServiceUUID = CBUUID(string: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C")
     static let characteristicUUID = CBUUID(string: "A1B2C3D4-E5F6-4A5B-8C9D-0E1F2A3B4C5D")
     private static let centralRestorationID = "chat.gap.ble.central"
     private static let peripheralRestorationID = "chat.gap.ble.peripheral"
@@ -1756,7 +1758,7 @@ func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeriph
         SecureLogger.debug("✅ Connected: \(peripheral.name ?? "Unknown") [\(peripheralID)]", category: .session)
         
         // Discover services
-        peripheral.discoverServices([BLEService.serviceUUID])
+        peripheral.discoverServices([BLEService.serviceUUID, BLEService.bitchatServiceUUID])
     }
     
     func centralManager(_ central: CBCentralManager, didDisconnectPeripheral peripheral: CBPeripheral, error: Error?) {
@@ -1938,7 +1940,7 @@ extension BLEService: CBPeripheralDelegate {
             // Retry service discovery after a delay
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 guard peripheral.state == .connected else { return }
-                peripheral.discoverServices([BLEService.serviceUUID])
+                peripheral.discoverServices([BLEService.serviceUUID, BLEService.bitchatServiceUUID])
             }
             return
         }
@@ -1948,8 +1950,8 @@ extension BLEService: CBPeripheralDelegate {
             return
         }
         
-        guard let service = services.first(where: { $0.uuid == BLEService.serviceUUID }) else {
-            // Not a BitChat peer - disconnect
+        guard let service = services.first(where: { $0.uuid == BLEService.serviceUUID || $0.uuid == BLEService.bitchatServiceUUID }) else {
+            // Not a BitChat/Gap Mesh peer - disconnect
             centralManager?.cancelPeripheralConnection(peripheral)
             return
         }
@@ -2114,7 +2116,7 @@ extension BLEService: CBPeripheralDelegate {
         SecureLogger.warning("⚠️ Services modified for \(peripheral.name ?? peripheral.identifier.uuidString)", category: .session)
         
         // Check if our service was invalidated (peer app quit)
-        let hasOurService = peripheral.services?.contains { $0.uuid == BLEService.serviceUUID } ?? false
+        let hasOurService = peripheral.services?.contains { $0.uuid == BLEService.serviceUUID || $0.uuid == BLEService.bitchatServiceUUID } ?? false
         
         if !hasOurService {
             // Service is gone - disconnect
@@ -2122,7 +2124,7 @@ extension BLEService: CBPeripheralDelegate {
             centralManager?.cancelPeripheralConnection(peripheral)
         } else {
             // Try to rediscover
-            peripheral.discoverServices([BLEService.serviceUUID])
+            peripheral.discoverServices([BLEService.serviceUUID, BLEService.bitchatServiceUUID])
         }
     }
     
@@ -2181,7 +2183,7 @@ extension BLEService: CBPeripheralManagerDelegate {
 
         // Attempt to recover characteristic from restored services
         if characteristic == nil {
-            if let service = restoredServices.first(where: { $0.uuid == BLEService.serviceUUID }),
+            if let service = restoredServices.first(where: { $0.uuid == BLEService.serviceUUID || $0.uuid == BLEService.bitchatServiceUUID }),
                let restoredCharacteristic = service.characteristics?.first(where: { $0.uuid == BLEService.characteristicUUID }) as? CBMutableCharacteristic {
                 characteristic = restoredCharacteristic
             }
@@ -2410,8 +2412,8 @@ extension BLEService {
         let advertisingUUID: CBUUID
         
         if legacyMode {
-            // Legacy mode: use static UUID so Bitchat devices can find us
-            advertisingUUID = CBUUID(nsuuid: ServiceUuidRotation.fallbackUUID)
+            // Legacy mode: use original Bitchat UUID so Bitchat/Noghteha devices can find us
+            advertisingUUID = CBUUID(nsuuid: ServiceUuidRotation.bitchatLegacyUUID)
         } else {
             // Privacy mode: use rotating UUID
             advertisingUUID = CBUUID(nsuuid: ServiceUuidRotation.shared.getCurrentServiceUUID())
