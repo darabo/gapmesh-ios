@@ -35109,13 +35109,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "APK not bundled. Add GapMesh.apk to the project."
+            "value" : "APK not bundled. Add gapmesh-light.apk to the project."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "فایل APK موجود نیست. GapMesh.apk را به پروژه اضافه کنید."
+            "value" : "فایل APK موجود نیست. gapmesh-light.apk را به پروژه اضافه کنید."
           }
         }
       }
