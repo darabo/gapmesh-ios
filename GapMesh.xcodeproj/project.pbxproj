@@ -117,6 +117,20 @@
 			);
 			target = 6CB97DF2EA57234CB3E563B8 /* gaptest */;
 		};
+		EA3AD5912F3D2308005669AA /* Exceptions for "bitchat" folder in "gaptest" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Resources/gapmesh-light.apk",
+			);
+			target = 6CB97DF2EA57234CB3E563B8 /* gaptest */;
+		};
+		EA3AD5922F3D2308005669AA /* Exceptions for "bitchat" folder in "gapTests_macOS" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Resources/gapmesh-light.apk",
+			);
+			target = 47FF23248747DD7CB666CB91 /* gapTests_macOS */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -124,6 +138,8 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				A6E32D1B2E762EA70032EA8A /* Exceptions for "bitchat" folder in "gapShareExtension" target */,
+				EA3AD5912F3D2308005669AA /* Exceptions for "bitchat" folder in "gaptest" target */,
+				EA3AD5922F3D2308005669AA /* Exceptions for "bitchat" folder in "gapTests_macOS" target */,
 				A6E32D1C2E762EA70032EA8A /* Exceptions for "bitchat" folder in "gap_iOS" target */,
 				A6E32D1D2E762EA70032EA8A /* Exceptions for "bitchat" folder in "gap_macOS" target */,
 			);

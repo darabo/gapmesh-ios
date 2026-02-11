@@ -358,6 +358,71 @@ struct SettingsTabView: View {
                     }
                     .padding(.horizontal)
                     
+                    // MARK: - Share App Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionHeaderView(title: LanguageManager.shared.localizedString("settings.share_app").uppercased(), colorScheme: colorScheme)
+                        
+                        VStack(spacing: 1) {
+                            // Description row
+                            HStack(alignment: .top, spacing: 12) {
+                                Image(systemName: "square.and.arrow.up")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(accentBlue)
+                                    .frame(width: 24)
+                                    .padding(.top, 2)
+                                
+                                VStack(alignment: .leading, spacing: 4) {
+                                    Text(LanguageManager.shared.localizedString("settings.share_app"))
+                                        .font(.body)
+                                        .fontWeight(.medium)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    
+                                    Text(LanguageManager.shared.localizedString("settings.share_app_description"))
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                }
+                                
+                                Spacer()
+                            }
+                            .padding()
+                            .background(surfaceColor)
+                            
+                            // Share button
+                            Button(action: {
+                                APKShareHelper.shareAPK()
+                            }) {
+                                HStack(spacing: 8) {
+                                    Image(systemName: "square.and.arrow.up")
+                                        .font(.system(size: 16))
+                                    Text(LanguageManager.shared.localizedString("settings.share_app_button"))
+                                        .fontWeight(.semibold)
+                                }
+                                .foregroundColor(textColor)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 14)
+                                .background(surfaceColor)
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(!APKShareHelper.isAPKBundled)
+                            .opacity(APKShareHelper.isAPKBundled ? 1.0 : 0.4)
+                        }
+                        .cornerRadius(12)
+                        
+                        if !APKShareHelper.isAPKBundled {
+                            Text(LanguageManager.shared.localizedString("settings.share_app_not_bundled"))
+                                .font(.caption2)
+                                .foregroundColor(.gray)
+                                .padding(.leading, 4)
+                        } else {
+                            Text(LanguageManager.shared.localizedString("settings.share_app_size_note"))
+                                .font(.caption2)
+                                .foregroundColor(.gray)
+                                .padding(.leading, 4)
+                        }
+                    }
+                    .padding(.horizontal)
+                    
                     // MARK: - About Section
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(title: LanguageManager.shared.localizedString("settings.about").uppercased(), colorScheme: colorScheme)

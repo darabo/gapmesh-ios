@@ -35052,6 +35052,91 @@
         }
       }
     },
+    "settings.share_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share App"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتراک‌گذاری برنامه"
+          }
+        }
+      }
+    },
+    "settings.share_app_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share APK"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتراک‌گذاری APK"
+          }
+        }
+      }
+    },
+    "settings.share_app_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Gap Mesh with nearby Android devices via AirDrop, Bluetooth, or any file transfer method."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتراک‌گذاری Gap Mesh با دستگاه‌های اندرویدی نزدیک از طریق AirDrop، بلوتوث یا هر روش انتقال فایل."
+          }
+        }
+      }
+    },
+    "settings.share_app_not_bundled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APK not bundled. Add GapMesh.apk to the project."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فایل APK موجود نیست. GapMesh.apk را به پروژه اضافه کنید."
+          }
+        }
+      }
+    },
+    "settings.share_app_size_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APK size: ~4.5 MB"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حجم APK: حدود ۴.۵ مگابایت"
+          }
+        }
+      }
+    },
     "settings.warning" : {
       "extractionState" : "manual",
       "localizations" : {
