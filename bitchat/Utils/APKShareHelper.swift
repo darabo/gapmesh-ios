@@ -18,7 +18,7 @@ enum APKShareHelper {
 
     /// Whether the bundled APK is available (i.e. was added to the Xcode project).
     static var isAPKBundled: Bool {
-        Bundle.main.url(forResource: "GapMesh", withExtension: "apk") != nil
+        Bundle.main.url(forResource: "gapmesh-light", withExtension: "apk") != nil
     }
 
     /// Present the system share sheet to send the APK file.
@@ -26,7 +26,7 @@ enum APKShareHelper {
     /// - Parameter sourceView: The UIView used as the popover anchor on iPad.
     static func shareAPK(from sourceView: UIView? = nil) {
         guard let bundledURL = Bundle.main.url(forResource: "gapmesh-light", withExtension: "apk") else {
-            print("[APKShareHelper] GapMesh.apk not found in bundle")
+            print("[APKShareHelper] gapmesh-light.apk not found in bundle")
             return
         }
 

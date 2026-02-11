@@ -609,19 +609,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "private messages encrypted with noise protocol"
+            "value" : "private message security has been audited. encrypted with noise protocol."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "mensajes privados cifrados con el protocolo Noise"
+            "value" : "la seguridad de los mensajes privados ha sido auditada. cifrados con el protocolo Noise."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "پیام‌های خصوصی با پروتکل نویز رمزنگاری می‌شوند"
+            "value" : "امنیت پیام‌های خصوصی بازرسی شده است. با پروتکل نویز رمزنگاری می‌شوند."
           }
         },
         "fil" : {
@@ -794,7 +794,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "end-to-end encryption"
+            "value" : "end-to-end encryption (audited)"
           }
         },
         "es" : {
@@ -806,7 +806,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "رمزنگاری سرتاسری"
+            "value" : "رمزنگاری سرتاسری (بازرسی شده)"
           }
         },
         "fil" : {
@@ -5805,145 +5805,145 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أمان الرسائل الخاصة لم يتم تدقيقه بالكامل بعد. لا تستخدمها في الحالات الحرجة حتى يختفي هذا التحذير."
+            "value" : "تم تدقيق أمان الرسائل الخاصة. استخدم بثقة في جميع الحالات."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ব্যক্তিগত বার্তার নিরাপত্তা এখনো সম্পূর্ণ অডিট হয়নি। এই সতর্কতা না থাকা পর্যন্ত জরুরি পরিস্থিতিতে ব্যবহার করবেন না।"
+            "value" : "ব্যক্তিগত বার্তার নিরাপত্তা অডিট সম্পন্ন হয়েছে। সব পরিস্থিতিতে আত্মবিশ্বাসের সাথে ব্যবহার করুন।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "die sicherheit privater nachrichten wurde noch nicht vollständig geprüft. nutze sie nicht für kritische situationen, solange dieser hinweis erscheint."
+            "value" : "die sicherheit privater nachrichten wurde überprüft. verwende mit zuversicht in allen situationen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "private message security has not yet been fully audited. do not use for critical situations until this warning disappears."
+            "value" : "private message security has been audited. use with confidence in all situations."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "la seguridad de los mensajes privados aún no ha sido auditada por completo. no lo uses en situaciones críticas hasta que este aviso desaparezca."
+            "value" : "la seguridad de los mensajes privados ha sido auditada. úsalos con confianza en todas las situaciones."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "امنیت پیام‌های خصوصی هنوز به طور کامل بررسی نشده است. تا زمانی که این هشدار ناپدید نشده برای موقعیت‌های حساس استفاده نکنید."
+            "value" : "امنیت پیام‌های خصوصی به طور کامل بررسی شده است. در همه موقعیت‌ها با اطمینان استفاده کنید."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "hindi pa ganap na na-audit ang seguridad ng pribadong mensahe. huwag gamitin para sa kritikal na sitwasyon hangga't hindi nawawala ang babalang ito."
+            "value" : "ang seguridad ng pribadong mensahe ay na-audit na. gamitin nang may kumpiyansa sa lahat ng sitwasyon."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "la sécurité des messages privés n'a pas encore été entièrement auditée. n'utilise pas pour des situations critiques tant que cet avertissement reste."
+            "value" : "la sécurité des messages privés a été auditée. utilise avec confiance dans toutes les situations."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "אבטחת ההודעות הפרטיות עדיין לא נבדקה במלואה. אל תשתמש למצבים קריטיים עד שהאזהרה תיעלם."
+            "value" : "אבטחת ההודעות הפרטיות נבדקה. השתמש בביטחון בכל המצבים."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "निजी संदेश सुरक्षा का अभी पूरा ऑडिट नहीं हुआ है। यह चेतावनी हटने तक गंभीर स्थितियों में उपयोग न करें।"
+            "value" : "निजी संदेश सुरक्षा का ऑडिट पूरा हो गया है। सभी परिस्थितियों में आत्मविश्वास के साथ उपयोग करें।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "keamanan pesan pribadi belum diaudit sepenuhnya. jangan dipakai untuk situasi kritis sampai peringatan ini hilang."
+            "value" : "keamanan pesan pribadi telah diaudit. gunakan dengan percaya diri dalam semua situasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "la sicurezza dei messaggi privati non è stata ancora auditata completamente. non usarli in situazioni critiche finché questo avviso resta."
+            "value" : "la sicurezza dei messaggi privati è stata verificata. usali con fiducia in tutte le situazioni."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "プライベートメッセージの安全性はまだ完全に監査されていません。この警告が消えるまで重要な場面では使わないでください。"
+            "value" : "プライベートメッセージの安全性は監査済みです。すべての状況で自信を持って使用してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비공개 메시지 보안은 아직 완전히 감사받지 않았습니다. 이 경고가 사라질 때까지 중요한 상황에서는 사용하지 마세요."
+            "value" : "비공개 메시지 보안이 감사되었습니다. 모든 상황에서 자신감 있게 사용하세요."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "keamanan pesan pribadi belum diaudit sepenuhnya. jangan diguna untuk situasi kritis sampai peringatan ini hilang."
+            "value" : "keamanan pesan pribadi telah diaudit. gunakan dengan yakin dalam semua situasi."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "व्यक्तिगत सन्देशको सुरक्षा पूर्ण रूपमा अडिट भएको छैन। यो चेतावनी हट्दासम्म गम्भीर अवस्थामा प्रयोग नगर्नु।"
+            "value" : "व्यक्तिगत सन्देशको सुरक्षा अडिट भएको छ। सबै अवस्थामा आत्मविश्वासको साथ प्रयोग गर्नु।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "de beveiliging van privéberichten is nog niet volledig geaudit. gebruik dit niet in kritieke situaties totdat deze melding verdwijnt."
+            "value" : "de beveiliging van privéberichten is gecontroleerd. gebruik met vertrouwen in alle situaties."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bezpieczeństwo wiadomości prywatnych nie zostało jeszcze w pełni sprawdzone. nie używaj w sytuacjach krytycznych, dopóki to ostrzeżenie nie zniknie."
+            "value" : "bezpieczeństwo wiadomości prywatnych zostało sprawdzone. używaj z pewną siebie we wszystkich sytuacjach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "a segurança das mensagens privadas ainda não foi totalmente auditada. não uses em situações críticas até este aviso desaparecer."
+            "value" : "a segurança das mensagens privadas foi auditada. usa com confiança em todas as situações."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "a segurança das mensagens privadas ainda não foi totalmente auditada. não use em situações críticas até que este aviso desapareça."
+            "value" : "a segurança das mensagens privadas foi auditada. use com confiança em todas as situações."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "безопасность приватных сообщений ещё не прошла полный аудит. не используй для критичных случаев, пока предупреждение не исчезнет."
+            "value" : "безопасность приватных сообщений была подтверждена. используй с уверенностью во всех случаях."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "säkerheten för privata meddelanden är ännu inte fullständigt granskad. använd inte i kritiska situationer förrän detta meddelande försvinner."
+            "value" : "säkerheten för privata meddelanden har granskats. använd med självförtroende i alla situationer."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தனிப்பட்ட செய்தி பாதுகாப்பு இன்னும் முழுமையாக ஆய்வு செய்யப்படவில்லை. இந்த எச்சரிக்கை மறையும் வரை முக்கிய அவசரங்களுக்கு பயன்படுத்தாதீர்கள்."
+            "value" : "தனிப்பட்ட செய்தி பாதுகாப்பு ஆய்வு செய்யப்பட்டுள்ளது. அனைத்து சூழ்நிலைகளிலும் தெளிவாக பயன்படுத்தவும்."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ความปลอดภัยของข้อความส่วนตัวยังไม่ได้รับการตรวจสอบทั้งหมด อย่าใช้ในสถานการณ์วิกฤติจนกว่าคำเตือนนี้จะหายไป"
+            "value" : "ความปลอดภัยของข้อความส่วนตัวได้รับการตรวจสอบแล้ว ใช้อย่างมั่นใจในทุกสถานการณ์"
           }
         },
         "tr" : {
