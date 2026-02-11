@@ -18,7 +18,7 @@ struct SettingsTabView: View {
     @State private var editingName = ""
     
     // Settings states
-    @State private var torEnabled = UserDefaults.standard.bool(forKey: "torEnabled")
+    @State private var torEnabled = UserDefaults.standard.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
     @State private var proofOfWorkEnabled = UserDefaults.standard.bool(forKey: "proofOfWorkEnabled")
     @State private var locationEnabled = true
     @State private var legacyCompatibility = UserDefaults.standard.isLegacyCompatibilityEnabled
@@ -169,6 +169,7 @@ struct SettingsTabView: View {
                             )
                             .onChange(of: torEnabled) { newValue in
                                 UserDefaults.standard.set(newValue, forKey: "torEnabled")
+                                NetworkActivationService.shared.setUserTorEnabled(newValue)
                             }
                             
                             // Proof of Work Toggle
@@ -317,6 +318,46 @@ struct SettingsTabView: View {
                     }
                     .padding(.horizontal)
                     
+                    // MARK: - Contact & Support Section
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionHeaderView(title: LanguageManager.shared.localizedString("settings.contact").uppercased(), colorScheme: colorScheme)
+                        
+                        VStack(spacing: 1) {
+                            // Report Abuse
+                            Button(action: {
+                                openReportAbuseEmail()
+                            }) {
+                                HStack {
+                                    Image(systemName: "flag.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(.red)
+                                        .frame(width: 24)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(LanguageManager.shared.localizedString("settings.report_abuse"))
+                                            .font(.body)
+                                            .fontWeight(.medium)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                                        
+                                        Text(LanguageManager.shared.localizedString("settings.report_abuse_description"))
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "envelope")
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(surfaceColor)
+                            }
+                            .buttonStyle(.plain)
+                        }
+                        .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                    
                     // MARK: - About Section
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(title: LanguageManager.shared.localizedString("settings.about").uppercased(), colorScheme: colorScheme)
@@ -419,6 +460,17 @@ struct SettingsTabView: View {
     }
     
     // MARK: - Helpers
+    
+    private func openReportAbuseEmail() {
+        let email = "kevahazadi@gmail.com"  // Developer support email
+        let subject = "Report Abuse - Gap Mesh"
+        if let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
+           let url = URL(string: "mailto:\(email)?subject=\(encodedSubject)") {
+            #if os(iOS)
+            UIApplication.shared.open(url)
+            #endif
+        }
+    }
     
     private var appVersion: String {
         if let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,

@@ -310,7 +310,7 @@ public final class TorManager: ObservableObject {
 
     // iOS: Poll GETINFO periodically to track bootstrap progress without long-lived control readers.
     private func bootstrapPollLoop() async {
-        let deadline = Date().addingTimeInterval(75)
+        let deadline = Date().addingTimeInterval(180) // Extended timeout for slow network conditions
         while Date() < deadline {
             if let info = await controlGetBootstrapInfo() {
                 await MainActor.run {

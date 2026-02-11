@@ -46,6 +46,7 @@ struct ContentView: View {
     @State private var showMessageActions = false
     @State private var selectedMessageSender: String?
     @State private var selectedMessageSenderID: PeerID?
+    @State private var selectedMessageID: String?
     @FocusState private var isNicknameFieldFocused: Bool
     @State private var isAtBottomPublic: Bool = true
     @State private var isAtBottomPrivate: Bool = true
@@ -326,6 +327,18 @@ struct ContentView: View {
                 }
             }
 
+            Button("content.actions.hide") {
+                if let messageID = selectedMessageID {
+                    viewModel.hideMessage(id: messageID)
+                }
+            }
+            
+            Button("content.actions.report", role: .destructive) {
+                if let sender = selectedMessageSender, let messageID = selectedMessageID {
+                    viewModel.reportMessage(sender: sender, messageID: messageID)
+                }
+            }
+
             Button("content.actions.block", role: .destructive) {
                 // Prefer direct geohash block when we have a Nostr sender ID
                 if let peerID = selectedMessageSenderID, peerID.isGeoChat,
@@ -350,6 +363,11 @@ struct ContentView: View {
             Button("common.ok", role: .cancel) {}
         } message: {
             Text(viewModel.bluetoothAlertMessage)
+        }
+        .alert("content.report_confirmation.title", isPresented: $viewModel.showReportConfirmation) {
+            Button("common.ok", role: .cancel) {}
+        } message: {
+            Text("content.report_confirmation.message")
         }
         .onDisappear {
             // Clean up timers

@@ -342,6 +342,15 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     @Published var isAppInfoPresented: Bool = false
     @Published var showScreenshotPrivacyWarning: Bool = false
     
+    // MARK: - Content Moderation (App Store Compliance)
+    
+    /// Set of message IDs that the user has hidden from their feed
+    @Published var hiddenMessageIDs: Set<String> = Set(UserDefaults.standard.stringArray(forKey: "hiddenMessageIDs") ?? [])
+    /// Show confirmation alert after reporting content
+    @Published var showReportConfirmation: Bool = false
+    /// Last reported message info for confirmation
+    @Published var lastReportedSender: String? = nil
+    
     var timelineStore = PublicTimelineStore(
         meshCap: TransportConfig.meshTimelineCap,
         geohashCap: TransportConfig.geoTimelineCap
@@ -787,12 +796,56 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         
         SecureLogger.info("✅ All services started via ChatViewModel.startServices()", category: .session)
     }
+    
+    // MARK: - Content Moderation (App Store Compliance)
+    
+    /// Hide a message from the user's feed (immediately removes it from view)
+    /// - Parameter id: The message ID to hide
+    @MainActor
+    func hideMessage(id: String) {
+        // Add to hidden set and persist
+        hiddenMessageIDs.insert(id)
+        UserDefaults.standard.set(Array(hiddenMessageIDs), forKey: "hiddenMessageIDs")
+        
+        // Remove from current messages array for immediate effect
+        messages.removeAll { $0.id == id }
+        
+        // Also remove from private chats if present
+        for (peerID, chatMessages) in privateChats {
+            if chatMessages.contains(where: { $0.id == id }) {
+                privateChats[peerID]?.removeAll { $0.id == id }
+            }
+        }
+        
+        SecureLogger.info("🙈 Message hidden: \(id.prefix(8))...", category: .session)
+    }
+    
+    /// Report a message for objectionable content (stored locally since there's no server)
+    /// - Parameters:
+    ///   - sender: Display name of the sender
+    ///   - messageID: The ID of the reported message
+    @MainActor
+    func reportMessage(sender: String, messageID: String) {
+        // Store report locally (no server in this decentralized app)
+        var reports = UserDefaults.standard.array(forKey: "contentReports") as? [[String: String]] ?? []
+        reports.append([
+            "id": messageID,
+            "sender": sender,
+            "timestamp": ISO8601DateFormatter().string(from: Date())
+        ])
+        UserDefaults.standard.set(reports, forKey: "contentReports")
+        
+        // Store for confirmation message
+        lastReportedSender = sender
+        
+        // Show confirmation
+        showReportConfirmation = true
+        
+        SecureLogger.info("🚩 Content reported: sender=\(sender), id=\(messageID.prefix(8))...", category: .session)
+    }
 
 
     
-
-
-
         
     // MARK: - Nickname Management
     

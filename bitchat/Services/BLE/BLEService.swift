@@ -3850,7 +3850,11 @@ extension BLEService {
                 initiateNoiseHandshake(with: peerID)
             }
         } catch {
-            SecureLogger.error("❌ Failed to decrypt message from \(peerID): \(error)")
+            // Decryption failed - clear the corrupted session and re-initiate handshake
+            // This handles cases where session state got out of sync (nonce mismatch, etc.)
+            SecureLogger.error("❌ Failed to decrypt message from \(peerID): \(error) - clearing session and re-initiating handshake")
+            noiseService.removeSession(for: peerID)
+            initiateNoiseHandshake(with: peerID)
         }
     }
 

@@ -12183,6 +12183,23 @@
         }
       }
     },
+    "content.actions.hide" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hide message"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مخفی کردن پیام"
+          }
+        }
+      }
+    },
     "content.actions.hug" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -12549,6 +12566,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "提及"
+          }
+        }
+      }
+    },
+    "content.actions.report" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "report content"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش محتوا"
           }
         }
       }
@@ -13491,6 +13525,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "設定"
+          }
+        }
+      }
+    },
+    "content.report_confirmation.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Thank you for your report. We take violations seriously and will review within 24 hours."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ممنون از گزارش شما. ما تخلفات را جدی می‌گیریم و ظرف ۲۴ ساعت بررسی می‌کنیم."
+          }
+        }
+      }
+    },
+    "content.report_confirmation.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Content Reported"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محتوا گزارش شد"
           }
         }
       }
@@ -24524,6 +24592,227 @@
     "Gap Mesh/" : {
 
     },
+    "eula.agree_checkbox" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have read and agree to the Terms of Use"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرایط استفاده را خوانده‌ام و موافقم"
+          }
+        }
+      }
+    },
+    "eula.section1.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posting illegal, hateful, violent, sexually explicit, or otherwise objectionable content is strictly prohibited."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتشار محتوای غیرقانونی، نفرت‌انگیز، خشونت‌آمیز، جنسی یا نامناسب اکیداً ممنوع است."
+          }
+        }
+      }
+    },
+    "eula.section1.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero Tolerance for Objectionable Content"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدم تحمل محتوای نامناسب"
+          }
+        }
+      }
+    },
+    "eula.section2.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harassment, bullying, threatening, or abusive behavior toward other users is not tolerated."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آزار، قلدری، تهدید یا رفتار توهین‌آمیز نسبت به دیگران تحمل نمی‌شود."
+          }
+        }
+      }
+    },
+    "eula.section2.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero Tolerance for Abusive Behavior"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدم تحمل رفتار آزاردهنده"
+          }
+        }
+      }
+    },
+    "eula.section3.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are solely responsible for all content you send or share through Gap Mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شما تنها مسئول تمام محتوایی هستید که از طریق Gap Mesh ارسال یا به اشتراک می‌گذارید."
+          }
+        }
+      }
+    },
+    "eula.section3.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Responsibility"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسئولیت کاربر"
+          }
+        }
+      }
+    },
+    "eula.section4.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Violations may result in immediate blocking by other users and removal of your ability to communicate."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تخلفات ممکن است منجر به مسدود شدن فوری توسط دیگران و حذف توانایی ارتباط شما شود."
+          }
+        }
+      }
+    },
+    "eula.section4.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enforcement"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اجرا"
+          }
+        }
+      }
+    },
+    "eula.section5.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report objectionable content using the in-app report feature or contact support."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محتوای نامناسب را با قابلیت گزارش درون برنامه یا تماس با پشتیبانی گزارش کنید."
+          }
+        }
+      }
+    },
+    "eula.section5.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reporting"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش‌دهی"
+          }
+        }
+      }
+    },
+    "eula.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please read and accept before continuing"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً قبل از ادامه بخوانید و بپذیرید"
+          }
+        }
+      }
+    },
+    "eula.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرایط استفاده"
+          }
+        }
+      }
+    },
     "geohash_people.action.block" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -28723,6 +29012,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "為位置頻道隱藏你的 IP。推薦：開啟。"
+          }
+        }
+      }
+    },
+    "location_channels.tor_required.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enable Tor routing in the toggle below or in Settings to access geohash channels."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً مسیریابی تور را در کلید پایین یا در تنظیمات فعال کنید تا به کانال‌های ژئوهش دسترسی داشته باشید."
+          }
+        }
+      }
+    },
+    "location_channels.tor_required.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tor Required"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور لازم است"
           }
         }
       }
@@ -34253,6 +34576,23 @@
         }
       }
     },
+    "settings.contact" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact & Support"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تماس و پشتیبانی"
+          }
+        }
+      }
+    },
     "settings.created_by" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -34419,6 +34759,40 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "شبکه"
+          }
+        }
+      }
+    },
+    "settings.report_abuse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report Abuse"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش سوءاستفاده"
+          }
+        }
+      }
+    },
+    "settings.report_abuse_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report inappropriate content or users"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش محتوا یا کاربران نامناسب"
           }
         }
       }

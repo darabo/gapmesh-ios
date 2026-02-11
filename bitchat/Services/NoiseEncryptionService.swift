@@ -617,6 +617,14 @@ final class NoiseEncryptionService {
         rateLimiter.resetAll()
     }
     
+    /// Remove session for a specific peer (used for session recovery after decryption failures)
+    func removeSession(for peerID: PeerID) {
+        sessionManager.removeSession(for: peerID)
+        _ = serviceQueue.sync(flags: .barrier) {
+            peerFingerprints.removeValue(forKey: peerID)
+        }
+    }
+    
     // MARK: - Private Helpers
     
     private func handleSessionEstablished(peerID: PeerID, remoteStaticKey: Curve25519.KeyAgreement.PublicKey) {

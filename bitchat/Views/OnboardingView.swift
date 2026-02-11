@@ -12,7 +12,11 @@ struct OnboardingView: View {
     @Binding var isPresented: Bool
     
     @State private var currentStep = 0
-    private let totalSteps = 5
+    private let totalSteps = 6
+    
+    // EULA acceptance state
+    @AppStorage("eula_accepted") private var eulaAccepted: Bool = false
+    @State private var eulaCheckboxChecked: Bool = false
     
     // Hoisted state for Identity Step to fix "Next" button persistence bug
     @State private var isIdentityEditing = false
@@ -54,8 +58,11 @@ struct OnboardingView: View {
                 FeaturesStep()
                     .tag(3)
                 
-                PermissionsStep()
+                EULAStep(isAccepted: $eulaCheckboxChecked)
                     .tag(4)
+                
+                PermissionsStep()
+                    .tag(5)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
@@ -69,6 +76,11 @@ struct OnboardingView: View {
                     isIdentityEditing = false
                     // Dismiss keyboard explicitly before transition to avoid constraint errors
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                }
+                
+                // EULA step: mark as accepted when proceeding
+                if currentStep == 4 && eulaCheckboxChecked {
+                    eulaAccepted = true
                 }
                 
                 if currentStep < totalSteps - 1 {
@@ -90,6 +102,8 @@ struct OnboardingView: View {
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
+            .disabled(currentStep == 4 && !eulaCheckboxChecked)  // Disable Next until EULA accepted
+            .opacity(currentStep == 4 && !eulaCheckboxChecked ? 0.5 : 1.0)
         }
         .background(Theme.background(colorScheme))
     }
@@ -438,6 +452,136 @@ private struct FeaturesStep: View {
                 Spacer()
             }
             .padding(.horizontal, 24)
+        }
+    }
+}
+
+// MARK: - Step 4: Terms of Use (EULA)
+private struct EULAStep: View {
+    @Binding var isAccepted: Bool
+    @Environment(\.colorScheme) var colorScheme
+    
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Spacer().frame(height: 40)
+                
+                // Title
+                HStack {
+                    Image(systemName: "doc.text.fill")
+                        .font(.system(size: 40))
+                        .foregroundColor(Theme.legacyGreen(colorScheme))
+                    
+                    Text("eula.title")
+                        .font(.title)
+                        .fontWeight(.bold)
+                }
+                
+                Text("eula.subtitle")
+                    .font(.body)
+                    .foregroundColor(Theme.secondaryText(colorScheme))
+                
+                Divider().padding(.vertical, 8)
+                
+                // EULA Content
+                VStack(alignment: .leading, spacing: 16) {
+                    EULASection(
+                        number: "1",
+                        titleKey: "eula.section1.title",
+                        contentKey: "eula.section1.content",
+                        colorScheme: colorScheme
+                    )
+                    
+                    EULASection(
+                        number: "2",
+                        titleKey: "eula.section2.title",
+                        contentKey: "eula.section2.content",
+                        colorScheme: colorScheme
+                    )
+                    
+                    EULASection(
+                        number: "3",
+                        titleKey: "eula.section3.title",
+                        contentKey: "eula.section3.content",
+                        colorScheme: colorScheme
+                    )
+                    
+                    EULASection(
+                        number: "4",
+                        titleKey: "eula.section4.title",
+                        contentKey: "eula.section4.content",
+                        colorScheme: colorScheme
+                    )
+                    
+                    EULASection(
+                        number: "5",
+                        titleKey: "eula.section5.title",
+                        contentKey: "eula.section5.content",
+                        colorScheme: colorScheme
+                    )
+                }
+                .padding()
+                .background(Theme.surface(colorScheme))
+                .cornerRadius(Theme.CornerRadius.medium)
+                
+                Spacer().frame(height: 16)
+                
+                // Acceptance checkbox
+                Button(action: {
+                    isAccepted.toggle()
+                }) {
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: isAccepted ? "checkmark.square.fill" : "square")
+                            .font(.title2)
+                            .foregroundColor(isAccepted ? Theme.legacyGreen(colorScheme) : .gray)
+                        
+                        Text("eula.agree_checkbox")
+                            .font(.body)
+                            .foregroundColor(Theme.primaryText(colorScheme))
+                            .multilineTextAlignment(.leading)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                            .stroke(isAccepted ? Theme.legacyGreen(colorScheme) : Color.gray.opacity(0.3), lineWidth: 2)
+                    )
+                }
+                .buttonStyle(.plain)
+                
+                Spacer()
+            }
+            .padding(.horizontal, 24)
+        }
+    }
+}
+
+private struct EULASection: View {
+    let number: String
+    let titleKey: LocalizedStringKey
+    let contentKey: LocalizedStringKey
+    let colorScheme: ColorScheme
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 8) {
+                Text(number)
+                    .font(.caption)
+                    .fontWeight(.bold)
+                    .foregroundColor(.white)
+                    .frame(width: 20, height: 20)
+                    .background(Theme.legacyGreen(colorScheme))
+                    .clipShape(Circle())
+                
+                Text(titleKey)
+                    .font(.subheadline)
+                    .fontWeight(.semibold)
+            }
+            
+            Text(contentKey)
+                .font(.caption)
+                .foregroundColor(Theme.secondaryText(colorScheme))
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
