@@ -35058,13 +35058,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Share App"
+            "value" : "Share Light Companion App"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اشتراک‌گذاری برنامه"
+            "value" : "اشتراک‌گذاری برنامه همراه سبک"
           }
         }
       }
@@ -35075,13 +35075,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Share APK"
+            "value" : "Share Light APK"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اشتراک‌گذاری APK"
+            "value" : "اشتراک‌گذاری APK سبک"
           }
         }
       }
