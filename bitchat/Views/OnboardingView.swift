@@ -634,11 +634,15 @@ private struct FeaturePoint: View {
     @Environment(\.colorScheme) var colorScheme
     
     var body: some View {
-        HStack(spacing: 12) {
+        HStack(alignment: .top, spacing: 12) {
             Image(systemName: icon)
+                .font(.body)
                 .foregroundColor(Theme.legacyGreen(colorScheme))
+                .frame(width: 24)
+            
             Text(textKey)
                 .font(.subheadline)
+                .fixedSize(horizontal: false, vertical: true)
         }
     }
 }
