@@ -2232,6 +2232,9 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
 
         // Force immediate UI update for panic mode
         // UI updates immediately - no flushing needed
+        
+        // Activate decoy calculator mode (must be LAST — after keychain sweep)
+        DecoyModeManager.shared.activateDecoy()
 
     }
     

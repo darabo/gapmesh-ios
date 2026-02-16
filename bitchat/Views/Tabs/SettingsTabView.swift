@@ -277,6 +277,9 @@ struct SettingsTabView: View {
                                 accentColor: accentBlue
                             )
                             
+                            // Decoy PIN management
+                            DecoyPINRow(surfaceColor: surfaceColor)
+                            
                             // Legacy Compatibility Toggle
                             ToggleRow(
                                 icon: "antenna.radiowaves.left.and.right.circle",
@@ -628,5 +631,108 @@ private struct ToggleRow: View {
                 .labelsHidden()
         }
         .padding()
+    }
+}
+
+// MARK: - Decoy PIN Management Row
+private struct DecoyPINRow: View {
+    let surfaceColor: Color
+    @Environment(\.colorScheme) var colorScheme
+    @State private var showingPINSheet = false
+    @State private var newPIN = ""
+    @State private var confirmPIN = ""
+    @State private var pinMismatch = false
+    @State private var pinSaved = false
+
+    var body: some View {
+        Button(action: { showingPINSheet = true }) {
+            HStack(alignment: .center, spacing: 12) {
+                Image(systemName: "number.square.fill")
+                    .font(.system(size: 20))
+                    .foregroundColor(.orange)
+                    .frame(width: 24)
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(LanguageManager.shared.localizedString("settings.decoy_pin_title"))
+                        .font(.body)
+                        .fontWeight(.medium)
+                        .foregroundColor(colorScheme == .dark ? .white : .black)
+
+                    Text(LanguageManager.shared.localizedString("settings.decoy_pin_desc"))
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+
+                Spacer()
+
+                Image(systemName: "chevron.right")
+                    .font(.caption)
+                    .foregroundColor(.gray)
+            }
+            .padding()
+        }
+        .buttonStyle(.plain)
+        .sheet(isPresented: $showingPINSheet) {
+            NavigationView {
+                Form {
+                    Section {
+                        SecureField(
+                            LanguageManager.shared.localizedString("settings.decoy_pin_new"),
+                            text: $newPIN
+                        )
+                        .keyboardType(.numberPad)
+                        .onChange(of: newPIN) { _ in
+                            pinMismatch = false
+                            pinSaved = false
+                            newPIN = String(newPIN.filter { $0.isNumber }.prefix(8))
+                        }
+
+                        SecureField(
+                            LanguageManager.shared.localizedString("settings.decoy_pin_confirm"),
+                            text: $confirmPIN
+                        )
+                        .keyboardType(.numberPad)
+                        .onChange(of: confirmPIN) { _ in
+                            pinMismatch = false
+                            pinSaved = false
+                            confirmPIN = String(confirmPIN.filter { $0.isNumber }.prefix(8))
+                        }
+                    } header: {
+                        Text(LanguageManager.shared.localizedString("settings.decoy_pin_new"))
+                    } footer: {
+                        if pinMismatch {
+                            Text(LanguageManager.shared.localizedString("settings.decoy_pin_mismatch"))
+                                .foregroundColor(.red)
+                        } else if pinSaved {
+                            Text(LanguageManager.shared.localizedString("settings.decoy_pin_saved"))
+                                .foregroundColor(.green)
+                        }
+                    }
+                }
+                .navigationTitle(LanguageManager.shared.localizedString("settings.decoy_pin_title"))
+                #if os(iOS)
+                .navigationBarTitleDisplayMode(.inline)
+                #endif
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(LanguageManager.shared.localizedString("settings.done")) {
+                            showingPINSheet = false
+                        }
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(LanguageManager.shared.localizedString("settings.save")) {
+                            if newPIN.count >= 4 && newPIN == confirmPIN {
+                                DecoyModeManager.shared.setPIN(newPIN)
+                                pinSaved = true
+                                pinMismatch = false
+                            } else {
+                                pinMismatch = true
+                            }
+                        }
+                        .disabled(newPIN.count < 4)
+                    }
+                }
+            }
+        }
     }
 }

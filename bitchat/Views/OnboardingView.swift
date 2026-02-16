@@ -4,7 +4,7 @@ import CoreLocation
 import UserNotifications
 
 /// Onboarding view shown to first-time users
-/// Presents a 5-step tutorial: Language, Identity, Mesh, Features, Permissions
+/// Presents a 7-step tutorial: Language, Identity, Mesh, Features, Decoy PIN, EULA, Permissions
 struct OnboardingView: View {
     @EnvironmentObject var viewModel: ChatViewModel
     @EnvironmentObject var languageManager: LanguageManager
@@ -12,7 +12,7 @@ struct OnboardingView: View {
     @Binding var isPresented: Bool
     
     @State private var currentStep = 0
-    private let totalSteps = 6
+    private let totalSteps = 7
     
     // EULA acceptance state
     @AppStorage("eula_accepted") private var eulaAccepted: Bool = false
@@ -21,6 +21,14 @@ struct OnboardingView: View {
     // Hoisted state for Identity Step to fix "Next" button persistence bug
     @State private var isIdentityEditing = false
     @State private var identityEditedName = ""
+    
+    // Decoy mode PIN state (generated randomly at onboarding)
+    @State private var generatedPIN: String = DecoyModeManager.generateRandomPIN()
+    @State private var isCustomPINMode = false
+    @State private var customPIN = ""
+    @State private var confirmPIN = ""
+    @State private var pinMismatch = false
+    @State private var pinMemorized = false
     
     // Localized strings
     private enum Strings {
@@ -58,11 +66,21 @@ struct OnboardingView: View {
                 FeaturesStep()
                     .tag(3)
                 
+                DecoyModeStep(
+                    generatedPIN: $generatedPIN,
+                    isCustomPINMode: $isCustomPINMode,
+                    customPIN: $customPIN,
+                    confirmPIN: $confirmPIN,
+                    pinMismatch: $pinMismatch,
+                    pinMemorized: $pinMemorized
+                )
+                .tag(4)
+                
                 EULAStep(isAccepted: $eulaCheckboxChecked)
-                    .tag(4)
+                    .tag(5)
                 
                 PermissionsStep()
-                    .tag(5)
+                    .tag(6)
             }
             .tabViewStyle(.page(indexDisplayMode: .never))
             
@@ -79,8 +97,23 @@ struct OnboardingView: View {
                 }
                 
                 // EULA step: mark as accepted when proceeding
-                if currentStep == 4 && eulaCheckboxChecked {
+                if currentStep == 5 && eulaCheckboxChecked {
                     eulaAccepted = true
+                }
+                
+                // Decoy PIN step: save PIN when advancing past step 4
+                if currentStep == 4 {
+                    if isCustomPINMode {
+                        // Custom mode: validate PINs match
+                        if customPIN != confirmPIN {
+                            pinMismatch = true
+                            return
+                        }
+                        DecoyModeManager.shared.setPIN(customPIN)
+                    } else {
+                        // Use the randomly generated PIN
+                        DecoyModeManager.shared.setPIN(generatedPIN)
+                    }
                 }
                 
                 if currentStep < totalSteps - 1 {
@@ -102,8 +135,15 @@ struct OnboardingView: View {
             }
             .padding(.horizontal, 24)
             .padding(.bottom, 32)
-            .disabled(currentStep == 4 && !eulaCheckboxChecked)  // Disable Next until EULA accepted
-            .opacity(currentStep == 4 && !eulaCheckboxChecked ? 0.5 : 1.0)
+            .disabled(
+                (currentStep == 4 && !pinMemorized) ||
+                (currentStep == 5 && !eulaCheckboxChecked)
+            )
+            .opacity(
+                (currentStep == 4 && !pinMemorized) ||
+                (currentStep == 5 && !eulaCheckboxChecked)
+                ? 0.5 : 1.0
+            )
         }
         .background(Theme.background(colorScheme))
     }
@@ -456,7 +496,7 @@ private struct FeaturesStep: View {
     }
 }
 
-// MARK: - Step 4: Terms of Use (EULA)
+// MARK: - Step 5: Terms of Use (EULA)
 private struct EULAStep: View {
     @Binding var isAccepted: Bool
     @Environment(\.colorScheme) var colorScheme
@@ -656,7 +696,7 @@ private struct StatusRow: View {
     }
 }
 
-// MARK: - Step 4: Permissions
+// MARK: - Step 6: Permissions
 private struct PermissionsStep: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var bluetoothGranted = false
@@ -823,5 +863,220 @@ private struct PermissionCard: View {
         .padding()
         .background(Theme.surface(colorScheme))
         .cornerRadius(Theme.CornerRadius.medium)
+    }
+}
+
+// MARK: - Step 4: Decoy Mode (Stealth Calculator)
+private struct DecoyModeStep: View {
+    @Binding var generatedPIN: String
+    @Binding var isCustomPINMode: Bool
+    @Binding var customPIN: String
+    @Binding var confirmPIN: String
+    @Binding var pinMismatch: Bool
+    @Binding var pinMemorized: Bool
+
+    @Environment(\.colorScheme) var colorScheme
+
+    var body: some View {
+        ScrollView {
+            VStack(alignment: .leading, spacing: 20) {
+                Spacer().frame(height: 40)
+
+                // Header
+                HStack {
+                    Image(systemName: "number.square.fill")
+                        .font(.system(size: 40))
+                        .foregroundColor(.orange)
+                    
+                    Text("onboarding.decoy_title")
+                        .font(.title)
+                        .fontWeight(.bold)
+                }
+
+                Text("onboarding.decoy_desc")
+                    .font(.body)
+                    .foregroundColor(Theme.secondaryText(colorScheme))
+
+                // How it works card
+                VStack(alignment: .leading, spacing: 12) {
+                    Text("onboarding.decoy_how_title")
+                        .font(.subheadline)
+                        .fontWeight(.semibold)
+
+                    FeaturePoint(icon: "hand.tap.fill", textKey: "onboarding.decoy_how_wipe")
+                    FeaturePoint(icon: "function", textKey: "onboarding.decoy_how_calc")
+                    FeaturePoint(icon: "key.fill", textKey: "onboarding.decoy_how_pin")
+                    FeaturePoint(icon: "arrow.clockwise", textKey: "onboarding.decoy_how_persist")
+                }
+                .padding()
+                .background(Theme.surface(colorScheme))
+                .cornerRadius(Theme.CornerRadius.medium)
+
+                // PIN display / entry card
+                VStack(spacing: 16) {
+                    Text("onboarding.decoy_pin_label")
+                        .font(.headline)
+                        .frame(maxWidth: .infinity, alignment: .center)
+
+                    if isCustomPINMode {
+                        // Custom PIN entry mode
+                        VStack(spacing: 12) {
+                            SecureField(
+                                String(localized: "onboarding.decoy_pin_label"),
+                                text: $customPIN
+                            )
+                            .keyboardType(.numberPad)
+                            .font(.system(.title2, design: .monospaced))
+                            .textFieldStyle(.roundedBorder)
+                            .multilineTextAlignment(.center)
+                            .onChange(of: customPIN) { _ in
+                                pinMismatch = false
+                                // Strip non-digits
+                                customPIN = String(customPIN.filter { $0.isNumber }.prefix(8))
+                            }
+
+                            SecureField(
+                                String(localized: "onboarding.decoy_pin_confirm"),
+                                text: $confirmPIN
+                            )
+                            .keyboardType(.numberPad)
+                            .font(.system(.title2, design: .monospaced))
+                            .textFieldStyle(.roundedBorder)
+                            .multilineTextAlignment(.center)
+                            .onChange(of: confirmPIN) { _ in
+                                pinMismatch = false
+                                confirmPIN = String(confirmPIN.filter { $0.isNumber }.prefix(8))
+                            }
+
+                            if pinMismatch {
+                                Text("onboarding.decoy_pin_mismatch")
+                                    .font(.caption)
+                                    .foregroundColor(.red)
+                            }
+
+                            Button(action: {
+                                isCustomPINMode = false
+                                pinMismatch = false
+                            }) {
+                                Label {
+                                    Text("onboarding.decoy_use_random")
+                                } icon: {
+                                    Image(systemName: "dice.fill")
+                                }
+                                .font(.subheadline)
+                                .foregroundColor(Theme.legacyGreen(colorScheme))
+                            }
+                        }
+                    } else {
+                        // Random PIN display mode
+                        VStack(spacing: 16) {
+                            // Large PIN display
+                            HStack(spacing: 12) {
+                                ForEach(Array(generatedPIN), id: \.self) { digit in
+                                    Text(String(digit))
+                                        .font(.system(size: 36, weight: .bold, design: .monospaced))
+                                        .frame(width: 52, height: 64)
+                                        .background(
+                                            RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                                                .fill(Theme.surface(colorScheme))
+                                                .overlay(
+                                                    RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                                                        .stroke(Theme.legacyGreen(colorScheme), lineWidth: 2)
+                                                )
+                                        )
+                                }
+                            }
+                            .frame(maxWidth: .infinity)
+
+                            HStack(spacing: 24) {
+                                Button(action: {
+                                    generatedPIN = DecoyModeManager.generateRandomPIN()
+                                }) {
+                                    Label {
+                                        Text("onboarding.decoy_generate_new")
+                                    } icon: {
+                                        Image(systemName: "arrow.triangle.2.circlepath")
+                                    }
+                                    .font(.subheadline)
+                                    .foregroundColor(Theme.legacyGreen(colorScheme))
+                                }
+
+                                Button(action: {
+                                    isCustomPINMode = true
+                                    customPIN = ""
+                                    confirmPIN = ""
+                                    pinMemorized = false
+                                }) {
+                                    Label {
+                                        Text("onboarding.decoy_choose_own")
+                                    } icon: {
+                                        Image(systemName: "pencil")
+                                    }
+                                    .font(.subheadline)
+                                    .foregroundColor(Theme.legacyGreen(colorScheme))
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding()
+                .background(
+                    RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                        .fill(colorScheme == .dark ? Color(white: 0.08) : Color(white: 0.97))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                                .stroke(Theme.legacyGreen(colorScheme).opacity(0.3), lineWidth: 1)
+                        )
+                )
+
+                // Warning
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "exclamationmark.triangle.fill")
+                        .foregroundColor(.orange)
+                    Text("onboarding.decoy_pin_warning")
+                        .font(.caption)
+                        .foregroundColor(.orange)
+                }
+                .padding()
+                .background(Color.orange.opacity(0.1))
+                .cornerRadius(Theme.CornerRadius.medium)
+
+                // Memorization checkbox
+                Button(action: {
+                    if isCustomPINMode {
+                        // In custom mode, only allow if PINs are valid
+                        if customPIN.count >= 4 && customPIN == confirmPIN {
+                            pinMemorized.toggle()
+                            pinMismatch = false
+                        } else if customPIN.count >= 4 && customPIN != confirmPIN {
+                            pinMismatch = true
+                        }
+                    } else {
+                        pinMemorized.toggle()
+                    }
+                }) {
+                    HStack(alignment: .top, spacing: 12) {
+                        Image(systemName: pinMemorized ? "checkmark.square.fill" : "square")
+                            .font(.title2)
+                            .foregroundColor(pinMemorized ? Theme.legacyGreen(colorScheme) : .gray)
+
+                        Text("onboarding.decoy_memorized")
+                            .font(.body)
+                            .foregroundColor(Theme.primaryText(colorScheme))
+                            .multilineTextAlignment(.leading)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(
+                        RoundedRectangle(cornerRadius: Theme.CornerRadius.medium)
+                            .stroke(pinMemorized ? Theme.legacyGreen(colorScheme) : Color.gray.opacity(0.3), lineWidth: 2)
+                    )
+                }
+                .buttonStyle(.plain)
+
+                Spacer()
+            }
+            .padding(.horizontal, 24)
+        }
     }
 }

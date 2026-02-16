@@ -22,6 +22,7 @@ struct BitchatApp: App {
     
     @StateObject private var chatViewModel: ChatViewModel
     @StateObject private var languageManager = LanguageManager.shared
+    @ObservedObject private var decoyManager = DecoyModeManager.shared
     @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     #if os(iOS)
     @Environment(\.scenePhase) var scenePhase
@@ -64,7 +65,9 @@ struct BitchatApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if onboardingSeen {
+                if decoyManager.isDecoyActive {
+                    CalculatorDecoyView()
+                } else if onboardingSeen {
                     MainTabView()
                 } else {
                     OnboardingView(isPresented: .constant(true))
@@ -90,7 +93,7 @@ struct BitchatApp: App {
 
                 // Initialize network activation policy; will start Tor/Nostr only when allowed
                 // Services are started by OnboardingView.completeOnboarding() for new users
-                if onboardingSeen {
+                if onboardingSeen && !decoyManager.isDecoyActive {
                     NetworkActivationService.shared.start()
                     // Start presence service (will wait for Tor readiness)
                     GeohashPresenceService.shared.start()
@@ -121,7 +124,7 @@ struct BitchatApp: App {
                         // We need to wake everything up!
                         
                         // Restart services when becoming active
-                        if onboardingSeen {
+                        if onboardingSeen && !decoyManager.isDecoyActive {
                             chatViewModel.startServices()
                         }
                         TorManager.shared.setAppForeground(true)
