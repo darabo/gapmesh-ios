@@ -20,9 +20,13 @@ struct MeshTopologyTrackerTests {
         let a = try hex("0102030405060708")
         let b = try hex("1112131415161718")
 
-        tracker.recordDirectLink(between: a, and: b)
+        // Bidirectional announcement
+        tracker.updateNeighbors(for: a, neighbors: [b])
+        tracker.updateNeighbors(for: b, neighbors: [a])
+        
         let route = try #require(tracker.computeRoute(from: a, to: b))
-        #expect(route == [a, b])
+        // Direct connection returns empty route (no intermediate hops)
+        #expect(route == [])
     }
 
     @Test func multiHopRouteComputation() throws {
@@ -32,41 +36,38 @@ struct MeshTopologyTrackerTests {
         let c = try hex("2021222324252627")
         let d = try hex("3031323334353637")
 
-        tracker.recordDirectLink(between: a, and: b)
-        tracker.recordDirectLink(between: b, and: c)
-        tracker.recordDirectLink(between: c, and: d)
+        // Bidirectional announcements for A-B, B-C, C-D
+        tracker.updateNeighbors(for: a, neighbors: [b])
+        tracker.updateNeighbors(for: b, neighbors: [a, c])
+        tracker.updateNeighbors(for: c, neighbors: [b, d])
+        tracker.updateNeighbors(for: d, neighbors: [c])
 
         let route = try #require(tracker.computeRoute(from: a, to: d))
-        #expect(route == [a, b, c, d])
+        // Route should only contain intermediate hops (b, c), excluding start (a) and end (d)
+        #expect(route == [b, c])
     }
 
-    @Test func recordRouteAddsEdges() throws {
-        let tracker = MeshTopologyTracker()
-        var a = Data([0xAA, 0xBB, 0xCC])
-        let b = try hex("4445464748494A4B")
-        let c = try hex("5455565758595A5B")
-
-        tracker.recordRoute([a, b, c])
-
-        a.append(Data(repeating: 0, count: BinaryProtocol.senderIDSize - a.count))
-        let route = try #require(tracker.computeRoute(from: a, to: c))
-        #expect(route.first == a)
-        #expect(route.last == c)
-    }
-
-    @Test func removingDirectLinkBreaksRoute() throws {
+    @Test func unconfirmedEdgeDoesNotRoute() throws {
         let tracker = MeshTopologyTracker()
         let a = try hex("0101010101010101")
         let b = try hex("0202020202020202")
         let c = try hex("0303030303030303")
 
-        tracker.recordDirectLink(between: a, and: b)
-        tracker.recordDirectLink(between: b, and: c)
-        let initialRoute = try #require(tracker.computeRoute(from: a, to: c))
-        #expect(initialRoute == [a, b, c])
+        // A announces B (confirmed)
+        // B announces A, C (confirmed A-B, unconfirmed B-C)
+        // C does NOT announce B
+        tracker.updateNeighbors(for: a, neighbors: [b])
+        tracker.updateNeighbors(for: b, neighbors: [a, c])
+        // C is silent or announces empty
 
-        tracker.removeDirectLink(between: b, and: c)
+        // Should NOT find route A->C because B->C is unconfirmed (C didn't announce B)
         #expect(tracker.computeRoute(from: a, to: c) == nil)
+        
+        // Now C announces B
+        tracker.updateNeighbors(for: c, neighbors: [b])
+        // Should find route
+        let route = try #require(tracker.computeRoute(from: a, to: c))
+        #expect(route == [b])
     }
 
     @Test func removingPeerClearsEdges() throws {
@@ -75,12 +76,28 @@ struct MeshTopologyTrackerTests {
         let b = try hex("0A0B0C0D0E0F0001")
         let c = try hex("0011223344556677")
 
-        tracker.recordRoute([a, b, c])
+        tracker.updateNeighbors(for: a, neighbors: [b])
+        tracker.updateNeighbors(for: b, neighbors: [a, c])
+        tracker.updateNeighbors(for: c, neighbors: [b])
+
         let initialRoute = try #require(tracker.computeRoute(from: a, to: c))
-        #expect(initialRoute == [a, b, c])
+        #expect(initialRoute == [b])
 
         tracker.removePeer(b)
         #expect(tracker.computeRoute(from: a, to: c) == nil)
+    }
+
+    @Test func sameStartAndEndReturnsEmptyRoute() throws {
+        let tracker = MeshTopologyTracker()
+        let a = try hex("0102030405060708")
+        let b = try hex("1112131415161718")
+
+        tracker.updateNeighbors(for: a, neighbors: [b])
+        tracker.updateNeighbors(for: b, neighbors: [a])
+        
+        // When start == end, route should be empty (no intermediate hops needed)
+        let route = try #require(tracker.computeRoute(from: a, to: a))
+        #expect(route == [])
     }
 
 }

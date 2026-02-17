@@ -15,7 +15,7 @@ final class NetworkActivationService: ObservableObject {
 
     private var cancellables = Set<AnyCancellable>()
     private var started = false
-    private let torPreferenceKey = "networkActivationService.userTorEnabled"
+    private let torPreferenceKey = "torEnabled"  // Synced with SettingsTabView
     private var torAutoStartDesired: Bool = false
 
     private init() {}

@@ -1,9 +1,36 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@" : {
-
+    "#%@" : {},
+    "%@" : {},
+    "%@ %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$@"
+          }
+        }
+      }
     },
+    "%d active" : {
+      "comment" : "Active peer count"
+    },
+    "(%@ %@)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "(%1$@ %2$@)"
+          }
+        }
+      }
+    },
+    "Choose Language" : {},
+    "Choose an image" : {},
+    "Dara Bonakdar" : {},
+    "English" : {},
+    "Gap Mesh/" : {},
     "app_info.app_name" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -583,19 +610,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "private messages encrypted with noise protocol"
+            "value" : "private message security has been audited. encrypted with noise protocol."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "mensajes privados cifrados con el protocolo Noise"
+            "value" : "la seguridad de los mensajes privados ha sido auditada. cifrados con el protocolo Noise."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "پیام‌های خصوصی با پروتکل نویز رمزنگاری می‌شوند"
+            "value" : "امنیت پیام‌های خصوصی بازرسی شده است. با پروتکل نویز رمزنگاری می‌شوند."
           }
         },
         "fil" : {
@@ -768,7 +795,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "end-to-end encryption"
+            "value" : "end-to-end encryption (audited)"
           }
         },
         "es" : {
@@ -780,7 +807,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "رمزنگاری سرتاسری"
+            "value" : "رمزنگاری سرتاسری (بازرسی شده)"
           }
         },
         "fil" : {
@@ -5057,7 +5084,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "triple-tap logo to instantly clear all data"
+            "value" : "Triple-tap anywhere to instantly clear all data and enter calculator mode"
           }
         },
         "es" : {
@@ -5069,7 +5096,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سه بار روی لوگو بزنید تا همه داده‌ها فوراً پاک شوند"
+            "value" : "سه بار به هر نقطه‌ای بروید تا فوراً تمام داده‌ها پاک شوند و وارد حالت ماشین حساب شوید."
           }
         },
         "fil" : {
@@ -5779,145 +5806,145 @@
         "ar" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "أمان الرسائل الخاصة لم يتم تدقيقه بالكامل بعد. لا تستخدمها في الحالات الحرجة حتى يختفي هذا التحذير."
+            "value" : "تم تدقيق أمان الرسائل الخاصة. استخدم بثقة في جميع الحالات."
           }
         },
         "bn" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ব্যক্তিগত বার্তার নিরাপত্তা এখনো সম্পূর্ণ অডিট হয়নি। এই সতর্কতা না থাকা পর্যন্ত জরুরি পরিস্থিতিতে ব্যবহার করবেন না।"
+            "value" : "ব্যক্তিগত বার্তার নিরাপত্তা অডিট সম্পন্ন হয়েছে। সব পরিস্থিতিতে আত্মবিশ্বাসের সাথে ব্যবহার করুন।"
           }
         },
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "die sicherheit privater nachrichten wurde noch nicht vollständig geprüft. nutze sie nicht für kritische situationen, solange dieser hinweis erscheint."
+            "value" : "die sicherheit privater nachrichten wurde überprüft. verwende mit zuversicht in allen situationen."
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "private message security has not yet been fully audited. do not use for critical situations until this warning disappears."
+            "value" : "private message security has been audited. use with confidence in all situations."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "la seguridad de los mensajes privados aún no ha sido auditada por completo. no lo uses en situaciones críticas hasta que este aviso desaparezca."
+            "value" : "la seguridad de los mensajes privados ha sido auditada. úsalos con confianza en todas las situaciones."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "امنیت پیام‌های خصوصی هنوز به طور کامل بررسی نشده است. تا زمانی که این هشدار ناپدید نشده برای موقعیت‌های حساس استفاده نکنید."
+            "value" : "امنیت پیام‌های خصوصی به طور کامل بررسی شده است. در همه موقعیت‌ها با اطمینان استفاده کنید."
           }
         },
         "fil" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "hindi pa ganap na na-audit ang seguridad ng pribadong mensahe. huwag gamitin para sa kritikal na sitwasyon hangga't hindi nawawala ang babalang ito."
+            "value" : "ang seguridad ng pribadong mensahe ay na-audit na. gamitin nang may kumpiyansa sa lahat ng sitwasyon."
           }
         },
         "fr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "la sécurité des messages privés n'a pas encore été entièrement auditée. n'utilise pas pour des situations critiques tant que cet avertissement reste."
+            "value" : "la sécurité des messages privés a été auditée. utilise avec confiance dans toutes les situations."
           }
         },
         "he" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "אבטחת ההודעות הפרטיות עדיין לא נבדקה במלואה. אל תשתמש למצבים קריטיים עד שהאזהרה תיעלם."
+            "value" : "אבטחת ההודעות הפרטיות נבדקה. השתמש בביטחון בכל המצבים."
           }
         },
         "hi" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "निजी संदेश सुरक्षा का अभी पूरा ऑडिट नहीं हुआ है। यह चेतावनी हटने तक गंभीर स्थितियों में उपयोग न करें।"
+            "value" : "निजी संदेश सुरक्षा का ऑडिट पूरा हो गया है। सभी परिस्थितियों में आत्मविश्वास के साथ उपयोग करें।"
           }
         },
         "id" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "keamanan pesan pribadi belum diaudit sepenuhnya. jangan dipakai untuk situasi kritis sampai peringatan ini hilang."
+            "value" : "keamanan pesan pribadi telah diaudit. gunakan dengan percaya diri dalam semua situasi."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "la sicurezza dei messaggi privati non è stata ancora auditata completamente. non usarli in situazioni critiche finché questo avviso resta."
+            "value" : "la sicurezza dei messaggi privati è stata verificata. usali con fiducia in tutte le situazioni."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "プライベートメッセージの安全性はまだ完全に監査されていません。この警告が消えるまで重要な場面では使わないでください。"
+            "value" : "プライベートメッセージの安全性は監査済みです。すべての状況で自信を持って使用してください。"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "비공개 메시지 보안은 아직 완전히 감사받지 않았습니다. 이 경고가 사라질 때까지 중요한 상황에서는 사용하지 마세요."
+            "value" : "비공개 메시지 보안이 감사되었습니다. 모든 상황에서 자신감 있게 사용하세요."
           }
         },
         "ms" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "keamanan pesan pribadi belum diaudit sepenuhnya. jangan diguna untuk situasi kritis sampai peringatan ini hilang."
+            "value" : "keamanan pesan pribadi telah diaudit. gunakan dengan yakin dalam semua situasi."
           }
         },
         "ne" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "व्यक्तिगत सन्देशको सुरक्षा पूर्ण रूपमा अडिट भएको छैन। यो चेतावनी हट्दासम्म गम्भीर अवस्थामा प्रयोग नगर्नु।"
+            "value" : "व्यक्तिगत सन्देशको सुरक्षा अडिट भएको छ। सबै अवस्थामा आत्मविश्वासको साथ प्रयोग गर्नु।"
           }
         },
         "nl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "de beveiliging van privéberichten is nog niet volledig geaudit. gebruik dit niet in kritieke situaties totdat deze melding verdwijnt."
+            "value" : "de beveiliging van privéberichten is gecontroleerd. gebruik met vertrouwen in alle situaties."
           }
         },
         "pl" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bezpieczeństwo wiadomości prywatnych nie zostało jeszcze w pełni sprawdzone. nie używaj w sytuacjach krytycznych, dopóki to ostrzeżenie nie zniknie."
+            "value" : "bezpieczeństwo wiadomości prywatnych zostało sprawdzone. używaj z pewną siebie we wszystkich sytuacjach."
           }
         },
         "pt" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "a segurança das mensagens privadas ainda não foi totalmente auditada. não uses em situações críticas até este aviso desaparecer."
+            "value" : "a segurança das mensagens privadas foi auditada. usa com confiança em todas as situações."
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "a segurança das mensagens privadas ainda não foi totalmente auditada. não use em situações críticas até que este aviso desapareça."
+            "value" : "a segurança das mensagens privadas foi auditada. use com confiança em todas as situações."
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "безопасность приватных сообщений ещё не прошла полный аудит. не используй для критичных случаев, пока предупреждение не исчезнет."
+            "value" : "безопасность приватных сообщений была подтверждена. используй с уверенностью во всех случаях."
           }
         },
         "sv" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "säkerheten för privata meddelanden är ännu inte fullständigt granskad. använd inte i kritiska situationer förrän detta meddelande försvinner."
+            "value" : "säkerheten för privata meddelanden har granskats. använd med självförtroende i alla situationer."
           }
         },
         "ta" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "தனிப்பட்ட செய்தி பாதுகாப்பு இன்னும் முழுமையாக ஆய்வு செய்யப்படவில்லை. இந்த எச்சரிக்கை மறையும் வரை முக்கிய அவசரங்களுக்கு பயன்படுத்தாதீர்கள்."
+            "value" : "தனிப்பட்ட செய்தி பாதுகாப்பு ஆய்வு செய்யப்பட்டுள்ளது. அனைத்து சூழ்நிலைகளிலும் தெளிவாக பயன்படுத்தவும்."
           }
         },
         "th" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "ความปลอดภัยของข้อความส่วนตัวยังไม่ได้รับการตรวจสอบทั้งหมด อย่าใช้ในสถานการณ์วิกฤติจนกว่าคำเตือนนี้จะหายไป"
+            "value" : "ความปลอดภัยของข้อความส่วนตัวได้รับการตรวจสอบแล้ว ใช้อย่างมั่นใจในทุกสถานการณ์"
           }
         },
         "tr" : {
@@ -6228,6 +6255,40 @@
         }
       }
     },
+    "channels.bookmarked" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bookmarked Channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های نشان‌شده"
+          }
+        }
+      }
+    },
+    "channels.bookmarks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bookmarked Channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های نشانی‌شده"
+          }
+        }
+      }
+    },
     "channels.city" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6245,7 +6306,177 @@
         }
       }
     },
+    "channels.custom_geohash_place" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join by Geohash"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عضویت با Geohash"
+          }
+        }
+      }
+    },
+    "channels.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohash-based channels help organize mesh conversations geographically while preserving your privacy."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های مبتنی بر جئوهش به سازماندهی مکالمات مش به صورت جغرافیایی کمک می‌کنند و در عین حال حریم خصوصی شما را حفظ می‌کنند."
+          }
+        }
+      }
+    },
+    "channels.enter_geohash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter geohash..."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohash را وارد کنید..."
+          }
+        }
+      }
+    },
+    "channels.error_empty" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter a geohash"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً یک جئوهش وارد کنید"
+          }
+        }
+      }
+    },
+    "channels.error_invalid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invalid geohash characters"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حروف جئوهش نامعتبر است"
+          }
+        }
+      }
+    },
+    "channels.error_length" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Geohash must be 1-9 characters"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "جئوهش باید ۱ تا ۹ حرف باشد"
+          }
+        }
+      }
+    },
+    "channels.join_by_geohash" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Join by Geohash"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عضویت با جئوهش"
+          }
+        }
+      }
+    },
     "channels.mesh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesh Network"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبکه مش"
+          }
+        }
+      }
+    },
+    "channels.mesh_network" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mesh Network"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبکه مش"
+          }
+        }
+      }
+    },
+    "channels.mesh_subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Local Bluetooth mesh network"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبکه مش بلوتوث محلی"
+          }
+        }
+      }
+    },
+    "channels.mesh_title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
@@ -6268,13 +6499,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Nearby Devices"
+            "value" : "Nearby Channels"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "دستگاه‌های اطراف"
+            "value" : "کانال‌های نزدیک"
           }
         }
       }
@@ -6296,6 +6527,40 @@
         }
       }
     },
+    "channels.people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "people"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نفر"
+          }
+        }
+      }
+    },
+    "channels.recent" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recent Channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال‌های اخیر"
+          }
+        }
+      }
+    },
     "channels.region" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -6313,11 +6578,90 @@
         }
       }
     },
-    "Choose an image" : {
-
+    "channels.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#location channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "#کانال‌های موقعیت"
+          }
+        }
+      }
     },
-    "Choose Language" : {
-
+    "chat.choose_photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose from Library"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب از گالری"
+          }
+        }
+      }
+    },
+    "chat.photo_options" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add Photo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "افزودن عکس"
+          }
+        }
+      }
+    },
+    "chat.take_photo" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Take Photo"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گرفتن عکس"
+          }
+        }
+      }
+    },
+    "chat.tor_disconnected_warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tor disconnected - Cannot send messages to this channel"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور قطع شده - امکان ارسال پیام به این کانال وجود ندارد"
+          }
+        }
+      }
     },
     "close" : {
       "comment" : "Button to dismiss fullscreen media viewer",
@@ -6507,184 +6851,16 @@
     "common.cancel" : {
       "extractionState" : "manual",
       "localizations" : {
-        "ar" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "إلغاء"
-          }
-        },
-        "bn" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "বাতিল"
-          }
-        },
-        "de" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "abbrechen"
-          }
-        },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "cancel"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "cancelar"
+            "value" : "Cancel"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "لغو"
-          }
-        },
-        "fil" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "kanselahin"
-          }
-        },
-        "fr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "annuler"
-          }
-        },
-        "he" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ביטול"
-          }
-        },
-        "hi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "रद्द करें"
-          }
-        },
-        "id" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "batal"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "annulla"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "キャンセル"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "취소"
-          }
-        },
-        "ms" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "batal"
-          }
-        },
-        "ne" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "रद्द"
-          }
-        },
-        "nl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "annuleren"
-          }
-        },
-        "pl" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "anuluj"
-          }
-        },
-        "pt" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "cancelar"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "cancelar"
-          }
-        },
-        "ru" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "отмена"
-          }
-        },
-        "sv" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "avbryt"
-          }
-        },
-        "ta" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ரத்து"
-          }
-        },
-        "th" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ยกเลิก"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iptal"
-          }
-        },
-        "uk" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "скасувати"
-          }
-        },
-        "ur" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "منسوخ کریں"
-          }
-        },
-        "vi" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "hủy"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消"
-          }
-        },
-        "zh-Hant" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "取消"
           }
         }
       }
@@ -7240,6 +7416,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "確定"
+          }
+        }
+      }
+    },
+    "common.save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره"
           }
         }
       }
@@ -11968,6 +12161,40 @@
         }
       }
     },
+    "content.actions.favorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorite"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "علاقه‌مندی"
+          }
+        }
+      }
+    },
+    "content.actions.hide" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "hide message"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مخفی کردن پیام"
+          }
+        }
+      }
+    },
     "content.actions.hug" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -12338,6 +12565,23 @@
         }
       }
     },
+    "content.actions.report" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "report content"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش محتوا"
+          }
+        }
+      }
+    },
     "content.actions.slap" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -12704,6 +12948,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "操作"
+          }
+        }
+      }
+    },
+    "content.actions.unfavorite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unfavorite"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حذف از علاقه‌مندی"
           }
         }
       }
@@ -20110,6 +20371,91 @@
         }
       }
     },
+    "content.recording.could_not_start" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Could not start recording."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شروع ضبط ممکن نبود."
+          }
+        }
+      }
+    },
+    "content.recording.error_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording Error"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خطای ضبط"
+          }
+        }
+      }
+    },
+    "content.recording.failed_to_save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording failed to save."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره ضبط ناموفق بود."
+          }
+        }
+      }
+    },
+    "content.recording.microphone_required" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Microphone access is required to record voice notes."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای ضبط یادداشت‌های صوتی به دسترسی میکروفون نیاز است."
+          }
+        }
+      }
+    },
+    "content.recording.too_short" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Recording is too short."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ضبط خیلی کوتاه است."
+          }
+        }
+      }
+    },
     "content.recording_duration" : {
       "comment" : "Voice note recording duration indicator",
       "extractionState" : "stale",
@@ -20313,87 +20659,36 @@
         }
       }
     },
-    "content.recording.could_not_start" : {
+    "content.report_confirmation.message" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Could not start recording."
+            "value" : "Thank you for your report. We take violations seriously and will review within 24 hours."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "شروع ضبط ممکن نبود."
+            "value" : "ممنون از گزارش شما. ما تخلفات را جدی می‌گیریم و ظرف ۲۴ ساعت بررسی می‌کنیم."
           }
         }
       }
     },
-    "content.recording.error_title" : {
+    "content.report_confirmation.title" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Recording Error"
+            "value" : "Content Reported"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "خطای ضبط"
-          }
-        }
-      }
-    },
-    "content.recording.failed_to_save" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recording failed to save."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ذخیره ضبط ناموفق بود."
-          }
-        }
-      }
-    },
-    "content.recording.microphone_required" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Microphone access is required to record voice notes."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "برای ضبط یادداشت‌های صوتی به دسترسی میکروفون نیاز است."
-          }
-        }
-      }
-    },
-    "content.recording.too_short" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Recording is too short."
-          }
-        },
-        "fa" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "ضبط خیلی کوتاه است."
+            "value" : "محتوا گزارش شد"
           }
         }
       }
@@ -22433,6 +22728,227 @@
         }
       }
     },
+    "eula.agree_checkbox" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I have read and agree to the Terms of Use"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرایط استفاده را خوانده‌ام و موافقم"
+          }
+        }
+      }
+    },
+    "eula.section1.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Posting illegal, hateful, violent, sexually explicit, or otherwise objectionable content is strictly prohibited."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتشار محتوای غیرقانونی، نفرت‌انگیز، خشونت‌آمیز، جنسی یا نامناسب اکیداً ممنوع است."
+          }
+        }
+      }
+    },
+    "eula.section1.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero Tolerance for Objectionable Content"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدم تحمل محتوای نامناسب"
+          }
+        }
+      }
+    },
+    "eula.section2.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Harassment, bullying, threatening, or abusive behavior toward other users is not tolerated."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "آزار، قلدری، تهدید یا رفتار توهین‌آمیز نسبت به دیگران تحمل نمی‌شود."
+          }
+        }
+      }
+    },
+    "eula.section2.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zero Tolerance for Abusive Behavior"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "عدم تحمل رفتار آزاردهنده"
+          }
+        }
+      }
+    },
+    "eula.section3.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You are solely responsible for all content you send or share through Gap Mesh."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شما تنها مسئول تمام محتوایی هستید که از طریق Gap Mesh ارسال یا به اشتراک می‌گذارید."
+          }
+        }
+      }
+    },
+    "eula.section3.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Responsibility"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مسئولیت کاربر"
+          }
+        }
+      }
+    },
+    "eula.section4.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Violations may result in immediate blocking by other users and removal of your ability to communicate."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تخلفات ممکن است منجر به مسدود شدن فوری توسط دیگران و حذف توانایی ارتباط شما شود."
+          }
+        }
+      }
+    },
+    "eula.section4.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enforcement"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اجرا"
+          }
+        }
+      }
+    },
+    "eula.section5.content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report objectionable content using the in-app report feature or contact support."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محتوای نامناسب را با قابلیت گزارش درون برنامه یا تماس با پشتیبانی گزارش کنید."
+          }
+        }
+      }
+    },
+    "eula.section5.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reporting"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش‌دهی"
+          }
+        }
+      }
+    },
+    "eula.subtitle" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please read and accept before continuing"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً قبل از ادامه بخوانید و بپذیرید"
+          }
+        }
+      }
+    },
+    "eula.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terms of Use"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شرایط استفاده"
+          }
+        }
+      }
+    },
     "fingerprint.action.mark_verified" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -24282,9 +24798,6 @@
           }
         }
       }
-    },
-    "Gap Mesh/" : {
-
     },
     "geohash_people.action.block" : {
       "extractionState" : "manual",
@@ -28691,6 +29204,40 @@
         }
       }
     },
+    "location_channels.tor_required.message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enable Tor routing in the toggle below or in Settings to access geohash channels."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لطفاً مسیریابی تور را در کلید پایین یا در تنظیمات فعال کنید تا به کانال‌های ژئوهش دسترسی داشته باشید."
+          }
+        }
+      }
+    },
+    "location_channels.tor_required.title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tor Required"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تور لازم است"
+          }
+        }
+      }
+    },
     "location_levels.block" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -32960,19 +33507,274 @@
         }
       }
     },
+    "onboarding.decoy_choose_own" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose My Own"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب پین دلخواه"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When you triple-tap to wipe all data, Gap Mesh instantly transforms into a calculator app. To anyone looking at your phone, it's just a calculator."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "وقتی برای پاکسازی داده‌ها سه بار ضربه می‌زنید، گپ مش فوراً به یک ماشین‌حساب تبدیل می‌شود. برای هرکسی که به گوشی شما نگاه می‌کند، فقط یک ماشین‌حساب است."
+          }
+        }
+      }
+    },
+    "onboarding.decoy_generate_new" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Generate New"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ساخت پین جدید"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_how_calc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App becomes a real calculator"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برنامه به ماشین‌حساب واقعی تبدیل می‌شود"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_how_persist" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Persists across app restarts"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پس از بسته شدن برنامه هم باقی می‌ماند"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_how_pin" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter your PIN + press = to return"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین خود را وارد کنید + مساوی بزنید تا برگردید"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_how_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How it works"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نحوه کار"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_how_wipe" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Triple-tap header to wipe & hide"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سه‌بار ضربه روی سربرگ برای پاکسازی و مخفی‌سازی"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_memorized" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "I've memorized my PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین خود را حفظ کردم"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_pin_confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تایید پین"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_pin_label" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set your recovery PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین بازیابی خود را تنظیم کنید"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_pin_mismatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINs don't match"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین‌ها مطابقت ندارند"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_pin_warning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remember this PIN! It's the only way back into Gap Mesh after a wipe. It cannot be recovered."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این پین را به خاطر بسپارید! تنها راه بازگشت به گپ مش پس از پاکسازی است. قابل بازیابی نیست."
+          }
+        }
+      }
+    },
+    "onboarding.decoy_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stealth Mode"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حالت مخفی"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_use_random" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Use Random PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "استفاده از پین تصادفی"
+          }
+        }
+      }
+    },
     "onboarding.emergency_desc" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Triple-tap the Gap Mesh header to immediately wipe all data, keys, and messages."
+            "value" : "Triple-tap anywhere to instantly wipe all data and transform the app into a calculator. Set up your recovery PIN next."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سه بار روی عنوان گپ مش در سربرگ ضربه بزنید تا همهٔ داده‌ها، کلیدها و پیام‌ها فوراً پاک شوند."
+            "value" : "سه بار در هر جایی ضربه بزنید تا داده‌ها فوراً پاک شده و برنامه به ماشین‌حساب تبدیل شود. پین بازیابی خود را در صفحه بعد تنظیم کنید."
           }
         }
       }
@@ -33589,6 +34391,159 @@
         }
       }
     },
+    "people.active" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال"
+          }
+        }
+      }
+    },
+    "people.active_count" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Active Peers"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "همتایان فعال"
+          }
+        }
+      }
+    },
+    "people.current_channel" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Current Channel"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "کانال فعلی"
+          }
+        }
+      }
+    },
+    "people.favorites" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Favorites"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مورد علاقه"
+          }
+        }
+      }
+    },
+    "people.nearby_mesh" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nearby (Mesh)"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نزدیک (مش)"
+          }
+        }
+      }
+    },
+    "people.no_peers" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No peers connected"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هیچ همتایی متصل نیست"
+          }
+        }
+      }
+    },
+    "people.nostr_pm_message" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This user is connected via Nostr relay, not local Bluetooth mesh. Direct private messaging with Nostr users uses encrypted relay messages. To mention them, use @username in the chat."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "این کاربر از طریق رله Nostr متصل است، نه شبکه مش بلوتوث محلی. پیام خصوصی مستقیم با کاربران Nostr از پیام‌های رمزگذاری شده رله استفاده می‌کند. برای اشاره به آن‌ها، از @نام‌کاربری در چت استفاده کنید."
+          }
+        }
+      }
+    },
+    "people.nostr_pm_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Private Messages via Nostr"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پیام خصوصی از طریق Nostr"
+          }
+        }
+      }
+    },
+    "people.via_nostr" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "via Nostr"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "از طریق Nostr"
+          }
+        }
+      }
+    },
     "photos.library" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33794,6 +34749,244 @@
         }
       }
     },
+    "settings.about" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "About"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "درباره"
+          }
+        }
+      }
+    },
+    "settings.app_version" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App Version"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نسخه برنامه"
+          }
+        }
+      }
+    },
+    "settings.appearance" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Appearance"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ظاهر"
+          }
+        }
+      }
+    },
+    "settings.change_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change Username"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغییر نام کاربری"
+          }
+        }
+      }
+    },
+    "settings.contact" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Contact & Support"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تماس و پشتیبانی"
+          }
+        }
+      }
+    },
+    "settings.created_by" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Created by"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ساخته شده توسط"
+          }
+        }
+      }
+    },
+    "settings.decoy_pin_confirm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Confirm PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تایید پین"
+          }
+        }
+      }
+    },
+    "settings.decoy_pin_desc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Change the PIN used to exit calculator mode"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تغییر پین برای خروج از حالت ماشین‌حساب"
+          }
+        }
+      }
+    },
+    "settings.decoy_pin_mismatch" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PINs don't match"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین‌ها مطابقت ندارند"
+          }
+        }
+      }
+    },
+    "settings.decoy_pin_new" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "New PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین جدید"
+          }
+        }
+      }
+    },
+    "settings.decoy_pin_saved" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "PIN updated"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین به‌روز شد"
+          }
+        }
+      }
+    },
+    "settings.decoy_pin_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Decoy PIN"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "پین ماشین‌حساب"
+          }
+        }
+      }
+    },
+    "settings.done" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Done"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انجام"
+          }
+        }
+      }
+    },
+    "settings.enter_username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enter new username"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام کاربری جدید را وارد کنید"
+          }
+        }
+      }
+    },
     "settings.features" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33845,6 +35038,23 @@
         }
       }
     },
+    "settings.identity" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Identity"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "هویت"
+          }
+        }
+      }
+    },
     "settings.language" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33858,6 +35068,74 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "زبان"
+          }
+        }
+      }
+    },
+    "settings.location" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Location Services"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "خدمات موقعیت مکانی"
+          }
+        }
+      }
+    },
+    "settings.location_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable to join location-based channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای عضویت در کانال‌های مبتنی بر موقعیت فعال کنید"
+          }
+        }
+      }
+    },
+    "settings.network" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Network"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "شبکه"
+          }
+        }
+      }
+    },
+    "settings.privacy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حریم خصوصی"
           }
         }
       }
@@ -33879,6 +35157,261 @@
         }
       }
     },
+    "settings.proof_of_work" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Proof of Work"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اثبات کار"
+          }
+        }
+      }
+    },
+    "settings.proof_of_work_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reduces spam by requiring computational work"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "با نیاز به محاسبات، اسپم را کاهش می‌دهد"
+          }
+        }
+      }
+    },
+    "settings.report_abuse" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report Abuse"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش سوءاستفاده"
+          }
+        }
+      }
+    },
+    "settings.report_abuse_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Report inappropriate content or users"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "گزارش محتوا یا کاربران نامناسب"
+          }
+        }
+      }
+    },
+    "settings.save" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Save"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ذخیره"
+          }
+        }
+      }
+    },
+    "settings.select_language" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select Language"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "انتخاب زبان"
+          }
+        }
+      }
+    },
+    "settings.share_app" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Light Companion App"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتراک‌گذاری برنامه همراه سبک"
+          }
+        }
+      }
+    },
+    "settings.share_app_button" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Light APK"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتراک‌گذاری APK سبک"
+          }
+        }
+      }
+    },
+    "settings.share_app_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Share Gap Mesh with nearby Android devices via AirDrop, Bluetooth, or any file transfer method."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اشتراک‌گذاری Gap Mesh با دستگاه‌های اندرویدی نزدیک از طریق AirDrop، بلوتوث یا هر روش انتقال فایل."
+          }
+        }
+      }
+    },
+    "settings.share_app_not_bundled" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APK not bundled. Add gapmesh-light.apk to the project."
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فایل APK موجود نیست. gapmesh-light.apk را به پروژه اضافه کنید."
+          }
+        }
+      }
+    },
+    "settings.share_app_size_note" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "APK size: ~4.5 MB"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "حجم APK: حدود ۴.۵ مگابایت"
+          }
+        }
+      }
+    },
+    "settings.theme" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Theme"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تم"
+          }
+        }
+      }
+    },
+    "settings.theme_dark" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dark"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تاریک"
+          }
+        }
+      }
+    },
+    "settings.theme_light" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Light"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "روشن"
+          }
+        }
+      }
+    },
+    "settings.theme_system" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "سیستم"
+          }
+        }
+      }
+    },
     "settings.title" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -33892,6 +35425,91 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "تنظیمات"
+          }
+        }
+      }
+    },
+    "settings.tor" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tor Connection"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "اتصال Tor"
+          }
+        }
+      }
+    },
+    "settings.tor_description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Required for geohash location channels"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "برای کانال‌های موقعیت جغرافیایی الزامی است"
+          }
+        }
+      }
+    },
+    "settings.tor_disable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disable Tor"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "غیرفعال کردن Tor"
+          }
+        }
+      }
+    },
+    "settings.tor_enable" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Enable Tor"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "فعال کردن Tor"
+          }
+        }
+      }
+    },
+    "settings.username" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Username"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "نام کاربری"
           }
         }
       }
@@ -36705,6 +38323,74 @@
         }
       }
     },
+    "tabs.chat" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chat"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چت"
+          }
+        }
+      }
+    },
+    "tabs.locations" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Locations"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مکان‌ها"
+          }
+        }
+      }
+    },
+    "tabs.people" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "People"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "مردم"
+          }
+        }
+      }
+    },
+    "tabs.settings" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "تنظیمات"
+          }
+        }
+      }
+    },
     "verification.my_qr.accessibility_label" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -38561,13 +40247,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "scan someone else's qr"
+            "value" : "Scan someone else's QR"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اسکن QR دیگری"
+            "value" : "کد QR شخص دیگری را اسکن کنید"
           }
         }
       }
@@ -38589,9 +40275,8 @@
         }
       }
     },
-    "زبان را انتخاب کنید" : {
-
-    }
+    "زبان را انتخاب کنید" : {},
+    "فارسی" : {}
   },
   "version" : "1.1"
 }

@@ -80,6 +80,18 @@ extension GeohashChannelLevel {
         case .region: try container.encode("region")
         }
     }
+    
+    /// Get the appropriate level for a given geohash length
+    static func levelForGeohashLength(_ length: Int) -> GeohashChannelLevel {
+        switch length {
+        case 0...2: return .region
+        case 3...4: return .province
+        case 5: return .city
+        case 6: return .neighborhood
+        case 7: return .block
+        default: return .building
+        }
+    }
 }
 
 /// A computed geohash channel option.

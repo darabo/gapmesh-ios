@@ -369,7 +369,7 @@ struct VerificationSheetView: View {
                             .font(.bitchatSystem(size: 13, weight: .medium, design: .monospaced))
                     }
                     .buttonStyle(.bordered)
-                    .tint(.gray)
+                    .tint(accentColor)
                 }
 
                 // Optional: Remove verification for selected peer (if verified)

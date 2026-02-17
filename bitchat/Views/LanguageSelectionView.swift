@@ -113,7 +113,9 @@ private struct LanguageButton: View {
 
 #Preview {
     LanguageSelectionView {
+        #if DEBUG
         print("Language selected")
+        #endif
     }
     .environmentObject(LanguageManager.shared)
 }

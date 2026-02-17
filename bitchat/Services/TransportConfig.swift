@@ -162,6 +162,14 @@ enum TransportConfig {
     static let blePostAnnounceDelaySeconds: TimeInterval = 0.4
     static let bleForceAnnounceMinIntervalSeconds: TimeInterval = 0.15
 
+    // BCH-01-004: Rate-limiting for subscription-triggered announces
+    // Prevents rapid enumeration attacks by rate-limiting announce responses
+    static let bleSubscriptionRateLimitMinSeconds: TimeInterval = 2.0       // Minimum interval between announces per central
+    static let bleSubscriptionRateLimitBackoffFactor: Double = 2.0          // Exponential backoff multiplier
+    static let bleSubscriptionRateLimitMaxBackoffSeconds: TimeInterval = 30.0  // Maximum backoff period
+    static let bleSubscriptionRateLimitWindowSeconds: TimeInterval = 60.0   // Window for tracking subscription attempts
+    static let bleSubscriptionRateLimitMaxAttempts: Int = 5                 // Max attempts before extended cooldown
+
     // Store-and-forward for directed packets at relays
     static let bleDirectedSpoolWindowSeconds: TimeInterval = 15.0
 

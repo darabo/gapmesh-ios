@@ -52,6 +52,10 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     /// Active connections keyed by peer ID
     private var activeConnections: [PeerID: NWConnection] = [:]
     
+    /// Pending connections not yet associated with a peer ID
+    /// (waiting for the remote side to announce itself)
+    private var pendingConnections: [NWConnection] = []
+    
     /// Peer nicknames (learned from announces)
     private var peerNicknames: [PeerID: String] = [:]
     
@@ -260,7 +264,18 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
         switch state {
         case .ready:
             SecureLogger.info("WiFiAware: Connection ready (initiator: \(isInitiator))", category: .session)
+            
+            // Track as pending until the remote sends an announce
+            lock.lock()
+            if !pendingConnections.contains(where: { $0 === connection }) {
+                pendingConnections.append(connection)
+            }
+            lock.unlock()
+            
             receiveData(on: connection)
+            
+            // Send our announce so the remote side learns about us
+            sendAnnounceTo(connection: connection)
             
         case .failed(let error):
             SecureLogger.error("WiFiAware: Connection failed: \(error)", category: .session)
@@ -286,6 +301,9 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     
     private func removeConnection(_ connection: NWConnection) {
         lock.lock()
+        
+        // Remove from pending
+        pendingConnections.removeAll { $0 === connection }
         
         // Find and remove from active
         if let peerID = activeConnections.first(where: { $0.value === connection })?.key {
@@ -428,12 +446,35 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
     private func handleAnnounce(_ packet: BitchatPacket, from connection: NWConnection) {
         let senderID = PeerID(hexData: packet.senderID)
         
+        // Skip our own announces
+        guard senderID != myPeerID else { return }
+        
+        lock.lock()
+        let isNewPeer = activeConnections[senderID] == nil
+        
+        // Register this connection with the peer ID
+        activeConnections[senderID] = connection
+        
+        // Remove from pending connections
+        pendingConnections.removeAll { $0 === connection }
+        
         if let nickname = String(data: packet.payload, encoding: .utf8), !nickname.isEmpty {
-            lock.lock()
             peerNicknames[senderID] = nickname
-            lock.unlock()
+        }
+        lock.unlock()
+        
+        publishPeerSnapshots()
+        
+        if isNewPeer {
+            SecureLogger.info("WiFiAware: Registered peer \(senderID.id.prefix(8))… via announce", category: .session)
             
-            publishPeerSnapshots()
+            // Notify delegate about the new peer
+            DispatchQueue.main.async { [weak self] in
+                self?.delegate?.didConnectToPeer(senderID)
+            }
+            
+            // Send our announce back so the remote also registers us
+            sendAnnounceTo(connection: connection)
         }
     }
     
@@ -472,6 +513,25 @@ final class WiFiAwareTransport: NSObject, @unchecked Sendable {
         DispatchQueue.main.async { [weak self, snapshots] in
             self?.peerEventsDelegate?.didUpdatePeerSnapshots(snapshots)
         }
+    }
+    
+    // MARK: - Direct Announce
+    
+    /// Send an announce packet to a specific connection (used on initial connect)
+    private func sendAnnounceTo(connection: NWConnection) {
+        let timestampMs = UInt64(Date().timeIntervalSince1970 * 1000)
+        
+        let packet = BitchatPacket(
+            type: MessageType.announce.rawValue,
+            senderID: mySenderIDData,
+            recipientID: nil,
+            timestamp: timestampMs,
+            payload: myNickname.data(using: .utf8) ?? Data(),
+            signature: nil,
+            ttl: 7
+        )
+        
+        sendPacket(packet, to: connection)
     }
     
     // MARK: - Helper to create packet sender ID as Data

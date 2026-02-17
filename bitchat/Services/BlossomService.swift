@@ -23,7 +23,9 @@ class BlossomService {
     ///   - mimeType: The MIME type of the file
     /// - Returns: The public URL of the uploaded file
     func uploadFile(at fileURL: URL, mimeType: String = "application/octet-stream") async throws -> URL {
+        #if DEBUG
         print("[BlossomService] Starting upload for \(fileURL.lastPathComponent)")
+        #endif
         
         var request = URLRequest(url: defaultServerURL)
         request.httpMethod = "POST"
@@ -52,10 +54,12 @@ class BlossomService {
         }
         
         guard (200...299).contains(httpResponse.statusCode) else {
+            #if DEBUG
             print("[BlossomService] Upload failed with status: \(httpResponse.statusCode)")
             if let responseString = String(data: data, encoding: .utf8) {
                 print("[BlossomService] Response: \(responseString)")
             }
+            #endif
             throw UploadError.uploadFailed(statusCode: httpResponse.statusCode)
         }
         
@@ -70,7 +74,9 @@ class BlossomService {
                urlTag.count > 1,
                let urlString = urlTag.last,
                let url = URL(string: urlString) {
+                #if DEBUG
                 print("[BlossomService] Upload success (NIP-94): \(url)")
+                #endif
                 return url
             }
         }
@@ -79,7 +85,9 @@ class BlossomService {
         if let json = try? JSONSerialization.jsonObject(with: data) as? [String: Any],
            let urlString = json["url"] as? String,
            let url = URL(string: urlString) {
+            #if DEBUG
             print("[BlossomService] Upload success (Simple): \(url)")
+            #endif
             return url
         }
         

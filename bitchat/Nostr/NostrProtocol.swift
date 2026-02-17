@@ -18,6 +18,7 @@ struct NostrProtocol {
         case seal = 13 // NIP-17 sealed event
         case giftWrap = 1059 // NIP-59 gift wrap
         case ephemeralEvent = 20000
+        case geohashPresence = 20001
     }
     
     /// Create a NIP-17 private message
@@ -120,6 +121,24 @@ struct NostrProtocol {
             kind: .ephemeralEvent,
             tags: tags,
             content: content
+        )
+        let schnorrKey = try senderIdentity.schnorrSigningKey()
+        return try event.sign(with: schnorrKey)
+    }
+
+    /// Create a geohash presence heartbeat (kind 20001)
+    /// Must contain empty content and NO nickname tag
+    static func createGeohashPresenceEvent(
+        geohash: String,
+        senderIdentity: NostrIdentity
+    ) throws -> NostrEvent {
+        let tags = [["g", geohash]]
+        let event = NostrEvent(
+            pubkey: senderIdentity.publicKeyHex,
+            createdAt: Date(),
+            kind: .geohashPresence,
+            tags: tags,
+            content: ""
         )
         let schnorrKey = try senderIdentity.schnorrSigningKey()
         return try event.sign(with: schnorrKey)

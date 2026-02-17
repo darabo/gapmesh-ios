@@ -10,6 +10,47 @@ import BitLogger
 import Foundation
 import Security
 
+// MARK: - Keychain Error Types
+// BCH-01-009: Proper error classification to distinguish expected states from critical failures
+
+/// Result of a keychain read operation with proper error classification
+enum KeychainReadResult {
+    case success(Data)
+    case itemNotFound        // Expected: key doesn't exist yet
+    case accessDenied        // Critical: app lacks keychain access
+    case deviceLocked        // Recoverable: device is locked
+    case authenticationFailed // Recoverable: biometric/passcode failed
+    case otherError(OSStatus) // Unexpected error
+
+    var isRecoverableError: Bool {
+        switch self {
+        case .deviceLocked, .authenticationFailed:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
+/// Result of a keychain save operation with proper error classification
+enum KeychainSaveResult {
+    case success
+    case duplicateItem       // Can retry with update
+    case accessDenied        // Critical: app lacks keychain access
+    case deviceLocked        // Recoverable: device is locked
+    case storageFull         // Critical: no space available
+    case otherError(OSStatus)
+
+    var isRecoverableError: Bool {
+        switch self {
+        case .duplicateItem, .deviceLocked:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 protocol KeychainManagerProtocol {
     func saveIdentityKey(_ keyData: Data, forKey key: String) -> Bool
     func getIdentityKey(forKey key: String) -> Data?
@@ -20,6 +61,12 @@ protocol KeychainManagerProtocol {
     func secureClear(_ string: inout String)
 
     func verifyIdentityKeyExists() -> Bool
+
+    // BCH-01-009: Methods with proper error classification
+    /// Get identity key with detailed result for error handling
+    func getIdentityKeyWithResult(forKey key: String) -> KeychainReadResult
+    /// Save identity key with detailed result for error handling
+    func saveIdentityKeyWithResult(_ keyData: Data, forKey key: String) -> KeychainSaveResult
 
     // MARK: - Generic Data Storage (consolidated from KeychainHelper)
     /// Save data with a custom service name
@@ -54,7 +101,181 @@ final class KeychainManager: KeychainManagerProtocol {
         SecureLogger.logKeyOperation(.delete, keyType: key, success: result)
         return result
     }
-    
+
+    // MARK: - BCH-01-009: Methods with Proper Error Classification
+
+    /// Get identity key with detailed result for proper error handling
+    /// Distinguishes between missing keys (expected) and critical failures
+    func getIdentityKeyWithResult(forKey key: String) -> KeychainReadResult {
+        let fullKey = "identity_\(key)"
+        return retrieveDataWithResult(forKey: fullKey)
+    }
+
+    /// Save identity key with detailed result and retry logic for transient errors
+    func saveIdentityKeyWithResult(_ keyData: Data, forKey key: String) -> KeychainSaveResult {
+        let fullKey = "identity_\(key)"
+        return saveDataWithResult(keyData, forKey: fullKey)
+    }
+
+    /// Internal method to save data with detailed result and retry for transient errors
+    private func saveDataWithResult(_ data: Data, forKey key: String, retryCount: Int = 2) -> KeychainSaveResult {
+        // Delete any existing item first to ensure clean state
+        _ = delete(forKey: key)
+
+        // Build base query
+        var base: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecValueData as String: data,
+            kSecAttrService as String: service,
+            kSecAttrAccessible as String: kSecAttrAccessibleWhenUnlocked,
+            kSecAttrLabel as String: "bitchat-\(key)"
+        ]
+        #if os(macOS)
+        base[kSecAttrSynchronizable as String] = false
+        #endif
+
+        func attempt(addAccessGroup: Bool) -> OSStatus {
+            var query = base
+            if addAccessGroup { query[kSecAttrAccessGroup as String] = appGroup }
+            return SecItemAdd(query as CFDictionary, nil)
+        }
+
+        #if os(iOS)
+        var status = attempt(addAccessGroup: true)
+        if status == -34018 { // Missing entitlement, retry without access group
+            status = attempt(addAccessGroup: false)
+        }
+        #else
+        let status = attempt(addAccessGroup: false)
+        #endif
+
+        // Classify the result
+        let result = classifySaveStatus(status)
+
+        // Log all outcomes consistently
+        switch result {
+        case .success:
+            SecureLogger.debug("Keychain save succeeded for key: \(key)", category: .keychain)
+        case .duplicateItem:
+            SecureLogger.warning("Keychain save found duplicate for key: \(key)", category: .keychain)
+        case .accessDenied:
+            SecureLogger.error(NSError(domain: "Keychain", code: Int(status)),
+                               context: "Keychain access denied for key: \(key)", category: .keychain)
+        case .deviceLocked:
+            SecureLogger.warning("Device locked during keychain save for key: \(key)", category: .keychain)
+        case .storageFull:
+            SecureLogger.error(NSError(domain: "Keychain", code: Int(status)),
+                               context: "Keychain storage full for key: \(key)", category: .keychain)
+        case .otherError(let code):
+            SecureLogger.error(NSError(domain: "Keychain", code: Int(code)),
+                               context: "Keychain save failed for key: \(key)", category: .keychain)
+        }
+
+        // Retry transient errors with exponential backoff
+        if result.isRecoverableError && retryCount > 0 {
+            let delayMs = UInt32((3 - retryCount) * 100) // 100ms, 200ms backoff
+            usleep(delayMs * 1000)
+            SecureLogger.debug("Retrying keychain save for key: \(key), attempts remaining: \(retryCount)", category: .keychain)
+            return saveDataWithResult(data, forKey: key, retryCount: retryCount - 1)
+        }
+
+        return result
+    }
+
+    /// Internal method to retrieve data with detailed result
+    private func retrieveDataWithResult(forKey key: String) -> KeychainReadResult {
+        let base: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecAttrService as String: service,
+            kSecReturnData as String: true,
+            kSecMatchLimit as String: kSecMatchLimitOne
+        ]
+
+        var result: AnyObject?
+        func attempt(withAccessGroup: Bool) -> OSStatus {
+            var q = base
+            if withAccessGroup { q[kSecAttrAccessGroup as String] = appGroup }
+            return SecItemCopyMatching(q as CFDictionary, &result)
+        }
+
+        #if os(iOS)
+        var status = attempt(withAccessGroup: true)
+        if status == -34018 { status = attempt(withAccessGroup: false) }
+        #else
+        let status = attempt(withAccessGroup: false)
+        #endif
+
+        // Classify the result
+        let readResult = classifyReadStatus(status, data: result as? Data)
+
+        // Log all outcomes consistently
+        switch readResult {
+        case .success:
+            SecureLogger.debug("Keychain read succeeded for key: \(key)", category: .keychain)
+        case .itemNotFound:
+            // Expected case - no logging needed for missing keys
+            break
+        case .accessDenied:
+            SecureLogger.error(NSError(domain: "Keychain", code: Int(status)),
+                               context: "Keychain access denied for key: \(key)", category: .keychain)
+        case .deviceLocked:
+            SecureLogger.warning("Device locked during keychain read for key: \(key)", category: .keychain)
+        case .authenticationFailed:
+            SecureLogger.warning("Authentication failed for keychain read of key: \(key)", category: .keychain)
+        case .otherError(let code):
+            SecureLogger.error(NSError(domain: "Keychain", code: Int(code)),
+                               context: "Keychain read failed for key: \(key)", category: .keychain)
+        }
+
+        return readResult
+    }
+
+    /// Classify keychain read status into meaningful categories
+    private func classifyReadStatus(_ status: OSStatus, data: Data?) -> KeychainReadResult {
+        switch status {
+        case errSecSuccess:
+            if let data = data {
+                return .success(data)
+            }
+            return .otherError(status)
+        case errSecItemNotFound:
+            return .itemNotFound
+        case errSecInteractionNotAllowed:
+            // Device is locked or in a state that doesn't allow keychain access
+            return .deviceLocked
+        case errSecAuthFailed:
+            return .authenticationFailed
+        case -34018: // errSecMissingEntitlement
+            return .accessDenied
+        case errSecNotAvailable:
+            return .accessDenied
+        default:
+            return .otherError(status)
+        }
+    }
+
+    /// Classify keychain save status into meaningful categories
+    private func classifySaveStatus(_ status: OSStatus) -> KeychainSaveResult {
+        switch status {
+        case errSecSuccess:
+            return .success
+        case errSecDuplicateItem:
+            return .duplicateItem
+        case errSecInteractionNotAllowed:
+            return .deviceLocked
+        case -34018: // errSecMissingEntitlement
+            return .accessDenied
+        case errSecNotAvailable:
+            return .accessDenied
+        case errSecDiskFull:
+            return .storageFull
+        default:
+            return .otherError(status)
+        }
+    }
+
     // MARK: - Generic Operations
     
     private func save(_ value: String, forKey key: String) -> Bool {

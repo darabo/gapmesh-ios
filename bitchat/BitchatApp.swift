@@ -22,6 +22,8 @@ struct BitchatApp: App {
     
     @StateObject private var chatViewModel: ChatViewModel
     @StateObject private var languageManager = LanguageManager.shared
+    @ObservedObject private var decoyManager = DecoyModeManager.shared
+    @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     #if os(iOS)
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
@@ -32,6 +34,15 @@ struct BitchatApp: App {
     #elseif os(macOS)
     @NSApplicationDelegateAdaptor(MacAppDelegate.self) var appDelegate
     #endif
+    
+    // Computed property for preferred color scheme
+    private var preferredColorScheme: ColorScheme? {
+        switch appearanceMode {
+        case 1: return .light
+        case 2: return .dark
+        default: return nil // System default
+        }
+    }
     
     private let idBridge = NostrIdentityBridge()
     
@@ -54,8 +65,10 @@ struct BitchatApp: App {
     var body: some Scene {
         WindowGroup {
             Group {
-                if onboardingSeen {
-                    ContentView()
+                if decoyManager.isDecoyActive {
+                    CalculatorDecoyView()
+                } else if onboardingSeen {
+                    MainTabView()
                 } else {
                     OnboardingView(isPresented: .constant(true))
                 }
@@ -64,6 +77,7 @@ struct BitchatApp: App {
             .environmentObject(chatViewModel)
             .environmentObject(languageManager)
             .applyLanguageEnvironment(languageManager)
+            .preferredColorScheme(preferredColorScheme)
             .onAppear {
                 NotificationDelegate.shared.chatViewModel = chatViewModel
                 // Inject live Noise service into VerificationService to avoid creating new BLE instances
@@ -79,8 +93,10 @@ struct BitchatApp: App {
 
                 // Initialize network activation policy; will start Tor/Nostr only when allowed
                 // Services are started by OnboardingView.completeOnboarding() for new users
-                if onboardingSeen {
+                if onboardingSeen && !decoyManager.isDecoyActive {
                     NetworkActivationService.shared.start()
+                    // Start presence service (will wait for Tor readiness)
+                    GeohashPresenceService.shared.start()
                 }
                 // Check for shared content
                 checkForSharedContent()
@@ -108,7 +124,7 @@ struct BitchatApp: App {
                         // We need to wake everything up!
                         
                         // Restart services when becoming active
-                        if onboardingSeen {
+                        if onboardingSeen && !decoyManager.isDecoyActive {
                             chatViewModel.startServices()
                         }
                         TorManager.shared.setAppForeground(true)

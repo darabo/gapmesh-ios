@@ -19,8 +19,12 @@ final class ServiceUuidRotation {
     /// HMAC prefix for derivation
     private static let hmacPrefix = "gap-mesh-ble-uuid-v1-"
     
-    /// Fallback UUID (matches current static UUID for backward compatibility with Bitchat)
+    /// Fallback UUID (Gap Mesh static UUID for backward compatibility)
     static let fallbackUUID = UUID(uuidString: "7ACD9057-811D-4D17-AB14-DA891780FA3A")!
+    
+    /// Original Bitchat/Noghteha BLE Service UUID — used in legacy mode to enable
+    /// cross-app mesh communication with Bitchat and Noghteha devices
+    static let bitchatLegacyUUID = UUID(uuidString: "F47B5E2D-4A9E-4C5A-9B3F-8E1D2C3A4B5C")!
     
     // MARK: - State
     
@@ -68,9 +72,10 @@ final class ServiceUuidRotation {
             uuids.append(deriveUUIDForBucket(currentBucket + 1))
         }
         
-        // Always include legacy UUID for Bitchat compatibility (if enabled)
+        // Always include legacy UUIDs for backward + Bitchat compatibility (if enabled)
         if includeLegacy {
             uuids.append(Self.fallbackUUID)
+            uuids.append(Self.bitchatLegacyUUID)
         }
         
         return Array(Set(uuids))  // Remove duplicates

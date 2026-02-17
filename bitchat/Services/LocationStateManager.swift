@@ -38,6 +38,7 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
     private let teleportedStoreKey = "locationChannel.teleportedSet"
     private let bookmarksKey = "locationChannel.bookmarks"
     private let bookmarkNamesKey = "locationChannel.bookmarkNames"
+    private let recentChannelsKey = "locationChannel.recentChannels"
 
     // MARK: - Published State (Channel)
 
@@ -47,10 +48,15 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
     @Published var teleported: Bool = false
     @Published private(set) var locationNames: [GeohashChannelLevel: String] = [:]
 
+    /// Whether the user has opted-in to location services via the in-app toggle.
+    /// Both the Locations and Settings tabs observe this so they stay in sync.
+    @Published var isLocationUserEnabled: Bool = false
+
     // MARK: - Published State (Bookmarks)
 
     @Published private(set) var bookmarks: [String] = []
     @Published private(set) var bookmarkNames: [String: String] = [:]
+    @Published private(set) var recentChannels: [String] = [] // Custom/teleported geohashes visited recently
 
     // MARK: - Private State
 
@@ -129,6 +135,12 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
            let dict = try? JSONDecoder().decode([String: String].self, from: data) {
             bookmarkNames = dict
         }
+        
+        // Load recent channels
+        if let data = storage.data(forKey: recentChannelsKey),
+           let arr = try? JSONDecoder().decode([String].self, from: data) {
+            recentChannels = arr
+        }
     }
 
     private func initializePermissionState() {
@@ -166,14 +178,14 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
         case .notDetermined:
             cl.requestWhenInUseAuthorization()
         case .restricted:
-            Task { @MainActor in self.permissionState = .restricted }
+            Task { @MainActor in self.permissionState = .restricted; self.isLocationUserEnabled = false }
         case .denied:
-            Task { @MainActor in self.permissionState = .denied }
+            Task { @MainActor in self.permissionState = .denied; self.isLocationUserEnabled = false }
         case .authorizedAlways, .authorizedWhenInUse, .authorized:
-            Task { @MainActor in self.permissionState = .authorized }
+            Task { @MainActor in self.permissionState = .authorized; self.isLocationUserEnabled = true }
             requestOneShotLocation()
         @unknown default:
-            Task { @MainActor in self.permissionState = .restricted }
+            Task { @MainActor in self.permissionState = .restricted; self.isLocationUserEnabled = false }
         }
     }
 
@@ -223,8 +235,35 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
                     }
                 } else {
                     self.teleported = self.teleportedSet.contains(ch.geohash)
+                    // Track custom/teleported channels in recent
+                    self.addToRecent(ch.geohash)
                 }
             }
+        }
+    }
+    
+    /// Add a geohash to recent channels (for custom/teleported channels)
+    private func addToRecent(_ geohash: String) {
+        let gh = Self.normalizeGeohash(geohash)
+        guard !gh.isEmpty else { return }
+        
+        // Remove if already exists (to move to front)
+        recentChannels.removeAll { $0 == gh }
+        
+        // Add to front
+        recentChannels.insert(gh, at: 0)
+        
+        // Keep only last 10
+        if recentChannels.count > 10 {
+            recentChannels = Array(recentChannels.prefix(10))
+        }
+        
+        persistRecentChannels()
+    }
+    
+    private func persistRecentChannels() {
+        if let data = try? JSONEncoder().encode(recentChannels) {
+            storage.set(data, forKey: recentChannelsKey)
         }
     }
 
@@ -320,7 +359,10 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
         case .authorizedAlways, .authorizedWhenInUse, .authorized: newState = .authorized
         @unknown default: newState = .restricted
         }
-        Task { @MainActor in self.permissionState = newState }
+        Task { @MainActor in
+            self.permissionState = newState
+            self.isLocationUserEnabled = (newState == .authorized)
+        }
     }
 
     // MARK: - Private Helpers (Channel Computation)

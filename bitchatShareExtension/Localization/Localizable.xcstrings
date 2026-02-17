@@ -1,744 +1,744 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    "share.fallback.shared_link_title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "shared Link",
-            "comment": "Fallback title when saving a shared link"
+  "sourceLanguage" : "en",
+  "strings" : {
+    "share.fallback.shared_link_title" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "رابط مشترك"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "رابط مشترك",
-            "comment": "Fallback title when saving a shared link"
+        "de" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "geteilter link"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "geteilter link",
-            "comment": "Fallback title when saving a shared link"
+        "en" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "shared Link"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "enlace compartido",
-            "comment": "Fallback title when saving a shared link"
+        "es" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "enlace compartido"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "lien partagé",
-            "comment": "Fallback title when saving a shared link"
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "لینک به اشتراک گذاشته شده"
           }
         },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "קישור משותף",
-            "comment": "Fallback title when saving a shared link"
+        "fr" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "lien partagé"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tautan dibagikan",
-            "comment": "Fallback title when saving a shared link"
+        "he" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "קישור משותף"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "link condiviso",
-            "comment": "Fallback title when saving a shared link"
+        "id" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "tautan dibagikan"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "共有リンク",
-            "comment": "Fallback title when saving a shared link"
+        "it" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "link condiviso"
           }
         },
-        "ne": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "साझा गरिएको लिङ्क",
-            "comment": "Fallback title when saving a shared link"
+        "ja" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "共有リンク"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "link compartilhado",
-            "comment": "Fallback title when saving a shared link"
+        "ko" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "공유된 링크"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "поделился ссылкой",
-            "comment": "Fallback title when saving a shared link"
+        "ne" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "साझा गरिएको लिङ्क"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "спільне посилання",
-            "comment": "Fallback title when saving a shared link"
+        "pt-BR" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "link compartilhado"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "分享的链接",
-            "comment": "Fallback title when saving a shared link"
+        "ru" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "поделился ссылкой"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "공유된 링크",
-            "comment": "Fallback title when saving a shared link"
+        "tr" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "paylaşılan bağlantı"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "paylaşılan bağlantı",
-            "comment": "Fallback title when saving a shared link"
+        "uk" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "спільне посилання"
           }
         },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لینک به اشتراک گذاشته شده"
-          }
-        }
-      }
-    },
-    "share.status.failed_to_encode": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "failed to encode link",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تعذر ترميز الرابط",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "link konnte nicht codiert werden",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "no se pudo codificar el enlace",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "échec de l'encodage du lien",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "לא ניתן לקודד את הקישור",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "gagal mengodekan tautan",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "impossibile codificare il link",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "リンクのエンコードに失敗しました",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "ne": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "लिङ्क सङ्केत गर्न सकेन",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "falha ao codificar link",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "не удалось закодировать ссылку",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "не вдалося закодувати посилання",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "无法编码链接",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "링크를 인코딩하는 데 실패했습니다",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "bağlantı kodlanamadı",
-            "comment": "Shown when the share payload cannot be encoded"
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "رمزگذاری لینک ناموفق بود"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "comment" : "Fallback title when saving a shared link",
+            "state" : "translated",
+            "value" : "分享的链接"
           }
         }
       }
     },
-    "share.status.no_shareable_content": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "no shareable content",
-            "comment": "Shown when provided content cannot be shared"
+    "share.status.failed_to_encode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "تعذر ترميز الرابط"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا محتوى قابلاً للمشاركة",
-            "comment": "Shown when provided content cannot be shared"
+        "de" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "link konnte nicht codiert werden"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "kein teilbarer inhalt",
-            "comment": "Shown when provided content cannot be shared"
+        "en" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "failed to encode link"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "sin contenido que se pueda compartir",
-            "comment": "Shown when provided content cannot be shared"
+        "es" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "no se pudo codificar el enlace"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "aucun contenu partageable",
-            "comment": "Shown when provided content cannot be shared"
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "رمزگذاری لینک ناموفق بود"
           }
         },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "אין תוכן שניתן לשתף",
-            "comment": "Shown when provided content cannot be shared"
+        "fr" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "échec de l'encodage du lien"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tidak ada konten yang bisa dibagikan",
-            "comment": "Shown when provided content cannot be shared"
+        "he" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "לא ניתן לקודד את הקישור"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nessun contenuto condivisibile",
-            "comment": "Shown when provided content cannot be shared"
+        "id" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "gagal mengodekan tautan"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "共有可能なコンテンツがありません",
-            "comment": "Shown when provided content cannot be shared"
+        "it" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "impossibile codificare il link"
           }
         },
-        "ne": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "बाँड्न मिल्ने सामग्री छैन",
-            "comment": "Shown when provided content cannot be shared"
+        "ja" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "リンクのエンコードに失敗しました"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nenhum conteúdo compartilhável",
-            "comment": "Shown when provided content cannot be shared"
+        "ko" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "링크를 인코딩하는 데 실패했습니다"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "нет подходящего контента",
-            "comment": "Shown when provided content cannot be shared"
+        "ne" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "लिङ्क सङ्केत गर्न सकेन"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "нема відповідного контенту",
-            "comment": "Shown when provided content cannot be shared"
+        "pt-BR" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "falha ao codificar link"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "没有可分享的素材",
-            "comment": "Shown when provided content cannot be shared"
+        "ru" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "не удалось закодировать ссылку"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "공유할 수 있는 내용이 없습니다",
-            "comment": "Shown when provided content cannot be shared"
+        "tr" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "bağlantı kodlanamadı"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "paylaşılabilir içerik yok",
-            "comment": "Shown when provided content cannot be shared"
+        "uk" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "не вдалося закодувати посилання"
           }
         },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "محتوای قابل اشتراک‌گذاری وجود ندارد"
-          }
-        }
-      }
-    },
-    "share.status.nothing_to_share": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nothing to share",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لا شيء لمشاركته",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nichts zum teilen",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nada que compartir",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "rien à partager",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "אין מה לשתף",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tidak ada yang bisa dibagikan",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "niente da condividere",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "共有できるものがありません",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "ne": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "बाँड्ने केही छैन",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nada para compartilhar",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "нечем поделиться",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "нема чим ділитися",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "没有可分享的内容",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "공유할 내용이 없습니다",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "paylaşılacak bir şey yok",
-            "comment": "Shown when the share extension receives no content"
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "چیزی برای اشتراک‌گذاری نیست"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share payload cannot be encoded",
+            "state" : "translated",
+            "value" : "无法编码链接"
           }
         }
       }
     },
-    "share.status.shared_link": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ shared link to Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+    "share.status.no_shareable_content" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "لا محتوى قابلاً للمشاركة"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ تم إرسال الرابط إلى Gap Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "de" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "kein teilbarer inhalt"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ link zu Gap Mesh geteilt",
-            "comment": "Confirmation after successfully sharing a link"
+        "en" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "no shareable content"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ enlace compartido con Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "es" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "sin contenido que se pueda compartir"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ lien partagé vers Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "محتوای قابل اشتراک‌گذاری وجود ندارد"
           }
         },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ הקישור נשלח אל Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "fr" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "aucun contenu partageable"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ tautan dikirim ke Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "he" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "אין תוכן שניתן לשתף"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ link inviato a Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "id" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "tidak ada konten yang bisa dibagikan"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gapにリンクを共有",
-            "comment": "Confirmation after successfully sharing a link"
+        "it" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "nessun contenuto condivisibile"
           }
         },
-        "ne": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gap Mesh मा लिङ्क पठाइयो",
-            "comment": "Confirmation after successfully sharing a link"
+        "ja" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "共有可能なコンテンツがありません"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ link enviado para Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "ko" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "공유할 수 있는 내용이 없습니다"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ ссылка отправлена в Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "ne" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "बाँड्न मिल्ने सामग्री छैन"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ посилання надіслано в Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "pt-BR" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "nenhum conteúdo compartilhável"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ 已将链接分享至 Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing a link"
+        "ru" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "нет подходящего контента"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gap Mesh Mesh으로 링크를 공유했습니다",
-            "comment": "Confirmation after successfully sharing a link"
+        "tr" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "paylaşılabilir içerik yok"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gap'e bağlantı paylaşıldı",
-            "comment": "Confirmation after successfully sharing a link"
+        "uk" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "нема відповідного контенту"
           }
         },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ لینک به Gap Mesh ارسال شد"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "comment" : "Shown when provided content cannot be shared",
+            "state" : "translated",
+            "value" : "没有可分享的素材"
           }
         }
       }
     },
-    "share.status.shared_text": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ shared text to Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+    "share.status.nothing_to_share" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "لا شيء لمشاركته"
           }
         },
-        "ar": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ تم إرسال النص إلى Gap Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "de" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "nichts zum teilen"
           }
         },
-        "de": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ text zu Gap Mesh geteilt",
-            "comment": "Confirmation after successfully sharing text"
+        "en" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "nothing to share"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ texto compartido con Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "es" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "nada que compartir"
           }
         },
-        "fr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ texte partagé vers Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "fa" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "چیزی برای اشتراک‌گذاری نیست"
           }
         },
-        "he": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ הטקסט נשלח אל Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "fr" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "rien à partager"
           }
         },
-        "id": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ teks dikirim ke Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "he" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "אין מה לשתף"
           }
         },
-        "it": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ testo inviato a Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "id" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "tidak ada yang bisa dibagikan"
           }
         },
-        "ja": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gapにテキストを共有",
-            "comment": "Confirmation after successfully sharing text"
+        "it" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "niente da condividere"
           }
         },
-        "ne": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gap Mesh मा पाठ पठाइयो",
-            "comment": "Confirmation after successfully sharing text"
+        "ja" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "共有できるものがありません"
           }
         },
-        "pt-BR": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ texto enviado para Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "ko" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "공유할 내용이 없습니다"
           }
         },
-        "ru": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ текст отправлен в Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "ne" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "बाँड्ने केही छैन"
           }
         },
-        "uk": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ текст надіслано в Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "pt-BR" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "nada para compartilhar"
           }
         },
-        "zh-Hans": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ 已将文本分享至 Gap Mesh Mesh",
-            "comment": "Confirmation after successfully sharing text"
+        "ru" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "нечем поделиться"
           }
         },
-        "ko": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gap Mesh Mesh으로 텍스트를 공유했습니다",
-            "comment": "Confirmation after successfully sharing text"
+        "tr" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "paylaşılacak bir şey yok"
           }
         },
-        "tr": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ Gap'e metin paylaşıldı",
-            "comment": "Confirmation after successfully sharing text"
+        "uk" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "нема чим ділитися"
           }
         },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "✓ متن به Gap Mesh ارسال شد"
+        "zh-Hans" : {
+          "stringUnit" : {
+            "comment" : "Shown when the share extension receives no content",
+            "state" : "translated",
+            "value" : "没有可分享的内容"
+          }
+        }
+      }
+    },
+    "share.status.shared_link" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ تم إرسال الرابط إلى Gap Mesh"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ link zu Gap Mesh geteilt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "translated",
+            "value" : "✓ shared link to Gap Mesh"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ enlace compartido con Gap Mesh Mesh"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "✓ لینک به Gap Mesh ارسال شد"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ lien partagé vers Gap Mesh Mesh"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ הקישור נשלח אל Gap Mesh Mesh"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ tautan dikirim ke Gap Mesh Mesh"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ link inviato a Gap Mesh Mesh"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ Gapにリンクを共有"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ Gap Mesh Mesh으로 링크를 공유했습니다"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ Gap Mesh मा लिङ्क पठाइयो"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ link enviado para Gap Mesh Mesh"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ ссылка отправлена в Gap Mesh Mesh"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ Gap'e bağlantı paylaşıldı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ посилання надіслано в Gap Mesh Mesh"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing a link",
+            "state" : "needs_review",
+            "value" : "✓ 已将链接分享至 Gap Mesh Mesh"
+          }
+        }
+      }
+    },
+    "share.status.shared_text" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "ar" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ تم إرسال النص إلى Gap Mesh"
+          }
+        },
+        "de" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ text zu Gap Mesh geteilt"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "translated",
+            "value" : "✓ shared text to Gap Mesh"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ texto compartido con Gap Mesh Mesh"
+          }
+        },
+        "fa" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "✓ متن به Gap Mesh ارسال شد"
+          }
+        },
+        "fr" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ texte partagé vers Gap Mesh Mesh"
+          }
+        },
+        "he" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ הטקסט נשלח אל Gap Mesh Mesh"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ teks dikirim ke Gap Mesh Mesh"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ testo inviato a Gap Mesh Mesh"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ Gapにテキストを共有"
+          }
+        },
+        "ko" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ Gap Mesh Mesh으로 텍스트를 공유했습니다"
+          }
+        },
+        "ne" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ Gap Mesh मा पाठ पठाइयो"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ texto enviado para Gap Mesh Mesh"
+          }
+        },
+        "ru" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ текст отправлен в Gap Mesh Mesh"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ Gap'e metin paylaşıldı"
+          }
+        },
+        "uk" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ текст надіслано в Gap Mesh Mesh"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "comment" : "Confirmation after successfully sharing text",
+            "state" : "needs_review",
+            "value" : "✓ 已将文本分享至 Gap Mesh Mesh"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

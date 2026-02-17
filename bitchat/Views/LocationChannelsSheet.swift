@@ -14,6 +14,7 @@ struct LocationChannelsSheet: View {
     @Environment(\.colorScheme) var colorScheme
     @State private var customGeohash: String = ""
     @State private var customError: String? = nil
+    @State private var showTorRequiredAlert: Bool = false
 
     private var backgroundColor: Color { Theme.background(colorScheme) }
 
@@ -42,10 +43,31 @@ struct LocationChannelsSheet: View {
         }
 
         static func levelTitle(for level: GeohashChannelLevel, count: Int) -> String {
+            // High-precision uncertainty: if count is 0 for high-precision levels,
+            // show "?" because presence broadcasting is disabled for privacy.
+            let isHighPrecision = (level == .neighborhood || level == .block || level == .building)
+            if isHighPrecision && count == 0 {
+                return String(
+                    format: String(localized: "location_channels.row_title_unknown", defaultValue: "%@ [? people]"),
+                    locale: .current,
+                    level.displayName
+                )
+            }
             return rowTitle(label: level.displayName, count: count)
         }
 
         static func bookmarkTitle(geohash: String, count: Int) -> String {
+            // Check precision for bookmarks too
+            let len = geohash.count
+            // Neighborhood=6, Block=7, Building=8+
+            let isHighPrecision = (len >= 6)
+            if isHighPrecision && count == 0 {
+                return String(
+                    format: String(localized: "location_channels.row_title_unknown", defaultValue: "%@ [? people]"),
+                    locale: .current,
+                    "#\(geohash)"
+                )
+            }
             return rowTitle(label: "#\(geohash)", count: count)
         }
 
@@ -153,6 +175,14 @@ struct LocationChannelsSheet: View {
             }
         }
         .onChange(of: manager.availableChannels) { _ in }
+        .alert(
+            Text("location_channels.tor_required.title"),
+            isPresented: $showTorRequiredAlert
+        ) {
+            Button(String(localized: "common.ok"), role: .cancel) { }
+        } message: {
+            Text("location_channels.tor_required.message")
+        }
     }
 
     private var closeButton: some View {
@@ -199,10 +229,16 @@ struct LocationChannelsSheet: View {
                                 .padding(.leading, 8)
                             }
                         ) {
+                            // Require Tor to be enabled for geochannels
+                            guard network.userTorEnabled else {
+                                showTorRequiredAlert = true
+                                return
+                            }
                             manager.markTeleported(for: channel.geohash, false)
                             manager.select(ChannelID.location(channel))
                             isPresented = false
                         }
+                        .opacity(network.userTorEnabled ? 1.0 : 0.5)
                         .padding(.vertical, 6)
                     }
                 } else {
@@ -320,8 +356,8 @@ struct LocationChannelsSheet: View {
                 .padding(.horizontal, 10)
                 .background(Color.secondary.opacity(0.12))
                 .cornerRadius(6)
-                .opacity(isValid ? 1.0 : 0.4)
-                .disabled(!isValid)
+                .opacity(isValid && network.userTorEnabled ? 1.0 : 0.4)
+                .disabled(!isValid || !network.userTorEnabled)
             }
             if let err = customError {
                 Text(err)
@@ -332,6 +368,12 @@ struct LocationChannelsSheet: View {
     }
     
     private func submitCustomGeohash() {
+        // Require Tor to be enabled for geochannels
+        guard network.userTorEnabled else {
+            showTorRequiredAlert = true
+            return
+        }
+        
         let normalized = customGeohash
             .trimmingCharacters(in: .whitespacesAndNewlines)
             .lowercased()
@@ -379,6 +421,11 @@ struct LocationChannelsSheet: View {
                             .padding(.leading, 8)
                         }
                     ) {
+                        // Require Tor to be enabled for geochannels
+                        guard network.userTorEnabled else {
+                            showTorRequiredAlert = true
+                            return
+                        }
                         let inRegional = manager.availableChannels.contains { $0.geohash == gh }
                         if !inRegional && !manager.availableChannels.isEmpty {
                             manager.markTeleported(for: gh, true)
@@ -388,6 +435,7 @@ struct LocationChannelsSheet: View {
                         manager.select(ChannelID.location(channel))
                         isPresented = false
                     }
+                    .opacity(network.userTorEnabled ? 1.0 : 0.5)
                     .padding(.vertical, 6)
                     .onAppear { bookmarks.resolveBookmarkNameIfNeeded(for: gh) }
 
