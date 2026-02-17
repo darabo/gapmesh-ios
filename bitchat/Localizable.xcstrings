@@ -5084,7 +5084,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "triple-tap logo to instantly clear all data"
+            "value" : "Triple-tap anywhere to instantly clear all data and enter calculator mode"
           }
         },
         "es" : {
@@ -5096,7 +5096,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سه بار روی لوگو بزنید تا همه داده‌ها فوراً پاک شوند"
+            "value" : "سه بار به هر نقطه‌ای بروید تا فوراً تمام داده‌ها پاک شوند و وارد حالت ماشین حساب شوید."
           }
         },
         "fil" : {
@@ -33768,13 +33768,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Triple-tap the Gap Mesh header to instantly wipe all data and transform the app into a calculator. Set up your recovery PIN next."
+            "value" : "Triple-tap anywhere to instantly wipe all data and transform the app into a calculator. Set up your recovery PIN next."
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "سه بار روی سربرگ گپ مش ضربه بزنید تا داده‌ها فوراً پاک شده و برنامه به ماشین‌حساب تبدیل شود. پین بازیابی خود را در صفحه بعد تنظیم کنید."
+            "value" : "سه بار در هر جایی ضربه بزنید تا داده‌ها فوراً پاک شده و برنامه به ماشین‌حساب تبدیل شود. پین بازیابی خود را در صفحه بعد تنظیم کنید."
           }
         }
       }

@@ -70,6 +70,13 @@ struct MainTabView: View {
                 .tag(Tab.settings)
         }
         .accentColor(Color.green) // Global accent color to match "Gap Mesh" branding style
+        #if os(iOS)
+        .overlay(
+            TripleTapOverlay {
+                viewModel.panicClearAllData()
+            }
+        )
+        #endif
         .onAppear {
             // Ensure view model is ready if needed
         }

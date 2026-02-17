@@ -48,6 +48,10 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
     @Published var teleported: Bool = false
     @Published private(set) var locationNames: [GeohashChannelLevel: String] = [:]
 
+    /// Whether the user has opted-in to location services via the in-app toggle.
+    /// Both the Locations and Settings tabs observe this so they stay in sync.
+    @Published var isLocationUserEnabled: Bool = false
+
     // MARK: - Published State (Bookmarks)
 
     @Published private(set) var bookmarks: [String] = []
@@ -174,14 +178,14 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
         case .notDetermined:
             cl.requestWhenInUseAuthorization()
         case .restricted:
-            Task { @MainActor in self.permissionState = .restricted }
+            Task { @MainActor in self.permissionState = .restricted; self.isLocationUserEnabled = false }
         case .denied:
-            Task { @MainActor in self.permissionState = .denied }
+            Task { @MainActor in self.permissionState = .denied; self.isLocationUserEnabled = false }
         case .authorizedAlways, .authorizedWhenInUse, .authorized:
-            Task { @MainActor in self.permissionState = .authorized }
+            Task { @MainActor in self.permissionState = .authorized; self.isLocationUserEnabled = true }
             requestOneShotLocation()
         @unknown default:
-            Task { @MainActor in self.permissionState = .restricted }
+            Task { @MainActor in self.permissionState = .restricted; self.isLocationUserEnabled = false }
         }
     }
 
@@ -355,7 +359,10 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
         case .authorizedAlways, .authorizedWhenInUse, .authorized: newState = .authorized
         @unknown default: newState = .restricted
         }
-        Task { @MainActor in self.permissionState = newState }
+        Task { @MainActor in
+            self.permissionState = newState
+            self.isLocationUserEnabled = (newState == .authorized)
+        }
     }
 
     // MARK: - Private Helpers (Channel Computation)

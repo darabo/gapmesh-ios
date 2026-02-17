@@ -14,7 +14,6 @@ struct LocationsTabView: View {
     @ObservedObject private var bookmarks = GeohashBookmarksStore.shared
     @State private var customGeohash = ""
     @State private var geohashError: String? = nil
-    @State private var locationServicesEnabled = true
     @Environment(\.colorScheme) var colorScheme
     
     private var textColor: Color {
@@ -185,7 +184,7 @@ struct LocationsTabView: View {
                         HStack {
                             Image(systemName: "location.fill")
                                 .font(.system(size: 20))
-                                .foregroundColor(locationServicesEnabled ? textColor : .gray)
+                                .foregroundColor(locationManager.isLocationUserEnabled ? textColor : .gray)
                             
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(LanguageManager.shared.localizedString("settings.location"))
@@ -200,12 +199,21 @@ struct LocationsTabView: View {
                             
                             Spacer()
                             
-                            Toggle("", isOn: $locationServicesEnabled)
+                            Toggle("", isOn: $locationManager.isLocationUserEnabled)
                                 .labelsHidden()
                                 .tint(textColor)
-                                .onChange(of: locationServicesEnabled) { newValue in
+                                .onChange(of: locationManager.isLocationUserEnabled) { newValue in
                                     if newValue {
-                                        locationManager.enableLocationChannels()
+                                        if locationManager.permissionState == .denied {
+                                            #if os(iOS)
+                                            if let url = URL(string: UIApplication.openSettingsURLString) {
+                                                UIApplication.shared.open(url)
+                                            }
+                                            #endif
+                                            DispatchQueue.main.async { locationManager.isLocationUserEnabled = false }
+                                        } else {
+                                            locationManager.enableLocationChannels()
+                                        }
                                     } else {
                                         locationManager.select(.mesh)
                                     }

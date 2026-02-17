@@ -180,6 +180,13 @@ struct ContentView: View {
         }
         .background(backgroundColor)
         .foregroundColor(textColor)
+        #if os(iOS)
+        .overlay(
+            TripleTapOverlay {
+                viewModel.panicClearAllData()
+            }
+        )
+        #endif
         #if os(macOS)
         .frame(minWidth: 600, minHeight: 400)
         #endif
@@ -601,6 +608,9 @@ struct ContentView: View {
                 #endif
             }
             return .systemAction
+        })
+        .simultaneousGesture(TapGesture(count: 3).onEnded {
+            viewModel.panicClearAllData()
         })
     }
     

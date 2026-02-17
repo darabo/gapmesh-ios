@@ -20,7 +20,6 @@ struct SettingsTabView: View {
     // Settings states
     @State private var torEnabled = UserDefaults.standard.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
     @State private var proofOfWorkEnabled = UserDefaults.standard.bool(forKey: "proofOfWorkEnabled")
-    @State private var locationEnabled = true
     @State private var legacyCompatibility = UserDefaults.standard.isLegacyCompatibilityEnabled
     
     private var textColor: Color {
@@ -189,12 +188,21 @@ struct SettingsTabView: View {
                                 icon: "location.fill",
                                 title: LanguageManager.shared.localizedString("settings.location"),
                                 description: LanguageManager.shared.localizedString("settings.location_description"),
-                                isOn: $locationEnabled,
+                                isOn: $locationManager.isLocationUserEnabled,
                                 accentColor: accentBlue
                             )
-                            .onChange(of: locationEnabled) { newValue in
+                            .onChange(of: locationManager.isLocationUserEnabled) { newValue in
                                 if newValue {
-                                    locationManager.enableLocationChannels()
+                                    if locationManager.permissionState == .denied {
+                                        #if os(iOS)
+                                        if let url = URL(string: UIApplication.openSettingsURLString) {
+                                            UIApplication.shared.open(url)
+                                        }
+                                        #endif
+                                        DispatchQueue.main.async { locationManager.isLocationUserEnabled = false }
+                                    } else {
+                                        locationManager.enableLocationChannels()
+                                    }
                                 } else {
                                     // Switch to mesh mode when disabling location
                                     locationManager.select(.mesh)
@@ -479,9 +487,6 @@ struct SettingsTabView: View {
         }
         .sheet(isPresented: $showingNameEditSheet) {
             editNameSheet
-        }
-        .onAppear {
-            locationEnabled = locationManager.permissionState == .authorized
         }
     }
     
