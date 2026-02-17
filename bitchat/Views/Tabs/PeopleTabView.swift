@@ -18,6 +18,7 @@ struct PeopleTabView: View {
     @State private var showPrivateChatSheet = false
     @State private var selectedPeerForChat: PeerID? = nil
     @State private var showNostrPMAlert = false
+    @State private var showVerificationSheet = false
     @State private var selectedNostrPerson: GeoPerson? = nil
     
     private var textColor: Color {
@@ -171,6 +172,18 @@ struct PeopleTabView: View {
             }
             .navigationTitle(LanguageManager.shared.localizedString("tabs.people"))
             .foregroundColor(textColor)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: { showVerificationSheet = true }) {
+                        Image(systemName: "qrcode.viewfinder")
+                            .foregroundColor(Theme.legacyGreen(colorScheme))
+                    }
+                }
+            }
+        }
+        .sheet(isPresented: $showVerificationSheet) {
+            VerificationSheetView(isPresented: $showVerificationSheet)
+                .environmentObject(viewModel)
         }
         .sheet(isPresented: $showPrivateChatSheet) {
             if let peerID = selectedPeerForChat {
