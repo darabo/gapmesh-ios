@@ -40247,13 +40247,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "scan someone else's qr"
+            "value" : "Scan someone else's QR"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "اسکن QR دیگری"
+            "value" : "کد QR شخص دیگری را اسکن کنید"
           }
         }
       }

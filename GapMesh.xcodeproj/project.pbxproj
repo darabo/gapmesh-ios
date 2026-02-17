@@ -117,20 +117,6 @@
 			);
 			target = 6CB97DF2EA57234CB3E563B8 /* gaptest */;
 		};
-		EA3AD5912F3D2308005669AA /* Exceptions for "bitchat" folder in "gaptest" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Resources/gapmesh-light.apk",
-			);
-			target = 6CB97DF2EA57234CB3E563B8 /* gaptest */;
-		};
-		EA3AD5922F3D2308005669AA /* Exceptions for "bitchat" folder in "gapTests_macOS" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Resources/gapmesh-light.apk",
-			);
-			target = 47FF23248747DD7CB666CB91 /* gapTests_macOS */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -138,8 +124,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				A6E32D1B2E762EA70032EA8A /* Exceptions for "bitchat" folder in "gapShareExtension" target */,
-				EA3AD5912F3D2308005669AA /* Exceptions for "bitchat" folder in "gaptest" target */,
-				EA3AD5922F3D2308005669AA /* Exceptions for "bitchat" folder in "gapTests_macOS" target */,
 				A6E32D1C2E762EA70032EA8A /* Exceptions for "bitchat" folder in "gap_iOS" target */,
 				A6E32D1D2E762EA70032EA8A /* Exceptions for "bitchat" folder in "gap_macOS" target */,
 			);
@@ -558,7 +542,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = bitchatShareExtension/bitchatShareExtension.entitlements;
 				CODE_SIGN_STYLE = "$(CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KH9326B8TN;
 				INFOPLIST_FILE = bitchatShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GapMesh;
@@ -591,7 +575,7 @@
 				CODE_SIGNING_REQUIRED = YES;
 				CODE_SIGN_ENTITLEMENTS = bitchat/bitchat.entitlements;
 				CODE_SIGN_STYLE = "$(CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KH9326B8TN;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = NO;
@@ -658,7 +642,7 @@
 				CODE_SIGNING_REQUIRED = YES;
 				CODE_SIGN_ENTITLEMENTS = bitchat/bitchat.entitlements;
 				CODE_SIGN_STYLE = "$(CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KH9326B8TN;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_PREVIEWS = YES;
@@ -697,7 +681,7 @@
 				CODE_SIGN_ENTITLEMENTS = "bitchat/bitchat-macOS.entitlements";
 				CODE_SIGN_STYLE = "$(CODE_SIGN_STYLE)";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KH9326B8TN;
 				ENABLE_APP_SANDBOX = YES;
@@ -802,7 +786,7 @@
 				CODE_SIGN_ENTITLEMENTS = "bitchat/bitchat-macOS.entitlements";
 				CODE_SIGN_STYLE = "$(CODE_SIGN_STYLE)";
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = KH9326B8TN;
 				ENABLE_APP_SANDBOX = YES;
@@ -913,7 +897,7 @@
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = bitchatShareExtension/bitchatShareExtension.entitlements;
 				CODE_SIGN_STYLE = "$(CODE_SIGN_STYLE)";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = KH9326B8TN;
 				INFOPLIST_FILE = bitchatShareExtension/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = GapMesh;
