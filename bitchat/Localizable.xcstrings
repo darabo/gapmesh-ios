@@ -777,7 +777,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "تشفير طرف لطرف"
+            "value": "رمزگذاری سرتاسری"
           }
         },
         "bn": {
@@ -8789,7 +8789,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "حالة التشفير: %@"
+            "value": "وضعیت رمزگذاری: %@"
           }
         },
         "bn": {
@@ -11612,7 +11612,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "اضغط لمشاهدة بصمة التشفير"
+            "value": "برای مشاهده اثر انگشت رمزگذاری ضربه بزنید"
           }
         },
         "bn": {
@@ -20884,7 +20884,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "جار إعداد التشفير"
+            "value": "در حال تنظیم رمزگذاری"
           }
         },
         "bn": {
@@ -21069,7 +21069,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "فشل التشفير"
+            "value": "رمزگذاری ناموفق بود"
           }
         },
         "bn": {
@@ -21809,7 +21809,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "جار إعداد التشفير..."
+            "value": "در حال تنظیم رمزگذاری..."
           }
         },
         "bn": {
@@ -21994,7 +21994,7 @@
         "ar": {
           "stringUnit": {
             "state": "translated",
-            "value": "فشل التشفير"
+            "value": "رمزگذاری ناموفق بود"
           }
         },
         "bn": {
@@ -35299,13 +35299,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Share Gap Mesh with nearby Android devices via AirDrop, Bluetooth, or any file transfer method."
+            "value": "Share Gap Mesh with nearby Android devices via AirDrop/Quick Share, Bluetooth, or any file transfer method."
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "اشتراک‌گذاری Gap Mesh با دستگاه‌های اندرویدی نزدیک از طریق AirDrop، بلوتوث یا هر روش انتقال فایل."
+            "value": "اشتراک‌گذاری Gap Mesh با دستگاه‌های اندرویدی نزدیک از طریق AirDrop/Quick Share، بلوتوث یا هر روش انتقال فایل."
           }
         }
       }
