@@ -28,7 +28,7 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
 
     private let cl = CLLocationManager()
     private let geocoder = CLGeocoder()
-    private var lastLocation: CLLocation?
+    @Published private(set) var lastLocation: CLLocation?
     private var refreshTimer: Timer?
     private var isGeocoding: Bool = false
 
@@ -47,6 +47,7 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
     @Published private(set) var selectedChannel: ChannelID = .mesh
     @Published var teleported: Bool = false
     @Published private(set) var locationNames: [GeohashChannelLevel: String] = [:]
+    @Published private(set) var locationUpdateTick = UUID()
 
     /// Whether the user has opted-in to location services via the in-app toggle.
     /// Both the Locations and Settings tabs observe this so they stay in sync.
@@ -342,6 +343,7 @@ final class LocationStateManager: NSObject, CLLocationManagerDelegate, Observabl
         lastLocation = loc
         computeChannels(from: loc.coordinate)
         reverseGeocodeLocation(loc)
+        Task { @MainActor in self.locationUpdateTick = UUID() }
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

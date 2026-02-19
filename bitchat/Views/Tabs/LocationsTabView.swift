@@ -14,6 +14,7 @@ struct LocationsTabView: View {
     @ObservedObject private var bookmarks = GeohashBookmarksStore.shared
     @State private var customGeohash = ""
     @State private var geohashError: String? = nil
+    @State private var showMapPicker = false
     @Environment(\.colorScheme) var colorScheme
     
     private var textColor: Color {
@@ -165,6 +166,24 @@ struct LocationsTabView: View {
                             }
                         }
                         
+                        #if os(iOS)
+                        Button(action: { showMapPicker = true }) {
+                            HStack(spacing: 6) {
+                                Image(systemName: "map")
+                                    .font(.body)
+                                Text(LanguageManager.shared.localizedString("map_picker.pick_on_map"))
+                                    .font(.subheadline)
+                                    .fontWeight(.medium)
+                            }
+                            .foregroundColor(.white)
+                            .padding(.vertical, 10)
+                            .frame(maxWidth: .infinity)
+                            .background(textColor)
+                            .cornerRadius(12)
+                        }
+                        .buttonStyle(.plain)
+                        #endif
+
                         if let error = geohashError {
                             Text(error)
                                 .font(.caption)
@@ -230,6 +249,14 @@ struct LocationsTabView: View {
             }
             .background(backgroundColor)
             .navigationBarHidden(true)
+            #if os(iOS)
+            .fullScreenCover(isPresented: $showMapPicker) {
+                GeohashMapPicker(isPresented: $showMapPicker) { geohash in
+                    selectGeohashChannel(geohash)
+                    selectedTab = .chat
+                }
+            }
+            #endif
         }
     }
     

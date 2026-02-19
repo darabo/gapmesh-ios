@@ -30,6 +30,14 @@ final class DecoyModeManager: ObservableObject {
     private init() {
         // Read persisted decoy-active flag on launch
         isDecoyActive = Self.readFlag(service: "app.util.cfg", account: "active")
+        
+        // First launch check: clear keychain items if it's a fresh install
+        if !UserDefaults.standard.bool(forKey: "hasRunBeforeForDecoy") {
+            UserDefaults.standard.set(true, forKey: "hasRunBeforeForDecoy")
+            self.deleteItem(account: pinAccount)
+            self.deleteItem(account: activeAccount)
+            self.isDecoyActive = false
+        }
     }
 
     // MARK: - Public API

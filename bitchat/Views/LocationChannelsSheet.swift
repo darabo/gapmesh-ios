@@ -15,6 +15,7 @@ struct LocationChannelsSheet: View {
     @State private var customGeohash: String = ""
     @State private var customError: String? = nil
     @State private var showTorRequiredAlert: Bool = false
+    @State private var showMapPicker: Bool = false
 
     private var backgroundColor: Color { Theme.background(colorScheme) }
 
@@ -183,6 +184,17 @@ struct LocationChannelsSheet: View {
         } message: {
             Text("location_channels.tor_required.message")
         }
+        #if os(iOS)
+        .fullScreenCover(isPresented: $showMapPicker) {
+            GeohashMapPicker(isPresented: $showMapPicker) { geohash in
+                let level = levelForLength(geohash.count)
+                let ch = GeohashChannel(level: level, geohash: geohash)
+                manager.markTeleported(for: ch.geohash, true)
+                manager.select(ChannelID.location(ch))
+                isPresented = false
+            }
+        }
+        #endif
     }
 
     private var closeButton: some View {
@@ -364,6 +376,29 @@ struct LocationChannelsSheet: View {
                     .font(.bitchatSystem(size: 12, design: .monospaced))
                     .foregroundColor(.red)
             }
+
+            #if os(iOS)
+            Button(action: {
+                guard network.userTorEnabled else {
+                    showTorRequiredAlert = true
+                    return
+                }
+                showMapPicker = true
+            }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "map")
+                        .font(.bitchatSystem(size: 14))
+                    Text(LanguageManager.shared.localizedString("map_picker.pick_on_map"))
+                        .font(.bitchatSystem(size: 14, design: .monospaced))
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 8)
+                .background(Color.secondary.opacity(0.12))
+                .cornerRadius(6)
+            }
+            .buttonStyle(.plain)
+            .opacity(network.userTorEnabled ? 1.0 : 0.4)
+            #endif
         }
     }
     

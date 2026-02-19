@@ -1,8 +1,28 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "(%@ %@)": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "(%1$@ %2$@)"
+          }
+        }
+      }
+    },
     "#%@": {},
     "%@": {},
+    "%@ · %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "new",
+            "value": "%1$@ · %2$@"
+          }
+        }
+      }
+    },
     "%@ %@": {
       "localizations": {
         "en": {
@@ -16,21 +36,7 @@
     "%d active": {
       "comment": "Active peer count"
     },
-    "(%@ %@)": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "(%1$@ %2$@)"
-          }
-        }
-      }
-    },
-    "Choose Language": {},
-    "Choose an image": {},
-    "Dara Bonakdar": {},
-    "English": {},
-    "Gap Mesh/": {},
+    "• %@": {},
     "app_info.app_name": {
       "extractionState": "manual",
       "localizations": {
@@ -6663,6 +6669,8 @@
         }
       }
     },
+    "Choose an image": {},
+    "Choose Language": {},
     "close": {
       "comment": "Button to dismiss fullscreen media viewer",
       "localizations": {
@@ -20371,91 +20379,6 @@
         }
       }
     },
-    "content.recording.could_not_start": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Could not start recording."
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "شروع ضبط ممکن نبود."
-          }
-        }
-      }
-    },
-    "content.recording.error_title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recording Error"
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "خطای ضبط"
-          }
-        }
-      }
-    },
-    "content.recording.failed_to_save": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recording failed to save."
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ذخیره ضبط ناموفق بود."
-          }
-        }
-      }
-    },
-    "content.recording.microphone_required": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Microphone access is required to record voice notes."
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "برای ضبط یادداشت‌های صوتی به دسترسی میکروفون نیاز است."
-          }
-        }
-      }
-    },
-    "content.recording.too_short": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Recording is too short."
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ضبط خیلی کوتاه است."
-          }
-        }
-      }
-    },
     "content.recording_duration": {
       "comment": "Voice note recording duration indicator",
       "extractionState": "stale",
@@ -20655,6 +20578,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "نگه دارید برای ضبط"
+          }
+        }
+      }
+    },
+    "content.recording.could_not_start": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Could not start recording."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شروع ضبط ممکن نبود."
+          }
+        }
+      }
+    },
+    "content.recording.error_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recording Error"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خطای ضبط"
+          }
+        }
+      }
+    },
+    "content.recording.failed_to_save": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recording failed to save."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره ضبط ناموفق بود."
+          }
+        }
+      }
+    },
+    "content.recording.microphone_required": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Microphone access is required to record voice notes."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای ضبط یادداشت‌های صوتی به دسترسی میکروفون نیاز است."
+          }
+        }
+      }
+    },
+    "content.recording.too_short": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Recording is too short."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ضبط خیلی کوتاه است."
           }
         }
       }
@@ -20878,6 +20886,7 @@
         }
       }
     },
+    "Dara Bonakdar": {},
     "encryption.accessibility.establishing": {
       "extractionState": "manual",
       "localizations": {
@@ -22728,6 +22737,7 @@
         }
       }
     },
+    "English": {},
     "eula.agree_checkbox": {
       "extractionState": "manual",
       "localizations": {
@@ -24799,6 +24809,7 @@
         }
       }
     },
+    "Gap Mesh/": {},
     "geohash_people.action.block": {
       "extractionState": "manual",
       "localizations": {
@@ -28817,6 +28828,40 @@
         }
       }
     },
+    "location_channels.tor_required.message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Please enable Tor routing in the toggle below or in Settings to access geohash channels."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لطفاً مسیریابی تور را در کلید پایین یا در تنظیمات فعال کنید تا به کانال‌های ژئوهش دسترسی داشته باشید."
+          }
+        }
+      }
+    },
+    "location_channels.tor_required.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tor Required"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تور لازم است"
+          }
+        }
+      }
+    },
     "location_channels.tor.subtitle": {
       "extractionState": "manual",
       "localizations": {
@@ -29204,40 +29249,6 @@
         }
       }
     },
-    "location_channels.tor_required.message": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Please enable Tor routing in the toggle below or in Settings to access geohash channels."
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لطفاً مسیریابی تور را در کلید پایین یا در تنظیمات فعال کنید تا به کانال‌های ژئوهش دسترسی داشته باشید."
-          }
-        }
-      }
-    },
-    "location_channels.tor_required.title": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Tor Required"
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تور لازم است"
-          }
-        }
-      }
-    },
     "location_levels.block": {
       "extractionState": "manual",
       "localizations": {
@@ -29262,7 +29273,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "block"
+            "value": "Block"
           }
         },
         "es": {
@@ -29447,7 +29458,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "building"
+            "value": "Building"
           }
         },
         "es": {
@@ -29632,7 +29643,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "city"
+            "value": "City"
           }
         },
         "es": {
@@ -29817,7 +29828,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "neighborhood"
+            "value": "Neighborhood"
           }
         },
         "es": {
@@ -30002,7 +30013,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "province"
+            "value": "Province"
           }
         },
         "es": {
@@ -30187,7 +30198,7 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "region"
+            "value": "Region"
           }
         },
         "es": {
@@ -33322,6 +33333,74 @@
         }
       }
     },
+    "map_picker.instruction": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pan & zoom to select a geohash"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای انتخاب جیوهش نقشه را حرکت دهید"
+          }
+        }
+      }
+    },
+    "map_picker.pick_on_map": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Pick on Map"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب روی نقشه"
+          }
+        }
+      }
+    },
+    "map_picker.precision": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Precision"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دقت"
+          }
+        }
+      }
+    },
+    "map_picker.select": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Select"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب"
+          }
+        }
+      }
+    },
     "mesh_peers.tooltip.new_messages": {
       "extractionState": "manual",
       "localizations": {
@@ -34216,7 +34295,7 @@
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "توجه: تغییر نام کاربری از حالت ناشناس ممکن است حریم خصوصی شما را کاهش دهد اگر نام قابل شناسایی انتخاب کنید."
+            "value": "توجه: اگر نامی قابل شناسایی انتخاب کنید، تغییر نام کاربری از حالت ناشناس ممکن است حریم خصوصی شما را کاهش دهد."
           }
         }
       }
@@ -35271,7 +35350,7 @@
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "اشتراک‌گذاری برنامه همراه سبک"
+            "value": "اشتراک‌گذاری نسخه سبک برنامه"
           }
         }
       }
