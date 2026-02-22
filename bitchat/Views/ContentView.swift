@@ -9,6 +9,7 @@
 import SwiftUI
 #if os(iOS)
 import UIKit
+import Photos
 #endif
 #if os(macOS)
 import AppKit
@@ -2067,6 +2068,9 @@ struct ImagePreviewView: View {
     @Environment(\.dismiss) private var dismiss
     #if os(iOS)
     @State private var showExporter = false
+    @State private var showSaveOptions = false
+    @State private var saveToPhotosResult: String?
+    @State private var showSaveAlert = false
     @State private var platformImage: UIImage?
     #else
     @State private var platformImage: NSImage?
@@ -2105,7 +2109,7 @@ struct ImagePreviewView: View {
                             .background(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.5), lineWidth: 1))
                     }
                     Spacer()
-                    Button(action: saveCopy) {
+                    Button(action: { showSaveMenu() }) {
                         Text("save", comment: "Button to save media to device")
                             .font(.bitchatSystem(size: 15, weight: .semibold))
                             .foregroundColor(.white)
@@ -2119,8 +2123,24 @@ struct ImagePreviewView: View {
         }
         .onAppear(perform: loadImage)
         #if os(iOS)
+        .confirmationDialog(
+            Text("Save Image"),
+            isPresented: $showSaveOptions,
+            titleVisibility: .visible
+        ) {
+            Button("Save to Photos") {
+                saveToPhotos()
+            }
+            Button("Save to Files") {
+                showExporter = true
+            }
+            Button("Cancel", role: .cancel) {}
+        }
         .sheet(isPresented: $showExporter) {
             FileExportWrapper(url: url)
+        }
+        .alert(saveToPhotosResult ?? "", isPresented: $showSaveAlert) {
+            Button("OK", role: .cancel) {}
         }
         #endif
     }
@@ -2138,9 +2158,9 @@ struct ImagePreviewView: View {
         }
     }
 
-    private func saveCopy() {
+    private func showSaveMenu() {
         #if os(iOS)
-        showExporter = true
+        showSaveOptions = true
         #else
         Task { @MainActor in
             let panel = NSSavePanel()
@@ -2160,6 +2180,32 @@ struct ImagePreviewView: View {
         }
         #endif
     }
+
+    #if os(iOS)
+    private func saveToPhotos() {
+        guard let image = platformImage else {
+            saveToPhotosResult = "Image not loaded yet."
+            showSaveAlert = true
+            return
+        }
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+            DispatchQueue.main.async {
+                switch status {
+                case .authorized, .limited:
+                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
+                    saveToPhotosResult = "Image saved to Photos."
+                    showSaveAlert = true
+                case .denied, .restricted:
+                    saveToPhotosResult = "Photo library access denied. Please allow access in Settings."
+                    showSaveAlert = true
+                default:
+                    saveToPhotosResult = "Unable to access photo library."
+                    showSaveAlert = true
+                }
+            }
+        }
+    }
+    #endif
 
     #if os(iOS)
     private struct FileExportWrapper: UIViewControllerRepresentable {
