@@ -38,7 +38,7 @@ final class GeohashMapCoordinator: NSObject, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         if let polygon = overlay as? GeohashPolygon {
             let renderer = MKPolygonRenderer(polygon: polygon)
-            let green = UIColor(red: 0, green: 0.78, blue: 0.32, alpha: 1.0)  // #00C851
+            let green = UIColor(Theme.mapGreen)
             if polygon.isSelected {
                 // Center cell: thick visible border + subtle fill so it pops on any basemap.
                 renderer.strokeColor = green
@@ -67,7 +67,7 @@ final class GeohashMapCoordinator: NSObject, MKMapViewDelegate {
         lbl.text = label.geohash
         lbl.font = UIFont.monospacedSystemFont(ofSize: label.isSelected ? 13 : 11, weight: .bold)
         lbl.textColor = label.isSelected
-            ? UIColor(red: 0, green: 0.78, blue: 0.32, alpha: 1)
+            ? UIColor(Theme.mapGreen)
             : UIColor.secondaryLabel
         lbl.sizeToFit()
 
