@@ -2192,9 +2192,18 @@ struct ImagePreviewView: View {
             DispatchQueue.main.async {
                 switch status {
                 case .authorized, .limited:
-                    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
-                    saveToPhotosResult = "Image saved to Photos."
-                    showSaveAlert = true
+                    PHPhotoLibrary.shared().performChanges({
+                        PHAssetChangeRequest.creationRequestForAsset(from: image)
+                    }) { success, error in
+                        DispatchQueue.main.async {
+                            if success {
+                                saveToPhotosResult = "Image saved to Photos."
+                            } else {
+                                saveToPhotosResult = "Failed to save image: \(error?.localizedDescription ?? "Unknown error")"
+                            }
+                            showSaveAlert = true
+                        }
+                    }
                 case .denied, .restricted:
                     saveToPhotosResult = "Photo library access denied. Please allow access in Settings."
                     showSaveAlert = true

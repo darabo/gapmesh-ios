@@ -37,6 +37,9 @@ enum Theme {
     
     // MARK: - Channel Colors
     
+    /// Global map accent color
+    static let mapGreen = Color(red: 0, green: 0.78, blue: 0.32)
+
     /// Color for mesh network channel indicator
     static let meshChannel = Color(hue: 0.60, saturation: 0.75, brightness: 0.85)
     

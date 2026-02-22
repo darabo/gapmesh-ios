@@ -86,7 +86,7 @@ struct GeohashMapPicker: View {
             // Center crosshair
             Image(systemName: "plus")
                 .font(.system(size: 22, weight: .light))
-                .foregroundColor(Color(red: 0, green: 0.78, blue: 0.32).opacity(0.6))
+                .foregroundColor(Theme.mapGreen.opacity(0.6))
                 .allowsHitTesting(false)
 
             VStack {
@@ -165,7 +165,7 @@ struct GeohashMapPicker: View {
     private var geohashLabel: some View {
         HStack(spacing: 6) {
             Image(systemName: "mappin.circle.fill")
-                .foregroundColor(Color(red: 0, green: 0.78, blue: 0.32))
+                .foregroundColor(Theme.mapGreen)
             Text("#\(selectedGeohash)")
                 .font(.system(size: 17, weight: .semibold, design: .monospaced))
                 .foregroundColor(colorScheme == .dark ? .white : .black)
@@ -180,7 +180,7 @@ struct GeohashMapPicker: View {
     }
 
     private var precisionControls: some View {
-        let green = Color(red: 0, green: 0.78, blue: 0.32)
+        let green = Theme.mapGreen
         let level = GeohashChannelLevel.levelForGeohashLength(precision)
         return HStack(spacing: 16) {
             Button(action: decreasePrecision) {
@@ -230,7 +230,7 @@ struct GeohashMapPicker: View {
             .background(
                 selectedGeohash.isEmpty
                     ? Color.gray
-                    : Color(red: 0, green: 0.78, blue: 0.32)
+                    : Theme.mapGreen
             )
             .cornerRadius(14)
         }
