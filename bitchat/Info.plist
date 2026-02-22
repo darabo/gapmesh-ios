@@ -60,6 +60,9 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Gap Mesh lets you pick images from your photo library to share with nearby peers.
 (Gap Mesh به شما امکان می‌دهد تصاویری را از کتابخانه عکس خود برای اشتراک‌گذاری با همتایان نزدیک انتخاب کنید.)</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Gap Mesh needs permission to save images to your photo library.
+(Gap Mesh برای ذخیره تصاویر در کتابخانه عکس شما به اجازه دسترسی نیاز دارد.)</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
