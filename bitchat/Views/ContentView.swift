@@ -2124,23 +2124,23 @@ struct ImagePreviewView: View {
         .onAppear(perform: loadImage)
         #if os(iOS)
         .confirmationDialog(
-            Text("Save Image"),
+            Text(String(localized: "content.actions.save_image", defaultValue: "Save Image")),
             isPresented: $showSaveOptions,
             titleVisibility: .visible
         ) {
-            Button("Save to Photos") {
+            Button(String(localized: "content.actions.save_to_photos", defaultValue: "Save to Photos")) {
                 saveToPhotos()
             }
-            Button("Save to Files") {
+            Button(String(localized: "content.actions.save_to_files", defaultValue: "Save to Files")) {
                 showExporter = true
             }
-            Button("Cancel", role: .cancel) {}
+            Button(String(localized: "common.cancel", defaultValue: "Cancel"), role: .cancel) {}
         }
         .sheet(isPresented: $showExporter) {
             FileExportWrapper(url: url)
         }
         .alert(saveToPhotosResult ?? "", isPresented: $showSaveAlert) {
-            Button("OK", role: .cancel) {}
+            Button(String(localized: "common.ok", defaultValue: "OK"), role: .cancel) {}
         }
         #endif
     }
@@ -2184,7 +2184,7 @@ struct ImagePreviewView: View {
     #if os(iOS)
     private func saveToPhotos() {
         guard let image = platformImage else {
-            saveToPhotosResult = "Image not loaded yet."
+            saveToPhotosResult = String(localized: "content.alerts.image_not_loaded", defaultValue: "Image not loaded yet.")
             showSaveAlert = true
             return
         }
@@ -2197,18 +2197,21 @@ struct ImagePreviewView: View {
                     }) { success, error in
                         DispatchQueue.main.async {
                             if success {
-                                saveToPhotosResult = "Image saved to Photos."
+                                saveToPhotosResult = String(localized: "content.alerts.image_saved_to_photos", defaultValue: "Image saved to Photos.")
                             } else {
-                                saveToPhotosResult = "Failed to save image: \(error?.localizedDescription ?? "Unknown error")"
+                                let unknownError = String(localized: "common.unknown_error", defaultValue: "Unknown error")
+                                let errorDesc = error?.localizedDescription ?? unknownError
+                                let format = String(localized: "content.alerts.failed_to_save_image", defaultValue: "Failed to save image: %@")
+                                saveToPhotosResult = String(format: format, errorDesc)
                             }
                             showSaveAlert = true
                         }
                     }
                 case .denied, .restricted:
-                    saveToPhotosResult = "Photo library access denied. Please allow access in Settings."
+                    saveToPhotosResult = String(localized: "content.alerts.photo_library_denied", defaultValue: "Photo library access denied. Please allow access in Settings.")
                     showSaveAlert = true
                 default:
-                    saveToPhotosResult = "Unable to access photo library."
+                    saveToPhotosResult = String(localized: "content.alerts.photo_library_unavailable", defaultValue: "Unable to access photo library.")
                     showSaveAlert = true
                 }
             }
