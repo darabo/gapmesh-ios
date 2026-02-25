@@ -82,7 +82,9 @@ struct OnboardingView: View {
                 PermissionsStep()
                     .tag(6)
             }
+            #if os(iOS)
             .tabViewStyle(.page(indexDisplayMode: .never))
+            #endif
             
             // Navigation button
             Button(action: {
@@ -93,7 +95,9 @@ struct OnboardingView: View {
                     }
                     isIdentityEditing = false
                     // Dismiss keyboard explicitly before transition to avoid constraint errors
+                    #if os(iOS)
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    #endif
                 }
                 
                 // EULA step: mark as accepted when proceeding
@@ -383,7 +387,11 @@ private struct IdentityStep: View {
         // Critical: Dismiss keyboard BEFORE toggling isEditing
         // This prevents constraint errors when the TextField is removed
         isFocused = false
+        #if os(iOS)
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        #else
+        // macOS handles focus loss automatically
+        #endif
         
         // Add a small delay or just toggle state now? 
         // Toggling immediately is usually fine if keyboard dismissal has started
@@ -764,9 +772,11 @@ private struct PermissionsStep: View {
         .onAppear {
             checkPermissions()
         }
+        #if os(iOS)
         .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
             checkPermissions()
         }
+        #endif
     }
     
     private func checkPermissions() {
@@ -775,7 +785,11 @@ private struct PermissionsStep: View {
         
         // Check Location
         let locStatus = CLLocationManager().authorizationStatus
+        #if os(iOS)
         locationGranted = locStatus == .authorizedWhenInUse || locStatus == .authorizedAlways
+        #else
+        locationGranted = locStatus == .authorizedAlways
+        #endif
         
         // Check Notifications
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -807,7 +821,11 @@ private struct PermissionsStep: View {
         // Check again after a short delay
         DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
             let status = locationManager?.authorizationStatus ?? .notDetermined
+            #if os(iOS)
             locationGranted = status == .authorizedWhenInUse || status == .authorizedAlways
+            #else
+            locationGranted = status == .authorizedAlways
+            #endif
         }
     }
     
@@ -929,10 +947,12 @@ private struct DecoyModeStep: View {
                                 String(localized: "onboarding.decoy_pin_label"),
                                 text: $customPIN
                             )
+                            #if os(iOS)
                             .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            #endif
                             .font(.system(.title2, design: .monospaced))
                             .textFieldStyle(.roundedBorder)
-                            .multilineTextAlignment(.center)
                             .onChange(of: customPIN) { _ in
                                 pinMismatch = false
                                 // Strip non-digits
@@ -943,10 +963,12 @@ private struct DecoyModeStep: View {
                                 String(localized: "onboarding.decoy_pin_confirm"),
                                 text: $confirmPIN
                             )
+                            #if os(iOS)
                             .keyboardType(.numberPad)
+                            .multilineTextAlignment(.center)
+                            #endif
                             .font(.system(.title2, design: .monospaced))
                             .textFieldStyle(.roundedBorder)
-                            .multilineTextAlignment(.center)
                             .onChange(of: confirmPIN) { _ in
                                 pinMismatch = false
                                 confirmPIN = String(confirmPIN.filter { $0.isNumber }.prefix(8))

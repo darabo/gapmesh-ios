@@ -369,6 +369,7 @@ struct SettingsTabView: View {
                     }
                     .padding(.horizontal)
                     
+                    #if os(iOS)
                     // MARK: - Share App Section
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(title: LanguageManager.shared.localizedString("settings.share_app").uppercased(), colorScheme: colorScheme)
@@ -433,6 +434,7 @@ struct SettingsTabView: View {
                         }
                     }
                     .padding(.horizontal)
+                    #endif
                     
                     // MARK: - About Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -511,6 +513,7 @@ struct SettingsTabView: View {
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("settings.change_username"))
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -519,6 +522,15 @@ struct SettingsTabView: View {
                     }
                 }
             }
+            #else
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { showingNameEditSheet = false }) {
+                        Text(LanguageManager.shared.localizedString("common.cancel"))
+                    }
+                }
+            }
+            #endif
         }
     }
     
@@ -685,7 +697,9 @@ private struct DecoyPINRow: View {
                             LanguageManager.shared.localizedString("settings.decoy_pin_new"),
                             text: $newPIN
                         )
+                        #if os(iOS)
                         .keyboardType(.numberPad)
+                        #endif
                         .onChange(of: newPIN) { _ in
                             pinMismatch = false
                             pinSaved = false
@@ -696,7 +710,9 @@ private struct DecoyPINRow: View {
                             LanguageManager.shared.localizedString("settings.decoy_pin_confirm"),
                             text: $confirmPIN
                         )
+                        #if os(iOS)
                         .keyboardType(.numberPad)
+                        #endif
                         .onChange(of: confirmPIN) { _ in
                             pinMismatch = false
                             pinSaved = false
@@ -719,6 +735,7 @@ private struct DecoyPINRow: View {
                 .navigationBarTitleDisplayMode(.inline)
                 #endif
                 .toolbar {
+                    #if os(iOS)
                     ToolbarItem(placement: .cancellationAction) {
                         Button(LanguageManager.shared.localizedString("settings.done")) {
                             showingPINSheet = false
@@ -736,6 +753,25 @@ private struct DecoyPINRow: View {
                         }
                         .disabled(newPIN.count < 4)
                     }
+                    #else
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(LanguageManager.shared.localizedString("settings.done")) {
+                            showingPINSheet = false
+                        }
+                    }
+                    ToolbarItem(placement: .primaryAction) {
+                        Button(LanguageManager.shared.localizedString("settings.save")) {
+                            if newPIN.count >= 4 && newPIN == confirmPIN {
+                                DecoyModeManager.shared.setPIN(newPIN)
+                                pinSaved = true
+                                pinMismatch = false
+                            } else {
+                                pinMismatch = true
+                            }
+                        }
+                        .disabled(newPIN.count < 4)
+                    }
+                    #endif
                 }
             }
         }

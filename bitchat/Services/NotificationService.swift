@@ -29,6 +29,14 @@ final class NotificationService {
 
     private init() {}
 
+    /// Looks up a localized string. If the key is not found (Apple returns the key itself),
+    /// returns `nil` so callers can fall back to a hardcoded default.
+    private func localized(_ key: String) -> String? {
+        let result = LanguageManager.shared.localizedString(key)
+        // Bundle.localizedString returns the key when no translation exists
+        return result == key ? nil : result
+    }
+
     func requestAuthorization() {
         guard !isRunningTests else { return }
         UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) { granted, error in
@@ -68,7 +76,8 @@ final class NotificationService {
     }
     
     func sendMentionNotification(from sender: String, message: String) {
-        let title = "🫵 you were mentioned by \(sender)"
+        let titleFormat = localized("notification.mention.title") ?? "🫵 you were mentioned by %@"
+        let title = String(format: titleFormat, sender)
         let body = message
         let identifier = "mention-\(UUID().uuidString)"
         
@@ -76,7 +85,8 @@ final class NotificationService {
     }
     
     func sendPrivateMessageNotification(from sender: String, message: String, peerID: PeerID) {
-        let title = "🔒 DM from \(sender)"
+        let titleFormat = localized("notification.dm.title") ?? "🔒 DM from %@"
+        let title = String(format: titleFormat, sender)
         let body = message
         let identifier = "private-\(UUID().uuidString)"
         let userInfo = ["peerID": peerID.id, "senderName": sender]
@@ -94,13 +104,20 @@ final class NotificationService {
     }
 
     func sendNetworkAvailableNotification(peerCount: Int) {
-        let title = "👥 gapchatters nearby!"
-        let body = peerCount == 1 ? "1 person around" : "\(peerCount) people around"
+        let titleString = localized("notification.network.title") ?? "👥 gapchatters nearby!"
+        
+        var bodyString = ""
+        if peerCount == 1 {
+            bodyString = localized("notification.network.single") ?? "1 person around"
+        } else {
+            let format = localized("notification.network.multiple") ?? "%d people around"
+            bodyString = String(format: format, peerCount)
+        }
         let identifier = "network-available-\(Date().timeIntervalSince1970)"
 
         sendLocalNotification(
-            title: title,
-            body: body,
+            title: titleString,
+            body: bodyString,
             identifier: identifier,
             interruptionLevel: .timeSensitive
         )

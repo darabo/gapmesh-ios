@@ -4668,13 +4668,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "use static UUID for Bitchat compatibility (may require restart)"
+            "value": "use static UUID for Bitchat compatibility (requires restart)"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "استفاده از UUID ثابت برای سازگاری با بیت‌چت (ممکن است نیاز به راه‌اندازی مجدد داشته باشد)"
+            "value": "استفاده از UUID ثابت برای سازگاری با بیت‌چت (نیاز به راه‌اندازی مجدد دارد)"
           }
         }
       }
@@ -6261,6 +6261,17 @@
         }
       }
     },
+    "Cancel": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لغو"
+          }
+        }
+      }
+    },
     "channels.bookmarked": {
       "extractionState": "manual",
       "localizations": {
@@ -6689,6 +6700,17 @@
         }
       }
     },
+    "Choose photo": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب عکس"
+          }
+        }
+      }
+    },
     "close": {
       "comment": "Button to dismiss fullscreen media viewer",
       "localizations": {
@@ -6870,6 +6892,17 @@
           "stringUnit": {
             "state": "translated",
             "value": "關閉"
+          }
+        }
+      }
+    },
+    "Close": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بستن"
           }
         }
       }
@@ -8031,6 +8064,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "未知"
+          }
+        }
+      }
+    },
+    "common.unknown_error": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unknown error"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "خطای ناشناخته"
           }
         }
       }
@@ -12608,6 +12658,57 @@
         }
       }
     },
+    "content.actions.save_image": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save Image"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره تصویر"
+          }
+        }
+      }
+    },
+    "content.actions.save_to_files": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save to Files"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره در فایل‌ها"
+          }
+        }
+      }
+    },
+    "content.actions.save_to_photos": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Save to Photos"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره در گالری"
+          }
+        }
+      }
+    },
     "content.actions.slap": {
       "extractionState": "manual",
       "localizations": {
@@ -14286,6 +14387,91 @@
           "stringUnit": {
             "state": "translated",
             "value": "注意"
+          }
+        }
+      }
+    },
+    "content.alerts.failed_to_save_image": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Failed to save image: %@"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ذخیره تصویر ناموفق بود: %@"
+          }
+        }
+      }
+    },
+    "content.alerts.image_not_loaded": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image not loaded yet."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصویر هنوز بارگیری نشده است."
+          }
+        }
+      }
+    },
+    "content.alerts.image_saved_to_photos": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Image saved to Photos."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تصویر در گالری ذخیره شد."
+          }
+        }
+      }
+    },
+    "content.alerts.photo_library_denied": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Photo library access denied. Please allow access in Settings."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دسترسی به گالری تصاویر مجاز نیست. لطفاً در تنظیمات دسترسی بدهید."
+          }
+        }
+      }
+    },
+    "content.alerts.photo_library_unavailable": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Unable to access photo library."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دسترسی به گالری تصاویر امکان‌پذیر نیست."
           }
         }
       }
@@ -25753,6 +25939,17 @@
         }
       }
     },
+    "Hold to record a voice note": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای ضبط یادداشت صوتی نگه دارید"
+          }
+        }
+      }
+    },
     "info.bluetooth_always": {
       "extractionState": "manual",
       "localizations": {
@@ -33604,6 +33801,17 @@
         }
       }
     },
+    "OK": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تأیید"
+          }
+        }
+      }
+    },
     "onboarding.decoy_choose_own": {
       "extractionState": "manual",
       "localizations": {
@@ -34846,7 +35054,17 @@
         }
       }
     },
-    "Save Image": {},
+    "Select Image": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "انتخاب تصویر"
+          }
+        }
+      }
+    },
     "settings.about": {
       "extractionState": "manual",
       "localizations": {
@@ -38489,6 +38707,17 @@
         }
       }
     },
+    "Tap for library, long press for camera": {
+      "extractionState": "manual",
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برای گالری ضربه بزنید، برای دوربین طولانی فشار دهید"
+          }
+        }
+      }
+    },
     "verification.my_qr.accessibility_label": {
       "extractionState": "manual",
       "localizations": {
@@ -40375,232 +40604,155 @@
     },
     "زبان را انتخاب کنید": {},
     "فارسی": {},
-    "content.actions.save_image": {
+    "Mutual verification": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Save Image"
+            "value": "Mutual verification"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ذخیره تصویر"
+            "value": "تأیید متقابل"
           }
         }
       }
     },
-    "content.actions.save_to_photos": {
+    "You and %@ verified each other": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Save to Photos"
+            "value": "You and %@ verified each other"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ذخیره در گالری"
+            "value": "شما و %@ یکدیگر را تأیید کردید"
           }
         }
       }
     },
-    "content.actions.save_to_files": {
+    "Verified": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Save to Files"
+            "value": "Verified"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ذخیره در فایل‌ها"
+            "value": "تأییدشده"
           }
         }
       }
     },
-    "content.alerts.image_not_loaded": {
+    "You verified %@": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Image not loaded yet."
+            "value": "You verified %@"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "تصویر هنوز بارگیری نشده است."
+            "value": "شما %@ را تأیید کردید"
           }
         }
       }
     },
-    "content.alerts.image_saved_to_photos": {
+    "notification.mention.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Image saved to Photos."
+            "value": "🫵 you were mentioned by %@"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "تصویر در گالری ذخیره شد."
+            "value": "�� شما توسط %@ منشن شدید"
           }
         }
       }
     },
-    "content.alerts.failed_to_save_image": {
+    "notification.dm.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Failed to save image: %@"
+            "value": "🔒 DM from %@"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "ذخیره تصویر ناموفق بود: %@"
+            "value": "🔒 پیام خصوصی از %@"
           }
         }
       }
     },
-    "content.alerts.photo_library_denied": {
+    "notification.network.title": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Photo library access denied. Please allow access in Settings."
+            "value": "👥 gapchatters nearby!"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "دسترسی به گالری تصاویر مجاز نیست. لطفاً در تنظیمات دسترسی بدهید."
+            "value": "👥 کاربران گپ‌مش در نزدیکی!"
           }
         }
       }
     },
-    "content.alerts.photo_library_unavailable": {
+    "notification.network.single": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unable to access photo library."
+            "value": "1 person around"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "دسترسی به گالری تصاویر امکان‌پذیر نیست."
+            "value": "۱ نفر در اطراف"
           }
         }
       }
     },
-    "common.unknown_error": {
+    "notification.network.multiple": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Unknown error"
+            "value": "%d people around"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "خطای ناشناخته"
-          }
-        }
-      }
-    },
-    "Select Image": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "انتخاب تصویر"
-          }
-        }
-      }
-    },
-    "Cancel": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "لغو"
-          }
-        }
-      }
-    },
-    "OK": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تأیید"
-          }
-        }
-      }
-    },
-    "Close": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "بستن"
-          }
-        }
-      }
-    },
-    "Tap for library, long press for camera": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "برای گالری ضربه بزنید، برای دوربین طولانی فشار دهید"
-          }
-        }
-      }
-    },
-    "Choose photo": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "انتخاب عکس"
-          }
-        }
-      }
-    },
-    "Hold to record a voice note": {
-      "extractionState": "manual",
-      "localizations": {
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "برای ضبط یادداشت صوتی نگه دارید"
+            "value": "%d نفر در اطراف"
           }
         }
       }

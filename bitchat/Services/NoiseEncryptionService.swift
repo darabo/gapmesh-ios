@@ -457,7 +457,7 @@ final class NoiseEncryptionService {
     /// Sign a BitchatPacket using the noise private key
     func signPacket(_ packet: BitchatPacket) -> BitchatPacket? {
         // Create canonical packet bytes for signing
-        guard let packetData = packet.toBinaryDataForSigning() else {
+        guard let packetData = packet.toBinaryDataForSigning(legacyFormat: UserDefaults.standard.isLegacyCompatibilityEnabled) else {
             return nil
         }
         
@@ -486,7 +486,11 @@ final class NoiseEncryptionService {
         
         // For noise public keys, we need to derive the Ed25519 key for verification
         // This assumes the noise key can be used for Ed25519 signing
-        return verifySignature(signature, for: packetData, publicKey: publicKey)
+        var verified = verifySignature(signature, for: packetData, publicKey: publicKey)
+        if !verified, let legacyData = packet.toBinaryDataForSigning(legacyFormat: true) {
+            verified = verifySignature(signature, for: legacyData, publicKey: publicKey)
+        }
+        return verified
     }
 
     

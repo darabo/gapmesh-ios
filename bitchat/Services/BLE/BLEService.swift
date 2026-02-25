@@ -835,6 +835,19 @@ final class BLEService: NSObject {
         }
     }
 
+    private func fragmentWrapperOverhead(for packet: BitchatPacket) -> Int {
+        var base = (packet.version >= 2) ? 16 : 14
+        base += 8 // senderID
+        if packet.recipientID != nil {
+            base += 8
+        }
+        if packet.version >= 2, let route = packet.route, !route.isEmpty {
+            base += 1 + (route.count * 8)
+        }
+        // Add 2 bytes safety margin just in case
+        return base + 2
+    }
+
     private func sendEncrypted(_ packet: BitchatPacket, data: Data, pad: Bool) {
         guard let recipientPeerID = PeerID(hexData: packet.recipientID) else { return }
         var sentEncrypted = false
@@ -856,13 +869,13 @@ final class BLEService: NSObject {
             }
         }
         if let pm = peripheralMaxLen, data.count > pm {
-            let overhead = 13 + 8 + 8 + 13
+            let overhead = fragmentWrapperOverhead(for: packet)
             let chunk = max(64, pm - overhead)
             sendFragmentedPacket(packet, pad: pad, maxChunk: chunk, directedOnlyPeer: recipientPeerID)
             return
         }
         if let cm = centralMaxLen, data.count > cm {
-            let overhead = 13 + 8 + 8 + 13
+            let overhead = fragmentWrapperOverhead(for: packet)
             let chunk = max(64, cm - overhead)
             sendFragmentedPacket(packet, pad: pad, maxChunk: chunk, directedOnlyPeer: recipientPeerID)
             return
@@ -951,7 +964,7 @@ final class BLEService: NSObject {
         if packet.type != MessageType.fragment.rawValue,
            let minLen = [minCentralWriteLen, minNotifyLen].compactMap({ $0 }).min(),
            data.count > minLen {
-            let overhead = 13 + 8 + 8 + 13
+            let overhead = fragmentWrapperOverhead(for: packet)
             let chunk = max(64, minLen - overhead)
             sendFragmentedPacket(packet, pad: pad, maxChunk: chunk, directedOnlyPeer: directedOnlyPeer)
             return
@@ -1119,15 +1132,20 @@ final class BLEService: NSObject {
         } else if let signature = packet.signature, let packetData = packet.toBinaryDataForSigning() {
             let candidates = identityManager.getCryptoIdentitiesByPeerIDPrefix(peerID)
             for candidate in candidates {
-                if let signingKey = candidate.signingPublicKey,
-                   noiseService.verifySignature(signature, for: packetData, publicKey: signingKey) {
-                    accepted = true
-                    if let social = identityManager.getSocialIdentity(for: candidate.fingerprint) {
-                        senderNickname = social.localPetname ?? social.claimedNickname
-                    } else {
-                        senderNickname = "anon" + String(peerID.id.prefix(4))
+                if let signingKey = candidate.signingPublicKey {
+                    var verified = noiseService.verifySignature(signature, for: packetData, publicKey: signingKey)
+                    if !verified, let legacyData = packet.toBinaryDataForSigning(legacyFormat: true) {
+                        verified = noiseService.verifySignature(signature, for: legacyData, publicKey: signingKey)
                     }
-                    break
+                    if verified {
+                        accepted = true
+                        if let social = identityManager.getSocialIdentity(for: candidate.fingerprint) {
+                            senderNickname = social.localPetname ?? social.claimedNickname
+                        } else {
+                            senderNickname = "anon" + String(peerID.id.prefix(4))
+                        }
+                        break
+                    }
                 }
             }
             if !accepted && packet.ttl == 0 {
@@ -1998,15 +2016,6 @@ extension BLEService: CBPeripheralDelegate {
         if characteristic.properties.contains(.notify) {
             peripheral.setNotifyValue(true, for: characteristic)
             SecureLogger.debug("🔔 Subscribed to notifications from \(peripheral.name ?? "Unknown")", category: .session)
-            
-            // Send announce after subscription is confirmed (force send for new connection)
-            messageQueue.asyncAfter(deadline: .now() + TransportConfig.blePostSubscribeAnnounceDelaySeconds) { [weak self] in
-                self?.sendAnnounce(forceSend: true)
-                // Try flushing any spooled directed packets now that we have a link
-                self?.flushDirectedSpool()
-                // Rebroadcast a couple of recent announces to seed the new link
-                self?.rebroadcastRecentAnnounces()
-            }
         } else {
             SecureLogger.warning("⚠️ Characteristic does not support notifications", category: .session)
         }
@@ -2115,17 +2124,11 @@ extension BLEService: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didModifyServices invalidatedServices: [CBService]) {
         SecureLogger.warning("⚠️ Services modified for \(peripheral.name ?? peripheral.identifier.uuidString)", category: .session)
         
-        // Check if our service was invalidated (peer app quit)
-        let hasOurService = peripheral.services?.contains { $0.uuid == BLEService.serviceUUID || $0.uuid == BLEService.bitchatServiceUUID } ?? false
-        
-        if !hasOurService {
-            // Service is gone - disconnect
-            SecureLogger.warning("❌ BitChat service removed - disconnecting from \(peripheral.name ?? peripheral.identifier.uuidString)", category: .session)
-            centralManager?.cancelPeripheralConnection(peripheral)
-        } else {
-            // Try to rediscover
-            peripheral.discoverServices([BLEService.serviceUUID, BLEService.bitchatServiceUUID])
-        }
+        // Always try to rediscover services instead of disconnecting.
+        // Some older BLE stacks (e.g. Galaxy S7) temporarily remove and re-add services,
+        // which would cause unnecessary disconnect/reconnect cycles.
+        SecureLogger.info("🔄 Re-discovering services for \(peripheral.name ?? peripheral.identifier.uuidString)", category: .session)
+        peripheral.discoverServices([BLEService.serviceUUID, BLEService.bitchatServiceUUID])
     }
     
     func peripheral(_ peripheral: CBPeripheral, didUpdateNotificationStateFor characteristic: CBCharacteristic, error: Error?) {
@@ -2133,11 +2136,14 @@ extension BLEService: CBPeripheralDelegate {
             SecureLogger.error("❌ Error updating notification state: \(error.localizedDescription)", category: .session)
         } else {
             SecureLogger.debug("🔔 Notification state updated for \(peripheral.name ?? peripheral.identifier.uuidString): \(characteristic.isNotifying ? "ON" : "OFF")", category: .session)
-            
             // If notifications are now on, send an announce to ensure this peer knows about us
             if characteristic.isNotifying {
                 // Sending announce after subscription
                 self.sendAnnounce(forceSend: true)
+                // Try flushing any spooled directed packets now that we have a link
+                self.flushDirectedSpool()
+                // Rebroadcast a couple of recent announces to seed the new link
+                self.rebroadcastRecentAnnounces()
             }
         }
     }
@@ -3523,10 +3529,16 @@ extension BLEService {
             // Use precomputed verification result
             let verified = verifiedAnnounce
 
-            // Require verified announce; ignore otherwise (no backward compatibility)
+            // Require verified announce when legacy mode is off
             if !verified {
-                SecureLogger.warning("❌ Ignoring unverified announce from \(peerID.id.prefix(8))…", category: .security)
-                return
+                if UserDefaults.standard.isLegacyCompatibilityEnabled {
+                    #if DEBUG
+                    SecureLogger.debug("🔓 Legacy mode: accepting unverified announce from \(peerID.id.prefix(8))…", category: .security)
+                    #endif
+                } else {
+                    SecureLogger.warning("❌ Ignoring unverified announce from \(peerID.id.prefix(8))…", category: .security)
+                    return
+                }
             }
 
             // Update or create peer info
@@ -3538,7 +3550,7 @@ extension BLEService {
                     isConnected: isDirectAnnounce || hasPeripheralConnection || hasCentralSubscription,
                     noisePublicKey: announcement.noisePublicKey,
                     signingPublicKey: announcement.signingPublicKey,
-                    isVerifiedNickname: true,
+                    isVerifiedNickname: verified,
                     lastSeen: Date()
                 )
             } else {
@@ -3549,7 +3561,7 @@ extension BLEService {
                     isConnected: isDirectAnnounce || hasPeripheralConnection || hasCentralSubscription,
                     noisePublicKey: announcement.noisePublicKey,
                     signingPublicKey: announcement.signingPublicKey,
-                    isVerifiedNickname: true,
+                    isVerifiedNickname: verified,
                     lastSeen: Date()
                 )
             }
@@ -3674,8 +3686,8 @@ extension BLEService {
             accepted = true
             senderNickname = myNickname
         }
-        else if let info = peersSnapshot[peerID], info.isVerifiedNickname {
-            // Known verified peer path
+        else if let info = peersSnapshot[peerID], (info.isVerifiedNickname || UserDefaults.standard.isLegacyCompatibilityEnabled) {
+            // Known peer path (verified, or unverified in legacy mode)
             accepted = true
             senderNickname = info.nickname
             // Handle nickname collisions
@@ -3689,16 +3701,21 @@ extension BLEService {
                 // Find candidate identities by peerID prefix (16 hex)
                 let candidates = identityManager.getCryptoIdentitiesByPeerIDPrefix(peerID)
                 for candidate in candidates {
-                    if let signingKey = candidate.signingPublicKey,
-                       noiseService.verifySignature(signature, for: packetData, publicKey: signingKey) {
-                        accepted = true
-                        // Prefer persisted social petname or claimed nickname
-                        if let social = identityManager.getSocialIdentity(for: candidate.fingerprint) {
-                            senderNickname = social.localPetname ?? social.claimedNickname
-                        } else {
-                            senderNickname = "anon" + String(peerID.id.prefix(4))
+                    if let signingKey = candidate.signingPublicKey {
+                        var verified = noiseService.verifySignature(signature, for: packetData, publicKey: signingKey)
+                        if !verified, let legacyData = packet.toBinaryDataForSigning(legacyFormat: true) {
+                            verified = noiseService.verifySignature(signature, for: legacyData, publicKey: signingKey)
                         }
-                        break
+                        if verified {
+                            accepted = true
+                            // Prefer persisted social petname or claimed nickname
+                            if let social = identityManager.getSocialIdentity(for: candidate.fingerprint) {
+                                senderNickname = social.localPetname ?? social.claimedNickname
+                            } else {
+                                senderNickname = "anon" + String(peerID.id.prefix(4))
+                            }
+                            break
+                        }
                     }
                 }
             }
