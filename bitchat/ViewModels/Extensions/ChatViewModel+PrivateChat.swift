@@ -690,16 +690,24 @@ extension ChatViewModel {
 
         let wasReadBefore = sentReadReceipts.contains(messageId)
 
-        // Is viewing?
+        // Is viewing? Only count as viewing if app is in the foreground AND the PM sheet is open.
+        #if os(iOS)
+        let appIsActive = UIApplication.shared.applicationState == .active
+        #else
+        let appIsActive = true // macOS doesn't have UIApplication.shared.applicationState
+        #endif
         var isViewingThisChat = false
-        if selectedPrivateChatPeer == targetPeerID {
-            isViewingThisChat = true
-        } else if let selectedPeer = selectedPrivateChatPeer,
-                  let selectedPeerData = unifiedPeerService.getPeer(by: selectedPeer),
-                  let key = actualSenderNoiseKey,
-                  selectedPeerData.noisePublicKey == key {
-            isViewingThisChat = true
+        if appIsActive {
+            if selectedPrivateChatPeer == targetPeerID {
+                isViewingThisChat = true
+            } else if let selectedPeer = selectedPrivateChatPeer,
+                      let selectedPeerData = unifiedPeerService.getPeer(by: selectedPeer),
+                      let key = actualSenderNoiseKey,
+                      selectedPeerData.noisePublicKey == key {
+                isViewingThisChat = true
+            }
         }
+        SecureLogger.debug("🔔 PM notification decision: appActive=\(appIsActive) isViewing=\(isViewingThisChat) peer=\(targetPeerID)", category: .session)
 
         // Recency check
         let isRecentMessage = Date().timeIntervalSince(messageTimestamp) < 30
@@ -826,7 +834,14 @@ extension ChatViewModel {
         mirrorToEphemeralIfNeeded(message, targetPeerID: peerID, key: noiseKey)
 
         // Notifications and Read Receipts
-        let isViewing = selectedPrivateChatPeer == peerID
+        // Only suppress notifications if the app is actively in the foreground AND the PM view is open
+        #if os(iOS)
+        let appIsActive = UIApplication.shared.applicationState == .active
+        #else
+        let appIsActive = true
+        #endif
+        let isViewing = appIsActive && selectedPrivateChatPeer == peerID
+        SecureLogger.debug("🔔 PM notification decision (mesh): appActive=\(appIsActive) isViewing=\(isViewing) peer=\(peerID)", category: .session)
         
         if isViewing {
             // Mark read immediately if viewing

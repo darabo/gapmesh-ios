@@ -173,6 +173,7 @@ struct ChatTabView: View {
             }
         }
         #endif
+        #if os(iOS)
         // Image Preview
         .fullScreenCover(item: Binding<PreviewImageItem?>(
             get: { imagePreviewItem },
@@ -180,6 +181,14 @@ struct ChatTabView: View {
         )) { item in
             ImagePreviewView(url: item.url)
         }
+        #else
+        .sheet(item: Binding<PreviewImageItem?>(
+            get: { imagePreviewItem },
+            set: { imagePreviewItem = $0 }
+        )) { item in
+            ImagePreviewView(url: item.url)
+        }
+        #endif
         // Alerts
         .alert("Recording Error", isPresented: $showRecordingAlert, actions: {
             Button("OK", role: .cancel) {}
@@ -322,6 +331,7 @@ struct ChatTabView: View {
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("settings.change_username"))
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -330,6 +340,15 @@ struct ChatTabView: View {
                     }
                 }
             }
+            #else
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { showingNameEditSheet = false }) {
+                        Text(LanguageManager.shared.localizedString("common.cancel"))
+                    }
+                }
+            }
+            #endif
         }
     }
     
@@ -609,6 +628,7 @@ struct ChatTabView: View {
         }
     }
     
+    #if os(iOS)
     private func processAndSendImage(_ image: UIImage) {
         Task {
             do {
@@ -623,6 +643,7 @@ struct ChatTabView: View {
             }
         }
     }
+    #endif
     
     #if os(macOS)
     private func processAndSendImage(at url: URL) {

@@ -73,7 +73,7 @@ struct BitchatPacket: Codable {
     
     /// Create binary representation for signing (without signature and TTL fields)
     /// TTL is excluded because it changes during packet relay operations
-    func toBinaryDataForSigning() -> Data? {
+    func toBinaryDataForSigning(legacyFormat: Bool = false) -> Data? {
         // Create a copy without signature and with fixed TTL for signing
         // TTL must be excluded because it changes during relay
         let unsignedPacket = BitchatPacket(
@@ -87,9 +87,11 @@ struct BitchatPacket: Codable {
             version: version,
             route: route
         )
-        // Disable padding AND compression for signing to ensure deterministic binary representation
-        // regardless of platform-specific zlib differences or padding randomization
-        return BinaryProtocol.encode(unsignedPacket, padding: false, compress: false)
+        if legacyFormat {
+            return BinaryProtocol.encode(unsignedPacket, padding: true, compress: true)
+        } else {
+            return BinaryProtocol.encode(unsignedPacket, padding: false, compress: false)
+        }
     }
     
     static func from(_ data: Data) -> BitchatPacket? {

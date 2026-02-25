@@ -248,7 +248,9 @@ struct LocationsTabView: View {
                 }
             }
             .background(backgroundColor)
+            #if os(iOS)
             .navigationBarHidden(true)
+            #endif
             #if os(iOS)
             .fullScreenCover(isPresented: $showMapPicker) {
                 GeohashMapPicker(isPresented: $showMapPicker) { geohash in

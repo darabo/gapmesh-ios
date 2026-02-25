@@ -1,4 +1,5 @@
 import SwiftUI
+#if os(iOS)
 import UIKit
 
 /// Helper to share the Gap Mesh Android APK file from iOS to Android devices.
@@ -75,3 +76,4 @@ enum APKShareHelper {
         presenter.present(activityVC, animated: true)
     }
 }
+#endif

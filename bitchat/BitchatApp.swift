@@ -24,13 +24,14 @@ struct BitchatApp: App {
     @StateObject private var languageManager = LanguageManager.shared
     @ObservedObject private var decoyManager = DecoyModeManager.shared
     @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
+    @AppStorage("onboarding_seen") private var onboardingSeen: Bool = false
+
     #if os(iOS)
     @Environment(\.scenePhase) var scenePhase
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     // Skip the very first .active-triggered Tor restart on cold launch
     @State private var didHandleInitialActive: Bool = false
     @State private var didEnterBackground: Bool = false
-    @AppStorage("onboarding_seen") private var onboardingSeen: Bool = false
     #elseif os(macOS)
     @NSApplicationDelegateAdaptor(MacAppDelegate.self) var appDelegate
     #endif
@@ -265,6 +266,9 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
             if let peerID = userInfo["peerID"] as? String {
                 DispatchQueue.main.async {
                     self.chatViewModel?.startPrivateChat(with: PeerID(str: peerID))
+                    // Force SwiftUI to re-evaluate selectedPrivateChatPeer (computed property
+                    // backed by PrivateChatManager) so .onChange triggers and opens the PM sheet
+                    self.chatViewModel?.objectWillChange.send()
                 }
             }
         }

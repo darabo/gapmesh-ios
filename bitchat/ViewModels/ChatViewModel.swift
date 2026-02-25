@@ -1629,6 +1629,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     }
     
     func endPrivateChat() {
+        SecureLogger.debug("📱 endPrivateChat called — clearing selectedPrivateChatPeer (was: \(String(describing: selectedPrivateChatPeer)))", category: .session)
         selectedPrivateChatPeer = nil
         selectedPrivateChatFingerprint = nil
     }
@@ -3283,8 +3284,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
                             lastMutualToastAt[fp] = now
                             let name = unifiedPeerService.getPeer(by: peerID)?.nickname ?? resolveNickname(for: peerID)
                             NotificationService.shared.sendLocalNotification(
-                                title: "Mutual verification",
-                                body: "You and \(name) verified each other",
+                                title: LanguageManager.shared.localizedString("Mutual verification"),
+                                body: String(format: LanguageManager.shared.localizedString("You and %@ verified each other"), name),
                                 identifier: "verify-mutual-\(peerID)-\(UUID().uuidString)"
                             )
                         }
@@ -3309,8 +3310,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
                         verifiedFingerprints.insert(fp)
                         let name = unifiedPeerService.getPeer(by: peerID)?.nickname ?? resolveNickname(for: peerID)
                         NotificationService.shared.sendLocalNotification(
-                            title: "Verified",
-                            body: "You verified \(name)",
+                            title: LanguageManager.shared.localizedString("Verified"),
+                            body: String(format: LanguageManager.shared.localizedString("You verified %@"), name),
                             identifier: "verify-success-\(peerID)-\(UUID().uuidString)"
                         )
                         // If we also recently responded to their challenge, flag mutual and toast (initiator side)
@@ -3320,8 +3321,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
                             if now.timeIntervalSince(lastToast) > 60 {
                                 lastMutualToastAt[fp] = now
                                 NotificationService.shared.sendLocalNotification(
-                                    title: "Mutual verification",
-                                    body: "You and \(name) verified each other",
+                                    title: LanguageManager.shared.localizedString("Mutual verification"),
+                                    body: String(format: LanguageManager.shared.localizedString("You and %@ verified each other"), name),
                                     identifier: "verify-mutual-\(peerID)-\(UUID().uuidString)"
                                 )
                             }
@@ -3635,7 +3636,12 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
                 unreadPrivateMessages.remove(peerID)
                 unreadPrivateMessages.insert(stableKeyHex)
             }
-            selectedPrivateChatPeer = stableKeyHex
+            // Only update the PM selection if the user was already viewing THIS peer's chat.
+            // Without this guard, every peer reconnect (BLE flapping) would silently
+            // re-open PM mode even after the user dismissed it.
+            if selectedPrivateChatPeer == peerID {
+                selectedPrivateChatPeer = stableKeyHex
+            }
             objectWillChange.send()
         }
         

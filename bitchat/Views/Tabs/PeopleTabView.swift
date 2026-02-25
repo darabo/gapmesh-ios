@@ -172,6 +172,7 @@ struct PeopleTabView: View {
             }
             .navigationTitle(LanguageManager.shared.localizedString("tabs.people"))
             .foregroundColor(textColor)
+            #if os(iOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: { showVerificationSheet = true }) {
@@ -180,6 +181,16 @@ struct PeopleTabView: View {
                     }
                 }
             }
+            #else
+            .toolbar {
+                ToolbarItem(placement: .primaryAction) {
+                    Button(action: { showVerificationSheet = true }) {
+                        Image(systemName: "qrcode.viewfinder")
+                            .foregroundColor(Theme.legacyGreen(colorScheme))
+                    }
+                }
+            }
+            #endif
         }
         .sheet(isPresented: $showVerificationSheet) {
             VerificationSheetView(isPresented: $showVerificationSheet)
@@ -370,6 +381,7 @@ struct PrivateChatSheetView: View {
             }
             .background(backgroundColor)
             .navigationTitle("@\(peerNickname)")
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarLeading) {
@@ -382,9 +394,25 @@ struct PrivateChatSheetView: View {
                     }
                 }
             }
+            #else
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { 
+                        viewModel.endPrivateChat()
+                        dismiss() 
+                    }) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(textColor)
+                    }
+                }
+            }
+            #endif
         }
         .onAppear {
             viewModel.markPrivateMessagesAsRead(from: peerID)
+        }
+        .onDisappear {
+            viewModel.endPrivateChat()
         }
     }
     
