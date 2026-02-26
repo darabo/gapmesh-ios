@@ -422,6 +422,19 @@ final class NostrRelayManager: ObservableObject {
             return 
         }
 
+        // NIP-11 pre-flight: skip relays that are paid or require auth (cached check only, non-blocking)
+        Task.detached {
+            if let cachedInfo = await RelayInfoFetcher.shared.getCached(urlString) {
+                if !RelayCapabilityFilter.isUsable(cachedInfo) {
+                    SecureLogger.debug("⏩ Skipping relay (NIP-11 filter): \(urlString) — \(cachedInfo.capabilitiesSummary)", category: .session)
+                    return
+                }
+            } else {
+                // Fire-and-forget: fetch NIP-11 so it's available for next connection attempt
+                _ = await RelayInfoFetcher.shared.fetch(urlString)
+            }
+        }
+
         // Avoid initiating connections while app is backgrounded; we'll reconnect on foreground
         if shouldUseTor && TorManager.shared.torEnforced && !TorManager.shared.isForeground() {
             return

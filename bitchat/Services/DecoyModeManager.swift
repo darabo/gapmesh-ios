@@ -26,10 +26,15 @@ final class DecoyModeManager: ObservableObject {
     private let activeAccount = "active"
 
     @Published var isDecoyActive: Bool
+    /// Whether a PIN has been configured. Published so SwiftUI can react when
+    /// the PIN is first saved (e.g. the post-update onboarding screen).
+    @Published var hasPINConfigured: Bool
 
     private init() {
         // Read persisted decoy-active flag on launch
         isDecoyActive = Self.readFlag(service: "app.util.cfg", account: "active")
+        // Read whether a PIN exists
+        hasPINConfigured = Self.readExists(service: "app.util.cfg", account: "pin")
         
         // First launch check: clear keychain items if it's a fresh install
         if !UserDefaults.standard.bool(forKey: "hasRunBeforeForDecoy") {
@@ -37,6 +42,7 @@ final class DecoyModeManager: ObservableObject {
             self.deleteItem(account: pinAccount)
             self.deleteItem(account: activeAccount)
             self.isDecoyActive = false
+            self.hasPINConfigured = false
         }
     }
 
@@ -58,6 +64,7 @@ final class DecoyModeManager: ObservableObject {
     func setPIN(_ pin: String) {
         guard let data = pin.data(using: .utf8) else { return }
         save(account: pinAccount, data: data)
+        DispatchQueue.main.async { self.hasPINConfigured = true }
     }
 
     /// Returns the stored PIN, or nil if none has been set.
@@ -138,5 +145,15 @@ final class DecoyModeManager: ObservableObject {
         let status = SecItemCopyMatching(query as CFDictionary, &result)
         guard status == errSecSuccess, let data = result as? Data else { return false }
         return data.first == 1
+    }
+
+    /// Check whether any data exists for the given service+account in Keychain.
+    private static func readExists(service: String, account: String) -> Bool {
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: service,
+            kSecAttrAccount as String: account
+        ]
+        return SecItemCopyMatching(query as CFDictionary, nil) == errSecSuccess
     }
 }

@@ -161,27 +161,135 @@ final class SecureIdentityStateManager: SecureIdentityStateManagerProtocol {
     init(_ keychain: KeychainManagerProtocol) {
         self.keychain = keychain
         
-        // Generate or retrieve encryption key from keychain
-        let loadedKey: SymmetricKey
-        
-        // Try to load from keychain
-        if let keyData = keychain.getIdentityKey(forKey: encryptionKeyName) {
-            loadedKey = SymmetricKey(data: keyData)
-            SecureLogger.logKeyOperation(.load, keyType: "identity cache encryption key", success: true)
-        }
-        // Generate new key if needed
-        else {
-            loadedKey = SymmetricKey(size: .bits256)
-            let keyData = loadedKey.withUnsafeBytes { Data($0) }
-            // Save to keychain
-            let saved = keychain.saveIdentityKey(keyData, forKey: encryptionKeyName)
-            SecureLogger.logKeyOperation(.generate, keyType: "identity cache encryption key", success: saved)
-        }
-        
-        self.encryptionKey = loadedKey
+        // Generate or retrieve encryption key from Secure Enclave wrapper
+        self.encryptionKey = Self.getOrGenerateMasterKey(keychain: keychain, tag: self.encryptionKeyName)
         
         // Load identity cache on init
         loadIdentityCache()
+    }
+    
+    // MARK: - Secure Enclave Wrapped Key Management
+    
+    private static func getOrGenerateMasterKey(keychain: KeychainManagerProtocol, tag: String) -> SymmetricKey {
+        let wrappedTag = tag + "_wrapped"
+        
+        // 1. Try to load Secure Enclave wrapped key
+        if let wrappedData = keychain.getIdentityKey(forKey: wrappedTag),
+           let decryptedData = decryptWithSecureEnclaveToken(data: wrappedData, tag: tag) {
+            SecureLogger.logKeyOperation(.load, keyType: "identity cache Secure Enclave master key", success: true)
+            return SymmetricKey(data: decryptedData)
+        }
+        
+        // 2. Try to load legacy software key and migrate it
+        if let plaintextKey = keychain.getIdentityKey(forKey: tag) {
+            SecureLogger.debug("Migrating identity cache master key to Secure Enclave", category: .security)
+            if let targetSecKey = getOrGenerateSecureEnclaveToken(tag: tag),
+               let wrapped = wrapDataWithSecKey(data: plaintextKey, key: targetSecKey) {
+                _ = keychain.saveIdentityKey(wrapped, forKey: wrappedTag)
+                // We keep the old software key as a fallback/backup in case Secure Enclave is wiped or app restoring issues occur
+            }
+            return SymmetricKey(data: plaintextKey)
+        }
+        
+        // 3. Generate new master key and wrap it
+        let newKey = SymmetricKey(size: .bits256)
+        let newKeyData = newKey.withUnsafeBytes { Data($0) }
+        
+        if let targetSecKey = getOrGenerateSecureEnclaveToken(tag: tag),
+           let wrapped = wrapDataWithSecKey(data: newKeyData, key: targetSecKey) {
+            let saved = keychain.saveIdentityKey(wrapped, forKey: wrappedTag)
+            SecureLogger.logKeyOperation(.generate, keyType: "identity cache Secure Enclave master key", success: saved)
+        } else {
+            // Fallback if Secure Enclave is completely unavailable
+            let saved = keychain.saveIdentityKey(newKeyData, forKey: tag)
+            SecureLogger.logKeyOperation(.generate, keyType: "identity cache software master key", success: saved)
+        }
+        
+        return newKey
+    }
+    
+    private static func getOrGenerateSecureEnclaveToken(tag: String) -> SecKey? {
+        // Tag needs to be globally unique for the SecItem API
+        let fullTag = "\(BitchatApp.bundleID).\(tag).secEnclave"
+        guard let tagData = fullTag.data(using: .utf8) else { return nil }
+        
+        let query: [String: Any] = [
+            kSecClass as String: kSecClassKey,
+            kSecAttrApplicationTag as String: tagData,
+            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+            kSecReturnRef as String: true
+        ]
+        
+        var item: CFTypeRef?
+        let status = SecItemCopyMatching(query as CFDictionary, &item)
+        if status == errSecSuccess {
+            return (item as! SecKey)
+        }
+        
+        // Generate new SecKey
+        guard let access = SecAccessControlCreateWithFlags(
+            kCFAllocatorDefault,
+            kSecAttrAccessibleWhenUnlockedThisDeviceOnly,
+            [.privateKeyUsage],
+            nil
+        ) else { return nil }
+        
+        var attributes: [String: Any] = [
+            kSecAttrKeyType as String: kSecAttrKeyTypeECSECPrimeRandom,
+            kSecAttrKeySizeInBits as String: 256,
+            kSecPrivateKeyAttrs as String: [
+                kSecAttrIsPermanent as String: true,
+                kSecAttrApplicationTag as String: tagData,
+                kSecAttrAccessControl as String: access
+            ]
+        ]
+        
+        #if !targetEnvironment(simulator)
+        attributes[kSecAttrTokenID as String] = kSecAttrTokenIDSecureEnclave
+        #endif
+        
+        var error: Unmanaged<CFError>?
+        if let privateKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) {
+            return privateKey
+        }
+        
+        // Fallback: try generating without explicitly requiring Secure Enclave
+        // (Useful on simulators or older Macs without T2/M-series chips)
+        attributes.removeValue(forKey: kSecAttrTokenID as String)
+        if let fallbackKey = SecKeyCreateRandomKey(attributes as CFDictionary, &error) {
+            return fallbackKey
+        }
+        
+        if let err = error?.takeRetainedValue() {
+            SecureLogger.error(err as Error, context: "Failed to generate Secure Enclave token", category: .security)
+        }
+        return nil
+    }
+    
+    private static func wrapDataWithSecKey(data: Data, key: SecKey) -> Data? {
+        guard let publicKey = SecKeyCopyPublicKey(key) else { return nil }
+        var error: Unmanaged<CFError>?
+        let cipherText = SecKeyCreateEncryptedData(publicKey,
+                                                   .eciesEncryptionCofactorVariableIVX963SHA256AESGCM,
+                                                   data as CFData,
+                                                   &error)
+        if let err = error?.takeRetainedValue() {
+            SecureLogger.error(err as Error, context: "Failed to wrap data with Secure Enclave key", category: .security)
+        }
+        return cipherText as Data?
+    }
+    
+    private static func decryptWithSecureEnclaveToken(data: Data, tag: String) -> Data? {
+        guard let privateKey = getOrGenerateSecureEnclaveToken(tag: tag) else { return nil }
+        var error: Unmanaged<CFError>?
+        let plainText = SecKeyCreateDecryptedData(privateKey,
+                                                  .eciesEncryptionCofactorVariableIVX963SHA256AESGCM,
+                                                  data as CFData,
+                                                  &error)
+        if let err = error?.takeRetainedValue() {
+            SecureLogger.error(err as Error, context: "Failed to decrypt with Secure Enclave key", category: .security)
+        }
+        return plainText as Data?
     }
     
     deinit {

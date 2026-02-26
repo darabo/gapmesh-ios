@@ -82,11 +82,24 @@ final class GeoRelayDirectory {
     }
 
     // MARK: - Remote Fetch
+
+    /// Called from `RelayDirectoryBackgroundTask` when the OS grants background execution time.
+    /// Performs a forced refresh regardless of the staleness gate.
+    func backgroundRefresh() async {
+        prefetchIfNeeded(force: true)
+        // Give the async fetch a bounded window to complete (up to 25 s).
+        // BGAppRefreshTask typically allows ~30 s.
+        let deadline = Date().addingTimeInterval(25)
+        while isFetching, Date() < deadline {
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 s
+        }
+    }
+
     func prefetchIfNeeded(force: Bool = false) {
         guard !isFetching else { return }
 
         let now = Date()
-        let last = UserDefaults.standard.object(forKey: lastFetchKey) as? Date ?? .distantPast
+        let last = SecureStorageManager.shared.object(forKey: lastFetchKey) as? Date ?? .distantPast
 
         if !force {
             guard now.timeIntervalSince(last) >= fetchInterval else { return }
@@ -149,7 +162,7 @@ final class GeoRelayDirectory {
     private func handleFetchSuccess(entries parsed: [Entry], csv: String) {
         entries = parsed
         persistCache(csv)
-        UserDefaults.standard.set(Date(), forKey: lastFetchKey)
+        SecureStorageManager.shared.set(Date(), forKey: lastFetchKey)
         SecureLogger.info("GeoRelayDirectory: refreshed \(parsed.count) relays from remote", category: .session)
         isFetching = false
         retryAttempt = 0

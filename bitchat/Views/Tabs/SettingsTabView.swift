@@ -18,8 +18,8 @@ struct SettingsTabView: View {
     @State private var editingName = ""
     
     // Settings states
-    @State private var torEnabled = UserDefaults.standard.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
-    @State private var proofOfWorkEnabled = UserDefaults.standard.bool(forKey: "proofOfWorkEnabled")
+    @State private var torEnabled = SecureStorageManager.shared.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
+    @State private var proofOfWorkEnabled = SecureStorageManager.shared.bool(forKey: "proofOfWorkEnabled")
     @State private var legacyCompatibility = UserDefaults.standard.isLegacyCompatibilityEnabled
     
     private var textColor: Color {
@@ -167,7 +167,7 @@ struct SettingsTabView: View {
                                 accentColor: accentBlue
                             )
                             .onChange(of: torEnabled) { newValue in
-                                UserDefaults.standard.set(newValue, forKey: "torEnabled")
+                                SecureStorageManager.shared.set(newValue, forKey: "torEnabled")
                                 NetworkActivationService.shared.setUserTorEnabled(newValue)
                             }
                             
@@ -180,7 +180,7 @@ struct SettingsTabView: View {
                                 accentColor: accentBlue
                             )
                             .onChange(of: proofOfWorkEnabled) { newValue in
-                                UserDefaults.standard.set(newValue, forKey: "proofOfWorkEnabled")
+                                SecureStorageManager.shared.set(newValue, forKey: "proofOfWorkEnabled")
                             }
                             
                             // Location Toggle

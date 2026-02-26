@@ -241,7 +241,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     //
     var peerIDToPublicKeyFingerprint: [PeerID: String] = [:]
-    private var selectedPrivateChatFingerprint: String? = nil
+    var selectedPrivateChatFingerprint: String? = nil
     // Map stable short peer IDs (16-hex) to full Noise public key hex (64-hex) for session continuity
     private var shortIDToNoiseKey: [PeerID: PeerID] = [:]
 
@@ -292,7 +292,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     let identityManager: SecureIdentityStateManagerProtocol
     
     var nostrRelayManager: NostrRelayManager?
-    private let userDefaults = UserDefaults.standard
+    private let secureStorage = SecureStorageManager.shared
     let keychain: KeychainManagerProtocol
     private let nicknameKey = "bitchat.nickname"
     // Location channel state (macOS supports manual geohash selection)
@@ -345,7 +345,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     // MARK: - Content Moderation (App Store Compliance)
     
     /// Set of message IDs that the user has hidden from their feed
-    @Published var hiddenMessageIDs: Set<String> = Set(UserDefaults.standard.stringArray(forKey: "hiddenMessageIDs") ?? [])
+    @Published var hiddenMessageIDs: Set<String> = Set(SecureStorageManager.shared.stringArray(forKey: "hiddenMessageIDs") ?? [])
     /// Show confirmation alert after reporting content
     @Published var showReportConfirmation: Bool = false
     /// Last reported message info for confirmation
@@ -404,7 +404,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
             
             // Persist to UserDefaults whenever it changes (no manual synchronize/verify re-read)
             if let data = try? JSONEncoder().encode(Array(sentReadReceipts)) {
-                UserDefaults.standard.set(data, forKey: "sentReadReceipts")
+                secureStorage.set(data, forKey: "sentReadReceipts")
             } else {
                 SecureLogger.error("❌ Failed to encode read receipts for persistence", category: .session)
             }
@@ -457,7 +457,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         self.publicMessagePipeline = PublicMessagePipeline()
         
         // Load persisted read receipts
-        if let data = UserDefaults.standard.data(forKey: "sentReadReceipts"),
+        if let data = secureStorage.data(forKey: "sentReadReceipts"),
            let receipts = try? JSONDecoder().decode([String].self, from: data) {
             self.sentReadReceipts = Set(receipts)
             // Successfully loaded read receipts
@@ -805,7 +805,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     func hideMessage(id: String) {
         // Add to hidden set and persist
         hiddenMessageIDs.insert(id)
-        UserDefaults.standard.set(Array(hiddenMessageIDs), forKey: "hiddenMessageIDs")
+        secureStorage.set(Array(hiddenMessageIDs), forKey: "hiddenMessageIDs")
         
         // Remove from current messages array for immediate effect
         messages.removeAll { $0.id == id }
@@ -827,13 +827,13 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     @MainActor
     func reportMessage(sender: String, messageID: String) {
         // Store report locally (no server in this decentralized app)
-        var reports = UserDefaults.standard.array(forKey: "contentReports") as? [[String: String]] ?? []
+        var reports = secureStorage.array(forKey: "contentReports") as? [[String: String]] ?? []
         reports.append([
             "id": messageID,
             "sender": sender,
             "timestamp": ISO8601DateFormatter().string(from: Date())
         ])
-        UserDefaults.standard.set(reports, forKey: "contentReports")
+        secureStorage.set(reports, forKey: "contentReports")
         
         // Store for confirmation message
         lastReportedSender = sender
@@ -850,7 +850,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     // MARK: - Nickname Management
     
     private func loadNickname() {
-        if let savedNickname = userDefaults.string(forKey: nicknameKey) {
+        if let savedNickname = secureStorage.string(forKey: nicknameKey) {
             // Trim whitespace when loading
             nickname = savedNickname.trimmingCharacters(in: .whitespacesAndNewlines)
         } else {
@@ -860,7 +860,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     }
     
     func saveNickname() {
-        userDefaults.set(nickname, forKey: nicknameKey)
+        secureStorage.set(nickname, forKey: nicknameKey)
         // Persist nickname; no need to force synchronize
         
         // Send announce with new nickname to all peers
@@ -2128,115 +2128,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     // PANIC: Emergency data clearing for activist safety
     @MainActor
     func panicClearAllData() {
-        // Messages are processed immediately - nothing to flush
-        
-        // Clear all messages
-        messages.removeAll()
-        privateChatManager.privateChats.removeAll()
-        privateChatManager.unreadMessages.removeAll()
-        
-        // Delete all keychain data (including Noise and Nostr keys)
-        _ = keychain.deleteAllKeychainData()
-        
-        // Clear UserDefaults identity data
-        userDefaults.removeObject(forKey: "bitchat.noiseIdentityKey")
-        userDefaults.removeObject(forKey: "bitchat.messageRetentionKey")
-        
-        // Clear verified fingerprints
-        verifiedFingerprints.removeAll()
-        // Verified fingerprints are cleared when identity data is cleared below
-        
-        // Reset nickname to anonymous
-        nickname = "anon\(Int.random(in: 1000...9999))"
-        saveNickname()
-        
-        // Clear favorites and peer mappings
-        // Clear through SecureIdentityStateManager instead of directly
-        identityManager.clearAllIdentityData()
-        peerIDToPublicKeyFingerprint.removeAll()
-        
-        // Clear persistent favorites from keychain
-        FavoritesPersistenceService.shared.clearAllFavorites()
-        
-        // Identity manager has cleared persisted identity data above
-        
-        // Clear autocomplete state
-        autocompleteSuggestions.removeAll()
-        showAutocomplete = false
-        autocompleteRange = nil
-        selectedAutocompleteIndex = 0
-        
-        // Clear selected private chat
-        selectedPrivateChatPeer = nil
-        selectedPrivateChatFingerprint = nil
-        
-        // Clear read receipt tracking
-        sentReadReceipts.removeAll()
-        deduplicationService.clearAll()
-
-        // Clear all caches
-        invalidateEncryptionCache()
-        
-        // IMPORTANT: Clear Nostr-related state
-        // Disconnect from Nostr relays and clear subscriptions
-        nostrRelayManager?.disconnect()
-        nostrRelayManager = nil
-        
-        // Clear Nostr identity associations
-        idBridge.clearAllAssociations()
-        
-        // Disconnect from all peers and clear persistent identity
-        // This will force creation of a new identity (new fingerprint) on next launch
-        meshService.emergencyDisconnectAll()
-        if let bleService = meshService as? BLEService {
-            bleService.resetIdentityForPanic(currentNickname: nickname)
-        }
-        
-        // No need to force UserDefaults synchronization
-        
-        // Reinitialize Nostr with new identity
-        // This will generate new Nostr keys derived from new Noise keys
-        Task { @MainActor in
-            // Small delay to ensure cleanup completes
-            try? await Task.sleep(nanoseconds: TransportConfig.uiAsyncShortSleepNs) // 0.1 seconds
-            
-            // Reinitialize Nostr relay manager with new identity
-            nostrRelayManager = NostrRelayManager()
-            setupNostrMessageHandling()
-            nostrRelayManager?.connect()
-        }
-        
-        // Delete ALL media files (incoming and outgoing) in background
-        Task.detached(priority: .utility) {
-            do {
-                let base = try FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-                let filesDir = base.appendingPathComponent("files", isDirectory: true)
-
-                // Delete the entire files directory and recreate it
-                if FileManager.default.fileExists(atPath: filesDir.path) {
-                    try FileManager.default.removeItem(at: filesDir)
-                    SecureLogger.info("🗑️ Deleted all media files during panic clear", category: .session)
-                }
-
-                // Recreate empty directory structure
-                try FileManager.default.createDirectory(at: filesDir, withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.createDirectory(at: filesDir.appendingPathComponent("voicenotes/incoming", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.createDirectory(at: filesDir.appendingPathComponent("voicenotes/outgoing", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.createDirectory(at: filesDir.appendingPathComponent("images/incoming", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.createDirectory(at: filesDir.appendingPathComponent("images/outgoing", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.createDirectory(at: filesDir.appendingPathComponent("files/incoming", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-                try FileManager.default.createDirectory(at: filesDir.appendingPathComponent("files/outgoing", isDirectory: true), withIntermediateDirectories: true, attributes: nil)
-            } catch {
-                SecureLogger.error("Failed to clear media files during panic: \(error)", category: .session)
-            }
-        }
-
-        // Force immediate UI update for panic mode
-        // UI updates immediately - no flushing needed
-        
-        // Activate decoy calculator mode (must be LAST — after keychain sweep)
-        DecoyModeManager.shared.activateDecoy()
-
+        PanicWipeManager.shared.executeWipe(chatViewModel: self)
     }
     
     // MARK: - Autocomplete
@@ -2780,7 +2672,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     }
     
     // Clear caches when data changes
-    private func invalidateEncryptionCache(for peerID: PeerID? = nil) {
+    func invalidateEncryptionCache(for peerID: PeerID? = nil) {
         if let peerID {
             encryptionStatusCache.removeValue(forKey: peerID)
         } else {
