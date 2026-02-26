@@ -28,6 +28,9 @@
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>bitchat</string>
+				<string>gapmesh</string>
+				<string>gap</string>
+				<string>nostr</string>
 			</array>
 		</dict>
 	</array>
@@ -67,6 +70,13 @@
 	<array>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
+		<string>fetch</string>
+		<string>processing</string>
+	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>chat.gap.relay-directory-refresh</string>
+		<string>chat.gap.media-cleanup</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>

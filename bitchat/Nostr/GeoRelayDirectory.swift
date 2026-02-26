@@ -82,6 +82,19 @@ final class GeoRelayDirectory {
     }
 
     // MARK: - Remote Fetch
+
+    /// Called from `RelayDirectoryBackgroundTask` when the OS grants background execution time.
+    /// Performs a forced refresh regardless of the staleness gate.
+    func backgroundRefresh() async {
+        prefetchIfNeeded(force: true)
+        // Give the async fetch a bounded window to complete (up to 25 s).
+        // BGAppRefreshTask typically allows ~30 s.
+        let deadline = Date().addingTimeInterval(25)
+        while isFetching, Date() < deadline {
+            try? await Task.sleep(nanoseconds: 500_000_000) // 0.5 s
+        }
+    }
+
     func prefetchIfNeeded(force: Bool = false) {
         guard !isFetching else { return }
 
