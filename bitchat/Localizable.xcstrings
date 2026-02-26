@@ -33829,6 +33829,23 @@
         }
       }
     },
+    "onboarding.decoy_continue": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Continue"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ادامه"
+          }
+        }
+      }
+    },
     "onboarding.decoy_desc": {
       "extractionState": "manual",
       "localizations": {
@@ -34063,6 +34080,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "استفاده از پین تصادفی"
+          }
+        }
+      }
+    },
+    "onboarding.decoy_update_banner": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "New Security Feature: Please set up your calculator decoy PIN before continuing."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ویژگی امنیتی جدید: لطفاً قبل از ادامه، پین حالت ماشین‌حساب خود را تنظیم کنید."
           }
         }
       }

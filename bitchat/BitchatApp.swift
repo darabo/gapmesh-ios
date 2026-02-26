@@ -68,10 +68,15 @@ struct BitchatApp: App {
             Group {
                 if decoyManager.isDecoyActive {
                     CalculatorDecoyView()
-                } else if onboardingSeen {
-                    MainTabView()
-                } else {
+                } else if !onboardingSeen {
                     OnboardingView(isPresented: .constant(true))
+                } else if !decoyManager.hasPINConfigured {
+                    // Existing user who updated before decoy mode existed.
+                    // Must set up a PIN before proceeding, so they won't be
+                    // trapped in the calculator after a triple-tap panic wipe.
+                    DecoyPINOnboardingView()
+                } else {
+                    MainTabView()
                 }
             }
             .id(languageManager.refreshID)
@@ -94,7 +99,7 @@ struct BitchatApp: App {
 
                 // Initialize network activation policy; will start Tor/Nostr only when allowed
                 // Services are started by OnboardingView.completeOnboarding() for new users
-                if onboardingSeen && !decoyManager.isDecoyActive {
+                if onboardingSeen && !decoyManager.isDecoyActive && decoyManager.hasPINConfigured {
                     NetworkActivationService.shared.start()
                     // Start presence service (will wait for Tor readiness)
                     GeohashPresenceService.shared.start()
@@ -125,7 +130,7 @@ struct BitchatApp: App {
                         // We need to wake everything up!
                         
                         // Restart services when becoming active
-                        if onboardingSeen && !decoyManager.isDecoyActive {
+                        if onboardingSeen && !decoyManager.isDecoyActive && decoyManager.hasPINConfigured {
                             chatViewModel.startServices()
                         }
                         TorManager.shared.setAppForeground(true)
