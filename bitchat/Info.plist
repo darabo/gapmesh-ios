@@ -87,5 +87,23 @@
 			<true/>
 		</dict>
 	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSPinnedDomains</key>
+		<dict>
+			<key>raw.githubusercontent.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSPinnedLeafIdentities</key>
+				<array>
+					<dict>
+						<key>SPKI-SHA256-BASE64</key>
+						<string>1FtgkXeU53bUTaObUogizKNIqs/ZGaEo1k2AwG30xts=</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 </dict>
 </plist>

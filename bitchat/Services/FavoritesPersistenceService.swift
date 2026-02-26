@@ -31,7 +31,7 @@ final class FavoritesPersistenceService: ObservableObject {
     @Published private(set) var favorites: [Data: FavoriteRelationship] = [:] // Noise pubkey -> relationship
     @Published private(set) var mutualFavorites: Set<Data> = []
     
-    private let userDefaults = UserDefaults.standard
+    // (UserDefaults removed - using Keychain)
     private var cancellables = Set<AnyCancellable>()
     
     static let shared = FavoritesPersistenceService()

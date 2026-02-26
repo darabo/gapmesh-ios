@@ -86,7 +86,7 @@ final class GeoRelayDirectory {
         guard !isFetching else { return }
 
         let now = Date()
-        let last = UserDefaults.standard.object(forKey: lastFetchKey) as? Date ?? .distantPast
+        let last = SecureStorageManager.shared.object(forKey: lastFetchKey) as? Date ?? .distantPast
 
         if !force {
             guard now.timeIntervalSince(last) >= fetchInterval else { return }
@@ -149,7 +149,7 @@ final class GeoRelayDirectory {
     private func handleFetchSuccess(entries parsed: [Entry], csv: String) {
         entries = parsed
         persistCache(csv)
-        UserDefaults.standard.set(Date(), forKey: lastFetchKey)
+        SecureStorageManager.shared.set(Date(), forKey: lastFetchKey)
         SecureLogger.info("GeoRelayDirectory: refreshed \(parsed.count) relays from remote", category: .session)
         isFetching = false
         retryAttempt = 0

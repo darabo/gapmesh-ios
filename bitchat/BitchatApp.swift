@@ -96,6 +96,9 @@ struct BitchatApp: App {
                 }
 
                 appDelegate.chatViewModel = chatViewModel
+                
+                // Resume interrupted panic wipe if any
+                PanicWipeManager.shared.resumeWipeIfNeeded(chatViewModel: chatViewModel)
 
                 // Initialize network activation policy; will start Tor/Nostr only when allowed
                 // Services are started by OnboardingView.completeOnboarding() for new users

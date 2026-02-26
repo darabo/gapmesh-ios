@@ -1,0 +1,808 @@
+Command line invocation:
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcodebuild -project GapMesh.xcodeproj -scheme "GapMash (iOS)" -destination "platform=iOS Simulator,name=iPhone Air" build
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  swift-secp256k1: https://github.com/21-DOT-DEV/swift-secp256k1 @ 0.21.1
+  Tor: /Users/darabonakdar/gapmesh-ios/localPackages/Tor @ local
+  BitLogger: /Users/darabonakdar/gapmesh-ios/localPackages/BitLogger
+
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (10 targets)
+    Target 'gap_iOS' in project 'GapMesh'
+        ➜ Explicit dependency on target 'gapShareExtension' in project 'GapMesh'
+        ➜ Explicit dependency on target 'Tor' in project 'Tor'
+        ➜ Explicit dependency on target 'BitLogger' in project 'BitLogger'
+        ➜ Explicit dependency on target 'P256K' in project 'swift-secp256k1'
+    Target 'P256K' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'P256K' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'libsecp256k1' in project 'swift-secp256k1'
+    Target 'P256K' in project 'swift-secp256k1'
+        ➜ Explicit dependency on target 'libsecp256k1' in project 'swift-secp256k1'
+    Target 'libsecp256k1' in project 'swift-secp256k1' (no dependencies)
+    Target 'Tor' in project 'Tor'
+        ➜ Explicit dependency on target 'Tor' in project 'Tor'
+        ➜ Explicit dependency on target 'TorC' in project 'Tor'
+        ➜ Explicit dependency on target 'BitLogger' in project 'BitLogger'
+    Target 'Tor' in project 'Tor'
+        ➜ Explicit dependency on target 'TorC' in project 'Tor'
+        ➜ Explicit dependency on target 'BitLogger' in project 'BitLogger'
+    Target 'BitLogger' in project 'BitLogger'
+        ➜ Explicit dependency on target 'BitLogger' in project 'BitLogger'
+    Target 'BitLogger' in project 'BitLogger' (no dependencies)
+    Target 'TorC' in project 'Tor' (no dependencies)
+    Target 'gapShareExtension' in project 'GapMesh' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/ibtool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --print-asset-tag-combinations --output-format xml1 /Users/darabonakdar/gapmesh-ios/bitchat/Assets.xcassets
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/actool --version --output-format xml1
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/usr/bin/xcstringstool compile --dry-run --output-directory /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build /Users/darabonakdar/gapmesh-ios/bitchat/Localizable.xcstrings
+
+ExecuteExternalTool /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+Build description signature: 9caec06c1be5260295f19920e6195920
+Build description path: /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/XCBuildData/9caec06c1be5260295f19920e6195920.xcbuilddata
+ClangStatCache /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk /Users/darabonakdar/gapmesh-ios/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+    cd /Users/darabonakdar/gapmesh-ios/GapMesh.xcodeproj
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang-stat-cache /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -o /Users/darabonakdar/gapmesh-ios/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache
+
+ProcessProductPackaging /Users/darabonakdar/gapmesh-ios/bitchatShareExtension/bitchatShareExtension.entitlements /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+    Entitlements:
+    
+    {
+}
+    
+    builtin-productPackagingUtility /Users/darabonakdar/gapmesh-ios/bitchatShareExtension/bitchatShareExtension.entitlements -entitlements -format xml -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent
+
+ProcessProductPackaging /Users/darabonakdar/gapmesh-ios/bitchatShareExtension/bitchatShareExtension.entitlements /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "KH9326B8TN.chat.gap.kevahazadi.ShareExtension";
+    "com.apple.security.application-groups" =     (
+        "group.chat.gap.kevahazadi"
+    );
+}
+    
+    builtin-productPackagingUtility /Users/darabonakdar/gapmesh-ios/bitchatShareExtension/bitchatShareExtension.entitlements -entitlements -format xml -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent
+
+ProcessProductPackagingDER /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent.der (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /usr/bin/derq query -f xml -i /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent.der --raw
+
+ProcessProductPackagingDER /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent.der (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /usr/bin/derq query -f xml -i /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent.der --raw
+
+ProcessInfoPlistFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/Info.plist /Users/darabonakdar/gapmesh-ios/bitchatShareExtension/Info.plist (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-infoPlistUtility /Users/darabonakdar/gapmesh-ios/bitchatShareExtension/Info.plist -producttype com.apple.product-type.app-extension -expandbuildsettings -format binary -platform iphonesimulator -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/Info.plist
+
+Ld /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension.debug.dylib normal (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -dynamiclib -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -L/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -F/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/EagerLinkingTBDs/Debug-iphonesimulator -F/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -filelist /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension.LinkFileList -install_name @rpath/gapShareExtension.debug.dylib -Xlinker -rpath -Xlinker /usr/lib/swift -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/../../Frameworks -dead_strip -Xlinker -object_path_lto -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension_lto.o -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -Xlinker -dependency_info -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension_dependency_info.dat -fapplication-extension -fobjc-link-runtime -fprofile-instr-generate -L/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/iphonesimulator -L/usr/lib/swift -Xlinker -add_ast_path -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension.swiftmodule @/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension-linker-args.resp -Xlinker -alias -Xlinker _NSExtensionMain -Xlinker ___debug_main_executable_dylib_entry_point -Xlinker -no_adhoc_codesign -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension.debug.dylib
+
+ProcessProductPackaging /Users/darabonakdar/gapmesh-ios/bitchat/bitchat.entitlements /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app.xcent (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+    Entitlements:
+    
+    {
+}
+    
+    builtin-productPackagingUtility /Users/darabonakdar/gapmesh-ios/bitchat/bitchat.entitlements -entitlements -format xml -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app.xcent
+
+ProcessProductPackaging /Users/darabonakdar/gapmesh-ios/bitchat/bitchat.entitlements /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app-Simulated.xcent (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+    Entitlements:
+    
+    {
+    "application-identifier" = "KH9326B8TN.chat.gap.kevahazadi";
+    "com.apple.developer.wifi-aware" =     (
+        Publish,
+        Subscribe
+    );
+    "com.apple.security.application-groups" =     (
+        "group.chat.gap.kevahazadi"
+    );
+}
+    
+    builtin-productPackagingUtility /Users/darabonakdar/gapmesh-ios/bitchat/bitchat.entitlements -entitlements -format xml -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app-Simulated.xcent
+
+ProcessProductPackagingDER /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app.xcent /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app.xcent.der (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /usr/bin/derq query -f xml -i /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app.xcent -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app.xcent.der --raw
+
+ProcessProductPackagingDER /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app-Simulated.xcent /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app-Simulated.xcent.der (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /usr/bin/derq query -f xml -i /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app-Simulated.xcent -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh.app-Simulated.xcent.der --raw
+
+SwiftDriver gap_iOS normal arm64 com.apple.xcode.tools.swift.compiler (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-SwiftDriver -- /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc -module-name Gap_Mesh -Onone -enforce-exclusivity\=checked @/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/Gap\ Mesh.SwiftFileList -DDEBUG -Xcc -fmodule-map-file\=/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/libsecp256k1.modulemap -Xcc -fmodule-map-file\=/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/TorC.modulemap -enable-bare-slash-regex -enable-experimental-feature DebugDescriptionMacro -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -target arm64-apple-ios16.0-simulator -g -module-cache-path /Users/darabonakdar/gapmesh-ios/DerivedData/ModuleCache.noindex -Xfrontend -serialize-debugging-options -profile-coverage-mapping -profile-generate -enable-testing -index-store-path /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Index.noindex/DataStore -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -swift-version 5 -I /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -c -j8 -enable-batch-mode -incremental -Xcc -ivfsstatcache -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -output-file-map /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/gap_iOS-OutputFileMap.json -use-frontend-parseable-output -save-temps -no-color-diagnostics -explicit-module-build -module-cache-path /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -clang-scanner-module-cache-path /Users/darabonakdar/gapmesh-ios/DerivedData/ModuleCache.noindex -sdk-module-cache-path /Users/darabonakdar/gapmesh-ios/DerivedData/ModuleCache.noindex -serialize-diagnostics -emit-dependencies -emit-module -emit-module-path /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/Gap_Mesh.swiftmodule -validate-clang-modules-once -clang-build-session-file /Users/darabonakdar/gapmesh-ios/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/swift-overrides.hmap -emit-const-values -Xfrontend -const-gather-protocols-file -Xfrontend /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/gap_iOS_const_extract_protocols.json -Xcc -iquote -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-generated-files.hmap -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-own-target-headers.hmap -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/GapMesh-7ce14b01172d5c1f723e64a3e6300cc1-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-project-headers.hmap -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/SourcePackages/checkouts/swift-secp256k1/Sources/libsecp256k1/include -Xcc -I/Users/darabonakdar/gapmesh-ios/localPackages/Tor/Sources/C/include -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/DerivedSources-normal/arm64 -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/DerivedSources/arm64 -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/DerivedSources -Xcc -DDEBUG\=1 -emit-objc-header -emit-objc-header-path /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/Gap_Mesh-Swift.h -working-directory /Users/darabonakdar/gapmesh-ios -experimental-emit-module-separately -disable-cmo
+
+CompileAssetCatalogVariant thinned /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app /Users/darabonakdar/gapmesh-ios/bitchat/Assets.xcassets (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /Applications/Xcode.app/Contents/Developer/usr/bin/actool /Users/darabonakdar/gapmesh-ios/bitchat/Assets.xcassets --compile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/assetcatalog_output/thinned --output-format human-readable-text --notices --warnings --export-dependency-info /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/assetcatalog_dependencies_thinned --output-partial-info-plist /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/assetcatalog_generated_info.plist_thinned --app-icon AppIcon --compress-pngs --enable-on-demand-resources YES --filter-for-thinning-device-configuration iPhone18,4 --filter-for-device-os-version 26.2 --development-region fa --target-device iphone --target-device ipad --minimum-deployment-target 16.0 --platform iphonesimulator
+
+CompileXCStrings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ /Users/darabonakdar/gapmesh-ios/bitchat/Localizable.xcstrings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /Applications/Xcode.app/Contents/Developer/usr/bin/xcstringstool compile --output-directory /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build /Users/darabonakdar/gapmesh-ios/bitchat/Localizable.xcstrings
+
+ConstructStubExecutorLinkFileList /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension-ExecutorLinkFileList-normal-arm64.txt (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    construct-stub-executor-link-file-list /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension.debug.dylib /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor_no_swift_entry_point.a /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/usr/lib/libPreviewsJITStubExecutor.a --output /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension-ExecutorLinkFileList-normal-arm64.txt
+note: Using stub executor library without Swift entry point. (in target 'gapShareExtension' from project 'GapMesh')
+
+Ld /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension normal (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -Xlinker -reproducible -target arm64-apple-ios16.0-simulator -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -O0 -L/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -F/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -Xlinker -rpath -Xlinker @executable_path -Xlinker -rpath -Xlinker @executable_path/Frameworks -Xlinker -rpath -Xlinker @executable_path/../../Frameworks -rdynamic -Xlinker -no_deduplicate -Xlinker -objc_abi_version -Xlinker 2 -Xlinker -debug_variant -e ___debug_blank_executor_main -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_dylib -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension-DebugDylibPath-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_entry -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension-DebugEntryPoint-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __debug_instlnm -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension-DebugDylibInstallName-normal-arm64.txt -Xlinker -filelist -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension-ExecutorLinkFileList-normal-arm64.txt -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __entitlements -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent -Xlinker -sectcreate -Xlinker __TEXT -Xlinker __ents_der -Xlinker /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex-Simulated.xcent.der /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension.debug.dylib -Xlinker -no_adhoc_codesign -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension
+
+ExtractAppIntentsMetadata (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/appintentsmetadataprocessor --toolchain-dir /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain --module-name gapShareExtension --sdk-root /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk --xcode-version 17C519 --platform-family iOS --deployment-target 16.0 --bundle-identifier chat.gap.kevahazadi.ShareExtension --output /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex --target-triple arm64-apple-ios16.0-simulator --binary-file /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension --dependency-file /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension_dependency_info.dat --stringsdata-file /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/ExtractedAppShortcutsMetadata.stringsdata --source-file-list /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension.SwiftFileList --metadata-file-list /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.DependencyMetadataFileList --static-metadata-file-list /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.DependencyStaticMetadataFileList --swift-const-vals-list /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/Objects-normal/arm64/gapShareExtension.SwiftConstValuesFileList --compile-time-extraction --deployment-aware-processing --validate-assistant-intents --no-app-shortcuts-localization
+2026-02-26 14:45:41.413 appintentsmetadataprocessor[75644:545832] Starting appintentsmetadataprocessor export
+2026-02-26 14:45:41.416 appintentsmetadataprocessor[75644:545832] warning: Metadata extraction skipped. No AppIntents.framework dependency found.
+
+CodeSign /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension.debug.dylib (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --timestamp\=none --generate-entitlement-der /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex/gapShareExtension.debug.dylib
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/zh-Hant.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hant.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/zh-Hant.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hant.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hant.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/zh-Hans.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hans.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/zh-Hans.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hans.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hans.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/zh-Hans.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hans.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/zh-Hans.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hans.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/zh-Hans.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/vi.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/vi.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/vi.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/vi.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/vi.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ur.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ur.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ur.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ur.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ur.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/uk.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/uk.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/uk.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/uk.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/uk.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/uk.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/uk.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/uk.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/uk.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/uk.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/tr.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/tr.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/tr.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/tr.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/tr.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/th.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/th.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/th.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/th.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/th.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ta.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ta.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ta.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ta.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ta.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/sv.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/sv.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/sv.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/sv.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/sv.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ru.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ru.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ru.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ru.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ru.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ru.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ru.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ru.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ru.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ru.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pt.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pt.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pt-BR.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt-BR.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pt-BR.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt-BR.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt-BR.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pt-BR.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt-BR.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pt-BR.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt-BR.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pt-BR.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pl.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pl.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/pl.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pl.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/pl.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/nl.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/nl.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/nl.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/nl.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/nl.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ne.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ne.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ne.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ne.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ne.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ne.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ne.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ne.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ne.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ne.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ms.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ms.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ms.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ms.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ms.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ko.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ko.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ko.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ko.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ko.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ko.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ko.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ko.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ko.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ko.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ja.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ja.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ja.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ja.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ja.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ja.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ja.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ja.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ja.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ja.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/it.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/it.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/it.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/it.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/it.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/it.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/it.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/it.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/it.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/it.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/id.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/id.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/id.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/id.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/id.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/id.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/id.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/id.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/id.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/id.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/hi.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/hi.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/hi.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/hi.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/hi.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/he.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/he.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/he.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/he.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/he.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/he.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/he.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/he.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/he.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/he.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fr.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fr.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fr.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fr.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fr.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fr.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fr.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fr.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fr.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fr.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fil.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fil.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fil.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fil.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fil.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fa.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fa.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/fa.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fa.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/fa.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/es.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/es.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/es.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/es.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/es.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/es.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/es.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/es.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/es.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/es.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/en.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/en.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/en.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/en.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/en.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/en.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/en.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/en.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/en.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/en.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/de.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/de.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/de.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/de.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/de.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/de.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/de.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/de.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/de.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/de.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/bn.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/bn.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/bn.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/bn.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/bn.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ar.lproj/Localizable.stringsdict /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ar.lproj/Localizable.stringsdict (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.stringsdict --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ar.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ar.lproj/Localizable.stringsdict
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ar.lproj/Localizable.stringsdict:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CopyStringsFile /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ar.lproj/Localizable.strings /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ar.lproj/Localizable.strings (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    builtin-copyStrings --validate --outputencoding binary --outfilename Localizable.strings --outdir /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/Gap\ Mesh.app/ar.lproj -- /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ar.lproj/Localizable.strings
+/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/ar.lproj/Localizable.strings:1:1: note: detected encoding of input file as Unicode (UTF-8) (in target 'gap_iOS' from project 'GapMesh')
+
+CodeSign /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex (in target 'gapShareExtension' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+    Signing Identity:     "Sign to Run Locally"
+    
+    /usr/bin/codesign --force --sign - --entitlements /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gapShareExtension.build/gapShareExtension.appex.xcent --timestamp\=none --generate-entitlement-der /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/gapShareExtension.appex
+
+SwiftCompile normal arm64 Compiling\ WiFiAwareAvailability.swift,\ WiFiAwareTransport.swift,\ AutocompleteService.swift,\ BlossomService.swift,\ CommandProcessor.swift,\ DecoyModeManager.swift,\ EncryptionUtils.swift,\ FavoritesPersistenceService.swift,\ GeohashParticipantTracker.swift,\ GeohashPresenceService.swift,\ KeychainManager.swift,\ LocationNotesManager.swift,\ LocationStateManager.swift,\ MeshTopologyTracker.swift,\ MessageDeduplicationService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/WiFiAware/WiFiAwareAvailability.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/WiFiAware/WiFiAwareTransport.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/AutocompleteService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/BlossomService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/CommandProcessor.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/DecoyModeManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/EncryptionUtils.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/FavoritesPersistenceService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/GeohashParticipantTracker.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/GeohashPresenceService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/KeychainManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/LocationNotesManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/LocationStateManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/MeshTopologyTracker.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/MessageDeduplicationService.swift (in target 'gap_iOS' from project 'GapMesh')
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/WiFiAware/WiFiAwareAvailability.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/WiFiAware/WiFiAwareTransport.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/AutocompleteService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/BlossomService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/CommandProcessor.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/DecoyModeManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/EncryptionUtils.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/FavoritesPersistenceService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/GeohashParticipantTracker.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/GeohashPresenceService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/KeychainManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/LocationNotesManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/LocationStateManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/MeshTopologyTracker.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/MessageDeduplicationService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftEmitModule normal arm64 Emitting\ module\ for\ Gap_Mesh (in target 'gap_iOS' from project 'GapMesh')
+EmitSwiftModule normal arm64 (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 Compiling\ MessageFormattingEngine.swift,\ MessageRouter.swift,\ NetworkActivationService.swift,\ NoiseEncryptionService.swift,\ NostrTransport.swift,\ NotificationService.swift,\ NotificationStreamAssembler.swift,\ PanicWipeManager.swift,\ PrivateChatManager.swift,\ InputValidator.swift,\ LanguageManager.swift,\ MessageDeduplicator.swift,\ PeerDisplayNameResolver.swift,\ String+DJB2.swift,\ String+Nickname.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/MessageFormattingEngine.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/MessageRouter.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/NetworkActivationService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/NoiseEncryptionService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/NostrTransport.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/NotificationService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/NotificationStreamAssembler.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/PanicWipeManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/PrivateChatManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/InputValidator.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/LanguageManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/MessageDeduplicator.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/PeerDisplayNameResolver.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/String+DJB2.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/String+Nickname.swift (in target 'gap_iOS' from project 'GapMesh')
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/MessageFormattingEngine.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/MessageRouter.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/NetworkActivationService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/NoiseEncryptionService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/NostrTransport.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/NotificationService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/NotificationStreamAssembler.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/PanicWipeManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/PrivateChatManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/InputValidator.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/LanguageManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/MessageDeduplicator.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/PeerDisplayNameResolver.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/String+DJB2.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/String+Nickname.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 Compiling\ CalculatorButton.swift,\ CalculatorDecoyView.swift,\ CalculatorEngine.swift,\ DecoyPINOnboardingView.swift,\ DecoyPINSetupView.swift,\ BlockRevealImageView.swift,\ VoiceNoteView.swift,\ WaveformView.swift,\ ChatTabView.swift,\ LocationsTabView.swift,\ MainTabView.swift,\ PeopleTabView.swift,\ SettingsTabView.swift,\ AppInfoView.swift,\ ContentView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/CalculatorButton.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/CalculatorDecoyView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/CalculatorEngine.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/DecoyPINOnboardingView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/DecoyPINSetupView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Media/BlockRevealImageView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Media/VoiceNoteView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Media/WaveformView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/ChatTabView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/LocationsTabView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/MainTabView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/PeopleTabView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/SettingsTabView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/AppInfoView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/ContentView.swift (in target 'gap_iOS' from project 'GapMesh')
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/CalculatorButton.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/CalculatorDecoyView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/CalculatorEngine.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/DecoyPINOnboardingView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Decoy/DecoyPINSetupView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Media/BlockRevealImageView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Media/VoiceNoteView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Media/WaveformView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/ChatTabView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/LocationsTabView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/MainTabView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/PeopleTabView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Tabs/SettingsTabView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/AppInfoView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/ContentView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 Compiling\ Theme.swift,\ ChatViewModel+Nostr.swift,\ ChatViewModel+PrivateChat.swift,\ ChatViewModel+Tor.swift,\ ChatViewModel+WiFiAware.swift,\ ChatViewModel.swift,\ GeoChannelCoordinator.swift,\ MessageRateLimiter.swift,\ MinimalDistancePalette.swift,\ PublicMessagePipeline.swift,\ PublicTimelineStore.swift,\ CommandSuggestionsView.swift,\ DeliveryStatusView.swift,\ PaymentChipView.swift,\ TextMessageView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Utils/Theme.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+Nostr.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+PrivateChat.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+Tor.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+WiFiAware.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/ChatViewModel.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/GeoChannelCoordinator.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/MessageRateLimiter.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/MinimalDistancePalette.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/PublicMessagePipeline.swift /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/PublicTimelineStore.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/CommandSuggestionsView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/DeliveryStatusView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/PaymentChipView.swift /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/TextMessageView.swift (in target 'gap_iOS' from project 'GapMesh')
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Utils/Theme.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+Nostr.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+PrivateChat.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+Tor.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/Extensions/ChatViewModel+WiFiAware.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/ChatViewModel.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/GeoChannelCoordinator.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/MessageRateLimiter.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/MinimalDistancePalette.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/PublicMessagePipeline.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/ViewModels/PublicTimelineStore.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/CommandSuggestionsView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/DeliveryStatusView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/PaymentChipView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Views/Components/TextMessageView.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 Compiling\ BitchatMessage+Preview.swift,\ PreviewKeychainManager.swift,\ ImageUtils.swift,\ VoiceNotePlaybackController.swift,\ VoiceRecorder.swift,\ Waveform.swift,\ IdentityModels.swift,\ SecureIdentityStateManager.swift,\ BitchatMessage.swift,\ BitchatPacket.swift,\ BitchatPeer.swift,\ CommandInfo.swift,\ MessagePadding.swift,\ NoisePayload.swift,\ PeerID.swift /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/BitchatMessage+Preview.swift /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/PreviewKeychainManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/media/ImageUtils.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceNotePlaybackController.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceRecorder.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/Waveform.swift /Users/darabonakdar/gapmesh-ios/bitchat/Identity/IdentityModels.swift /Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatMessage.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPacket.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPeer.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/CommandInfo.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/MessagePadding.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/NoisePayload.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/PeerID.swift (in target 'gap_iOS' from project 'GapMesh')
+Failed frontend command:
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swift-frontend -frontend -c -filelist /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/sources-1 -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/BitchatMessage+Preview.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/PreviewKeychainManager.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Features/media/ImageUtils.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceNotePlaybackController.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceRecorder.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/Waveform.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Identity/IdentityModels.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatMessage.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPacket.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPeer.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/CommandInfo.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/MessagePadding.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/NoisePayload.swift -primary-file /Users/darabonakdar/gapmesh-ios/bitchat/Models/PeerID.swift -supplementary-output-file-map /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/supplementaryOutputs-1 -target arm64-apple-ios16.0-simulator -module-can-import-version DeveloperToolsSupport 23.0.4 23.0.4 -module-can-import-version SwiftUI 7.2.5.1 7.2.5 -module-can-import-version UIKit 9126.2.4.1 9126.2.4 -disable-cross-import-overlay-search -swift-module-cross-import MapKit /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/MapKit.framework/Modules/MapKit.swiftcrossimport/SwiftUI.swiftoverlay -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libFoundationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#FoundationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libObservationMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#ObservationMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libPreviewsMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#PreviewsMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftMacros -load-resolved-plugin /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib/swift/host/plugins/libSwiftUIMacros.dylib\#/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/bin/swift-plugin-server\#SwiftUIMacros -disable-implicit-swift-modules -Xcc -fno-implicit-modules -Xcc -fno-implicit-module-maps -explicit-swift-module-map-file /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/Gap_Mesh-dependencies-1.json -Xllvm -aarch64-use-tbi -enable-objc-interop -sdk /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator26.2.sdk -I /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/PackageFrameworks -F /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator -no-color-diagnostics -Xcc -fno-color-diagnostics -enable-testing -g -debug-info-format\=dwarf -dwarf-version\=4 -module-cache-path /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules -profile-generate -profile-coverage-mapping -swift-version 5 -enforce-exclusivity\=checked -Onone -D DEBUG -serialize-debugging-options -const-gather-protocols-file /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/gap_iOS_const_extract_protocols.json -enable-experimental-feature DebugDescriptionMacro -enable-bare-slash-regex -empty-abi-descriptor -validate-clang-modules-once -clang-build-session-file /Users/darabonakdar/gapmesh-ios/DerivedData/ModuleCache.noindex/Session.modulevalidation -Xcc -working-directory -Xcc /Users/darabonakdar/gapmesh-ios -enable-anonymous-context-mangled-names -file-compilation-dir /Users/darabonakdar/gapmesh-ios -Xcc -fmodule-map-file\=/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/libsecp256k1.modulemap -Xcc -fmodule-map-file\=/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GeneratedModuleMaps-iphonesimulator/TorC.modulemap -Xcc -D_LIBCPP_HARDENING_MODE\=_LIBCPP_HARDENING_MODE_DEBUG -Xcc -ivfsstatcache -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/SDKStatCaches.noindex/iphonesimulator26.2-23C57-7d00a8b37fbd7999ea79df8ebc024bf0.sdkstatcache -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/swift-overrides.hmap -Xcc -iquote -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-generated-files.hmap -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-own-target-headers.hmap -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-all-non-framework-target-headers.hmap -Xcc -ivfsoverlay -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/GapMesh-7ce14b01172d5c1f723e64a3e6300cc1-VFS-iphonesimulator/all-product-headers.yaml -Xcc -iquote -Xcc /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Gap\ Mesh-project-headers.hmap -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/SourcePackages/checkouts/swift-secp256k1/Sources/libsecp256k1/include -Xcc -I/Users/darabonakdar/gapmesh-ios/localPackages/Tor/Sources/C/include -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Products/Debug-iphonesimulator/include -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/DerivedSources-normal/arm64 -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/DerivedSources/arm64 -Xcc -I/Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/DerivedSources -Xcc -DDEBUG\=1 -no-auto-bridging-header-chaining -module-name Gap_Mesh -frontend-parseable-output -disable-clang-spi -target-sdk-version 26.2 -target-sdk-name iphonesimulator26.2 -clang-target arm64-apple-ios26.2-simulator -in-process-plugin-server-path /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/swift/host/libSwiftInProcPluginServer.dylib -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatMessage+Preview.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/PreviewKeychainManager.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/ImageUtils.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/VoiceNotePlaybackController.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/VoiceRecorder.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/Waveform.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/IdentityModels.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/SecureIdentityStateManager.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatMessage.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatPacket.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatPeer.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/CommandInfo.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/MessagePadding.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/NoisePayload.o -o /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Build/Intermediates.noindex/GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/PeerID.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatMessage+Preview.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/PreviewKeychainManager.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/ImageUtils.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/VoiceNotePlaybackController.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/VoiceRecorder.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/Waveform.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/IdentityModels.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/SecureIdentityStateManager.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatMessage.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatPacket.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/BitchatPeer.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/CommandInfo.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/MessagePadding.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/NoisePayload.o -index-unit-output-path /GapMesh.build/Debug-iphonesimulator/gap_iOS.build/Objects-normal/arm64/PeerID.o -index-store-path /Users/darabonakdar/gapmesh-ios/DerivedData/GapMesh/Index.noindex/DataStore -index-system-modules
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/BitchatMessage+Preview.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/PreviewKeychainManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Features/media/ImageUtils.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceNotePlaybackController.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceRecorder.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/Waveform.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Identity/IdentityModels.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+/Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift:165:35: error: 'self' used in method call 'getOrGenerateMasterKey' before all stored properties are initialized
+        self.encryptionKey = self.getOrGenerateMasterKey()
+                                  ^
+/Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift:159:17: note: 'self.encryptionKey' not initialized
+    private let encryptionKey: SymmetricKey
+                ^
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatMessage.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPacket.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPeer.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/CommandInfo.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/MessagePadding.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/NoisePayload.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Models/PeerID.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 Compiling\ NostrIdentity.swift,\ NostrIdentityBridge.swift,\ NostrProtocol.swift,\ NostrRelayManager.swift,\ XChaCha20Poly1305Compat.swift,\ BinaryEncodingUtils.swift,\ BinaryProtocol.swift,\ BitchatFilePacket.swift,\ BitchatProtocol.swift,\ Geohash.swift,\ LocationChannel.swift,\ Packets.swift,\ BLEService.swift,\ MimeType.swift,\ ServiceUuidRotation.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrIdentity.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrIdentityBridge.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrProtocol.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrRelayManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/XChaCha20Poly1305Compat.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BinaryEncodingUtils.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BinaryProtocol.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BitchatFilePacket.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BitchatProtocol.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/Geohash.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/LocationChannel.swift /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/Packets.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/BLE/BLEService.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/BLE/MimeType.swift /Users/darabonakdar/gapmesh-ios/bitchat/Services/BLE/ServiceUuidRotation.swift (in target 'gap_iOS' from project 'GapMesh')
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrIdentity.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrIdentityBridge.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrProtocol.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrRelayManager.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/XChaCha20Poly1305Compat.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BinaryEncodingUtils.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BinaryProtocol.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BitchatFilePacket.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/BitchatProtocol.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/Geohash.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/LocationChannel.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Protocols/Packets.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/BLE/BLEService.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/BLE/MimeType.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Services/BLE/ServiceUuidRotation.swift (in target 'gap_iOS' from project 'GapMesh')
+    cd /Users/darabonakdar/gapmesh-ios
+    
+
+SwiftCompile normal arm64 Compiling\ ReadReceipt.swift,\ RequestSyncPacket.swift,\ NoiseProtocol.swift,\ NoiseRateLimiter.swift,\ NoiseSecurityConstants.swift,\ NoiseSecurityError.swift,\ NoiseSecurityValidator.swift,\ NoiseSession.swift,\ NoiseSessionError.swift,\ NoiseSessionManager.swift,\ NoiseSessionState.swift,\ SecureNoiseSession.swift,\ Bech32.swift,\ GeoRelayDirectory.swift,\ NostrEmbeddedBitChat.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/ReadReceipt.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/RequestSyncPacket.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseProtocol.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseRateLimiter.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSecurityConstants.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSecurityError.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSecurityValidator.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSession.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSessionError.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSessionManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/NoiseSessionState.swift /Users/darabonakdar/gapmesh-ios/bitchat/Noise/SecureNoiseSession.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/Bech32.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/GeoRelayDirectory.swift /Users/darabonakdar/gapmesh-ios/bitchat/Nostr/NostrEmbeddedBitChat.swift (in target 'gap_iOS' from project 'GapMesh')
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	SwiftCompile normal arm64 Compiling\ BitchatMessage+Preview.swift,\ PreviewKeychainManager.swift,\ ImageUtils.swift,\ VoiceNotePlaybackController.swift,\ VoiceRecorder.swift,\ Waveform.swift,\ IdentityModels.swift,\ SecureIdentityStateManager.swift,\ BitchatMessage.swift,\ BitchatPacket.swift,\ BitchatPeer.swift,\ CommandInfo.swift,\ MessagePadding.swift,\ NoisePayload.swift,\ PeerID.swift /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/BitchatMessage+Preview.swift /Users/darabonakdar/gapmesh-ios/bitchat/_PreviewHelpers/PreviewKeychainManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/media/ImageUtils.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceNotePlaybackController.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/VoiceRecorder.swift /Users/darabonakdar/gapmesh-ios/bitchat/Features/voice/Waveform.swift /Users/darabonakdar/gapmesh-ios/bitchat/Identity/IdentityModels.swift /Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatMessage.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPacket.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/BitchatPeer.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/CommandInfo.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/MessagePadding.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/NoisePayload.swift /Users/darabonakdar/gapmesh-ios/bitchat/Models/PeerID.swift (in target 'gap_iOS' from project 'GapMesh')
+	SwiftCompile normal arm64 /Users/darabonakdar/gapmesh-ios/bitchat/Identity/SecureIdentityStateManager.swift (in target 'gap_iOS' from project 'GapMesh')
+	Building project GapMesh with scheme GapMash (iOS)
+(3 failures)
