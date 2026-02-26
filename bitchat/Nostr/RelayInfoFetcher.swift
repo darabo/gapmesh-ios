@@ -1,4 +1,6 @@
 import Foundation
+import BitLogger
+import Tor
 
 // MARK: - NIP-11 Relay Info Fetcher
 

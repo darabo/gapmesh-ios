@@ -205,9 +205,8 @@ struct BitchatApp: App {
 
         // ---- QR Verification ----
         case ("bitchat", "verify"), ("gapmesh", "verify"):
-            VerificationService.shared.showSheet()
             if let qr = VerificationService.shared.verifyScannedQR(url.absoluteString) {
-                chatViewModel.beginQRVerification(qr)
+                _ = chatViewModel.beginQRVerification(with: qr)
             }
 
         // ---- gapmesh://chat → main chat ----

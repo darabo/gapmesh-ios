@@ -1,4 +1,5 @@
 import Foundation
+import BitLogger
 
 // MARK: - Relay Capability Filter
 
