@@ -158,7 +158,7 @@ struct ContentView: View {
                     }
                     #endif
                 }
-                .onChange(of: colorScheme) { newValue in
+                .onChange(of: colorScheme) { _, newValue in
                     viewModel.currentColorScheme = newValue
                 }
 
@@ -191,11 +191,11 @@ struct ContentView: View {
         #if os(macOS)
         .frame(minWidth: 600, minHeight: 400)
         #endif
-        .onChange(of: viewModel.selectedPrivateChatPeer) { newValue in
-            if newValue != nil {
-                showSidebar = true
+         .onChange(of: viewModel.selectedPrivateChatPeer) { _, newValue in
+                if newValue != nil {
+                    showSidebar = true
+                }
             }
-        }
         .sheet(
             isPresented: Binding(
                 get: { showSidebar || viewModel.selectedPrivateChatPeer != nil },
@@ -475,10 +475,10 @@ struct ContentView: View {
             .onAppear {
                 scrollToBottom(on: proxy, privatePeer: privatePeer, isAtBottom: isAtBottom)
             }
-            .onChange(of: privatePeer) { _ in
+            .onChange(of: privatePeer) {
                 scrollToBottom(on: proxy, privatePeer: privatePeer, isAtBottom: isAtBottom)
             }
-            .onChange(of: viewModel.messages.count) { _ in
+            .onChange(of: viewModel.messages.count) {
                 if privatePeer == nil && !viewModel.messages.isEmpty {
                     // If the newest message is from me, always scroll to bottom
                     let lastMsg = viewModel.messages.last!
@@ -526,7 +526,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .onChange(of: viewModel.privateChats) { _ in
+            .onChange(of: viewModel.privateChats) {
                 if let peerID = privatePeer,
                    let messages = viewModel.privateChats[peerID],
                    !messages.isEmpty {
@@ -563,7 +563,7 @@ struct ContentView: View {
                     }
                 }
             }
-            .onChange(of: locationManager.selectedChannel) { newChannel in
+            .onChange(of: locationManager.selectedChannel) { _, newChannel in
                 // When switching to a new geohash channel, scroll to the bottom
                 guard privatePeer == nil else { return }
                 switch newChannel {
@@ -688,7 +688,7 @@ struct ContentView: View {
                         .fill(colorScheme == .dark ? Color.black.opacity(0.35) : Color.white.opacity(0.7))
                 )
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .onChange(of: messageText) { newValue in
+                .onChange(of: messageText) { _, newValue in
                     autocompleteDebounceTimer?.invalidate()
                     autocompleteDebounceTimer = Timer.scheduledTimer(withTimeInterval: 0.15, repeats: false) { [weak viewModel] _ in
                         let cursorPosition = newValue.count
@@ -1285,7 +1285,7 @@ struct ContentView: View {
                     #if os(iOS)
                     .textInputAutocapitalization(.never)
                     #endif
-                    .onChange(of: isNicknameFieldFocused) { isFocused in
+                    .onChange(of: isNicknameFieldFocused) { _, isFocused in
                         if !isFocused {
                             // Only validate when losing focus
                             viewModel.validateAndSaveNickname()
@@ -1501,7 +1501,7 @@ struct ContentView: View {
             .onDisappear {
                 LocationChannelManager.shared.endLiveRefresh()
             }
-            .onChange(of: locationManager.availableChannels) { channels in
+            .onChange(of: locationManager.availableChannels) { _, channels in
                 if let current = channels.first(where: { $0.level == .building })?.geohash,
                     notesGeohash != current {
                     notesGeohash = current
@@ -1521,14 +1521,14 @@ struct ContentView: View {
                 LocationChannelManager.shared.refreshChannels()
             }
         }
-        .onChange(of: locationManager.selectedChannel) { _ in
+        .onChange(of: locationManager.selectedChannel) {
             if case .mesh = locationManager.selectedChannel,
                locationManager.permissionState == .authorized,
                LocationChannelManager.shared.availableChannels.isEmpty {
                 LocationChannelManager.shared.refreshChannels()
             }
         }
-        .onChange(of: locationManager.permissionState) { _ in
+        .onChange(of: locationManager.permissionState) {
             if case .mesh = locationManager.selectedChannel,
                locationManager.permissionState == .authorized,
                LocationChannelManager.shared.availableChannels.isEmpty {

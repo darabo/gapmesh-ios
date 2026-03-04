@@ -12,6 +12,10 @@ struct SettingsTabView: View {
     @EnvironmentObject var viewModel: ChatViewModel
     @StateObject private var languageManager = LanguageManager.shared
     @ObservedObject private var locationManager = LocationChannelManager.shared
+    @ObservedObject private var iconManager = AppIconManager.shared
+    #if os(iOS)
+    @ObservedObject private var liveActivityManager = LiveActivityManager.shared
+    #endif
     @Environment(\.colorScheme) var colorScheme
     @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     @State private var showingNameEditSheet = false
@@ -21,6 +25,13 @@ struct SettingsTabView: View {
     @State private var torEnabled = SecureStorageManager.shared.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
     @State private var proofOfWorkEnabled = SecureStorageManager.shared.bool(forKey: "proofOfWorkEnabled")
     @State private var legacyCompatibility = UserDefaults.standard.isLegacyCompatibilityEnabled
+    
+    // Slipstream (censorship bypass) states
+    @ObservedObject private var slipstreamManager = SlipstreamManager.shared
+    @State private var slipstreamEnabled = SecureStorageManager.shared.bool(forKey: "slipstreamEnabled")
+    @State private var slipstreamDomain = SecureStorageManager.shared.object(forKey: "slipstreamDomain") as? String ?? "t.gapmesh.com"
+    @State private var slipstreamResolver = SecureStorageManager.shared.object(forKey: "slipstreamResolver") as? String ?? "1.1.1.1"
+    @State private var slipstreamShowAdvanced = false
     
     private var textColor: Color {
         colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
@@ -41,6 +52,12 @@ struct SettingsTabView: View {
     private var accentBlue: Color {
         Color(hue: 0.60, saturation: 0.85, brightness: 0.82)
     }
+
+    #if os(iOS)
+    private var canToggleLiveActivities: Bool {
+        liveActivityManager.areActivitiesAuthorized || liveActivityManager.isEnabled
+    }
+    #endif
     
     var body: some View {
         NavigationView {
@@ -166,7 +183,7 @@ struct SettingsTabView: View {
                                 isOn: $torEnabled,
                                 accentColor: accentBlue
                             )
-                            .onChange(of: torEnabled) { newValue in
+                            .onChange(of: torEnabled) { _, newValue in
                                 SecureStorageManager.shared.set(newValue, forKey: "torEnabled")
                                 NetworkActivationService.shared.setUserTorEnabled(newValue)
                             }
@@ -179,8 +196,91 @@ struct SettingsTabView: View {
                                 isOn: $proofOfWorkEnabled,
                                 accentColor: accentBlue
                             )
-                            .onChange(of: proofOfWorkEnabled) { newValue in
+                            .onChange(of: proofOfWorkEnabled) { _, newValue in
                                 SecureStorageManager.shared.set(newValue, forKey: "proofOfWorkEnabled")
+                            }
+                            
+                            // Slipstream (Censorship Bypass) Toggle
+                            ToggleRow(
+                                icon: "globe.americas",
+                                title: LanguageManager.shared.localizedString("settings.slipstream"),
+                                description: LanguageManager.shared.localizedString("settings.slipstream_description"),
+                                isOn: .constant(false),
+                                accentColor: accentBlue
+                            )
+                            .disabled(true)
+                            .opacity(0.5)
+                            
+                            // Slipstream status & advanced config (shown when enabled)
+                            if slipstreamEnabled {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    // Status indicator
+                                    if !slipstreamManager.lastLogLine.isEmpty {
+                                        Text(slipstreamManager.lastLogLine)
+                                            .font(.caption2)
+                                            .foregroundColor(
+                                                slipstreamManager.state == .running ? .green :
+                                                slipstreamManager.state == .error ? .red : .gray
+                                            )
+                                            .padding(.horizontal, 40)
+                                    }
+
+                                    // Advanced settings disclosure
+                                    Button(action: {
+                                        withAnimation(.easeInOut(duration: 0.2)) {
+                                            slipstreamShowAdvanced.toggle()
+                                        }
+                                    }) {
+                                        HStack(spacing: 4) {
+                                            Image(systemName: slipstreamShowAdvanced ? "chevron.down" : "chevron.right")
+                                                .font(.caption2)
+                                            Text(LanguageManager.shared.localizedString("settings.slipstream_advanced"))
+                                                .font(.caption)
+                                        }
+                                        .foregroundColor(.gray)
+                                        .padding(.leading, 40)
+                                    }
+
+                                    if slipstreamShowAdvanced {
+                                        // Tunnel Domain
+                                        Text(LanguageManager.shared.localizedString("settings.slipstream_domain_label"))
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                            .padding(.leading, 40)
+
+                                        TextField(
+                                            LanguageManager.shared.localizedString("settings.slipstream_domain_hint"),
+                                            text: $slipstreamDomain
+                                        )
+                                        .font(.system(.caption, design: .monospaced))
+                                        .textFieldStyle(.roundedBorder)
+                                        .autocapitalization(.none)
+                                        .disableAutocorrection(true)
+                                        .padding(.horizontal, 40)
+                                        .onChange(of: slipstreamDomain) { _, newValue in
+                                            slipstreamManager.domain = newValue
+                                        }
+
+                                        // DNS Resolver
+                                        Text(LanguageManager.shared.localizedString("settings.slipstream_resolver_label"))
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                            .padding(.leading, 40)
+
+                                        TextField("1.1.1.1", text: $slipstreamResolver)
+                                            .font(.system(.caption, design: .monospaced))
+                                            .textFieldStyle(.roundedBorder)
+                                            .autocapitalization(.none)
+                                            .disableAutocorrection(true)
+                                            .keyboardType(.URL)
+                                            .padding(.horizontal, 40)
+                                            .onChange(of: slipstreamResolver) { _, newValue in
+                                                slipstreamManager.resolver = newValue
+                                            }
+                                    }
+                                }
+                                .padding(.vertical, 4)
+                                .background(surfaceColor)
                             }
                             
                             // Location Toggle
@@ -191,7 +291,7 @@ struct SettingsTabView: View {
                                 isOn: $locationManager.isLocationUserEnabled,
                                 accentColor: accentBlue
                             )
-                            .onChange(of: locationManager.isLocationUserEnabled) { newValue in
+                            .onChange(of: locationManager.isLocationUserEnabled) { _, newValue in
                                 if newValue {
                                     if locationManager.permissionState == .denied {
                                         #if os(iOS)
@@ -213,7 +313,79 @@ struct SettingsTabView: View {
                         .cornerRadius(12)
                     }
                     .padding(.horizontal)
-                    
+
+                    // MARK: - App Icon Section (submenu)
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionHeaderView(title: LanguageManager.shared.localizedString("settings.app_icon_title").uppercased(), colorScheme: colorScheme)
+
+                        VStack(spacing: 1) {
+                            NavigationLink(destination: AppIconPickerView(iconManager: iconManager, accentBlue: accentBlue)) {
+                                HStack(alignment: .center, spacing: 12) {
+                                    Image(systemName: iconManager.currentIcon.sfSymbol)
+                                        .font(.system(size: 20))
+                                        .foregroundColor(accentBlue)
+                                        .frame(width: 24)
+
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(LanguageManager.shared.localizedString("settings.app_icon_title"))
+                                            .font(.body)
+                                            .fontWeight(.medium)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
+
+                                        Text(iconManager.currentIcon.displayName)
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                    }
+
+                                    Spacer()
+                                }
+                                .padding()
+                                .background(surfaceColor)
+                            }
+                        }
+                        .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+
+                    // MARK: - Live Activity Section
+                    #if os(iOS)
+                    VStack(alignment: .leading, spacing: 12) {
+                        SectionHeaderView(title: LanguageManager.shared.localizedString("settings.live_activity_section").uppercased(), colorScheme: colorScheme)
+
+                        VStack(spacing: 1) {
+                            ToggleRow(
+                                icon: "rectangle.stack.badge.play.fill",
+                                title: LanguageManager.shared.localizedString("settings.live_activity_title"),
+                                description: LanguageManager.shared.localizedString("settings.live_activity_description"),
+                                isOn: $liveActivityManager.isEnabled,
+                                accentColor: accentBlue
+                            )
+                            .disabled(!canToggleLiveActivities)
+                            .opacity(canToggleLiveActivities ? 1.0 : 0.6)
+
+                            if !liveActivityManager.areActivitiesAuthorized {
+                                Text("Live Activities are disabled by iOS system settings. Enable Live Activities in iOS Settings to turn this on.")
+                                    .font(.caption)
+                                    .foregroundColor(.orange)
+                                    .padding(.horizontal)
+                                    .padding(.vertical, 10)
+                            }
+
+                            #if DEBUG
+                            Text("Debug: \(liveActivityManager.debugStatusLine)")
+                                .font(.caption2.monospaced())
+                                .foregroundColor(.gray)
+                                .lineLimit(2)
+                                .padding(.horizontal)
+                                .padding(.vertical, 8)
+                            #endif
+                        }
+                        .background(surfaceColor)
+                        .cornerRadius(12)
+                    }
+                    .padding(.horizontal)
+                    #endif
+
                     // MARK: - Features Section
                     VStack(alignment: .leading, spacing: 12) {
                         SectionHeaderView(title: LanguageManager.shared.localizedString("settings.features").uppercased(), colorScheme: colorScheme)
@@ -296,7 +468,7 @@ struct SettingsTabView: View {
                                 isOn: $legacyCompatibility,
                                 accentColor: accentBlue
                             )
-                            .onChange(of: legacyCompatibility) { newValue in
+                            .onChange(of: legacyCompatibility) { _, newValue in
                                 UserDefaults.standard.isLegacyCompatibilityEnabled = newValue
                             }
                         }
@@ -532,6 +704,8 @@ struct SettingsTabView: View {
             }
             #endif
         }
+        .applyLanguageEnvironment(LanguageManager.shared)
+        .id(LanguageManager.shared.refreshID)
     }
     
     private func saveNewName() {
@@ -700,7 +874,7 @@ private struct DecoyPINRow: View {
                         #if os(iOS)
                         .keyboardType(.numberPad)
                         #endif
-                        .onChange(of: newPIN) { _ in
+                        .onChange(of: newPIN) {
                             pinMismatch = false
                             pinSaved = false
                             newPIN = String(newPIN.filter { $0.isNumber }.prefix(8))
@@ -713,7 +887,7 @@ private struct DecoyPINRow: View {
                         #if os(iOS)
                         .keyboardType(.numberPad)
                         #endif
-                        .onChange(of: confirmPIN) { _ in
+                        .onChange(of: confirmPIN) {
                             pinMismatch = false
                             pinSaved = false
                             confirmPIN = String(confirmPIN.filter { $0.isNumber }.prefix(8))
