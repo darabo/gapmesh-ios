@@ -8085,6 +8085,23 @@
         }
       }
     },
+    "Connected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connected"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متصل"
+          }
+        }
+      }
+    },
     "content.accessibility.add_favorite": {
       "extractionState": "manual",
       "localizations": {
@@ -20399,7 +20416,7 @@
     },
     "content.people_count_active": {
       "comment": "A label at the bottom of the people list sheet showing the number of active users.",
-      "extractionState": "stale",
+      "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -20585,7 +20602,7 @@
     },
     "content.recording_duration": {
       "comment": "Voice note recording duration indicator",
-      "extractionState": "stale",
+      "extractionState": "manual",
       "localizations": {
         "ar": {
           "stringUnit": {
@@ -21091,6 +21108,7 @@
       }
     },
     "Dara Bonakdar": {},
+    "Debug: %@": {},
     "encryption.accessibility.establishing": {
       "extractionState": "manual",
       "localizations": {
@@ -22941,7 +22959,16 @@
         }
       }
     },
-    "English": {},
+    "English": {
+      "localizations": {
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "English"
+          }
+        }
+      }
+    },
     "eula.agree_checkbox": {
       "extractionState": "manual",
       "localizations": {
@@ -26048,6 +26075,160 @@
           "stringUnit": {
             "state": "needs_review",
             "value": "Gap Mesh به شما امکان می‌دهد تصاویر را از کتابخانه عکس خود انتخاب کنید تا با همتایان نزدیک به اشتراک بگذارید."
+          }
+        }
+      }
+    },
+    "Live Activities are disabled by iOS system settings. Enable Live Activities in iOS Settings to turn this on.": {},
+    "live_activity.connected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connected"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متصل"
+          }
+        }
+      }
+    },
+    "live_activity.connecting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connecting…"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال اتصال..."
+          }
+        }
+      }
+    },
+    "live_activity.mesh_network": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesh Network"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شبکه مش"
+          }
+        }
+      }
+    },
+    "live_activity.relay_connected": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Connected"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "متصل"
+          }
+        }
+      }
+    },
+    "live_activity.scanning": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scanning…"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال اسکن..."
+          }
+        }
+      }
+    },
+    "live_activity.starting": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Starting…"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال شروع..."
+          }
+        }
+      }
+    },
+    "live_activity.stop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توقف"
+          }
+        }
+      }
+    },
+    "live_activity.user_plural": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Users"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کاربران"
+          }
+        }
+      }
+    },
+    "live_activity.user_singular": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "User"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کاربر"
           }
         }
       }
@@ -33616,6 +33797,23 @@
         }
       }
     },
+    "Mesh Network": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesh Network"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "شبکه مش"
+          }
+        }
+      }
+    },
     "mesh_peers.tooltip.new_messages": {
       "extractionState": "manual",
       "localizations": {
@@ -33797,6 +33995,108 @@
           "stringUnit": {
             "state": "translated",
             "value": "新訊息"
+          }
+        }
+      }
+    },
+    "Mutual verification": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mutual verification"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تأیید متقابل"
+          }
+        }
+      }
+    },
+    "notification.dm.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🔒 DM from %@"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🔒 پیام خصوصی از %@"
+          }
+        }
+      }
+    },
+    "notification.mention.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "🫵 you were mentioned by %@"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "�� شما توسط %@ منشن شدید"
+          }
+        }
+      }
+    },
+    "notification.network.multiple": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d people around"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%d نفر در اطراف"
+          }
+        }
+      }
+    },
+    "notification.network.single": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "1 person around"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "۱ نفر در اطراف"
+          }
+        }
+      }
+    },
+    "notification.network.title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "👥 gapchatters nearby!"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "👥 کاربران گپ‌مش در نزدیکی!"
           }
         }
       }
@@ -34067,23 +34367,6 @@
         }
       }
     },
-    "onboarding.decoy_use_random": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Use Random PIN"
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "استفاده از پین تصادفی"
-          }
-        }
-      }
-    },
     "onboarding.decoy_update_banner": {
       "extractionState": "manual",
       "localizations": {
@@ -34097,6 +34380,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "ویژگی امنیتی جدید: لطفاً قبل از ادامه، پین حالت ماشین‌حساب خود را تنظیم کنید."
+          }
+        }
+      }
+    },
+    "onboarding.decoy_use_random": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Use Random PIN"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "استفاده از پین تصادفی"
           }
         }
       }
@@ -34167,6 +34467,62 @@
             "value": "مکانی (Geohash)"
           }
         }
+      }
+    },
+    "onboarding.feature_private_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Encrypted Messaging" } },
+        "fa": { "stringUnit": { "state": "translated", "value": "پیام‌های امن" } }
+      }
+    },
+    "onboarding.feature_private_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "End-to-end encrypted chats." } },
+        "fa": { "stringUnit": { "state": "translated", "value": "چت‌های رمزنگاری شده سرتاسری." } }
+      }
+    },
+    "onboarding.feature_decoy_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Decoy Mode" } },
+        "fa": { "stringUnit": { "state": "translated", "value": "حالت فریب" } }
+      }
+    },
+    "onboarding.feature_decoy_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Hide app behind a calculator interface." } },
+        "fa": { "stringUnit": { "state": "translated", "value": "پنهان کردن برنامه با ماشین حساب." } }
+      }
+    },
+    "onboarding.feature_icons_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Alternative Icons" } },
+        "fa": { "stringUnit": { "state": "translated", "value": "آیکن‌های متفاوت" } }
+      }
+    },
+    "onboarding.feature_icons_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Customize how the app looks on your home screen." } },
+        "fa": { "stringUnit": { "state": "translated", "value": "ظاهر برنامه را شخصی‌سازی کنید." } }
+      }
+    },
+    "onboarding.feature_relay_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Mesh Relays" } },
+        "fa": { "stringUnit": { "state": "translated", "value": "رله‌های شبکه" } }
+      }
+    },
+    "onboarding.feature_relay_desc": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": { "stringUnit": { "state": "translated", "value": "Bounce messages off nearby devices to extend range." } },
+        "fa": { "stringUnit": { "state": "translated", "value": "ارسال پیام‌ از طریق دستگاه‌های اطراف." } }
       }
     },
     "onboarding.feature_notes_desc": {
@@ -35088,6 +35444,23 @@
         }
       }
     },
+    "Scanning…": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Scanning…"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "در حال اسکن..."
+          }
+        }
+      }
+    },
     "Select Image": {
       "extractionState": "manual",
       "localizations": {
@@ -35877,6 +36250,23 @@
           "stringUnit": {
             "state": "translated",
             "value": "هشدار"
+          }
+        }
+      }
+    },
+    "Stop": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Stop"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "توقف"
           }
         }
       }
@@ -38752,6 +39142,41 @@
         }
       }
     },
+    "To join geohash channels, enable location access for Gap Mesh.": {},
+    "User": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "User"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کاربر"
+          }
+        }
+      }
+    },
+    "Users": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Users"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "کاربران"
+          }
+        }
+      }
+    },
     "verification.my_qr.accessibility_label": {
       "extractionState": "manual",
       "localizations": {
@@ -40636,21 +41061,19 @@
         }
       }
     },
-    "زبان را انتخاب کنید": {},
-    "فارسی": {},
-    "Mutual verification": {
+    "Verified": {
       "extractionState": "manual",
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Mutual verification"
+            "value": "Verified"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "تأیید متقابل"
+            "value": "تأییدشده"
           }
         }
       }
@@ -40672,23 +41095,6 @@
         }
       }
     },
-    "Verified": {
-      "extractionState": "manual",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Verified"
-          }
-        },
-        "fa": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "تأییدشده"
-          }
-        }
-      }
-    },
     "You verified %@": {
       "extractionState": "manual",
       "localizations": {
@@ -40706,87 +41112,551 @@
         }
       }
     },
-    "notification.mention.title": {
-      "extractionState": "manual",
+    "زبان را انتخاب کنید": {},
+    "فارسی": {},
+    "icon.default": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "🫵 you were mentioned by %@"
+            "value": "Default (Gap Mesh)"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "�� شما توسط %@ منشن شدید"
+            "value": "پیش‌فرض (Gap Mesh)"
           }
         }
       }
     },
-    "notification.dm.title": {
-      "extractionState": "manual",
+    "icon.calculator": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "🔒 DM from %@"
+            "value": "Calculator"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "🔒 پیام خصوصی از %@"
+            "value": "ماشین‌حساب"
           }
         }
       }
     },
-    "notification.network.title": {
-      "extractionState": "manual",
+    "icon.notes": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "👥 gapchatters nearby!"
+            "value": "Notes"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "👥 کاربران گپ‌مش در نزدیکی!"
+            "value": "یادداشت‌ها"
           }
         }
       }
     },
-    "notification.network.single": {
-      "extractionState": "manual",
+    "icon.weather": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "1 person around"
+            "value": "Weather"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "۱ نفر در اطراف"
+            "value": "آب و هوا"
           }
         }
       }
     },
-    "notification.network.multiple": {
-      "extractionState": "manual",
+    "icon.clock": {
       "localizations": {
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d people around"
+            "value": "Clock"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "%d نفر در اطراف"
+            "value": "ساعت"
+          }
+        }
+      }
+    },
+    "icon.flashlight": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Flashlight"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چراغ‌قوه"
+          }
+        }
+      }
+    },
+    "icon.music": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Music"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "موسیقی"
+          }
+        }
+      }
+    },
+    "settings.app_icon_description": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the app icon on your home screen. The app name will stay the same."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آیکون برنامه را در صفحه اصلی تغییر دهید. نام برنامه تغییر نمی‌کند."
+          }
+        }
+      }
+    },
+    "settings.app_icon_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App Icon"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آیکون برنامه"
+          }
+        }
+      }
+    },
+    "settings.live_activity_section": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live Activity"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فعالیت زنده"
+          }
+        }
+      }
+    },
+    "settings.live_activity_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Live Activity"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "فعالیت زنده"
+          }
+        }
+      }
+    },
+    "settings.live_activity_description": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Show mesh network status on the Lock Screen and Dynamic Island."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "نمایش وضعیت شبکه مش در صفحه قفل و Dynamic Island."
+          }
+        }
+      }
+    },
+    "decoy.exit.icon_title": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change App Icon?"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغییر آیکون برنامه؟"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تغيير أيقونة التطبيق؟"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿Cambiar el ícono de la app?"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Changer l'icône de l'app ?"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "App-Symbol ändern?"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Изменить иконку?"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama simgesi değiştirilsin mi?"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "更改应用图标？"
+          }
+        }
+      }
+    },
+    "decoy.exit.icon_message": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your app icon is currently set to Calculator. You can change it back to the default or choose another icon in Settings."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آیکون برنامه شما در حال حاضر روی ماشین‌حساب تنظیم شده است. می‌توانید آن را در تنظیمات به حالت پیش‌فرض یا آیکون دیگری تغییر دهید."
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "أيقونة تطبيقك مضبوطة حاليًا على الآلة الحاسبة. يمكنك تغييرها إلى الافتراضية أو اختيار أيقونة أخرى في الإعدادات."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "El ícono de tu app está configurado como Calculadora. Puedes cambiarlo al predeterminado u otro ícono en Configuración."
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "L'icône de votre app est actuellement réglée sur Calculatrice. Vous pouvez la modifier dans les Réglages."
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ihr App-Symbol ist derzeit auf Taschenrechner eingestellt. Sie können es in den Einstellungen ändern."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Иконка приложения сейчас установлена как Калькулятор. Вы можете изменить её в Настройках."
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Uygulama simgeniz şu anda Hesap Makinesi olarak ayarlı. Ayarlardan değiştirebilirsiniz."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "您的应用图标当前设置为计算器。您可以在设置中将其更改回默认图标或其他图标。"
+          }
+        }
+      }
+    },
+    "decoy.exit.go_to_settings": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Go to Settings"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "برو به تنظیمات"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "الذهاب إلى الإعدادات"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ir a Configuración"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Aller aux Réglages"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Zu Einstellungen"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Перейти в Настройки"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Ayarlara Git"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "前往设置"
+          }
+        }
+      }
+    },
+    "decoy.exit.later": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Later"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بعداً"
+          }
+        },
+        "ar": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لاحقًا"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Más tarde"
+          }
+        },
+        "fr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Plus tard"
+          }
+        },
+        "de": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Später"
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Позже"
+          }
+        },
+        "tr": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Daha Sonra"
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "稍后"
+          }
+        }
+      }
+    },
+    "settings.slipstream": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Slipstream (Censorship Bypass)"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اسلیپ‌استریم (دور زدن سانسور)"
+          }
+        }
+      }
+    },
+    "settings.slipstream_description": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Route connections through domain fronting to bypass censorship"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "مسیریابی اتصالات از طریق فرانت دامنه برای دور زدن سانسور"
+          }
+        }
+      }
+    },
+    "settings.slipstream_advanced": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Advanced Settings"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "تنظیمات پیشرفته"
+          }
+        }
+      }
+    },
+    "settings.slipstream_domain_label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Tunnel Domain"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دامنه تونل"
+          }
+        }
+      }
+    },
+    "settings.slipstream_domain_hint": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Enter domain (e.g. t.gapmesh.com)"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "دامنه را وارد کنید"
+          }
+        }
+      }
+    },
+    "settings.slipstream_resolver_label": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "DNS Resolver"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حل‌کننده DNS"
+          }
+        }
+      }
+    },
+    "settings.app_icon_note": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Change the app icon on your home screen. The app name will stay the same."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آیکون برنامه را در صفحه اصلی خود تغییر دهید. نام برنامه ثابت خواهد ماند."
           }
         }
       }

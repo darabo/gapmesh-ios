@@ -78,7 +78,11 @@ struct MainTabView: View {
         )
         #endif
         .onAppear {
-            // Ensure view model is ready if needed
+            // If returning from decoy mode with "Go to Settings" selected,
+            // auto-switch to the Settings tab so the icon picker opens
+            if UserDefaults.standard.bool(forKey: "shouldOpenAppIconPicker") {
+                selectedTab = .settings
+            }
         }
     }
 }

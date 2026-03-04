@@ -324,7 +324,7 @@ struct LegacyCompatibilityToggle: View {
             
             Toggle("", isOn: $isEnabled)
                 .labelsHidden()
-                .onChange(of: isEnabled) { newValue in
+                .onChange(of: isEnabled) { _, newValue in
                     UserDefaults.standard.isLegacyCompatibilityEnabled = newValue
                 }
         }

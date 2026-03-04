@@ -18,6 +18,9 @@ struct CalculatorDecoyView: View {
     @StateObject private var engine = CalculatorEngine()
     @Environment(\.colorScheme) private var colorScheme
 
+    // MARK: - State for the "change icon back" alert
+    @State private var showIconChangeAlert = false
+
     private var bgColor: Color {
         colorScheme == .dark ? .black : Color(white: 0.96)
     }
@@ -26,7 +29,7 @@ struct CalculatorDecoyView: View {
         VStack(spacing: 12) {
             Spacer()
 
-            // Display
+            // Display — shows the current number or result
             HStack {
                 Spacer()
                 Text(engine.displayText)
@@ -38,7 +41,7 @@ struct CalculatorDecoyView: View {
                     .padding(.bottom, 8)
             }
 
-            // Button grid
+            // Button grid — standard calculator layout
             VStack(spacing: 12) {
                 // Row 1: C, +/-, %, /
                 HStack(spacing: 12) {
@@ -94,18 +97,44 @@ struct CalculatorDecoyView: View {
             .padding(.bottom, 20)
         }
         .background(bgColor.ignoresSafeArea())
+        // MARK: - Icon Change Alert
+        // After the user exits decoy mode by entering their PIN, this alert
+        // pops up to remind them that the app icon is still set to the
+        // calculator icon, and offers a quick way to change it back.
+        .alert(
+            LanguageManager.shared.localizedString("decoy.exit.icon_title"),
+            isPresented: $showIconChangeAlert
+        ) {
+            // "Go to Settings" button — set flag for MainTabView to pick up,
+            // then deactivate decoy. The CalculatorDecoyView will be removed
+            // from the hierarchy, but SettingsTabView will read the flag and
+            // auto-navigate to the icon picker.
+            Button(LanguageManager.shared.localizedString("decoy.exit.go_to_settings")) {
+                UserDefaults.standard.set(true, forKey: "shouldOpenAppIconPicker")
+                decoyManager.deactivateDecoy()
+            }
+            // "Later" button — just deactivate decoy and return to the app
+            Button(LanguageManager.shared.localizedString("decoy.exit.later"), role: .cancel) {
+                decoyManager.deactivateDecoy()
+            }
+        } message: {
+            Text(LanguageManager.shared.localizedString("decoy.exit.icon_message"))
+        }
     }
 
     // MARK: - PIN Detection
 
+    /// Called when the user presses `=`. Checks if the digit buffer matches
+    /// the stored PIN. If it does, show the icon-change popup (decoy mode
+    /// stays active until a button is tapped so the alert has time to display).
     private func handleEquals() {
         let buffer = engine.inputEquals()
-        // Check if the typed digits match the stored PIN
         if decoyManager.isCorrectPIN(buffer) {
-            decoyManager.deactivateDecoy()
+            showIconChangeAlert = true
         }
     }
 
+    /// Dynamic font size for the calculator display — shrinks for long numbers
     private var displayFontSize: CGFloat {
         let length = engine.displayText.count
         if length > 9 { return 48 }

@@ -336,7 +336,7 @@ struct PrivateChatSheetView: View {
                         .padding(.horizontal, 12)
                         .padding(.vertical, 8)
                     }
-                    .onChange(of: messages.count) { _ in
+                    .onChange(of: messages.count) { _, _ in
                         if let last = messages.last {
                             withAnimation {
                                 proxy.scrollTo(last.id, anchor: .bottom)

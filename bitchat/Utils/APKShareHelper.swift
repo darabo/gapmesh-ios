@@ -27,7 +27,9 @@ enum APKShareHelper {
     /// - Parameter sourceView: The UIView used as the popover anchor on iPad.
     static func shareAPK(from sourceView: UIView? = nil) {
         guard let bundledURL = Bundle.main.url(forResource: "gapmesh-light", withExtension: "apk") else {
+            #if DEBUG
             print("[APKShareHelper] gapmesh-light.apk not found in bundle")
+            #endif
             return
         }
 
@@ -42,7 +44,9 @@ enum APKShareHelper {
         do {
             try FileManager.default.copyItem(at: bundledURL, to: destURL)
         } catch {
+            #if DEBUG
             print("[APKShareHelper] Failed to copy APK: \(error)")
+            #endif
             return
         }
 

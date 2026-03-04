@@ -366,7 +366,7 @@ private struct IdentityStep: View {
             .padding(.horizontal, 24)
         }
         // Sync focus state with editing state
-        .onChange(of: isEditing) { editing in
+        .onChange(of: isEditing) { _, editing in
             if editing {
                 isFocused = true
             }
@@ -470,6 +470,38 @@ private struct FeaturesStep: View {
                     iconColor: .yellow,
                     titleKey: "onboarding.feature_notes_title",
                     descKey: "onboarding.feature_notes_desc"
+                )
+                
+                // Private messaging
+                FeatureCard(
+                    icon: "lock.fill",
+                    iconColor: .blue,
+                    titleKey: "onboarding.feature_private_title",
+                    descKey: "onboarding.feature_private_desc"
+                )
+                
+                // Decoy mode
+                FeatureCard(
+                    icon: "eye.slash.fill",
+                    iconColor: .purple,
+                    titleKey: "onboarding.feature_decoy_title",
+                    descKey: "onboarding.feature_decoy_desc"
+                )
+                
+                // Alternate app icons
+                FeatureCard(
+                    icon: "app.badge.fill",
+                    iconColor: .cyan,
+                    titleKey: "onboarding.feature_icons_title",
+                    descKey: "onboarding.feature_icons_desc"
+                )
+                
+                // Peer relay discovery
+                FeatureCard(
+                    icon: "point.3.connected.trianglepath.dotted",
+                    iconColor: .orange,
+                    titleKey: "onboarding.feature_relay_title",
+                    descKey: "onboarding.feature_relay_desc"
                 )
                 
                 // Emergency wipe

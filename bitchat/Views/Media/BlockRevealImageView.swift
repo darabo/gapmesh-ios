@@ -101,7 +101,7 @@ struct BlockRevealImageView: View {
             isBlurred = initiallyBlurred
             loadImage()
         }
-        .onChange(of: url) { _ in
+        .onChange(of: url) { _, _ in
             isBlurred = initiallyBlurred
             loadImage()
         }

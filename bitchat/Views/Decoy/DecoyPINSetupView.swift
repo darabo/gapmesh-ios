@@ -83,7 +83,7 @@ struct DecoyPINSetupView: View {
                             #endif
                             .font(.system(.title2, design: .monospaced))
                             .textFieldStyle(.roundedBorder)
-                            .onChange(of: customPIN) { _ in
+                            .onChange(of: customPIN) { _, _ in
                                 pinMismatch = false
                                 // Strip non-digits
                                 customPIN = String(customPIN.filter { $0.isNumber }.prefix(8))
@@ -99,7 +99,7 @@ struct DecoyPINSetupView: View {
                             #endif
                             .font(.system(.title2, design: .monospaced))
                             .textFieldStyle(.roundedBorder)
-                            .onChange(of: confirmPIN) { _ in
+                            .onChange(of: confirmPIN) { _, _ in
                                 pinMismatch = false
                                 confirmPIN = String(confirmPIN.filter { $0.isNumber }.prefix(8))
                             }

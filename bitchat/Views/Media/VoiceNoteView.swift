@@ -110,7 +110,7 @@ struct VoiceNoteView: View {
                 })
             }
         }
-        .onChange(of: url) { newValue in
+        .onChange(of: url) { _, newValue in
             WaveformCache.shared.waveform(for: newValue, completion: { bins in
                 self.waveform = bins
             })

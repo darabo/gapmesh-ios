@@ -151,7 +151,7 @@ struct MeshPeerList: View {
                 let currentIDs = mapped.map { $0.peer.peerID.id }
                 orderedIDs = currentIDs
             }
-            .onChange(of: mapped.map { $0.peer.peerID.id }) { ids in
+            .onChange(of: mapped.map { $0.peer.peerID.id }) { _, ids in
                 var newOrder = orderedIDs
                 newOrder.removeAll { !ids.contains($0) }
                 for id in ids where !newOrder.contains(id) { newOrder.append(id) }
