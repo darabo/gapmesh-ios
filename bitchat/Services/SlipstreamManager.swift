@@ -339,3 +339,9 @@ public final class SlipstreamManager: ObservableObject {
         #endif
     }
 }
+
+// MARK: - Notification Names
+
+extension Notification.Name {
+    static let SlipstreamDidCrash = Notification.Name("SlipstreamDidCrash")
+}

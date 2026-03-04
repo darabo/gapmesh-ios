@@ -51,7 +51,9 @@ func os_log(_ message: StaticString, log: OSLog, type: OSLogType, _ args: CVarAr
         .replacingOccurrences(of: "%{private}@", with: "%@")
     let formatted = String(format: format, arguments: args)
     let timestamp = secureLoggerFallbackFormatter.string(from: Date())
+    #if DEBUG
     print("[\(timestamp)] [\(log.subsystem)::\(log.category)] [\(type.description)] \(formatted)")
+    #endif
 }
 #endif
 
@@ -112,7 +114,16 @@ public final class SecureLogger {
         }
     }()
 
+    private static let isLoggingEnabled: Bool = {
+        #if DEBUG
+        return true
+        #else
+        return false
+        #endif
+    }()
+
     private static func shouldLog(_ level: LogLevel) -> Bool {
+        guard isLoggingEnabled else { return false }
         return level.order >= minimumLevel.order
     }
 }
@@ -146,6 +157,7 @@ public extension SecureLogger {
     /// Log errors with context
     static func error(_ error: Error, context: @autoclosure () -> String, category: OSLog = .noise,
                       file: String = #file, line: Int = #line, function: String = #function) {
+        guard shouldLog(.error) else { return }
         let location = formatLocation(file: file, line: line, function: function)
         let sanitized = context().sanitized()
         let errorDesc = error.localizedDescription.sanitized()

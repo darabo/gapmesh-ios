@@ -2,8 +2,13 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>ITSAppUsesNonExemptEncryption</key>
-	<false/>
+	<key></key>
+	<string></string>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>chat.gap.relay-directory-refresh</string>
+		<string>chat.gap.media-cleanup</string>
+	</array>
 	<key>CFBundleAllowMixedLocalizations</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
@@ -36,8 +41,28 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSPinnedDomains</key>
+		<dict>
+			<key>raw.githubusercontent.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSPinnedLeafIdentities</key>
+				<array>
+					<dict>
+						<key>SPKI-SHA256-BASE64</key>
+						<string>1FtgkXeU53bUTaObUogizKNIqs/ZGaEo1k2AwG30xts=</string>
+					</dict>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Gap Mesh uses Bluetooth to create a secure mesh network for chatting with nearby users.
 (Gap Mesh از بلوتوث برای ایجاد یک شبکه مش امن جهت گفتگو با کاربران نزدیک استفاده می‌کند.)</string>
@@ -60,23 +85,22 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Gap Mesh uses the microphone to record voice notes that relay across the mesh.
 (Gap Mesh از میکروفون برای ضبط پیام‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند.)</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Gap Mesh lets you pick images from your photo library to share with nearby peers.
-(Gap Mesh به شما امکان می‌دهد تصاویری را از کتابخانه عکس خود برای اشتراک‌گذاری با همتایان نزدیک انتخاب کنید.)</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Gap Mesh needs permission to save images to your photo library.
 (Gap Mesh برای ذخیره تصاویر در کتابخانه عکس شما به اجازه دسترسی نیاز دارد.)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Gap Mesh lets you pick images from your photo library to share with nearby peers.
+(Gap Mesh به شما امکان می‌دهد تصاویری را از کتابخانه عکس خود برای اشتراک‌گذاری با همتایان نزدیک انتخاب کنید.)</string>
+	<key>NSSupportsLiveActivities</key>
+	<true/>
+	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
+	<true/>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
 		<string>bluetooth-peripheral</string>
 		<string>fetch</string>
 		<string>processing</string>
-	</array>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>chat.gap.relay-directory-refresh</string>
-		<string>chat.gap.media-cleanup</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -97,23 +121,5 @@
 			<true/>
 		</dict>
 	</array>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSPinnedDomains</key>
-		<dict>
-			<key>raw.githubusercontent.com</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSPinnedLeafIdentities</key>
-				<array>
-					<dict>
-						<key>SPKI-SHA256-BASE64</key>
-						<string>1FtgkXeU53bUTaObUogizKNIqs/ZGaEo1k2AwG30xts=</string>
-					</dict>
-				</array>
-			</dict>
-		</dict>
-	</dict>
 </dict>
 </plist>

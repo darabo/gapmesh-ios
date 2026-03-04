@@ -19,6 +19,10 @@
 		E0A1B2C3D4E5F6012345678E /* relays/online_relays_gps.csv in Resources */ = {isa = PBXBuildFile; fileRef = E0A1B2C3D4E5F6012345678A /* relays/online_relays_gps.csv */; };
 		EA1741802F0D9E400016A6D1 /* BitLogger in Frameworks */ = {isa = PBXBuildFile; productRef = EA17417F2F0D9E400016A6D1 /* BitLogger */; };
 		EA1C1E7E2F0CC42A000A58AE /* BitLogger in Frameworks */ = {isa = PBXBuildFile; productRef = EA1C1E7D2F0CC42A000A58AE /* BitLogger */; };
+		EA2B3C012F1700000000AAAA /* Slipstream in Frameworks */ = {isa = PBXBuildFile; productRef = EA2B3C022F1700000000AAAB /* Slipstream */; };
+		EAD6F5562F5871C50018FCCE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD6F5552F5871C50018FCCE /* WidgetKit.framework */; };
+		EAD6F5582F5871C50018FCCE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD6F5572F5871C50018FCCE /* SwiftUI.framework */; };
+		EAD6F5692F5871C70018FCCE /* Gap MeshExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = EAD6F5542F5871C50018FCCE /* Gap MeshExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +40,13 @@
 			remoteGlobalIDString = 57CA17A36A2532A6CFF367BB;
 			remoteInfo = bitchatShareExtension;
 		};
+		EAD6F5672F5871C70018FCCE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 475D96681D0EA0AE57A4E06E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EAD6F5532F5871C50018FCCE;
+			remoteInfo = "Gap MeshExtension";
+		};
 		FF470234EF8C6BB8865B80B5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 475D96681D0EA0AE57A4E06E /* Project object */;
@@ -52,9 +63,9 @@
 			dstSubfolder = PlugIns;
 			files = (
 				17901751FD8010AFC8E750F2 /* gapShareExtension.appex in Embed Foundation Extensions */,
+				EAD6F5692F5871C70018FCCE /* Gap MeshExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
-			runOnlyForDeploymentPostprocessing = 1;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -67,6 +78,9 @@
 		C0DB1DE27F0AAB5092663E8E /* Gap Mesh Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Gap Mesh Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0A1B2C3D4E5F6012345678A /* relays/online_relays_gps.csv */ = {isa = PBXFileReference; lastKnownFileType = text; path = relays/online_relays_gps.csv; sourceTree = "<group>"; };
 		EA1C1E7F2F0CC46A000A58AE /* BitLogger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BitLogger; path = localPackages/BitLogger; sourceTree = "<group>"; };
+		EAD6F5542F5871C50018FCCE /* Gap MeshExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Gap MeshExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EAD6F5552F5871C50018FCCE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		EAD6F5572F5871C50018FCCE /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -117,6 +131,13 @@
 			);
 			target = 6CB97DF2EA57234CB3E563B8 /* gaptest */;
 		};
+		EAD6F56D2F5871C70018FCCE /* Exceptions for "Gap Mesh" folder in "Gap MeshExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = EAD6F5532F5871C50018FCCE /* Gap MeshExtension */;
+		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -152,6 +173,14 @@
 			path = Configs;
 			sourceTree = "<group>";
 		};
+		EAD6F5592F5871C50018FCCE /* Gap Mesh */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				EAD6F56D2F5871C70018FCCE /* Exceptions for "Gap Mesh" folder in "Gap MeshExtension" target */,
+			);
+			path = "Gap Mesh";
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +201,14 @@
 				EA1C1E7E2F0CC42A000A58AE /* BitLogger in Frameworks */,
 				EA1741802F0D9E400016A6D1 /* BitLogger in Frameworks */,
 				A6E3EA7F2E7706720032EA8A /* Tor in Frameworks */,
+				EA2B3C012F1700000000AAAA /* Slipstream in Frameworks */,
+			);
+		};
+		EAD6F5512F5871C50018FCCE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				EAD6F5582F5871C50018FCCE /* SwiftUI.framework in Frameworks */,
+				EAD6F5562F5871C50018FCCE /* WidgetKit.framework in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
@@ -185,6 +222,7 @@
 				A6E32D212E762EAB0032EA8A /* bitchatShareExtension */,
 				A6E32D412E762EAE0032EA8A /* bitchatTests */,
 				A6E367C92E76469E0032EA8A /* Configs */,
+				EAD6F5592F5871C50018FCCE /* Gap Mesh */,
 				9F37F9F2C353B58AC809E93B /* Products */,
 				A6F183FB2E948783006A9046 /* Frameworks */,
 			);
@@ -198,6 +236,7 @@
 				61F92EBA29C47C0FCC482F1F /* gapShareExtension.appex */,
 				C0DB1DE27F0AAB5092663E8E /* Gap Mesh Tests.xctest */,
 				03C57F452B55FD0FD8F51421 /* Gap Mesh Tests.xctest */,
+				EAD6F5542F5871C50018FCCE /* Gap MeshExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -207,6 +246,8 @@
 			children = (
 				EA1C1E7F2F0CC46A000A58AE /* BitLogger */,
 				A6F183FC2E948783006A9046 /* tor-nolzma.xcframework */,
+				EAD6F5552F5871C50018FCCE /* WidgetKit.framework */,
+				EAD6F5572F5871C50018FCCE /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -304,6 +345,7 @@
 			dependencies = (
 				EA1C1E7B2F0CC3FF000A58AE /* PBXTargetDependency */,
 				6EB655BA5DB11909C1DEC460 /* PBXTargetDependency */,
+				EAD6F5682F5871C70018FCCE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				A6E32C972E762EA70032EA8A /* bitchat */,
@@ -315,10 +357,29 @@
 				A6E3EA7E2E7706720032EA8A /* Tor */,
 				EA1C1E7D2F0CC42A000A58AE /* BitLogger */,
 				EA17417F2F0D9E400016A6D1 /* BitLogger */,
+				EA2B3C022F1700000000AAAB /* Slipstream */,
 			);
 			productName = bitchat_iOS;
 			productReference = 96D0D41CA19EE5A772AA8434 /* Gap Mesh.app */;
 			productType = "com.apple.product-type.application";
+		};
+		EAD6F5532F5871C50018FCCE /* Gap MeshExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EAD6F56C2F5871C70018FCCE /* Build configuration list for PBXNativeTarget "Gap MeshExtension" */;
+			buildPhases = (
+				EAD6F5502F5871C50018FCCE /* Sources */,
+				EAD6F5512F5871C50018FCCE /* Frameworks */,
+				EAD6F5522F5871C50018FCCE /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				EAD6F5592F5871C50018FCCE /* Gap Mesh */,
+			);
+			name = "Gap MeshExtension";
+			productName = "Gap MeshExtension";
+			productReference = EAD6F5542F5871C50018FCCE /* Gap MeshExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -327,7 +388,13 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
+				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					EAD6F5532F5871C50018FCCE = {
+						CreatedOnToolsVersion = 26.3;
+					};
+				};
 			};
 			buildConfigurationList = 3EA424CBD51200895D361189 /* Build configuration list for PBXProject "GapMesh" */;
 			developmentRegion = fa;
@@ -357,6 +424,7 @@
 				B8C407587481BBB190741C93 /* XCRemoteSwiftPackageReference "swift-secp256k1" */,
 				EA1C1E782F0CC3A4000A58AE /* XCLocalSwiftPackageReference "localPackages/Tor" */,
 				EA17417E2F0D9E400016A6D1 /* XCLocalSwiftPackageReference "localPackages/BitLogger" */,
+				EA2B3C032F1700000000AAAC /* XCLocalSwiftPackageReference "localPackages/Slipstream" */,
 			);
 			preferredProjectObjectVersion = 90;
 			projectDirPath = "";
@@ -367,6 +435,7 @@
 				47FF23248747DD7CB666CB91 /* gapTests_macOS */,
 				AF077EA0474EDEDE2C72716C /* gap_iOS */,
 				0576A29205865664C0937536 /* gap_macOS */,
+				EAD6F5532F5871C50018FCCE /* Gap MeshExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -392,6 +461,11 @@
 			isa = PBXResourcesBuildPhase;
 			files = (
 				E0A1B2C3D4E5F6012345678E /* relays/online_relays_gps.csv in Resources */,
+			);
+		};
+		EAD6F5522F5871C50018FCCE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
 			);
 		};
 /* End PBXResourcesBuildPhase section */
@@ -422,6 +496,11 @@
 			files = (
 			);
 		};
+		EAD6F5502F5871C50018FCCE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -443,6 +522,11 @@
 		EA1C1E7B2F0CC3FF000A58AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			productRef = EA1C1E7A2F0CC3FF000A58AE /* Tor */;
+		};
+		EAD6F5682F5871C70018FCCE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EAD6F5532F5871C50018FCCE /* Gap MeshExtension */;
+			targetProxy = EAD6F5672F5871C70018FCCE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -552,7 +636,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.29;
+				MARKETING_VERSION = 1.30;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER).ShareExtension";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = chat.gap.kevahazadi.ShareExtension;
 				SDKROOT = iphoneos;
@@ -571,7 +655,7 @@
 			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGNING_REQUIRED = YES;
 				CODE_SIGN_ENTITLEMENTS = bitchat/bitchat.entitlements;
@@ -584,6 +668,7 @@
 				INFOPLIST_FILE = bitchat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Gap Mesh";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = "$(IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -638,7 +723,7 @@
 			baseConfigurationReferenceRelativePath = Release.xcconfig;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGNING_ALLOWED = YES;
 				CODE_SIGNING_REQUIRED = YES;
 				CODE_SIGN_ENTITLEMENTS = bitchat/bitchat.entitlements;
@@ -651,6 +736,7 @@
 				INFOPLIST_FILE = bitchat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Gap Mesh";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = "$(IPHONEOS_DEPLOYMENT_TARGET)";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -697,12 +783,13 @@
 				INFOPLIST_FILE = bitchat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Gap Mesh";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.29;
+				MARKETING_VERSION = 1.30;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				PRODUCT_NAME = "Gap Mesh";
 				REGISTER_APP_GROUPS = YES;
@@ -803,12 +890,13 @@
 				INFOPLIST_FILE = bitchat/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Gap Mesh";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.social-networking";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = "$(MACOSX_DEPLOYMENT_TARGET)";
-				MARKETING_VERSION = 1.29;
+				MARKETING_VERSION = 1.30;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER)";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=macosx*]" = chat.gap.kevahazadi;
 				PRODUCT_NAME = "Gap Mesh";
@@ -910,7 +998,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.29;
+				MARKETING_VERSION = 1.30;
 				PRODUCT_BUNDLE_IDENTIFIER = "$(PRODUCT_BUNDLE_IDENTIFIER).ShareExtension";
 				"PRODUCT_BUNDLE_IDENTIFIER[sdk=iphoneos*]" = chat.gap.kevahazadi.ShareExtension;
 				SDKROOT = iphoneos;
@@ -922,6 +1010,82 @@
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
+		};
+		EAD6F56A2F5871C70018FCCE /* Debug configuration for PBXNativeTarget "Gap MeshExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KH9326B8TN;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Gap Mesh/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Gap Mesh";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.30;
+				PRODUCT_BUNDLE_IDENTIFIER = "chat.gap.kevahazadi.Gap-Mesh";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		EAD6F56B2F5871C70018FCCE /* Release configuration for PBXNativeTarget "Gap MeshExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = KH9326B8TN;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Gap Mesh/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Gap Mesh";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.30;
+				PRODUCT_BUNDLE_IDENTIFIER = "chat.gap.kevahazadi.Gap-Mesh";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -974,6 +1138,14 @@
 			);
 			defaultConfigurationName = Debug;
 		};
+		EAD6F56C2F5871C70018FCCE /* Build configuration list for PBXNativeTarget "Gap MeshExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EAD6F56A2F5871C70018FCCE /* Debug configuration for PBXNativeTarget "Gap MeshExtension" */,
+				EAD6F56B2F5871C70018FCCE /* Release configuration for PBXNativeTarget "Gap MeshExtension" */,
+			);
+			defaultConfigurationName = Debug;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -984,6 +1156,10 @@
 		EA1C1E782F0CC3A4000A58AE /* XCLocalSwiftPackageReference "localPackages/Tor" */ = {
 			isa = XCLocalSwiftPackageReference;
 			relativePath = localPackages/Tor;
+		};
+		EA2B3C032F1700000000AAAC /* XCLocalSwiftPackageReference "localPackages/Slipstream" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = localPackages/Slipstream;
 		};
 /* End XCLocalSwiftPackageReference section */
 
@@ -1037,6 +1213,11 @@
 		EA1C1E7D2F0CC42A000A58AE /* BitLogger */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = BitLogger;
+		};
+		EA2B3C022F1700000000AAAB /* Slipstream */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA2B3C032F1700000000AAAC /* XCLocalSwiftPackageReference "localPackages/Slipstream" */;
+			productName = Slipstream;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

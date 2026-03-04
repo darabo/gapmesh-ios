@@ -493,7 +493,7 @@ struct ChatTabView: View {
                 }
                 .padding(.vertical, 2)
             }
-            .onChange(of: viewModel.messages.last?.id) { _ in
+            .onChange(of: viewModel.messages.last?.id) { _, _ in
                 if let last = items.last, isAtBottom || (messages.last?.sender == viewModel.nickname) {
                     // Scroll to bottom
                     DispatchQueue.main.async {

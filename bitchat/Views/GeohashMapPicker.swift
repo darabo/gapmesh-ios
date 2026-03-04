@@ -132,7 +132,7 @@ struct GeohashMapPicker: View {
             }
         }
         // Watch for location updates if we're waiting for them
-        .onChange(of: locationState.locationUpdateTick) { _ in
+        .onChange(of: locationState.locationUpdateTick) { _, _ in
             if isWaitingForLocation, let loc = locationState.lastLocation {
                 let gh = Geohash.encode(latitude: loc.coordinate.latitude, longitude: loc.coordinate.longitude, precision: 8)
                 snapTo(geohash: gh)

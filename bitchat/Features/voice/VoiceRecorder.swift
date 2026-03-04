@@ -29,9 +29,13 @@ final class VoiceRecorder: NSObject, AVAudioRecorderDelegate {
     @discardableResult
     func requestPermission() async -> Bool {
         #if os(iOS)
-        return await withCheckedContinuation { continuation in
-            AVAudioSession.sharedInstance().requestRecordPermission { granted in
-                continuation.resume(returning: granted)
+        if #available(iOS 17.0, *) {
+            return await AVAudioApplication.requestRecordPermission()
+        } else {
+            return await withCheckedContinuation { continuation in
+                AVAudioSession.sharedInstance().requestRecordPermission { granted in
+                    continuation.resume(returning: granted)
+                }
             }
         }
         #elseif os(macOS)
@@ -55,7 +59,13 @@ final class VoiceRecorder: NSObject, AVAudioRecorderDelegate {
 
             #if os(iOS)
             let session = AVAudioSession.sharedInstance()
-            guard session.recordPermission == .granted else {
+            let hasPermission: Bool
+            if #available(iOS 17.0, *) {
+                hasPermission = AVAudioApplication.shared.recordPermission == .granted
+            } else {
+                hasPermission = session.recordPermission == .granted
+            }
+            guard hasPermission else {
                 throw RecorderError.microphoneAccessDenied
             }
             #if targetEnvironment(simulator)

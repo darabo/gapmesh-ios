@@ -20,7 +20,9 @@ struct SettingsTabView: View {
     @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     @State private var showingNameEditSheet = false
     @State private var editingName = ""
-    
+    /// When true, programmatically navigate to the App Icon picker.
+    /// Set by the decoy exit popup via UserDefaults flag.
+    @State private var navigateToIconPicker = false    
     // Settings states
     @State private var torEnabled = SecureStorageManager.shared.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
     @State private var proofOfWorkEnabled = SecureStorageManager.shared.bool(forKey: "proofOfWorkEnabled")
@@ -60,7 +62,7 @@ struct SettingsTabView: View {
     #endif
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
                     
@@ -658,6 +660,19 @@ struct SettingsTabView: View {
             }
             .background(backgroundColor)
             .navigationTitle(LanguageManager.shared.localizedString("tabs.settings"))
+            .navigationDestination(isPresented: $navigateToIconPicker) {
+                AppIconPickerView(iconManager: iconManager, accentBlue: accentBlue)
+            }
+            .onAppear {
+                // Check if the decoy exit popup requested opening the icon picker
+                if UserDefaults.standard.bool(forKey: "shouldOpenAppIconPicker") {
+                    UserDefaults.standard.removeObject(forKey: "shouldOpenAppIconPicker")
+                    // Small delay to let NavigationView fully appear first
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        navigateToIconPicker = true
+                    }
+                }
+            }
         }
         .sheet(isPresented: $showingNameEditSheet) {
             editNameSheet
@@ -675,6 +690,7 @@ struct SettingsTabView: View {
                         text: $editingName
                     )
                     .autocorrectionDisabled()
+                    .forceLocaleForTextField(LanguageManager.shared)
                 }
                 
                 Section {
@@ -951,3 +967,4 @@ private struct DecoyPINRow: View {
         }
     }
 }
+

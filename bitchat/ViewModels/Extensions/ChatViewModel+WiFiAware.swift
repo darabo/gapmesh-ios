@@ -25,6 +25,17 @@ extension ChatViewModel {
             SecureLogger.info("WiFi Aware not supported on this device", category: .session)
             return
         }
+
+        // Reuse the existing instance if we already created one.
+        // Without this guard, every foreground re-entry can create another listener/browser
+        // pair, which causes duplicate peer discovery and inflated user counts.
+        if let existing = wifiAwareTransport {
+            existing.delegate = self
+            existing.peerEventsDelegate = unifiedPeerService
+            existing.startServices()
+            SecureLogger.info("WiFi Aware transport already initialized; reusing existing instance", category: .session)
+            return
+        }
         
         let wifiAware = WiFiAwareTransport(
             keychain: keychain,

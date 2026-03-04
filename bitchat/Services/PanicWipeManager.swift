@@ -109,7 +109,14 @@ final class PanicWipeManager {
             SecureLogger.info("✅ Panic wipe completed successfully", category: .security)
             
             // Step 9: Activate Decoy
+            // Mark decoy mode as active in the keychain so the calculator
+            // screen is shown on next launch.
             DecoyModeManager.shared.activateDecoy()
+            
+            // Step 10: Change App Icon to Calculator
+            // Switch the home-screen icon to a calculator icon so the app
+            // looks like an innocent calculator app to anyone who sees it.
+            AppIconManager.shared.switchToDecoyIcon()
         }
     }
 }

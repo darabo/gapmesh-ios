@@ -15,7 +15,11 @@ struct LocationChannelsSheet: View {
     @State private var customGeohash: String = ""
     @State private var customError: String? = nil
     @State private var showTorRequiredAlert: Bool = false
+    @State private var showLocationPermissionAlert: Bool = false
     @State private var showMapPicker: Bool = false
+    /// Stores the geohash channel the user tried to enter before permissions were granted.
+    /// After the user grants location access, we auto-navigate to this channel.
+    @State private var pendingGeohashChannel: GeohashChannel? = nil
 
     private var backgroundColor: Color { Theme.background(colorScheme) }
 
@@ -170,12 +174,19 @@ struct LocationChannelsSheet: View {
         .onDisappear {
             manager.endLiveRefresh()
         }
-        .onChange(of: manager.permissionState) { newValue in
+        .onChange(of: manager.permissionState) { _, newValue in
             if newValue == LocationChannelManager.PermissionState.authorized {
                 manager.refreshChannels()
+                // Auto-navigate to the channel the user tried to enter before granting permission
+                if let pending = pendingGeohashChannel {
+                    pendingGeohashChannel = nil
+                    manager.markTeleported(for: pending.geohash, false)
+                    manager.select(ChannelID.location(pending))
+                    isPresented = false
+                }
             }
         }
-        .onChange(of: manager.availableChannels) { _ in }
+        .onChange(of: manager.availableChannels) { _, _ in }
         .alert(
             Text("location_channels.tor_required.title"),
             isPresented: $showTorRequiredAlert
@@ -184,11 +195,29 @@ struct LocationChannelsSheet: View {
         } message: {
             Text("location_channels.tor_required.message")
         }
+        .alert("Location Permission Required", isPresented: $showLocationPermissionAlert) {
+            switch manager.permissionState {
+            case .notDetermined:
+                Button("Enable Location") {
+                    manager.enableLocationChannels()
+                }
+            case .denied, .restricted:
+                Button("Open Settings") {
+                    openSystemLocationSettings()
+                }
+            case .authorized:
+                EmptyView()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("To join geohash channels, enable location access for Gap Mesh.")
+        }
         #if os(iOS)
         .fullScreenCover(isPresented: $showMapPicker) {
             GeohashMapPicker(isPresented: $showMapPicker) { geohash in
                 let level = levelForLength(geohash.count)
                 let ch = GeohashChannel(level: level, geohash: geohash)
+                guard canEnterGeohashChannels(for: ch) else { return }
                 manager.markTeleported(for: ch.geohash, true)
                 manager.select(ChannelID.location(ch))
                 isPresented = false
@@ -244,6 +273,9 @@ struct LocationChannelsSheet: View {
                             // Require Tor to be enabled for geochannels
                             guard network.userTorEnabled else {
                                 showTorRequiredAlert = true
+                                return
+                            }
+                            guard canEnterGeohashChannels(for: channel) else {
                                 return
                             }
                             manager.markTeleported(for: channel.geohash, false)
@@ -330,7 +362,7 @@ struct LocationChannelsSheet: View {
                     .submitLabel(.go)
                     #endif
                     .font(.bitchatSystem(size: 14, design: .monospaced))
-                    .onChange(of: customGeohash) { newValue in
+                    .onChange(of: customGeohash) { _, newValue in
                         let allowed = Set("0123456789bcdefghjkmnpqrstuvwxyz")
                         let filtered = newValue
                             .lowercased()
@@ -383,6 +415,9 @@ struct LocationChannelsSheet: View {
                     showTorRequiredAlert = true
                     return
                 }
+                guard canEnterGeohashChannels() else {
+                    return
+                }
                 showMapPicker = true
             }) {
                 HStack(spacing: 6) {
@@ -422,8 +457,15 @@ struct LocationChannelsSheet: View {
         // Clear error
         customError = nil
         
+        // Construct the channel first so we can pass it to canEnterGeohashChannels
+        // (which stores it as pendingGeohashChannel if permission isn't granted yet)
         let level = levelForLength(normalized.count)
         let ch = GeohashChannel(level: level, geohash: normalized)
+        
+        guard canEnterGeohashChannels(for: ch) else {
+            return
+        }
+        
         manager.markTeleported(for: ch.geohash, true)
         manager.select(ChannelID.location(ch))
         isPresented = false
@@ -461,6 +503,9 @@ struct LocationChannelsSheet: View {
                             showTorRequiredAlert = true
                             return
                         }
+                        guard canEnterGeohashChannels(for: channel) else {
+                            return
+                        }
                         let inRegional = manager.availableChannels.contains { $0.geohash == gh }
                         if !inRegional && !manager.availableChannels.isEmpty {
                             manager.markTeleported(for: gh, true)
@@ -492,6 +537,18 @@ struct LocationChannelsSheet: View {
 
     private var isMeshSelected: Bool {
         if case .mesh = manager.selectedChannel { return true }
+        return false
+    }
+
+    /// Check if location permissions allow entering geohash channels.
+    /// If not, stores the target channel and shows a permission alert.
+    private func canEnterGeohashChannels(for channel: GeohashChannel? = nil) -> Bool {
+        if manager.permissionState == .authorized {
+            return true
+        }
+        // Remember which channel the user wanted so we can navigate after permission is granted
+        pendingGeohashChannel = channel
+        showLocationPermissionAlert = true
         return false
     }
 

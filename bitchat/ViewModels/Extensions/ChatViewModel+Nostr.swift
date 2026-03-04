@@ -57,7 +57,7 @@ extension ChatViewModel {
     }
     
     func subscribeNostrEvent(_ event: NostrEvent) {
-        guard (event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue || 
+        guard (event.kind == NostrProtocol.EventKind.ephemeralEvent.rawValue ||
                event.kind == NostrProtocol.EventKind.geohashPresence.rawValue),
               !deduplicationService.hasProcessedNostrEvent(event.id)
         else {
@@ -217,7 +217,10 @@ extension ChatViewModel {
         // Reset nickname cache for geochat participants
         geoNicknames.removeAll()
 
-        guard case .location(let ch) = channel else { return }
+        guard case .location(let ch) = channel else {
+            syncLiveActivityState()
+            return
+        }
         currentGeohash = ch.geohash
         participantTracker.setActiveGeohash(ch.geohash)
         
@@ -257,6 +260,7 @@ extension ChatViewModel {
         }
 
         subscribeToGeoChat(ch)
+        syncLiveActivityState()
     }
     
     func handleNostrEvent(_ event: NostrEvent) {

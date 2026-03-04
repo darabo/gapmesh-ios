@@ -6,6 +6,9 @@
 //
 
 import SwiftUI
+#if os(iOS)
+import UIKit
+#endif
 
 struct LocationsTabView: View {
     @Binding var selectedTab: MainTabView.Tab
@@ -15,6 +18,7 @@ struct LocationsTabView: View {
     @State private var customGeohash = ""
     @State private var geohashError: String? = nil
     @State private var showMapPicker = false
+    @State private var showLocationPermissionAlert = false
     @Environment(\.colorScheme) var colorScheme
     
     private var textColor: Color {
@@ -167,7 +171,12 @@ struct LocationsTabView: View {
                         }
                         
                         #if os(iOS)
-                        Button(action: { showMapPicker = true }) {
+                        Button(action: {
+                            guard canEnterGeohashChannels() else {
+                                return
+                            }
+                            showMapPicker = true
+                        }) {
                             HStack(spacing: 6) {
                                 Image(systemName: "map")
                                     .font(.body)
@@ -221,7 +230,7 @@ struct LocationsTabView: View {
                             Toggle("", isOn: $locationManager.isLocationUserEnabled)
                                 .labelsHidden()
                                 .tint(textColor)
-                                .onChange(of: locationManager.isLocationUserEnabled) { newValue in
+                                .onChange(of: locationManager.isLocationUserEnabled) { _, newValue in
                                     if newValue {
                                         if locationManager.permissionState == .denied {
                                             #if os(iOS)
@@ -254,11 +263,29 @@ struct LocationsTabView: View {
             #if os(iOS)
             .fullScreenCover(isPresented: $showMapPicker) {
                 GeohashMapPicker(isPresented: $showMapPicker) { geohash in
-                    selectGeohashChannel(geohash)
-                    selectedTab = .chat
+                    if selectGeohashChannel(geohash) {
+                        selectedTab = .chat
+                    }
                 }
             }
             #endif
+        }
+        .alert("Location Permission Required", isPresented: $showLocationPermissionAlert) {
+            switch locationManager.permissionState {
+            case .notDetermined:
+                Button("Enable Location") {
+                    locationManager.enableLocationChannels()
+                }
+            case .denied, .restricted:
+                Button("Open Settings") {
+                    openLocationAppSettings()
+                }
+            case .authorized:
+                EmptyView()
+            }
+            Button("Cancel", role: .cancel) { }
+        } message: {
+            Text("To join geohash channels, enable location access for Gap Mesh.")
         }
     }
     
@@ -350,8 +377,9 @@ struct LocationsTabView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            selectGeohashChannel(geohash)
-            selectedTab = .chat
+            if selectGeohashChannel(geohash) {
+                selectedTab = .chat
+            }
         }
     }
     
@@ -400,8 +428,9 @@ struct LocationsTabView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            selectGeohashChannel(channel.geohash)
-            selectedTab = .chat
+            if selectGeohashChannel(channel.geohash) {
+                selectedTab = .chat
+            }
         }
     }
     
@@ -451,8 +480,9 @@ struct LocationsTabView: View {
         }
         .contentShape(Rectangle())
         .onTapGesture {
-            selectGeohashChannel(geohash)
-            selectedTab = .chat
+            if selectGeohashChannel(geohash) {
+                selectedTab = .chat
+            }
         }
     }
     
@@ -467,10 +497,15 @@ struct LocationsTabView: View {
     
     // MARK: - Actions
     
-    private func selectGeohashChannel(_ geohash: String) {
+    @discardableResult
+    private func selectGeohashChannel(_ geohash: String) -> Bool {
+        guard canEnterGeohashChannels() else {
+            return false
+        }
         let level = GeohashChannelLevel.levelForGeohashLength(geohash.count)
         let channel = GeohashChannel(level: level, geohash: geohash)
         locationManager.select(.location(channel))
+        return true
     }
     
     private func joinCustomGeohash() {
@@ -494,10 +529,10 @@ struct LocationsTabView: View {
         
         geohashError = nil
         customGeohash = ""
-        selectGeohashChannel(input)
-        
-        // Switch to chat tab
-        selectedTab = .chat
+        if selectGeohashChannel(input) {
+            // Switch to chat tab only when channel switch succeeds.
+            selectedTab = .chat
+        }
     }
     
     private func channelIcon(for level: GeohashChannelLevel) -> String {
@@ -509,5 +544,23 @@ struct LocationsTabView: View {
         case .block: return "location.circle"
         case .building: return "house.fill"
         }
+    }
+
+    private func canEnterGeohashChannels() -> Bool {
+        // Geohash channels depend on location authorization. If missing, we show
+        // a prompt so users can grant access instead of silently failing to join.
+        if locationManager.permissionState == .authorized {
+            return true
+        }
+        showLocationPermissionAlert = true
+        return false
+    }
+
+    private func openLocationAppSettings() {
+        #if os(iOS)
+        if let url = URL(string: UIApplication.openSettingsURLString) {
+            UIApplication.shared.open(url)
+        }
+        #endif
     }
 }

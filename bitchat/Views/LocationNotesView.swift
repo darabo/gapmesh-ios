@@ -53,11 +53,11 @@ struct LocationNotesView: View {
         .frame(minWidth: 420, idealWidth: 440, minHeight: 620, idealHeight: 680)
         .background(backgroundColor)
         .onDisappear { manager.cancel() }
-        .onChange(of: geohash) { newValue in
+        .onChange(of: geohash) { _, newValue in
             manager.setGeohash(newValue)
         }
         .onAppear { onNotesCountChanged?(manager.notes.count) }
-        .onChange(of: manager.notes.count) { newValue in
+        .onChange(of: manager.notes.count) { _, newValue in
             onNotesCountChanged?(newValue)
         }
 #else
@@ -80,11 +80,11 @@ struct LocationNotesView: View {
         }
         .background(backgroundColor)
         .onDisappear { manager.cancel() }
-        .onChange(of: geohash) { newValue in
+        .onChange(of: geohash) { _, newValue in
             manager.setGeohash(newValue)
         }
         .onAppear { onNotesCountChanged?(manager.notes.count) }
-        .onChange(of: manager.notes.count) { newValue in
+        .onChange(of: manager.notes.count) { _, newValue in
             onNotesCountChanged?(newValue)
         }
 #endif

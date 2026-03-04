@@ -10,6 +10,56 @@ import Tor
 import SwiftUI
 import UserNotifications
 
+#if !DEBUG
+// Globally suppress all print and debugPrint statements in Release builds
+// to ensure privacy, security, and performance.
+public func print(_ items: Any..., separator: String = " ", terminator: String = "\n") {}
+public func debugPrint(_ items: Any..., separator: String = " ", terminator: String = "\n") {}
+#endif
+
+// ============================================================================
+// BitchatApp — The Very First Code That Runs on iOS
+// ============================================================================
+//
+// WHAT THIS FILE DOES:
+// This is the "front door" of the Gap Mesh iOS app. When you tap the app icon,
+// iOS runs this code FIRST. It creates the core objects (like ChatViewModel),
+// decides which screen to show (chat, onboarding, or calculator decoy), and
+// handles lifecycle events (app goes to background, comes back, etc.).
+//
+// KEY CONCEPTS FOR BEGINNERS:
+//
+// 1. @main — Tells Swift "start here." There is exactly ONE @main in every app.
+//
+// 2. @StateObject — Creates and owns an object. The object lives as long as
+//    BitchatApp lives (= the entire app session). Used for ChatViewModel.
+//
+// 3. @AppStorage — A tiny database that persists simple values (strings, bools)
+//    across app restarts. Think of it like UserDefaults at the SwiftUI level.
+//
+// 4. scenePhase — Tracks whether the app is .active (on screen), .background
+//    (user switched away), or .inactive (transitioning). We use this to start/
+//    stop Tor, Nostr, and BLE services at the right time.
+//
+// 5. Decoy Mode — A privacy feature where the app disguises itself as a
+//    calculator. If `decoyManager.isDecoyActive` is true, we show a fake
+//    calculator instead of the messaging interface.
+//
+// HOW THE APP DECIDES WHAT SCREEN TO SHOW:
+//   - Decoy active?      → Show CalculatorDecoyView (fake calculator)
+//   - First launch?      → Show OnboardingView (setup wizard)
+//   - No PIN configured? → Show DecoyPINOnboardingView (security setup)
+//   - Otherwise          → Show MainTabView (the real chat app!)
+//
+// ARCHITECTURE OVERVIEW:
+//   BitchatApp (this file)
+//     └── ChatViewModel — The "brain" of the app, manages all chat state
+//           ├── BLEService — Bluetooth mesh for nearby phone-to-phone chat
+//           ├── NostrTransport — Internet relay for long-range messaging
+//           ├── NoiseEncryptionService — End-to-end encryption
+//           └── TorManager — Anonymity network for internet traffic
+//
+
 /// The Main Entry Point of the iOS App.
 ///
 /// This is where the app "wakes up". It has two main jobs:
@@ -17,20 +67,32 @@ import UserNotifications
 /// 2. **Lifecycle:** Handle what happens when you close the app or open it again.
 @main
 struct BitchatApp: App {
+    // Bundle ID: unique app identifier (e.g., "chat.gap")
     static let bundleID = Bundle.main.bundleIdentifier ?? "chat.gap"
+    // App Group ID: allows the main app and the share extension to share data
     static let groupID = "group.\(bundleID)"
     
+    // ── Core App State ─────────────────────────────────────────────────
+    // ChatViewModel is the "brain" — it manages messages, peers, and all services.
     @StateObject private var chatViewModel: ChatViewModel
+    // Manages the current language (English / Farsi) and triggers UI refresh on change.
     @StateObject private var languageManager = LanguageManager.shared
+    // Tracks whether decoy mode (calculator disguise) is active.
     @ObservedObject private var decoyManager = DecoyModeManager.shared
-    @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
+    // Theme preference: 0=System, 1=Light, 2=Dark. Persisted across app restarts.
+    @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0
+    // Whether the user has completed the first-time onboarding wizard.
     @AppStorage("onboarding_seen") private var onboardingSeen: Bool = false
 
     #if os(iOS)
+    // scenePhase tracks active/background/inactive state for lifecycle management.
     @Environment(\.scenePhase) var scenePhase
+    // AppDelegate handles UIKit-level events (background tasks, termination).
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
     // Skip the very first .active-triggered Tor restart on cold launch
+    // (because Tor was just started in onAppear — restarting immediately wastes time).
     @State private var didHandleInitialActive: Bool = false
+    // Tracks whether the app has actually gone to background at least once.
     @State private var didEnterBackground: Bool = false
     #elseif os(macOS)
     @NSApplicationDelegateAdaptor(MacAppDelegate.self) var appDelegate
@@ -45,11 +107,22 @@ struct BitchatApp: App {
         }
     }
     
+    // NostrIdentityBridge: Links the user's Nostr identity (public/private keys)
+    // to the app's services. Nostr uses "npub" (public key) and "nsec" (secret key)
+    // in a format called bech32 — like Bitcoin addresses but for social identities.
     private let idBridge = NostrIdentityBridge()
     
+    /// App initialization — runs once when the app first loads.
+    /// Sets up the ChatViewModel with all required dependencies.
     init() {
+        // KeychainManager: Securely stores cryptographic keys in the iOS Keychain.
+        // The Keychain is a hardware-backed secure storage that even other apps can't access.
         let keychain = KeychainManager()
         let idBridge = self.idBridge
+        // Create the ChatViewModel with its three dependencies:
+        //   - keychain: for secure key storage
+        //   - idBridge: for Nostr identity management
+        //   - identityManager: for managing persistent identity state
         _chatViewModel = StateObject(
             wrappedValue: ChatViewModel(
                 keychain: keychain,
@@ -58,17 +131,24 @@ struct BitchatApp: App {
             )
         )
         
+        // Register for push notifications so we can show alerts for new messages.
         UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
-        // Warm up georelay directory and refresh if stale (once/day)
+        // Pre-load the geo-relay directory (maps regions to nearby relays)
+        // so location-based chat is fast when the user first opens it.
         GeoRelayDirectory.shared.prefetchIfNeeded()
     }
     
+    /// The main UI body — SwiftUI calls this to build the screen.
+    /// Decides which view to show based on the app's current state.
     var body: some Scene {
         WindowGroup {
             Group {
                 if decoyManager.isDecoyActive {
+                    // DECOY MODE: Show a fake calculator app.
+                    // This protects the user by hiding the messaging app.
                     CalculatorDecoyView()
                 } else if !onboardingSeen {
+                    // FIRST LAUNCH: Show setup wizard (permissions, tutorial).
                     OnboardingView(isPresented: .constant(true))
                 } else if !decoyManager.hasPINConfigured {
                     // Existing user who updated before decoy mode existed.
@@ -76,6 +156,7 @@ struct BitchatApp: App {
                     // trapped in the calculator after a triple-tap panic wipe.
                     DecoyPINOnboardingView()
                 } else {
+                    // NORMAL MODE: Show the real chat app.
                     MainTabView()
                 }
             }
@@ -106,6 +187,8 @@ struct BitchatApp: App {
                     NetworkActivationService.shared.start()
                     // Start presence service (will wait for Tor readiness)
                     GeohashPresenceService.shared.start()
+                    // Reconcile Live Activity state if user previously enabled it
+                    LiveActivityManager.shared.startIfEnabled()
                 }
                 // Check for shared content
                 checkForSharedContent()
@@ -114,11 +197,18 @@ struct BitchatApp: App {
                     handleURL(url)
                 }
                 #if os(iOS)
-                .onChange(of: scenePhase) { newPhase in
+                .onChange(of: scenePhase) { _, newPhase in
                     switch newPhase {
                     case .background:
-                        // Keep BLE mesh running in background; BLEService adapts scanning automatically
-                        // Always send Tor to dormant on background for a clean restart later.
+                        // ── APP WENT TO BACKGROUND ──────────────────────────
+                        // The user switched to another app or locked the phone.
+                        // We need to:
+                        //   1. Put Tor to sleep (save battery)
+                        //   2. Stop geohash sampling (no need to track location)
+                        //   3. Disconnect Nostr (avoids errors while Tor is down)
+                        //   4. Schedule background tasks for cleanup
+                        // NOTE: BLE mesh keeps running! iOS gives Bluetooth apps
+                        // special background execution privileges.
                         TorManager.shared.setAppForeground(false)
                         TorManager.shared.goDormantOnBackground()
                         // Stop geohash sampling while backgrounded
@@ -135,12 +225,18 @@ struct BitchatApp: App {
                         // Run an immediate foreground media cleanup while we still have execution time
                         MediaCleanupTask.cleanOutgoingMedia()
                     case .active:
-                        // "Active" means the app is open on the screen and the user is using it.
-                        // We need to wake everything up!
+                        // ── APP CAME BACK TO FOREGROUND ─────────────────────
+                        // The user opened the app again. We need to:
+                        //   1. Restart BLE mesh services
+                        //   2. Wake up Tor for anonymous internet access
+                        //   3. Reconnect to Nostr relays
+                        //   4. Check for content shared via the share extension
                         
                         // Restart services when becoming active
                         if onboardingSeen && !decoyManager.isDecoyActive && decoyManager.hasPINConfigured {
                             chatViewModel.startServices()
+                            // Reconcile Live Activity state on foreground transition.
+                            LiveActivityManager.shared.startIfEnabled()
                         }
                         TorManager.shared.setAppForeground(true)
                         // On initial cold launch, Tor was just started in onAppear.
@@ -191,6 +287,7 @@ struct BitchatApp: App {
     ///   - bitchat://share, gap://share     → shared content from extension
     ///   - bitchat://verify, gapmesh://verify → QR peer verification
     ///   - gapmesh://chat                    → open main chat tab
+    ///   - gapmesh://stop                    → stop active networking + end Live Activity
     ///   - gapmesh://private_chat/{pubkey}   → open private chat with peer
     ///   - gapmesh://geohash_chat/{geohash}  → switch to geohash channel
     ///   - nostr:{entity}                    → NIP-19 bech32 handling (future)
@@ -213,6 +310,16 @@ struct BitchatApp: App {
         case ("gapmesh", "chat"), ("bitchat", "chat"):
             // App opens to chat by default; no additional routing needed.
             break
+
+        // ---- gapmesh://stop → stop active networking/services ----
+        case ("gapmesh", "stop"), ("bitchat", "stop"):
+            Task { @MainActor in
+                self.chatViewModel.stopServicesFromLiveActivity()
+            }
+
+        // ---- gapmesh://stopLiveActivity → end the Live Activity only ----
+        case ("gapmesh", "stopliveactivity"):
+            LiveActivityManager.shared.setEnabled(false)
 
         // ---- gapmesh://private_chat/{pubkey} ----
         case ("gapmesh", "private_chat"), ("bitchat", "private_chat"):

@@ -117,7 +117,7 @@ struct GeohashPeopleList: View {
             .onAppear {
                 orderedIDs = currentIDs
             }
-            .onChange(of: currentIDs) { ids in
+            .onChange(of: currentIDs) { _, ids in
                 var newOrder = orderedIDs
                 newOrder.removeAll { !ids.contains($0) }
                 for id in ids where !newOrder.contains(id) { newOrder.append(id) }

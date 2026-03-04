@@ -1,4 +1,5 @@
 import SwiftUI
+import UIKit
 
 /// Manages in-app language selection and persistence.
 /// Supports English and Farsi (Persian) languages with runtime switching.
@@ -73,10 +74,19 @@ final class LanguageManager: ObservableObject {
         UserDefaults.standard.set([currentLanguage.rawValue], forKey: "AppleLanguages")
         UserDefaults.standard.synchronize()
         
+        // Force the semantic content attribute so UIKit navigation (back buttons,
+        // swipe gestures) matches the selected language direction immediately.
+        let semanticAttribute: UISemanticContentAttribute =
+            currentLanguage == .farsi ? .forceRightToLeft : .forceLeftToRight
+        UIView.appearance().semanticContentAttribute = semanticAttribute
+
         // Force complete view hierarchy refresh by changing the ID
         DispatchQueue.main.async {
             self.refreshID = UUID()
         }
+
+        // Restart the Live Activity so it picks up the new localized strings.
+        LiveActivityManager.shared.restartForLanguageChange()
     }
     
     /// Bundle for the current language, used for runtime translation lookup
@@ -107,5 +117,16 @@ extension View {
         self
             .environment(\.locale, languageManager.currentLanguage.locale)
             .environment(\.layoutDirection, languageManager.currentLanguage.layoutDirection)
+    }
+}
+
+// MARK: - Text Field Locale Fix
+
+extension View {
+    /// Forces the text field's typing direction to match the current app language.
+    /// Fixes an issue where switching from Farsi (RTL) to English (LTR) leaves
+    /// the text cursor and alignment in RTL mode until the app is restarted.
+    func forceLocaleForTextField(_ languageManager: LanguageManager) -> some View {
+        self.environment(\.locale, languageManager.currentLanguage.locale)
     }
 }

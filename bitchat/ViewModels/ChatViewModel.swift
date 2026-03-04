@@ -153,6 +153,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     private let maxMessages = TransportConfig.meshTimelineCap // Maximum messages before oldest are removed
     @Published var isConnected = false
+    private var liveActivityMeshPeerCount = 0
     
     enum TorConnectionStatus {
         case off
@@ -160,7 +161,9 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         case connected
     }
     @Published var torStatus: TorConnectionStatus = .off
-    private var recentlySeenPeers: Set<PeerID> = []
+    // Tracks recently seen peers by a stable identity key (Noise key when available).
+    // This avoids "new peer" inflation when a reconnect creates a new temporary PeerID.
+    private var recentlySeenPeers: Set<String> = []
     private var lastNetworkNotificationTime = Date.distantPast
     private var networkResetTimer: Timer? = nil
     private var networkEmptyTimer: Timer? = nil
@@ -496,6 +499,19 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         participantTracker.objectWillChange
             .sink { [weak self] _ in
                 self?.objectWillChange.send()
+                Task { @MainActor in
+                    guard self?.activeChannel.isLocation == true else { return }
+                    self?.syncLiveActivityState()
+                }
+            }
+            .store(in: &cancellables)
+
+        // Re-sync Live Activity after it finishes starting so the current
+        // channel (geohash or mesh) is reflected immediately
+        NotificationCenter.default.publisher(for: LiveActivityManager.liveActivityDidStart)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.syncLiveActivityState()
             }
             .store(in: &cancellables)
         self.commandProcessor.meshService = meshService
@@ -588,8 +604,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] connected in
                     guard let self = self else { return }
-                    if connected {
-                        Task { @MainActor in
+                    Task { @MainActor in
+                        if connected {
                             // Set up DM handler once on first connect
                             if !self.nostrHandlersSetup {
                                 self.setupNostrMessageHandling()
@@ -599,6 +615,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
                             // Re-init sampling for regional + bookmarked geohashes after reconnect
                             self.geoChannelCoordinator?.refreshSampling()
                         }
+                        self.syncLiveActivityState()
                     }
                 }
                 .store(in: &self.cancellables)
@@ -798,6 +815,25 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     }
     
     // MARK: - Content Moderation (App Store Compliance)
+
+    /// Stops mesh/network activity triggered by the Live Activity "Stop" action.
+    /// This does NOT terminate the app process (iOS disallows programmatic quit).
+    @MainActor
+    func stopServicesFromLiveActivity() {
+        meshService.stopServices()
+        stopWiFiAware()
+        endGeohashSampling()
+        NostrRelayManager.shared.disconnect()
+
+        TorManager.shared.setAppForeground(false)
+        TorManager.shared.goDormantOnBackground()
+
+        LiveActivityManager.shared.setEnabled(false)
+        LiveActivityManager.shared.endAll()
+
+        isConnected = false
+        SecureLogger.info("⏹️ Live Activity stop action: services paused and Live Activity ended", category: .session)
+    }
     
     /// Hide a message from the user's feed (immediately removes it from view)
     /// - Parameter id: The message ID to hide
@@ -1280,6 +1316,37 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     @MainActor
     func geohashParticipantCount(for geohash: String) -> Int {
         participantTracker.participantCount(for: geohash)
+    }
+
+    /// Sync the canonical Live Activity snapshot for the current public channel.
+    @MainActor
+    func syncLiveActivityState(meshPeerCountOverride: Int? = nil) {
+        if let meshPeerCountOverride {
+            liveActivityMeshPeerCount = max(0, meshPeerCountOverride)
+        }
+
+        switch activeChannel {
+        case .mesh:
+            LiveActivityManager.shared.updatePeerCount(liveActivityMeshPeerCount)
+        case .location(let channel):
+            let participantCount = geohashParticipantCount(for: channel.geohash)
+            let relayConnected = nostrRelayManager?.isConnected ?? false
+            LiveActivityManager.shared.updateGeoChannel(
+                name: liveActivityChannelName(for: channel),
+                peerCount: participantCount,
+                relayConnected: relayConnected
+            )
+        }
+    }
+
+    private func liveActivityChannelName(for channel: GeohashChannel) -> String {
+        let geohash = channel.geohash
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .lowercased()
+        guard !geohash.isEmpty else {
+            return "Geohash Channel"
+        }
+        return "Geohash #\(geohash)"
     }
 
     // MARK: - GeohashParticipantContext Protocol
@@ -3559,41 +3626,58 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         // UI updates must run on the main thread.
         // The delegate callback is not guaranteed to be on the main thread.
         DispatchQueue.main.async {
-            // Update through peer manager
-            // UnifiedPeerService updates automatically via subscriptions
-            self.isConnected = !peers.isEmpty
+            // Deduplicate transient transport IDs into stable identities so reconnect churn
+            // (BLE/WiFi ID changes) does not inflate user counts in notifications or Live Activity.
+            let reachablePeerIDs = Array(Set(peers)).filter { peerID in
+                self.meshService.isPeerConnected(peerID) || self.meshService.isPeerReachable(peerID)
+            }
+            let canonicalIdentityKeys = self.canonicalMeshPeerIdentityKeys(from: reachablePeerIDs)
+            let canonicalPeerCount = canonicalIdentityKeys.count
+
+            // UnifiedPeerService updates automatically via subscriptions.
+            // We still reflect online/offline in this view model for UI status badges.
+            self.isConnected = canonicalPeerCount > 0
+
+            // Feed a deduplicated count to Live Activity so reconnects do not inflate user totals.
+            self.syncLiveActivityState(meshPeerCountOverride: canonicalPeerCount)
             
             // Clean up stale unread peer IDs whenever peer list updates
             self.cleanupStaleUnreadPeerIDs()
             
             // Smart notification logic for "gapchatters nearby"
-            let meshPeers = peers.filter { peerID in
-                self.meshService.isPeerConnected(peerID) || self.meshService.isPeerReachable(peerID)
-            }
-            let meshPeerSet = Set(meshPeers)
-            
-            if meshPeerSet.isEmpty {
+            if canonicalIdentityKeys.isEmpty {
                 self.scheduleNetworkEmptyTimer()
             } else {
                 self.invalidateNetworkEmptyTimer()
                 // Trim out peers we no longer observe before comparing for new arrivals
-                self.recentlySeenPeers.formIntersection(meshPeerSet)
-                let newPeers = meshPeerSet.subtracting(self.recentlySeenPeers)
+                self.recentlySeenPeers.formIntersection(canonicalIdentityKeys)
+                let newPeers = canonicalIdentityKeys.subtracting(self.recentlySeenPeers)
                 
                 if !newPeers.isEmpty {
-                    self.lastNetworkNotificationTime = Date()
-                    self.recentlySeenPeers.formUnion(newPeers)
-                    NotificationService.shared.sendNetworkAvailableNotification(peerCount: meshPeers.count)
-                    SecureLogger.info(
-                        "👥 Sent gapchatters nearby notification for \(meshPeers.count) mesh peers (new: \(newPeers.count))",
-                        category: .session
-                    )
-                    self.scheduleNetworkResetTimer()
+                    // Prevent spam: only notify if it's been > 60s, or if the network is growing from >0 to >1
+                    let timeSinceLast = Date().timeIntervalSince(self.lastNetworkNotificationTime)
+                    if timeSinceLast > 60 || (canonicalPeerCount > 1 && self.recentlySeenPeers.count == 1) {
+                        self.lastNetworkNotificationTime = Date()
+                        self.recentlySeenPeers.formUnion(newPeers)
+                        NotificationService.shared.sendNetworkAvailableNotification(peerCount: canonicalPeerCount)
+                        SecureLogger.info(
+                            "👥 Sent gapchatters nearby notification for \(canonicalPeerCount) mesh peers (new: \(newPeers.count))",
+                            category: .session
+                        )
+                        self.scheduleNetworkResetTimer()
+                    } else {
+                        self.recentlySeenPeers.formUnion(newPeers)
+                        SecureLogger.info(
+                            "👥 Suppressed nearby notification for \(canonicalPeerCount) peers (cooldown: \(Int(timeSinceLast))s)",
+                            category: .session
+                        )
+                    }
                 }
             }
             
-            // Register ephemeral sessions for all connected peers
-            for peerID in peers {
+            // Register ephemeral sessions for currently reachable peer IDs.
+            // We dedupe raw peer IDs first to avoid repeated duplicate registrations.
+            for peerID in reachablePeerIDs {
                 self.identityManager.registerEphemeralSession(peerID: peerID, handshakeState: .none)
             }
             
@@ -3620,6 +3704,21 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     /// Clean up stale unread peer IDs that no longer exist in the peer list
     @MainActor
+
+    /// Build a stable identity key for mesh counting.
+    /// Prefer Noise public key (stable across reconnects), fall back to transient PeerID.
+    private func canonicalMeshIdentityKey(for peerID: PeerID) -> String {
+        if let peer = unifiedPeerService.getPeer(by: peerID), !peer.noisePublicKey.isEmpty {
+            return "noise:" + peer.noisePublicKey.hexEncodedString().lowercased()
+        }
+        return "peer:" + peerID.id.lowercased()
+    }
+
+    /// Convert reachability peer IDs into a deduplicated identity set.
+    /// This is used by both user-facing counts and notification throttling.
+    private func canonicalMeshPeerIdentityKeys(from peerIDs: [PeerID]) -> Set<String> {
+        Set(peerIDs.map { canonicalMeshIdentityKey(for: $0) })
+    }
     private func cleanupStaleUnreadPeerIDs() {
         let currentPeerIDs = Set(unifiedPeerService.peers.map { $0.peerID })
         let staleIDs = unreadPrivateMessages.subtracting(currentPeerIDs)
