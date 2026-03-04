@@ -12,47 +12,6 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-// MARK: - ActivityAttributes Definition
-// ⚠️ This MUST be an exact copy of the definition in Shared/Gap_MeshAttributes.swift.
-public struct Gap_MeshAttributes: ActivityAttributes {
-
-    public struct ContentState: Codable, Hashable {
-        public var peerCount: Int
-        public var channelName: String
-        public var statusText: String
-        public var isConnected: Bool
-        public var userLabel: String
-        public var usersLabel: String
-        public var stopLabel: String
-        public var defaultMeshNetworkLabel: String
-
-        public init(
-            peerCount: Int,
-            channelName: String,
-            statusText: String,
-            isConnected: Bool,
-            userLabel: String = "User",
-            usersLabel: String = "Users",
-            stopLabel: String = "Stop",
-            defaultMeshNetworkLabel: String = "Mesh Network"
-        ) {
-            self.peerCount = peerCount
-            self.channelName = channelName
-            self.statusText = statusText
-            self.isConnected = isConnected
-            self.userLabel = userLabel
-            self.usersLabel = usersLabel
-            self.stopLabel = stopLabel
-            self.defaultMeshNetworkLabel = defaultMeshNetworkLabel
-        }
-    }
-
-    public var appName: String
-
-    public init(appName: String = "Gap Mesh") {
-        self.appName = appName
-    }
-}
 
 // MARK: - Helper: connection-aware antenna color
 
@@ -98,15 +57,28 @@ struct Gap_MeshLiveActivity: Widget {
             HStack(alignment: .center) {
                 // Top-left: antenna + channel name
                 HStack(spacing: 6) {
-                    Image(systemName: "antenna.radiowaves.left.and.right")
-                        .font(.subheadline)
-                        .foregroundColor(antennaColor(for: context.state))
-                    Text(context.state.channelName)
-                        .font(.headline)
-                        .foregroundColor(.white)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.6)
+                    let isFa = context.state.defaultMeshNetworkLabel.contains("مش")
+                    if isFa {
+                        Image(systemName: "antenna.radiowaves.left.and.right")
+                            .font(.subheadline)
+                            .foregroundColor(antennaColor(for: context.state))
+                        Text(formattedChannelName(for: context.state))
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
+                    } else {
+                        Text(formattedChannelName(for: context.state))
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.6)
+                        Image(systemName: "antenna.radiowaves.left.and.right")
+                            .font(.subheadline)
+                            .foregroundColor(antennaColor(for: context.state))
+                    }
                 }
+                .environment(\.layoutDirection, .leftToRight)
 
                 Spacer()
 
@@ -164,17 +136,53 @@ struct Gap_MeshLiveActivity: Widget {
         .activitySystemActionForegroundColor(.white)
     }
 
+    // MARK: - Helper: formatted channel name
+    private func formattedChannelName(for state: Gap_MeshAttributes.ContentState) -> String {
+        let name = state.channelName
+        let prefix = "geohash "
+        if name.lowercased().hasPrefix(prefix) {
+            return String(name.dropFirst(prefix.count))
+        }
+        return name
+    }
+
+    // MARK: - Helper: compact channel name extraction
+    private func compactChannelText(for state: Gap_MeshAttributes.ContentState) -> String {
+        let name = state.channelName
+        if name == state.defaultMeshNetworkLabel {
+            if name.contains("مش") { return "مش" }
+            return "Mesh"
+        }
+        return formattedChannelName(for: state)
+    }
+
     // MARK: - Compact Leading
     // Antenna icon colored by connection status, with more inset so it's not on the edge
     @ViewBuilder
     private func compactLeadingView(context: ActivityViewContext<Gap_MeshAttributes>) -> some View {
-        HStack(spacing: 0) {
-            Spacer() // Takes all available space on the very left, pushing icon inwards
-            Image(systemName: "antenna.radiowaves.left.and.right")
-                .font(.system(size: 13))
-                .foregroundColor(antennaColor(for: context.state))
-            Spacer().frame(width: 6) // Gives the icon a little breathing room from the camera
+        let isFa = context.state.defaultMeshNetworkLabel.contains("مش")
+        HStack(spacing: 4) {
+            Spacer(minLength: 0) // Takes all available space on the very left, pushing icon inwards
+            if isFa {
+                Text(compactChannelText(for: context.state))
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(antennaColor(for: context.state))
+                    .lineLimit(1)
+                Image(systemName: "antenna.radiowaves.left.and.right")
+                    .font(.system(size: 13))
+                    .foregroundColor(antennaColor(for: context.state))
+            } else {
+                Image(systemName: "antenna.radiowaves.left.and.right")
+                    .font(.system(size: 13))
+                    .foregroundColor(antennaColor(for: context.state))
+                Text(compactChannelText(for: context.state))
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundColor(antennaColor(for: context.state))
+                    .lineLimit(1)
+            }
+            Spacer().frame(width: 4) // Gives the icon a little breathing room from the camera
         }
+        .environment(\.layoutDirection, .leftToRight)
     }
 
     // MARK: - Compact Trailing
@@ -211,16 +219,29 @@ struct Gap_MeshLiveActivity: Widget {
     private func expandedView(context: ActivityViewContext<Gap_MeshAttributes>) -> DynamicIslandExpandedContent<some View> {
         // Leading region: channel name
         DynamicIslandExpandedRegion(.leading) {
+            let isFa = context.state.defaultMeshNetworkLabel.contains("مش")
             HStack(spacing: 5) {
-                Image(systemName: "antenna.radiowaves.left.and.right")
-                    .font(.system(size: 14))
-                    .foregroundColor(antennaColor(for: context.state))
-                Text(context.state.channelName)
-                    .font(.headline.bold())
-                    .foregroundColor(.white)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.6)
+                if isFa {
+                    Text(formattedChannelName(for: context.state))
+                        .font(.headline.bold())
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                    Image(systemName: "antenna.radiowaves.left.and.right")
+                        .font(.system(size: 14))
+                        .foregroundColor(antennaColor(for: context.state))
+                } else {
+                    Image(systemName: "antenna.radiowaves.left.and.right")
+                        .font(.system(size: 14))
+                        .foregroundColor(antennaColor(for: context.state))
+                    Text(formattedChannelName(for: context.state))
+                        .font(.headline.bold())
+                        .foregroundColor(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.6)
+                }
             }
+            .environment(\.layoutDirection, .leftToRight)
             .padding(.top, 4)
             .padding(.leading, 8)
         }
