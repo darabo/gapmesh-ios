@@ -151,7 +151,7 @@ Privacy isn't just a feature—it's the entire point. Gap Mesh proves that moder
 
 ---
 
-_This policy is released into the public domain under The Unlicense, just like Gap Mesh itself._
+_This policy is released into the public domain under the MIT License, just like Gap Mesh itself._
 
 ---
 
@@ -312,4 +312,4 @@ _آخرین به روز رسانی: مارس 2026_
 
 ---
 
-_این سیاست همانند خود Gap Mesh، تحت لیسانس The Unlicense در مالکیت عمومی منتشر شده است._
+_این سیاست همانند خود Gap Mesh، تحت لیسانس MIT License در مالکیت عمومی منتشر شده است._
