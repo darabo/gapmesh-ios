@@ -23,7 +23,7 @@ Gap Mesh is a **messaging app that works without the internet**. It connects you
 
 ### Step 1: Install the App
 
-[Download Gap Mesh from the **TestFlight** (App Store Soon)](https://testflight.apple.com/join/Vgbv1MTy)
+[Download Gap Mesh from the **App Store**](https://apps.apple.com/us/app/gap-mesh/id6757211522)
 
 ![qr code](https://raw.githubusercontent.com/darabo/gapmesh-ios/refs/heads/revampv1/IMG_6337.jpeg)
 
@@ -142,6 +142,10 @@ Tap the **⚙️ Settings** icon (or the app name/logo) to access:
 - **Dark Mode**: Dark background (easier on the eyes)
 - **System**: Follows your iPhone's theme
 
+### Alternative App Icons
+
+- **Disguise your app**: Change the home screen icon to look like a Calculator, Weather, Notes, Clock, Music, or Flashlight app for added privacy. You can find this in the Settings tab.
+
 ### Privacy Options
 
 - **Tor Network** (Optional): Route internet traffic through Tor for extra privacy
@@ -157,7 +161,7 @@ If you need to quickly delete all your data (messages, contacts, settings):
 
 **Triple-tap the app title** (Gap Mesh text at the top)
 
-This instantly erases everything. Use this in emergencies when you need to protect your privacy.
+This instantly erases everything using a crash-resilient process backed by the **iOS Secure Enclave**. Use this in emergencies when you need to protect your privacy. Even if the app forcefully closes, the data remains inaccessible.
 
 ### What Data is Stored?
 

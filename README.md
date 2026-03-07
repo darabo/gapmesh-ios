@@ -8,8 +8,7 @@ Gap is a fork of BitChat catered to the needs of Iranian users.
 
 A decentralized peer-to-peer messaging app with dual transport architecture: local Bluetooth mesh networks for offline communication and internet-based Nostr protocol for global reach. No accounts, no phone numbers, no central servers. It's the side-groupchat.
 
-
-📲 [TestFlight link (App Store soon)](https://testflight.apple.com/join/Vgbv1MTy)
+📲 [App Store link](https://apps.apple.com/us/app/gap-mesh/id6757211522)
 
 > [!WARNING]
 > Private messages have not received external security review and may contain vulnerabilities. Do not use for sensitive use cases, and do not rely on its security until it has been reviewed. Now uses the [Noise Protocol](https://www.noiseprotocol.org) for identity and encryption. Public local chat (the main feature) has no security concerns.
@@ -35,7 +34,7 @@ New to Gap Mesh? Start here:
 - **Private Message End-to-End Encryption**: [Noise Protocol](https://noiseprotocol.org) for mesh, NIP-17 for Nostr
 - **IRC-Style Commands**: Familiar `/slap`, `/msg`, `/who` style interface
 - **Universal App**: Native support for iOS and macOS
-- **Emergency Wipe**: Triple-tap to instantly clear all data
+- **Emergency Wipe**: Crash-resilient triple-tap wipe using Secure Enclave hardware security
 - **Performance Optimizations**: LZ4 message compression, adaptive battery modes, and optimized networking
 
 ## [Technical Architecture](https://deepwiki.com/permissionlesstech/bitchat)
@@ -86,12 +85,10 @@ BitChat uses a **hybrid messaging architecture** with two complementary transpor
 Private messages use **intelligent transport selection**:
 
 1. **Bluetooth First** (preferred when available)
-
    - Direct connection with established Noise session
    - Fastest and most private option
 
 2. **Nostr Fallback** (when Bluetooth unavailable)
-
    - Uses recipient's Nostr public key
    - NIP-17 gift-wrapping for privacy
    - Routes through global relay network
@@ -134,3 +131,22 @@ Run `just clean` afterwards to restore things to original state for mobile app b
 - Share extension strings are separate in `bitchatShareExtension/Localization/Base.lproj/Localizable.strings`.
 - Prefer keys that describe intent (`app_info.features.offline.title`) and reuse existing ones where possible.
 - Run `xcodebuild -project bitchat.xcodeproj -scheme "bitchat (macOS)" -configuration Debug CODE_SIGNING_ALLOWED=NO build` to compile-check any localization updates.
+
+---
+
+## راهنمای فارسی (Farsi Translation)
+
+گپ مش یک شبکه پیام‌رسان غیرمتمرکز، همتابه‌همتا با معماری دوگانه برای ارتباط امن و بدون اینترنت از طریق بلوتوث و ارتباط جهانی از طریق اینترنت (پروتکل Nostr) است.
+
+📲 [لینک اپ استور](https://apps.apple.com/us/app/gap-mesh/id6757211522)
+
+### ویژگی‌ها
+
+- **ارتباط بدون نیاز به اینترنت**: استفاده از بلوتوث برای ایجاد شبکه مش محلی
+- **کانال‌های موقعیت مکانی**: اتاق‌های گفتگوی جغرافیایی در سراسر جهان
+- **حریم خصوصی اول**: بدون نیاز به حساب کاربری یا شماره تلفن
+- **رمزگذاری سرتاسر**: استفاده از پروتکل Noise برای ارتباط امن
+- **پاکسازی اضطراری**: با سه بار ضربه روی عنوان برنامه، تمام داده‌ها با استفاده از امنیت سخت‌افزاری Secure Enclave فوراً پاک می‌شوند.
+- **تغییر آیکون برنامه**: برای امنیت بیشتر آیکون برنامه را مخفی کنید.
+
+برای جزئیات بیشتر به [راهنمای فارسی](docs/USER_GUIDE_FA.md) مراجعه کنید.
