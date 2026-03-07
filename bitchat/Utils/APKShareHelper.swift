@@ -4,7 +4,7 @@ import UIKit
 
 /// Helper to share the Gap Mesh Android APK file from iOS to Android devices.
 ///
-/// The pre-built light APK (~4.5 MB) must be bundled as a resource named
+/// The pre-built light APK (~5.4 MB) must be bundled as a resource named
 /// `GapMesh.apk` in the app target.  Add the file to the Xcode project
 /// (drag into the project navigator → check "Copy items if needed" and
 /// the correct target membership).

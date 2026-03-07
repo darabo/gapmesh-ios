@@ -35557,6 +35557,23 @@
         }
       }
     },
+    "settings.privacy_policy": {
+      "extractionState": "manual",
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Privacy Policy"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "سیاست حفظ حریم خصوصی"
+          }
+        }
+      }
+    },
     "settings.created_by": {
       "extractionState": "manual",
       "localizations": {
@@ -36056,13 +36073,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "APK size: ~4.5 MB"
+            "value": "APK size: ~5.4 MB"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "حجم APK: حدود ۴.۵ مگابایت"
+            "value": "حجم APK: حدود ۵.۴ مگابایت"
           }
         }
       }
