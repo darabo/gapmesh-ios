@@ -181,6 +181,11 @@
 			path = "Gap Mesh";
 			sourceTree = "<group>";
 		};
+		FFF6F55A000000000018FCCE /* Shared */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Shared;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +228,7 @@
 				A6E32D412E762EAE0032EA8A /* bitchatTests */,
 				A6E367C92E76469E0032EA8A /* Configs */,
 				EAD6F5592F5871C50018FCCE /* Gap Mesh */,
+				FFF6F55A000000000018FCCE /* Shared */,
 				9F37F9F2C353B58AC809E93B /* Products */,
 				A6F183FB2E948783006A9046 /* Frameworks */,
 			);
@@ -267,6 +273,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				A6E32C972E762EA70032EA8A /* bitchat */,
+				FFF6F55A000000000018FCCE /* Shared */,
 			);
 			name = gap_macOS;
 			packageProductDependencies = (
@@ -349,6 +356,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				A6E32C972E762EA70032EA8A /* bitchat */,
+				FFF6F55A000000000018FCCE /* Shared */,
 			);
 			name = gap_iOS;
 			packageProductDependencies = (
@@ -375,6 +383,7 @@
 			);
 			fileSystemSynchronizedGroups = (
 				EAD6F5592F5871C50018FCCE /* Gap Mesh */,
+				FFF6F55A000000000018FCCE /* Shared */,
 			);
 			name = "Gap MeshExtension";
 			productName = "Gap MeshExtension";

@@ -1,25 +1,27 @@
-# bitchat Privacy Policy
+# Gap Mesh Privacy Policy
 
-*Last updated: January 2025*
+_Last updated: March 2026_
 
 ## Our Commitment
 
-bitchat is designed with privacy as its foundation. We believe private communication is a fundamental human right. This policy explains how bitchat protects your privacy.
+Gap Mesh is designed with privacy as its foundation. We believe private communication is a fundamental human right. This policy explains how Gap Mesh protects your privacy.
 
 ## Summary
 
 - **No personal data collection** - We don't collect names, emails, or phone numbers
-- **No servers** - Everything happens on your device and through peer-to-peer connections
+- **Hybrid Functionality** - Gap Mesh offers two modes of communication:
+  - **Bluetooth Mesh Chat**: This mode is completely offline, using peer-to-peer Bluetooth connections. It does not use any servers or internet connection.
+  - **Geohash Chat**: This mode uses an internet connection to communicate with others in a specific geographic area. It relies on Nostr relays for message transport. Connections to these relays are routed through the Tor network (via Arti) to anonymize your connection metadata and protect your privacy.
 - **No tracking** - We have no analytics, telemetry, or user tracking
 - **Open source** - You can verify these claims by reading our code
 
-## What Information bitchat Stores
+## What Information Gap Mesh Stores
 
 ### On Your Device Only
 
-1. **Identity Key** 
+1. **Identity Key**
    - A cryptographic key generated on first launch
-   - Stored locally in your device's secure storage
+   - Stored locally in your device's secure storage (StrongBox on Android / Secure Enclave on iOS)
    - Allows you to maintain "favorite" relationships across app restarts
    - Never leaves your device
 
@@ -40,16 +42,18 @@ bitchat is designed with privacy as its foundation. We believe private communica
 
 ### Temporary Session Data
 
-During each session, bitchat temporarily maintains:
+During each session, Gap Mesh temporarily maintains:
+
 - Active peer connections (forgotten when app closes)
 - Routing information for message delivery
 - Cached messages for offline peers (12 hours max)
 
 ## What Information is Shared
 
-### With Other bitchat Users
+### With Other Gap Mesh Users
 
-When you use bitchat, nearby peers can see:
+When you use Gap Mesh, nearby peers can see:
+
 - Your chosen nickname
 - Your ephemeral public key (changes each session)
 - Messages you send to public rooms or directly to them
@@ -58,13 +62,15 @@ When you use bitchat, nearby peers can see:
 ### With Room Members
 
 When you join a password-protected room:
+
 - Your messages are visible to others with the password
 - Your nickname appears in the member list
 - Room owners can see you've joined
 
 ## What We DON'T Do
 
-bitchat **never**:
+Gap Mesh **never**:
+
 - Collects personal information
 - Tracks your location
 - Stores data on servers
@@ -76,6 +82,7 @@ bitchat **never**:
 ## Encryption
 
 All private messages use end-to-end encryption:
+
 - **X25519** for key exchange
 - **AES-256-GCM** for message encryption
 - **Ed25519** for digital signatures
@@ -84,14 +91,16 @@ All private messages use end-to-end encryption:
 ## Your Rights
 
 You have complete control:
-- **Delete Everything**: Triple-tap the logo to instantly wipe all data
+
+- **Delete Everything (Panic Wipe)**: Triple-tap the logo to instantly wipe all data. This triggers a crash-resilient secure wipe that permanently erases all cryptographic keys and data from secure hardware storage (StrongBox/Secure Enclave).
 - **Leave Anytime**: Close the app and your presence disappears
 - **No Account**: Nothing to delete from servers because there are none
 - **Portability**: Your data never leaves your device unless you export it
 
 ## Bluetooth & Permissions
 
-bitchat requires Bluetooth permission to function:
+Gap Mesh requires Bluetooth permission to function:
+
 - Used only for peer-to-peer communication
 - No location data is accessed or stored
 - Bluetooth is not used for tracking
@@ -99,7 +108,7 @@ bitchat requires Bluetooth permission to function:
 
 ## Children's Privacy
 
-bitchat does not knowingly collect information from children. The app has no age verification because it collects no personal information from anyone.
+Gap Mesh does not knowingly collect information from children. The app has no age verification because it collects no personal information from anyone.
 
 ## Data Retention
 
@@ -115,25 +124,192 @@ bitchat does not knowingly collect information from children. The app has no age
 - Open source code for public audit
 - Regular security updates
 - Cryptographic signatures prevent tampering
+- Strong hardware-backed storage encryption
+- Emergency panic wipe system designed to survive app crashes
 
 ## Changes to This Policy
 
 If we update this policy:
+
 - The "Last updated" date will change
 - The updated policy will be included in the app
 - No retroactive changes can affect data (since we don't collect any)
 
 ## Contact
 
-bitchat is an open source project. For privacy questions:
-- View our source code: [https://github.com/permissionlesstech/bitchat/tree/main](https://github.com/permissionlesstech/bitchat/tree/main)
+Gap Mesh is an open source project. For privacy questions:
+
+- View our source code:
+  - Android: https://github.com/darabo/gap-android-main
+  - iOS: https://github.com/darabo/gapmesh-ios/tree/main
 - Open an issue on GitHub
 - Join the discussion in public rooms
 
 ## Philosophy
 
-Privacy isn't just a feature—it's the entire point. bitchat proves that modern communication doesn't require surrendering your privacy. No accounts, no servers, no surveillance. Just people talking freely.
+Privacy isn't just a feature—it's the entire point. Gap Mesh proves that modern communication doesn't require surrendering your privacy. No accounts, no servers, no surveillance. Just people talking freely.
 
 ---
 
-*This policy is released into the public domain under The Unlicense, just like bitchat itself.*
+_This policy is released into the public domain under The Unlicense, just like Gap Mesh itself._
+
+---
+
+# سیاست حفظ حریم خصوصی Gap Mesh
+
+_آخرین به روز رسانی: مارس 2026_
+
+## تعهد ما
+
+برنامه Gap Mesh با توجه به حفظ حریم خصوصی طراحی شده است. ما معتقدیم ارتباط خصوصی یک حق اساسی بشر است. این سیاست نحوه حفاظت Gap Mesh از حریم خصوصی شما را توضیح می‌دهد.
+
+## خلاصه
+
+- **بدون جمع‌آوری داده‌های شخصی** - ما نام، ایمیل، یا شماره تلفن‌ها را جمع‌آوری نمی‌کنیم.
+- **عملکرد ترکیبی** - برنامه Gap Mesh دو حالت ارتباطی ارائه می‌دهد:
+  - **چت شبکه بلوتوث (Mesh)**: این حالت کاملاً آفلاین است و از اتصالات نظیر به نظیر بلوتوث استفاده می‌کند. از هیچ سرور یا اتصال اینترنتی استفاده نمی‌کند.
+  - **چت Geohash**: این حالت از اتصال اینترنت برای ارتباط با دیگران در یک منطقه جغرافیایی خاص استفاده می‌کند و به رله‌های Nostr متکی است. اتصالات به این رله‌ها از طریق شبکه Tor (توسط Arti) هدایت می‌شوند تا فراداده‌های اتصال شما ناشناس بمانند و حریم خصوصی‌تان حفظ شود.
+- **بدون ردیابی** - ما هیچ سیستم تحلیلی، تله‌متری یا ردیابی کاربر نداریم.
+- **متن‌باز** - شما می‌توانید این ادعاها را با خواندن کدهای ما تأیید کنید.
+
+## آنچه Gap Mesh ذخیره می‌کند
+
+### فقط در دستگاه شما
+
+۱. **کلید هویت (Identity Key)**
+
+- یک کلید رمزنگاری که در اولین راه‌اندازی تولید می‌شود.
+- به صورت محلی در فضای ذخیره‌سازی امن دستگاه شما (StrongBox در اتدروید / Secure Enclave در iOS) نگهداری می‌شود.
+- به شما امکان می‌دهد روابط "مورد علاقه" را بین اجراهای مختلف برنامه حفظ کنید.
+- هرگز از دستگاه شما خارج نمی‌شود.
+
+۲. **نام مستعار (Nickname)**
+
+- نام نمایشی که انتخاب می‌کنید (یا به طور خودکار تولید می‌شود).
+- فقط روی دستگاه شما ذخیره می‌شود.
+- با همتایانی که با آنها ارتباط برقرار می‌کنید به اشتراک گذاشته می‌شود.
+
+۳. **تاریخچه پیام‌ها** (در صورت فعال بودن)
+
+- وقتی مالکان اتاق‌ها نگهداری پیام‌ها را فعال کنند، پیام‌ها به صورت محلی ذخیره می‌شوند.
+- به صورت رمزگذاری شده روی دستگاه شما ذخیره উপনিবেশ شما ذخیره می‌شوند.
+- می‌توانید در هر زمان آنها را حذف کنید.
+
+۴. **همتایان مورد علاقه (Favorite Peers)**
+
+- کلیدهای عمومی همتایانی که به عنوان مورد علاقه نشانه‌گذاری می‌کنید.
+- فقط روی دستگاه شما ذخیره می‌شود.
+- به شما اجازه می‌دهد این همتایان را در جلسات آینده بشناسید.
+
+### داده‌های موقت جلسه (Session)
+
+در طول هر جلسه، Gap Mesh به طور موقت این موارد را نگهداری می‌کند:
+
+- اتصالات فعال همتایان (با بسته شدن برنامه فراموش می‌شوند)
+- اطلاعات مسیریابی برای تحویل پیام
+- پیام‌های کش شده برای همتایان آفلاین (حداکثر ۱۲ ساعت)
+
+## چه اطلاعاتی به اشتراک گذاشته می‌شود
+
+### با سایر کاربران Gap Mesh
+
+هنگامی که از Gap Mesh استفاده می‌کنید، همتایان نزدیک می‌توانند موارد زیر را ببینند:
+
+- نام مستعار انتخابی شما
+- کلید عمومی موقت شما (در هر جلسه تغییر می‌کند)
+- پیام‌هایی که به اتاق‌های عمومی یا مستقیماً به آنها ارسال می‌کنید
+- قدرت تقریبی سیگنال بلوتوث شما (برای کیفیت اتصال)
+
+### با اعضای اتاق
+
+هنگامی که به یک اتاق محافظت شده با رمز عبور می‌پیوندید:
+
+- پیام‌های شما برای دیگرانی که رمز عبور را دارند قابل مشاهده است.
+- نام مستعار شما در لیست اعضا ظاهر می‌شود.
+- مالکان اتاق می‌توانند پیوستن شما را ببینند.
+
+## کارهایی که ما انجام نمی‌دهیم
+
+برنامه Gap Mesh **هرگز**:
+
+- اطلاعات شخصی را جمع‌آوری نمی‌کند.
+- مکان شما را ردیابی نمی‌کند.
+- داده‌ای را روی سرورها ذخیره نمی‌کند.
+- داده‌ها را با اشخاص ثالث به اشتراک نمی‌گذارد.
+- از سیستم‌های تحلیلی یا تله‌متری استفاده نمی‌کند.
+- پروفایل کاربری ایجاد نمی‌کند.
+- نیازی به ثبت‌نام ندارد.
+
+## رمزگذاری
+
+تمامی پیام‌های خصوصی از رمزگذاری سرتاسری (End-to-End) استفاده می‌کنند:
+
+- **X25519** برای تبادل کلید
+- **AES-256-GCM** برای رمزگذاری پیام
+- **Ed25519** برای امضاهای دیجیتال
+- **Argon2id** برای اتاق‌های محافظت شده با رمز عبور
+
+## حقوق شما
+
+شما کنترل کامل دارید:
+
+- **حذف همه چیز (شیر برقی / Panic Wipe)**: سه بار ضربه روی لوگو تمام داده‌ها را به سرعت پاک می‌کند. این کار یک پاکسازی امن و مقاوم در برابر خرابی را فعال می‌کند که به طور دائم تمام کلیدهای رمزنگاری و داده‌ها را از فضای ذخیره‌سازی سخت‌افزاری امن پاک می‌کند.
+- **ترک کردن در هر زمان**: برنامه را ببندید تا حضور شما ناپدید شود.
+- **بدون حساب کاربری**: چیزی برای پاک کردن از سرورها وجود ندارد چون اصلاً سروری وجود ندارد.
+- **قابلیت انتقال**: داده‌های شما هرگز از دستگاهتان خارج نمی‌شوند مگر اینکه آنها را خروجی (Export) بگیرید.
+
+## بلوتوث و مجوزها
+
+برنامه Gap Mesh برای کارکرد نیازمند مجوز بلوتوث است:
+
+- فقط برای ارتباط نظیر به نظیر استفاده می‌شود.
+- هیچ داده مکانی مورد دسترسی یا ذخیره قرار نمی‌گیرد.
+- از بلوتوث برای ردیابی استفاده نمی‌شود.
+- می‌توانید در هر زمان این مجوز را از تنظیمات سیستم لغو کنید.
+
+## حریم خصوصی کودکان
+
+برنامه Gap Mesh به صورت آگاهانه هیچ اطلاعاتی از کودکان جمع‌آوری نمی‌کند. این برنامه به تأیید سن نیازی ندارد زیرا اطلاعات شخصی هیچ‌کس را جمع‌آوری نمی‌کند.
+
+## نگهداری داده‌ها
+
+- **پیام‌ها**: با بسته شدن برنامه از حافظه حذف می‌شوند (مگر اینکه نگهداری در اتاق فعال باشد)
+- **کلید هویت**: تا زمانی که برنامه را حذف کنید باقی می‌ماند.
+- **مورد علاقه‌ها**: تا زمانی که آنها را حذف کنید یا برنامه را پاک کنید باقی می‌مانند.
+- **بقیه موارد**: فقط در طول جلسات فعال وجود دارند.
+
+## اقدامات امنیتی
+
+- تمام ارتباطات رمزگذاری شده‌اند.
+- هیچ داده‌ای به سرورها منتقل نمی‌شود (سروری وجود ندارد).
+- کد متن‌باز برای بررسی عمومی.
+- به‌روزرسانی‌های امنیتی منظم.
+- امضاهای رمزنگاری از دستکاری جلوگیری می‌کنند.
+- رمزگذاری قدرتمند فضای ذخیره‌سازی با پشتیبانی سخت‌افزاری.
+- سیستم پاکسازی اضطراری (Panic Wipe) طراحی شده برای تاب‌آوری در برابر خرابی برنامه.
+
+## تغییرات در این سیاست
+
+اگر این سیاست را تغییر دهیم:
+
+- تاریخ "آخرین به‌روزرسانی" تغییر خواهد کرد.
+- سیاست به‌روز شده در برنامه گنجانده می‌شود.
+- هیچ تغییری نمی‌تواند روی داده‌های قبلی اثر بگذارد (زیرا ما داده‌ای جمع‌آوری نمی‌کنیم).
+
+## تماس با ما
+
+برنامه Gap Mesh یک پروژه متن‌باز است. برای سؤالات مربوط به حریم خصوصی:
+
+- کدهای متن‌باز ما را بررسی کنید:
+  - اندروید: https://github.com/darabo/gap-android-main
+  - آی‌اواس: https://github.com/darabo/gapmesh-ios/tree/main
+- در گیت‌هاب (GitHub) ایشیو (Issue) باز کنید.
+- به بحث‌ها در اتاق‌های عمومی بپیوندید.
+
+## فلسفه ما
+
+حریم خصوصی فقط یک قابلیت نیست—همه چیزِ این برنامه است. Gap Mesh ثابت می‌کند که ارتباطات مدرن نیازی به تسلیم حریم خصوصی شما ندارد. بدون حساب کاربری، بدون سرور، بدون نظارت. فقط انسان‌هایی که آزادانه صحبت می‌کنند.
+
+---
+
+_این سیاست همانند خود Gap Mesh، تحت لیسانس The Unlicense در مالکیت عمومی منتشر شده است._

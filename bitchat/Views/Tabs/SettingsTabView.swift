@@ -649,6 +649,31 @@ struct SettingsTabView: View {
                             }
                             .padding()
                             .background(surfaceColor)
+                            
+                            // Privacy Policy
+                            Button(action: {
+                                if let url = URL(string: "https://github.com/darabo/gapmesh-ios/blob/main/PRIVACY_POLICY.md") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }) {
+                                HStack {
+                                    Image(systemName: "doc.text.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(accentBlue)
+                                        .frame(width: 24)
+                                    
+                                    Text(LanguageManager.shared.localizedString("settings.privacy_policy", default: "Privacy Policy"))
+                                        .font(.body)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    Spacer()
+                                    Image(systemName: "arrow.up.right")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(surfaceColor)
+                            }
+                            .buttonStyle(.plain)
                         }
                         .cornerRadius(12)
                     }
