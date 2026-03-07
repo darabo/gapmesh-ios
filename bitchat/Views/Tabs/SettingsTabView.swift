@@ -662,7 +662,7 @@ struct SettingsTabView: View {
                                         .foregroundColor(accentBlue)
                                         .frame(width: 24)
                                     
-                                    Text(LanguageManager.shared.localizedString("settings.privacy_policy", default: "Privacy Policy"))
+                                    Text(LanguageManager.shared.localizedString("settings.privacy_policy"))
                                         .font(.body)
                                         .foregroundColor(colorScheme == .dark ? .white : .black)
                                     Spacer()
@@ -762,7 +762,7 @@ struct SettingsTabView: View {
     // MARK: - Helpers
     
     private func openReportAbuseEmail() {
-        let email = "kevahazadi@gmail.com"  // Developer support email
+        let email = "dara@darabonakdar.com"  // Developer support email
         let subject = "Report Abuse - Gap Mesh"
         if let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: "mailto:\(email)?subject=\(encodedSubject)") {
