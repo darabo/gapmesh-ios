@@ -762,7 +762,7 @@ struct SettingsTabView: View {
     // MARK: - Helpers
     
     private func openReportAbuseEmail() {
-        let email = "dara@darabonakdar.com"  // Developer support email
+        let email = "support@gapmesh.com"  // Developer support email
         let subject = "Report Abuse - Gap Mesh"
         if let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: "mailto:\(email)?subject=\(encodedSubject)") {
