@@ -652,7 +652,8 @@ struct SettingsTabView: View {
                             
                             // Privacy Policy
                             Button(action: {
-                                if let url = URL(string: "https://github.com/darabo/gapmesh-ios/blob/main/PRIVACY_POLICY.md") {
+                                let langParam = LanguageManager.shared.currentLanguage == .farsi ? "?lang=fa" : ""
+                                if let url = URL(string: "https://gapmesh.com/privacy\(langParam)") {
                                     UIApplication.shared.open(url)
                                 }
                             }) {
