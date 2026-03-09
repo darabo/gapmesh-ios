@@ -652,7 +652,8 @@ struct SettingsTabView: View {
                             
                             // Privacy Policy
                             Button(action: {
-                                if let url = URL(string: "https://github.com/darabo/gapmesh-ios/blob/main/PRIVACY_POLICY.md") {
+                                let langParam = LanguageManager.shared.currentLanguage == .farsi ? "?lang=fa" : ""
+                                if let url = URL(string: "https://gapmesh.com/privacy\(langParam)") {
                                     UIApplication.shared.open(url)
                                 }
                             }) {
@@ -762,7 +763,7 @@ struct SettingsTabView: View {
     // MARK: - Helpers
     
     private func openReportAbuseEmail() {
-        let email = "dara@darabonakdar.com"  // Developer support email
+        let email = "support@gapmesh.com"  // Developer support email
         let subject = "Report Abuse - Gap Mesh"
         if let encodedSubject = subject.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed),
            let url = URL(string: "mailto:\(email)?subject=\(encodedSubject)") {
