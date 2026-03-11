@@ -34582,13 +34582,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Get Started"
+            "value": "Continue"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "شروع کنید"
+            "value": "ادامه"
           }
         }
       }
@@ -34752,13 +34752,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Allow"
+            "value": "Continue"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "اجازه"
+            "value": "ادامه"
           }
         }
       }
@@ -34871,13 +34871,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gap Mesh needs these permissions to work properly. Tap each to allow."
+            "value": "Gap Mesh needs these permissions to work properly. Tap each to continue."
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا اجازه دهید."
+            "value": "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا ادامه دهید."
           }
         }
       }
@@ -34888,13 +34888,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Enable Permissions"
+            "value": "Setup"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "فعال کردن مجوزها"
+            "value": "تنظیمات"
           }
         }
       }
