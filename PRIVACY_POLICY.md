@@ -97,14 +97,34 @@ You have complete control:
 - **No Account**: Nothing to delete from servers because there are none
 - **Portability**: Your data never leaves your device unless you export it
 
-## Bluetooth & Permissions
+## App Permissions
 
-Gap Mesh requires Bluetooth permission to function:
+Gap Mesh requires several system permissions to provide its core functionality. We only request permissions when they are needed for a specific feature.
 
-- Used only for peer-to-peer communication
-- No location data is accessed or stored
-- Bluetooth is not used for tracking
-- You can revoke this permission at any time in system settings
+1. **Bluetooth**
+   - **Usage**: Creating a secure mesh network for chatting with nearby users without internet.
+   - **Privacy**: No location data is accessed via Bluetooth. It is never used for tracking.
+
+2. **Location (Approximate)**
+   - **Usage**: Computing local geohash channels for optional public chats (Geohash Chat mode).
+   - **Privacy**: Exact GPS coordinates are never shared or stored. We only use approximate coordinates to determine your general region.
+
+3. **Local Network**
+   - **Usage**: Discovering and communicating with nearby devices over WiFi.
+
+4. **Camera**
+   - **Usage**: Scanning QR codes to verify peers and establish secure relationships.
+
+5. **Microphone**
+   - **Usage**: Recording voice notes that can be relayed across the mesh.
+
+6. **Photo Library**
+   - **Usage**: Picking images to share with peers and saving received images to your device.
+
+7. **Notifications**
+   - **Usage**: Alerting you to new messages and network status updates.
+
+You can manage or revoke these permissions at any time in your device's System Settings.
 
 ## Children's Privacy
 
@@ -258,14 +278,34 @@ _آخرین به روز رسانی: مارس 2026_
 - **بدون حساب کاربری**: چیزی برای پاک کردن از سرورها وجود ندارد چون اصلاً سروری وجود ندارد.
 - **قابلیت انتقال**: داده‌های شما هرگز از دستگاهتان خارج نمی‌شوند مگر اینکه آنها را خروجی (Export) بگیرید.
 
-## بلوتوث و مجوزها
+## مجوزهای برنامه
 
-برنامه Gap Mesh برای کارکرد نیازمند مجوز بلوتوث است:
+برنامه Gap Mesh برای ارائه قابلیت‌های اصلی خود به چندین مجوز سیستمی نیاز دارد. ما فقط زمانی درخواست مجوز می‌کنیم که برای یک قابلیت خاص مورد نیاز باشد.
 
-- فقط برای ارتباط نظیر به نظیر استفاده می‌شود.
-- هیچ داده مکانی مورد دسترسی یا ذخیره قرار نمی‌گیرد.
-- از بلوتوث برای ردیابی استفاده نمی‌شود.
-- می‌توانید در هر زمان این مجوز را از تنظیمات سیستم لغو کنید.
+۱. **بلوتوث (Bluetooth)**
+   - **کاربرد**: ایجاد یک شبکه مش امن برای گفتگو با کاربران نزدیک بدون نیاز به اینترنت.
+   - **حریم خصوصی**: هیچ داده مکانی از طریق بلوتوث قابل دسترسی نیست و هرگز برای ردیابی استفاده نمی‌شود.
+
+۲. **مکان (تقریبی - Location)**
+   - **کاربرد**: محاسبه کانال‌های ژئوهش (Geohash) محلی برای گفتگوهای عمومی اختیاری.
+   - **حریم خصوصی**: مختصات دقیق GPS هرگز به اشتراک گذاشته یا ذخیره نمی‌شود. ما فقط از مختصات تقریبی برای تعیین منطقه کلی شما استفاده می‌کنیم.
+
+۳. **شبکه محلی (Local Network)**
+   - **کاربرد**: شناسایی و ارتباط با دستگاه‌های نزدیک از طریق وای‌فای (WiFi).
+
+۴. **دوربین (Camera)**
+   - **کاربرد**: اسکن کدهای QR برای تایید هویت همتایان و ایجاد روابط امن.
+
+۵. **میکروفون (Microphone)**
+   - **کاربرد**: ضبط پیام‌های صوتی که در شبکه مش منتقل می‌شوند.
+
+۶. **کتابخانه عکس (Photo Library)**
+   - **کاربرد**: انتخاب تصاویر برای اشتراک‌گذاری با همتایان و ذخیره تصاویر دریافتی در دستگاه شما.
+
+۷. **نوتیفیکیشن‌ها (Notifications)**
+   - **کاربرد**: اطلاع‌رسانی در مورد پیام‌های جدید و به‌روزرسانی‌های وضعیت شبکه.
+
+شما می‌توانید در هر زمان این مجوزها را از طریق تنظیمات سیستم (Settings) دستگاه خود مدیریت یا لغو کنید.
 
 ## حریم خصوصی کودکان
 
