@@ -1131,6 +1131,31 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     
     // MARK: - Message Sending
     
+    // MARK: - Local Sharing
+    
+    @MainActor
+    func shareGeorelaysLocally() {
+        guard let bleService = meshService as? BLEService else { return }
+        guard let (data, timestamp) = GeoRelayDirectory.shared.exportSharedCSVData() else {
+            SecureLogger.warning("ChatViewModel: Could not export georelays for sharing", category: .session)
+            return
+        }
+        
+        let filename = "gapmesh_georelays_\(Int(timestamp)).csv"
+        let filePacket = BitchatFilePacket(
+            fileName: filename,
+            fileSize: UInt64(data.count),
+            mimeType: "text/csv",
+            content: data,
+            sha256: nil
+        )
+        
+        // Use a unique UUID for the transfer
+        let transferId = UUID().uuidString.uppercased()
+        bleService.sendFileBroadcast(filePacket, transferId: transferId)
+        SecureLogger.info("ChatViewModel: Broadcasting georelays (\(filename)) via BLE", category: .session)
+    }
+
     /// Sends a message through the network.
     /// This function acts as a smart "Router" to decide WHERE the message goes:
     ///

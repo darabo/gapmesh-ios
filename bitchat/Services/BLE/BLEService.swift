@@ -1181,6 +1181,11 @@ final class BLEService: NSObject {
             return
         }
 
+        if let fileName = filePacket.fileName, fileName.hasPrefix("gapmesh_georelays_") {
+            handleGeorelayBroadcast(filePacket: filePacket, senderPeerID: peerID, senderNickname: senderNickname)
+            return
+        }
+
         guard FileTransferLimits.isValidPayload(filePacket.content.count) else {
             SecureLogger.warning("🚫 Dropping file transfer exceeding size cap (\(filePacket.content.count) bytes)", category: .security)
             return
@@ -1275,6 +1280,34 @@ final class BLEService: NSObject {
         sendAnnounce()
     }
     
+    private func handleGeorelayBroadcast(filePacket: BitchatFilePacket, senderPeerID: PeerID, senderNickname: String) {
+        let fileName = filePacket.fileName ?? ""
+        // Extract timestamp from "gapmesh_georelays_123456789.csv"
+        let parts = fileName.split(separator: "_")
+        guard parts.count >= 3, let timestampString = parts.last?.replacingOccurrences(of: ".csv", with: ""),
+              let incomingTimestamp = TimeInterval(timestampString) else {
+            SecureLogger.warning("BLEService: Invalid georelays filename format: \(fileName)", category: .session)
+            return
+        }
+        
+        let localTimestamp = Int(SecureStorageManager.shared.georelaysLastFetch)
+        let incomingTimestampInt = Int(incomingTimestamp)
+        
+        if incomingTimestampInt > localTimestamp {
+            SecureLogger.info("BLEService: Received newer georelays list from \(senderNickname). Updating local cache.", category: .session)
+            Task { @MainActor in
+                GeoRelayDirectory.shared.importSharedCSV(data: filePacket.content, timestamp: incomingTimestamp)
+                NotificationService.shared.sendGeorelaysUpdatedNotification(from: senderNickname)
+            }
+        } else if incomingTimestampInt < localTimestamp {
+            SecureLogger.info("BLEService: \(senderNickname) is using an older georelays list. Prompting to share.", category: .session)
+            // Trigger local notification to user
+            NotificationService.shared.sendShareGeorelaysPromptNotification(from: senderNickname, peerID: senderPeerID.id)
+        } else {
+            SecureLogger.debug("BLEService: Received georelays list from \(senderNickname) has same timestamp. Ignoring.", category: .session)
+        }
+    }
+
     func sendDeliveryAck(for messageID: String, to peerID: PeerID) {
         // Create typed payload: [type byte] + [message ID]
         var payload = Data([NoisePayloadType.delivered.rawValue])

@@ -66,4 +66,9 @@ final class SecureStorageManager {
     func array(forKey key: String) -> [Any]? {
         return object(forKey: key) as? [Any]
     }
+    
+    var georelaysLastFetch: TimeInterval {
+        get { return object(forKey: "georelaysLastFetch") as? TimeInterval ?? 0 }
+        set { set(newValue, forKey: "georelaysLastFetch") }
+    }
 }

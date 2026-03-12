@@ -43,24 +43,6 @@
 	<false/>
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSPinnedDomains</key>
-		<dict>
-			<key>raw.githubusercontent.com</key>
-			<dict>
-				<key>NSIncludesSubdomains</key>
-				<true/>
-				<key>NSPinnedLeafIdentities</key>
-				<array>
-					<dict>
-						<key>SPKI-SHA256-BASE64</key>
-						<string>1FtgkXeU53bUTaObUogizKNIqs/ZGaEo1k2AwG30xts=</string>
-					</dict>
-				</array>
-			</dict>
-		</dict>
-	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
 	<string>Gap Mesh uses Bluetooth to create a secure mesh network for chatting with nearby users.
 (Gap Mesh از بلوتوث برای ایجاد یک شبکه مش امن جهت گفتگو با کاربران نزدیک استفاده می‌کند.)</string>
