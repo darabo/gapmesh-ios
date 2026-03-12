@@ -119,22 +119,23 @@ struct BitchatApp: App {
         // The Keychain is a hardware-backed secure storage that even other apps can't access.
         let keychain = KeychainManager()
         let idBridge = self.idBridge
-        // Create the ChatViewModel with its three dependencies:
-        //   - keychain: for secure key storage
-        //   - idBridge: for Nostr identity management
-        //   - identityManager: for managing persistent identity state
-        _chatViewModel = StateObject(
-            wrappedValue: ChatViewModel(
-                keychain: keychain,
-                idBridge: idBridge,
-                identityManager: SecureIdentityStateManager(keychain)
-            )
+        
+        // Create the ChatViewModel with its three dependencies
+        let cvm = ChatViewModel(
+            keychain: keychain,
+            idBridge: idBridge,
+            identityManager: SecureIdentityStateManager(keychain)
         )
+        // Assign to the StateObject
+        _chatViewModel = StateObject(wrappedValue: cvm)
         
         // Register for push notifications so we can show alerts for new messages.
         UNUserNotificationCenter.current().delegate = NotificationDelegate.shared
+        // Immediately bind the ChatViewModel to the notification delegate to prevent race conditions
+        // where a user taps a notification on cold launch before SwiftUI's .onAppear fires.
+        NotificationDelegate.shared.chatViewModel = cvm
+        
         // Pre-load the geo-relay directory (maps regions to nearby relays)
-        // so location-based chat is fast when the user first opens it.
         GeoRelayDirectory.shared.prefetchIfNeeded()
     }
     
@@ -461,6 +462,13 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
             #endif
         }
         
+        // Handle georelay sharing back action
+        if let action = userInfo["action"] as? String, action == "share_georelays_back" {
+            DispatchQueue.main.async {
+                self.chatViewModel?.shareGeorelaysLocally()
+            }
+        }
+        
         completionHandler()
     }
     
@@ -492,6 +500,12 @@ final class NotificationDelegate: NSObject, UNUserNotificationCenterDelegate {
                 completionHandler([])
                 return
             }
+        }
+        
+        // Always show the share georelays prompt
+        if identifier.hasPrefix("share-relays-") {
+            completionHandler([.banner, .sound])
+            return
         }
         
         // Show notification in all other cases

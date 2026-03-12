@@ -103,6 +103,25 @@ final class NotificationService {
         sendLocalNotification(title: title, body: bodyPreview, identifier: identifier, userInfo: userInfo)
     }
 
+    func sendShareGeorelaysPromptNotification(from nickname: String, peerID: String) {
+        let title = localized("settings.share_relays_older_title") ?? "Older Relays Received"
+        let msgFormat = localized("settings.share_relays_older_msg") ?? "%@ has an older relay list. Tap to share your updated list with them."
+        let body = String(format: msgFormat, nickname)
+        let identifier = "share-relays-\(peerID)-\(Date().timeIntervalSince1970)"
+        let userInfo: [String: Any] = ["action": "share_georelays_back", "peerID": peerID]
+        
+        sendLocalNotification(title: title, body: body, identifier: identifier, userInfo: userInfo)
+    }
+
+    func sendGeorelaysUpdatedNotification(from nickname: String) {
+        let title = localized("settings.share_relays_updated_title") ?? "Georelays Updated"
+        let msgFormat = localized("settings.share_relays_updated_msg") ?? "Successfully updated to newer relay list from %@"
+        let body = String(format: msgFormat, nickname)
+        let identifier = "georelays-updated-\(Date().timeIntervalSince1970)"
+        
+        sendLocalNotification(title: title, body: body, identifier: identifier)
+    }
+
     func sendNetworkAvailableNotification(peerCount: Int) {
         let titleString = localized("notification.network.title") ?? "👥 gapchatters nearby!"
         

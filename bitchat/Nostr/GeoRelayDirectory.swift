@@ -162,7 +162,9 @@ final class GeoRelayDirectory {
     private func handleFetchSuccess(entries parsed: [Entry], csv: String) {
         entries = parsed
         persistCache(csv)
-        SecureStorageManager.shared.set(Date(), forKey: lastFetchKey)
+        let now = Date()
+        SecureStorageManager.shared.set(now, forKey: lastFetchKey)
+        SecureStorageManager.shared.georelaysLastFetch = now.timeIntervalSince1970
         SecureLogger.info("GeoRelayDirectory: refreshed \(parsed.count) relays from remote", category: .session)
         isFetching = false
         retryAttempt = 0
@@ -294,6 +296,53 @@ final class GeoRelayDirectory {
         } catch {
             return nil
         }
+    }
+
+    // MARK: - Local Sharing
+    
+    @MainActor
+    func exportSharedCSVData() -> (data: Data, timestamp: TimeInterval)? {
+        let timestamp = SecureStorageManager.shared.georelaysLastFetch
+        
+        if timestamp > 0,
+           let url = cacheURL(),
+           let data = try? Data(contentsOf: url),
+           let _ = String(data: data, encoding: .utf8) {
+            return (data, timestamp)
+        }
+        
+        // Fallback to bundled assets with baseline timestamp 1 if no fetched cache exists
+        let bundleCandidates = [
+            Bundle.main.url(forResource: "nostr_relays", withExtension: "csv"),
+            Bundle.main.url(forResource: "online_relays_gps", withExtension: "csv"),
+            Bundle.main.url(forResource: "online_relays_gps", withExtension: "csv", subdirectory: "relays")
+        ].compactMap { $0 }
+        
+        for url in bundleCandidates {
+            if let data = try? Data(contentsOf: url),
+               let _ = String(data: data, encoding: .utf8) {
+                return (data, 1.0)
+            }
+        }
+        
+        return nil
+    }
+    
+    @MainActor
+    func importSharedCSV(data: Data, timestamp: TimeInterval) {
+        guard let text = String(data: data, encoding: .utf8) else { return }
+        let parsed = Self.parseCSV(text)
+        guard !parsed.isEmpty else {
+            SecureLogger.warning("GeoRelayDirectory: failed to parse imported CSV data", category: .session)
+            return
+        }
+        
+        entries = parsed
+        persistCache(text)
+        SecureStorageManager.shared.georelaysLastFetch = timestamp
+        SecureStorageManager.shared.set(Date(timeIntervalSince1970: timestamp), forKey: lastFetchKey)
+        
+        SecureLogger.info("GeoRelayDirectory: imported \(parsed.count) relays from local peer (timestamp: \(timestamp))", category: .session)
     }
 
     // MARK: - Observers & Timers

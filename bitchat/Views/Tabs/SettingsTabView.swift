@@ -20,6 +20,7 @@ struct SettingsTabView: View {
     @AppStorage("appAppearanceMode") private var appearanceMode: Int = 0 // 0=System, 1=Light, 2=Dark
     @State private var showingNameEditSheet = false
     @State private var editingName = ""
+    @State private var showRelayShareSuccess = false
     /// When true, programmatically navigate to the App Icon picker.
     /// Set by the decoy exit popup via UserDefaults flag.
     @State private var navigateToIconPicker = false    
@@ -309,6 +310,41 @@ struct SettingsTabView: View {
                                     // Switch to mesh mode when disabling location
                                     locationManager.select(.mesh)
                                 }
+                            }
+                            
+                            // Share Relays Button
+                            Button(action: {
+                                viewModel.shareGeorelaysLocally()
+                                showRelayShareSuccess = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "square.and.arrow.up.circle.fill")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(accentBlue)
+                                        .frame(width: 24)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(LanguageManager.shared.localizedString("settings.share_relays"))
+                                            .font(.body)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                                        
+                                        Text(LanguageManager.shared.localizedString("settings.share_relays_desc"))
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding()
+                                .background(surfaceColor)
+                            }
+                            .buttonStyle(.plain)
+                            .alert(isPresented: $showRelayShareSuccess) {
+                                Alert(
+                                    title: Text(LanguageManager.shared.localizedString("settings.share_relays_success_title")),
+                                    message: Text(LanguageManager.shared.localizedString("settings.share_relays_success_msg")),
+                                    dismissButton: .default(Text("OK"))
+                                )
                             }
                         }
                         .background(surfaceColor)

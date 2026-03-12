@@ -34472,57 +34472,137 @@
     "onboarding.feature_private_title": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Encrypted Messaging" } },
-        "fa": { "stringUnit": { "state": "translated", "value": "پیام‌های امن" } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Encrypted Messaging"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پیام‌های امن"
+          }
+        }
       }
     },
     "onboarding.feature_private_desc": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "End-to-end encrypted chats." } },
-        "fa": { "stringUnit": { "state": "translated", "value": "چت‌های رمزنگاری شده سرتاسری." } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "End-to-end encrypted chats."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "چت‌های رمزنگاری شده سرتاسری."
+          }
+        }
       }
     },
     "onboarding.feature_decoy_title": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Decoy Mode" } },
-        "fa": { "stringUnit": { "state": "translated", "value": "حالت فریب" } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Decoy Mode"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "حالت فریب"
+          }
+        }
       }
     },
     "onboarding.feature_decoy_desc": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Hide app behind a calculator interface." } },
-        "fa": { "stringUnit": { "state": "translated", "value": "پنهان کردن برنامه با ماشین حساب." } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Hide app behind a calculator interface."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "پنهان کردن برنامه با ماشین حساب."
+          }
+        }
       }
     },
     "onboarding.feature_icons_title": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Alternative Icons" } },
-        "fa": { "stringUnit": { "state": "translated", "value": "آیکن‌های متفاوت" } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Alternative Icons"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "آیکن‌های متفاوت"
+          }
+        }
       }
     },
     "onboarding.feature_icons_desc": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Customize how the app looks on your home screen." } },
-        "fa": { "stringUnit": { "state": "translated", "value": "ظاهر برنامه را شخصی‌سازی کنید." } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Customize how the app looks on your home screen."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ظاهر برنامه را شخصی‌سازی کنید."
+          }
+        }
       }
     },
     "onboarding.feature_relay_title": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Mesh Relays" } },
-        "fa": { "stringUnit": { "state": "translated", "value": "رله‌های شبکه" } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Mesh Relays"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رله‌های شبکه"
+          }
+        }
       }
     },
     "onboarding.feature_relay_desc": {
       "extractionState": "manual",
       "localizations": {
-        "en": { "stringUnit": { "state": "translated", "value": "Bounce messages off nearby devices to extend range." } },
-        "fa": { "stringUnit": { "state": "translated", "value": "ارسال پیام‌ از طریق دستگاه‌های اطراف." } }
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Bounce messages off nearby devices to extend range."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "ارسال پیام‌ از طریق دستگاه‌های اطراف."
+          }
+        }
       }
     },
     "onboarding.feature_notes_desc": {
@@ -34582,13 +34662,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Get Started"
+            "value": "Continue"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "شروع کنید"
+            "value": "ادامه"
           }
         }
       }
@@ -34752,13 +34832,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Allow"
+            "value": "Continue"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "اجازه"
+            "value": "ادامه"
           }
         }
       }
@@ -34871,13 +34951,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Gap Mesh needs these permissions to work properly. Tap each to allow."
+            "value": "Gap Mesh needs these permissions to work properly. Tap each to continue."
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا اجازه دهید."
+            "value": "گپ مش برای کار صحیح به این مجوزها نیاز دارد. روی هر کدام ضربه بزنید تا ادامه دهید."
           }
         }
       }
@@ -34888,13 +34968,13 @@
         "en": {
           "stringUnit": {
             "state": "translated",
-            "value": "Enable Permissions"
+            "value": "Setup"
           }
         },
         "fa": {
           "stringUnit": {
             "state": "translated",
-            "value": "فعال کردن مجوزها"
+            "value": "تنظیمات"
           }
         }
       }
@@ -41674,6 +41754,102 @@
           "stringUnit": {
             "state": "translated",
             "value": "آیکون برنامه را در صفحه اصلی خود تغییر دهید. نام برنامه ثابت خواهد ماند."
+          }
+        }
+      }
+    },
+    "settings.share_relays": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Share Relays Locally"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اشتراک‌گذاری محلی رله‌ها"
+          }
+        }
+      }
+    },
+    "settings.share_relays_desc": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Broadcast your updated georelay list to nearby users."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لیست رله‌های به‌روز شده خود را با کاربران نزدیک به اشتراک بگذارید."
+          }
+        }
+      }
+    },
+    "settings.share_relays_success_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Sharing Initiated"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "اشتراک‌گذاری آغاز شد"
+          }
+        }
+      }
+    },
+    "settings.share_relays_success_msg": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Your georelay list is now being broadcasted locally."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "لیست رله‌های شما اکنون به صورت محلی در حال پخش است."
+          }
+        }
+      }
+    },
+    "settings.share_relays_older_title": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Older Relays Received"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "رله‌های قدیمی‌تر دریافت شد"
+          }
+        }
+      }
+    },
+    "settings.share_relays_older_msg": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ has an older relay list. Tap to share your updated list with them."
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "%@ یک لیست رله قدیمی‌تر دارد. برای اشتراک‌گذاری لیست به‌روز خود ضربه بزنید."
           }
         }
       }
