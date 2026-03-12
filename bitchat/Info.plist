@@ -10,7 +10,7 @@
 	<key>CFBundleAllowMixedLocalizations</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
-	<string></string>
+	<string>en</string>
 	<key>CFBundleDisplayName</key>
 	<string>Gap Mesh</string>
 	<key>CFBundleExecutable</key>
@@ -44,33 +44,25 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>Gap Mesh uses Bluetooth to create a secure mesh network for chatting with nearby users.
-(Gap Mesh از بلوتوث برای ایجاد یک شبکه مش امن جهت گفتگو با کاربران نزدیک استفاده می‌کند.)</string>
+	<string>Gap Mesh uses Bluetooth to create a secure mesh network for chatting with nearby users.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>Gap Mesh uses Bluetooth to discover and connect with other Gap Mesh users nearby.
-(Gap Mesh از بلوتوث برای شناسایی و اتصال به سایر کاربران نزدیک استفاده می‌کند.)</string>
+	<string>Gap Mesh uses Bluetooth to discover and connect with other Gap Mesh users nearby.</string>
 	<key>NSBonjourServices</key>
 	<array>
 		<string>_gapmesh._udp</string>
 	</array>
 	<key>NSCameraUsageDescription</key>
-	<string>Gap Mesh uses the camera to scan QR codes to verify peers.
-(Gap Mesh از دوربین برای اسکن کدهای QR جهت تایید هویت همتایان استفاده می‌کند.)</string>
+	<string>Gap Mesh uses the camera to scan QR codes to verify peers.</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Gap Mesh uses local network to discover and communicate with nearby devices over WiFi.
-(Gap Mesh از شبکه محلی برای شناسایی و ارتباط با دستگاه‌های نزدیک از طریق وای‌فای استفاده می‌کند.)</string>
+	<string>Gap Mesh uses local network to discover and communicate with nearby devices over WiFi.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Gap Mesh uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared.
-(Gap Mesh از مکان تقریبی شما برای محاسبه کانال‌های ژئوهش محلی جهت گفتگوهای عمومی اختیاری استفاده می‌کند. مکان دقیق GPS هرگز به اشتراک گذاشته نمی‌شود.)</string>
+	<string>Gap Mesh uses your approximate location to compute local geohash channels for optional public chats. Exact GPS is never shared.</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Gap Mesh uses the microphone to record voice notes that relay across the mesh.
-(Gap Mesh از میکروفون برای ضبط پیام‌های صوتی که در شبکه مش منتقل می‌شوند استفاده می‌کند.)</string>
+	<string>Gap Mesh uses the microphone to record voice notes that relay across the mesh.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>Gap Mesh needs permission to save images to your photo library.
-(Gap Mesh برای ذخیره تصاویر در کتابخانه عکس شما به اجازه دسترسی نیاز دارد.)</string>
+	<string>Gap Mesh needs permission to save images to your photo library.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Gap Mesh lets you pick images from your photo library to share with nearby peers.
-(Gap Mesh به شما امکان می‌دهد تصاویری را از کتابخانه عکس خود برای اشتراک‌گذاری با همتایان نزدیک انتخاب کنید.)</string>
+	<string>Gap Mesh lets you pick images from your photo library to share with nearby peers.</string>
 	<key>NSSupportsLiveActivities</key>
 	<true/>
 	<key>NSSupportsLiveActivitiesFrequentUpdates</key>
