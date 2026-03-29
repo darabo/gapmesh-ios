@@ -42092,6 +42092,38 @@
           }
         }
       }
+    },
+    "settings.url_privacy_policy": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://gapmesh.com/privacy"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://gapmesh.com/privacy"
+          }
+        }
+      }
+    },
+    "settings.url_source_code_ios": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://github.com/darabo/gapmesh-ios"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "https://github.com/darabo/gapmesh-ios"
+          }
+        }
+      }
     }
   },
   "version": "1.1"

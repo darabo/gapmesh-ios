@@ -814,7 +814,8 @@ struct SettingsTabView: View {
                             // Privacy Policy
                             Button(action: {
                                 let langParam = LanguageManager.shared.currentLanguage == .farsi ? "?lang=fa" : ""
-                                if let url = URL(string: "https://gapmesh.com/privacy\(langParam)") {
+                                let baseUrl = LanguageManager.shared.localizedString("settings.url_privacy_policy")
+                                if let url = URL(string: "\(baseUrl)\(langParam)") {
                                     UIApplication.shared.open(url)
                                 }
                             }) {
@@ -840,7 +841,8 @@ struct SettingsTabView: View {
                             // Source Code (GitHub)
                             Divider().padding(.leading, 48)
                             Button(action: {
-                                if let url = URL(string: "https://github.com/darabo/gapmesh-ios") {
+                                let sourceUrl = LanguageManager.shared.localizedString("settings.url_source_code_ios")
+                                if let url = URL(string: sourceUrl) {
                                     UIApplication.shared.open(url)
                                 }
                             }) {
