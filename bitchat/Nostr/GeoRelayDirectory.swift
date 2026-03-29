@@ -1,4 +1,5 @@
 import BitLogger
+import CryptoKit
 import Foundation
 import Tor
 #if os(iOS)
@@ -343,6 +344,76 @@ final class GeoRelayDirectory {
         SecureStorageManager.shared.set(Date(timeIntervalSince1970: timestamp), forKey: lastFetchKey)
         
         SecureLogger.info("GeoRelayDirectory: imported \(parsed.count) relays from local peer (timestamp: \(timestamp))", category: .session)
+    }
+
+    // MARK: - Manual Update
+
+    enum ManualUpdateResult {
+        case updated(Int)       // Successfully updated, N relays loaded
+        case alreadyUpToDate    // SHA-256 matches, no change needed
+        case failed(String)     // Error message
+    }
+
+    /// Manually fetch the latest relay list from GitHub and report whether the list
+    /// was actually updated or was already identical.
+    func manualUpdate() async -> ManualUpdateResult {
+        guard !isFetching else {
+            return .failed("A fetch is already in progress")
+        }
+        isFetching = true
+
+        let request = URLRequest(
+            url: remoteURL,
+            cachePolicy: .reloadIgnoringLocalCacheData,
+            timeoutInterval: 30
+        )
+
+        let ready = await TorManager.shared.awaitReady(timeout: 60)
+        if !ready {
+            isFetching = false
+            return .failed("Tor is not connected")
+        }
+
+        do {
+            let (data, _) = try await TorURLSession.shared.session.data(for: request)
+            guard let text = String(data: data, encoding: .utf8) else {
+                isFetching = false
+                return .failed("Invalid data from server")
+            }
+
+            let parsed = Self.parseCSV(text)
+            guard !parsed.isEmpty else {
+                isFetching = false
+                return .failed("No relays found in downloaded data")
+            }
+
+            // Compare SHA-256 hashes to detect actual change
+            let remoteHash = SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+            var localHash = ""
+            if let cacheFile = cacheURL(), let localData = try? Data(contentsOf: cacheFile) {
+                localHash = SHA256.hash(data: localData).map { String(format: "%02x", $0) }.joined()
+            }
+
+            if remoteHash == localHash {
+                isFetching = false
+                retryAttempt = 0
+                return .alreadyUpToDate
+            }
+
+            // Content changed — persist and reload
+            entries = parsed
+            persistCache(text)
+            let now = Date()
+            SecureStorageManager.shared.set(now, forKey: lastFetchKey)
+            SecureStorageManager.shared.georelaysLastFetch = now.timeIntervalSince1970
+            SecureLogger.info("GeoRelayDirectory: manual update refreshed \(parsed.count) relays", category: .session)
+            isFetching = false
+            retryAttempt = 0
+            return .updated(parsed.count)
+        } catch {
+            isFetching = false
+            return .failed(error.localizedDescription)
+        }
     }
 
     // MARK: - Observers & Timers

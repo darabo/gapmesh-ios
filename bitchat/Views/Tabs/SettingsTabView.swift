@@ -12,6 +12,7 @@ struct SettingsTabView: View {
     @EnvironmentObject var viewModel: ChatViewModel
     @StateObject private var languageManager = LanguageManager.shared
     @ObservedObject private var locationManager = LocationChannelManager.shared
+    @ObservedObject private var torManager = TorManager.shared
     @ObservedObject private var iconManager = AppIconManager.shared
     #if os(iOS)
     @ObservedObject private var liveActivityManager = LiveActivityManager.shared
@@ -21,6 +22,10 @@ struct SettingsTabView: View {
     @State private var showingNameEditSheet = false
     @State private var editingName = ""
     @State private var showRelayShareSuccess = false
+    @State private var isUpdatingRelays = false
+    @State private var showRelayUpdateResult = false
+    @State private var relayUpdateResultTitle = ""
+    @State private var relayUpdateResultMessage = ""
     /// When true, programmatically navigate to the App Icon picker.
     /// Set by the decoy exit popup via UserDefaults flag.
     @State private var navigateToIconPicker = false    
@@ -61,6 +66,27 @@ struct SettingsTabView: View {
         liveActivityManager.areActivitiesAuthorized || liveActivityManager.isEnabled
     }
     #endif
+    
+    private var torStatusColor: Color {
+        if torManager.isReady {
+            return colorScheme == .dark ? Color(red: 0.2, green: 0.84, blue: 0.29) : Color(red: 0.14, green: 0.54, blue: 0.24)
+        } else if torManager.isStarting {
+            return Color.orange
+        } else {
+            return Color.red
+        }
+    }
+    
+    private var torStatusText: String {
+        if torManager.isReady {
+            return LanguageManager.shared.localizedString("settings.tor_status_connected")
+        } else if torManager.isStarting {
+            let progress = torManager.bootstrapProgress
+            return String(format: LanguageManager.shared.localizedString("settings.tor_status_connecting"), "\(progress)")
+        } else {
+            return LanguageManager.shared.localizedString("settings.tor_status_disconnected")
+        }
+    }
     
     var body: some View {
         NavigationStack {
@@ -189,6 +215,24 @@ struct SettingsTabView: View {
                             .onChange(of: torEnabled) { _, newValue in
                                 SecureStorageManager.shared.set(newValue, forKey: "torEnabled")
                                 NetworkActivationService.shared.setUserTorEnabled(newValue)
+                            }
+                            
+                            // Tor Connection Status Indicator
+                            if torEnabled {
+                                HStack(spacing: 8) {
+                                    Circle()
+                                        .fill(torStatusColor)
+                                        .frame(width: 10, height: 10)
+                                    
+                                    Text(torStatusText)
+                                        .font(.system(.caption, design: .monospaced))
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.horizontal, 16)
+                                .padding(.vertical, 10)
+                                .background(surfaceColor)
                             }
                             
                             // Proof of Work Toggle
@@ -343,6 +387,87 @@ struct SettingsTabView: View {
                                 Alert(
                                     title: Text(LanguageManager.shared.localizedString("settings.share_relays_success_title")),
                                     message: Text(LanguageManager.shared.localizedString("settings.share_relays_success_msg")),
+                                    dismissButton: .default(Text("OK"))
+                                )
+                            }
+                            
+                            Divider().padding(.leading, 48)
+                            
+                            // Update Georelay List Button
+                            Button(action: {
+                                guard !isUpdatingRelays else { return }
+                                
+                                // Check if location services are enabled (required for Tor)
+                                if locationManager.permissionState == .denied || locationManager.permissionState == .restricted {
+                                    relayUpdateResultTitle = LanguageManager.shared.localizedString("settings.update_relays_error_title")
+                                    relayUpdateResultMessage = LanguageManager.shared.localizedString("settings.location_required_for_update")
+                                    showRelayUpdateResult = true
+                                    return
+                                }
+                                
+                                // Check if Tor is connected before attempting
+                                if !torManager.isReady {
+                                    if torManager.isStarting {
+                                        relayUpdateResultTitle = LanguageManager.shared.localizedString("settings.update_relays_error_title")
+                                        relayUpdateResultMessage = LanguageManager.shared.localizedString("settings.tor_not_ready_yet")
+                                    } else {
+                                        relayUpdateResultTitle = LanguageManager.shared.localizedString("settings.update_relays_error_title")
+                                        relayUpdateResultMessage = LanguageManager.shared.localizedString("settings.tor_not_connected")
+                                    }
+                                    showRelayUpdateResult = true
+                                    return
+                                }
+                                
+                                isUpdatingRelays = true
+                                Task {
+                                    let result = await GeoRelayDirectory.shared.manualUpdate()
+                                    isUpdatingRelays = false
+                                    switch result {
+                                    case .updated(let count):
+                                        relayUpdateResultTitle = LanguageManager.shared.localizedString("settings.update_relays_success_title")
+                                        relayUpdateResultMessage = String(format: LanguageManager.shared.localizedString("settings.update_relays_success_msg"), "\(count)")
+                                    case .alreadyUpToDate:
+                                        relayUpdateResultTitle = LanguageManager.shared.localizedString("settings.update_relays_uptodate_title")
+                                        relayUpdateResultMessage = LanguageManager.shared.localizedString("settings.update_relays_uptodate_msg")
+                                    case .failed(_):
+                                        relayUpdateResultTitle = LanguageManager.shared.localizedString("settings.update_relays_error_title")
+                                        relayUpdateResultMessage = LanguageManager.shared.localizedString("settings.update_relays_error_msg")
+                                    }
+                                    showRelayUpdateResult = true
+                                }
+                            }) {
+                                HStack {
+                                    if isUpdatingRelays {
+                                        ProgressView()
+                                            .frame(width: 24)
+                                    } else {
+                                        Image(systemName: "arrow.triangle.2.circlepath.circle.fill")
+                                            .font(.system(size: 20))
+                                            .foregroundColor(accentBlue)
+                                            .frame(width: 24)
+                                    }
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(LanguageManager.shared.localizedString("settings.update_relays"))
+                                            .font(.body)
+                                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                                        
+                                        Text(LanguageManager.shared.localizedString("settings.update_relays_desc"))
+                                            .font(.caption)
+                                            .foregroundColor(.gray)
+                                            .fixedSize(horizontal: false, vertical: true)
+                                    }
+                                    Spacer()
+                                }
+                                .padding()
+                                .background(surfaceColor)
+                            }
+                            .buttonStyle(.plain)
+                            .disabled(isUpdatingRelays)
+                            .alert(isPresented: $showRelayUpdateResult) {
+                                Alert(
+                                    title: Text(relayUpdateResultTitle),
+                                    message: Text(relayUpdateResultMessage),
                                     dismissButton: .default(Text("OK"))
                                 )
                             }
@@ -700,6 +825,32 @@ struct SettingsTabView: View {
                                         .frame(width: 24)
                                     
                                     Text(LanguageManager.shared.localizedString("settings.privacy_policy"))
+                                        .font(.body)
+                                        .foregroundColor(colorScheme == .dark ? .white : .black)
+                                    Spacer()
+                                    Image(systemName: "arrow.up.right")
+                                        .font(.caption)
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(surfaceColor)
+                            }
+                            .buttonStyle(.plain)
+                            
+                            // Source Code (GitHub)
+                            Divider().padding(.leading, 48)
+                            Button(action: {
+                                if let url = URL(string: "https://github.com/darabo/gapmesh-ios") {
+                                    UIApplication.shared.open(url)
+                                }
+                            }) {
+                                HStack {
+                                    Image(systemName: "chevron.left.forwardslash.chevron.right")
+                                        .font(.system(size: 20))
+                                        .foregroundColor(accentBlue)
+                                        .frame(width: 24)
+                                    
+                                    Text(LanguageManager.shared.localizedString("settings.source_code"))
                                         .font(.body)
                                         .foregroundColor(colorScheme == .dark ? .white : .black)
                                     Spacer()
