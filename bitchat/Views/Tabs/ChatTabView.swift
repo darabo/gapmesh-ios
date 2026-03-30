@@ -116,7 +116,7 @@ struct ChatTabView: View {
     
     // MARK: - Body
     var body: some View {
-        HStack(spacing: 0) {
+        ZStack(alignment: .trailing) {
             VStack(spacing: 0) {
                 // Header
                 headerView
@@ -124,24 +124,23 @@ struct ChatTabView: View {
                 Divider()
                     .background(textColor.opacity(0.3))
                 
-                GeometryReader { geometry in
-                    messagesList
-                        .frame(width: geometry.size.width, height: geometry.size.height)
+                // Scrollable Chat Area
+                VStack(spacing: 0) {
+                    GeometryReader { geometry in
+                        messagesList
+                            .frame(width: geometry.size.width, height: geometry.size.height)
+                    }
+                    .background(backgroundColor)
+                    
+                    Divider()
+                    
+                    inputView
                 }
-                .background(backgroundColor)
-                
-                Divider()
-                
-                inputView
             }
             .background(backgroundColor)
             
-            if isPad && isPeopleSidebarVisible && horizontalSizeClass == .regular {
-                Divider()
-                PeopleTabView(selectedTab: $selectedTab)
-                    .frame(width: 320)
-                    .background(backgroundColor)
-            }
+            // Sidebar Overlay Layer
+            peopleSidebarOverlay
         }
         // Name Edit Sheet
         .sheet(isPresented: $showingNameEditSheet) {
@@ -225,6 +224,46 @@ struct ChatTabView: View {
         }
     }
     
+    // MARK: - Subviews
+    
+    @ViewBuilder
+    private var peopleSidebarOverlay: some View {
+        if isPad && isPeopleSidebarVisible && horizontalSizeClass == .regular {
+            GeometryReader { geometry in
+                ZStack(alignment: .trailing) {
+                    // Catch-all scrim background to dismiss by tapping outside
+                    Color.black.opacity(colorScheme == .dark ? 0.4 : 0.15)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                isPeopleSidebarVisible = false
+                            }
+                        }
+                        .transition(.opacity)
+                        .zIndex(1)
+                    
+                    HStack(spacing: 0) {
+                        Divider()
+                            .background(textColor.opacity(0.3))
+                        
+                        PeopleTabView(selectedTab: $selectedTab)
+                            .frame(width: 320)
+                            .background(backgroundColor)
+                    }
+                    .frame(width: 320)
+                    .frame(maxHeight: .infinity)
+                    .background(backgroundColor)
+                    .shadow(color: Color.black.opacity(colorScheme == .dark ? 0.6 : 0.15), radius: 20, x: -10, y: 0)
+                    .transition(.move(edge: .trailing))
+                    .zIndex(2)
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height)
+            }
+            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isPeopleSidebarVisible)
+            .zIndex(999)
+        }
+    }
+    
     // MARK: - Header View
     
     private var headerView: some View {
@@ -261,19 +300,21 @@ struct ChatTabView: View {
                 // People toggle for iPad
                 if isPad && horizontalSizeClass == .regular {
                     Button(action: {
-                        withAnimation(.easeInOut(duration: 0.2)) {
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
                             isPeopleSidebarVisible.toggle()
                         }
                     }) {
-                        Image(systemName: "person.2.fill")
-                            .font(.system(size: 16, weight: .semibold))
-                            .foregroundColor(isPeopleSidebarVisible ? .white : textColor)
-                            .padding(.horizontal, 16)
-                            .padding(.vertical, 8)
-                            .background(
-                                Capsule()
-                                    .fill(isPeopleSidebarVisible ? Color.green : secondaryTextColor.opacity(0.15))
-                            )
+                        HStack(spacing: 6) {
+                            Image(systemName: isPeopleSidebarVisible ? "sidebar.right" : "person.2.fill")
+                                .font(.system(size: 14, weight: .semibold))
+                            Text(LanguageManager.shared.localizedString("tabs.people"))
+                                .font(.bitchatSystem(size: 14, weight: .bold))
+                        }
+                        .foregroundColor(isPeopleSidebarVisible ? backgroundColor : textColor)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(isPeopleSidebarVisible ? textColor : textColor.opacity(0.1))
+                        .clipShape(Capsule())
                     }
                     .padding(.trailing, 12)
                 }
@@ -283,7 +324,6 @@ struct ChatTabView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
-            .padding(.top, isPad ? 48 : 0) // Push down on iPad to clear iPadOS 18 floating TabBar
             
             // Disconnection warning banner for geohash
             if isGeohashDisconnected {

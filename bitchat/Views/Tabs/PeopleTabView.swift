@@ -171,6 +171,7 @@ struct PeopleTabView: View {
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("tabs.people"))
+            .navigationBarTitleDisplayMode(.inline)
             .foregroundColor(textColor)
             #if os(iOS)
             .toolbar {
@@ -192,7 +193,7 @@ struct PeopleTabView: View {
             }
             #endif
         }
-        .navigationViewStyle(StackNavigationViewStyle())
+        .navigationViewStyle(.stack)
         .sheet(isPresented: $showVerificationSheet) {
             VerificationSheetView(isPresented: $showVerificationSheet)
                 .environmentObject(viewModel)

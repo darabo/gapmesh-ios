@@ -158,7 +158,6 @@ struct LocationChannelsSheet: View {
             .navigationTitle("")
             #endif
         }
-        .navigationViewStyle(StackNavigationViewStyle())
         #if os(macOS)
         .frame(minWidth: 420, minHeight: 520)
         #endif
