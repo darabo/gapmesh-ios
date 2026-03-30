@@ -17,20 +17,43 @@ extension Color {
             self = cached
         }
         let h = peerSeed.djb2()
-        var hue = Double(h % 1000) / 1000.0
-        let orange = 30.0 / 360.0
-        if abs(hue - orange) < TransportConfig.uiColorHueAvoidanceDelta {
-            hue = fmod(hue + TransportConfig.uiColorHueOffset, 1.0)
+        
+        let baseColors: [[Double]] = [
+            [0, 114, 178],   // Blue
+            [213, 94, 0],    // Vermillion
+            [0, 158, 115],   // Bluish Green
+            [230, 159, 0],   // Orange
+            [204, 121, 167], // Reddish Purple
+            [86, 180, 233],  // Sky Blue
+            [240, 228, 66],  // Yellow
+            [17, 119, 51],   // Dark Green
+            [51, 34, 136],   // Dark Teal
+            [136, 204, 238], // Light Blue
+            [68, 170, 153],  // Mint
+            [153, 153, 51],  // Olive
+            [221, 204, 119], // Sand
+            [204, 102, 119], // Rose
+            [136, 34, 85]    // Wine
+        ]
+        
+        let colorIndex = Int(h % UInt64(baseColors.count))
+        let baseRgb = baseColors[colorIndex]
+        
+        var r = baseRgb[0] / 255.0
+        var g = baseRgb[1] / 255.0
+        var b = baseRgb[2] / 255.0
+        
+        if isDark {
+            r = r + (1.0 - r) * 0.4
+            g = g + (1.0 - g) * 0.4
+            b = b + (1.0 - b) * 0.4
+        } else {
+            r = r * 0.8
+            g = g * 0.8
+            b = b * 0.8
         }
-        let sRand = Double((h >> 17) & 0x3FF) / 1023.0
-        let bRand = Double((h >> 27) & 0x3FF) / 1023.0
-        let sBase: Double = isDark ? 0.80 : 0.70
-        let sRange: Double = 0.20
-        let bBase: Double = isDark ? 0.75 : 0.45
-        let bRange: Double = isDark ? 0.16 : 0.14
-        let saturation = min(1.0, max(0.50, sBase + (sRand - 0.5) * sRange))
-        let brightness = min(1.0, max(0.35, bBase + (bRand - 0.5) * bRange))
-        let c = Color(hue: hue, saturation: saturation, brightness: brightness)
+        
+        let c = Color(red: r, green: g, blue: b)
         Self.peerColorCache[cacheKey] = c
         self = c
     }

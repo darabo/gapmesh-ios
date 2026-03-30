@@ -11,6 +11,13 @@ struct MainTabView: View {
     @EnvironmentObject var viewModel: ChatViewModel
     @ObservedObject private var locationManager = LocationChannelManager.shared
     @State private var selectedTab: Tab = .chat
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
+    
+    #if os(iOS)
+    private var isPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
+    #else
+    private var isPad: Bool { false }
+    #endif
     
     // Enum to identify tabs
     enum Tab {
@@ -50,15 +57,18 @@ struct MainTabView: View {
                 }
                 .tag(Tab.locations)
             
-            PeopleTabView(selectedTab: $selectedTab)
-                .tabItem {
-                    Label(
-                        LanguageManager.shared.localizedString("tabs.people"),
-                        systemImage: "person.2.fill"
-                    )
-                }
-                .tag(Tab.people)
-                .badge(peopleCount > 0 ? peopleCount : 0)
+            
+            if !isPad {
+                PeopleTabView(selectedTab: $selectedTab)
+                    .tabItem {
+                        Label(
+                            LanguageManager.shared.localizedString("tabs.people"),
+                            systemImage: "person.2.fill"
+                        )
+                    }
+                    .tag(Tab.people)
+                    .badge(peopleCount > 0 ? peopleCount : 0)
+            }
             
             SettingsTabView()
                 .tabItem {

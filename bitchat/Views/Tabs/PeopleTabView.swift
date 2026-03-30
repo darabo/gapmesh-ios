@@ -226,7 +226,7 @@ struct PeopleTabView: View {
             // Nickname
             Text(String(nickname))
                 .font(.body)
-                .foregroundColor(textColor)
+                .foregroundColor(Color(peerSeed: "mesh:\(peer.peerID.id.lowercased())", isDark: colorScheme == .dark))
                 .lineLimit(1)
             
             Spacer()
@@ -265,7 +265,7 @@ struct PeopleTabView: View {
             // Display name
             Text(person.displayName)
                 .font(.body)
-                .foregroundColor(textColor)
+                .foregroundColor(Color(peerSeed: "nostr:\(person.id.lowercased())", isDark: colorScheme == .dark))
                 .lineLimit(1)
             
             Spacer()

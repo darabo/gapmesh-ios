@@ -58,9 +58,15 @@ struct ChatTabView: View {
     @State private var showImagePicker = false
     @State private var showImagePickerOptions = false
     @State private var imagePickerSourceType: UIImagePickerController.SourceType = .camera
+    private var isPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
     #else
     @State private var showMacImagePicker = false
+    private var isPad: Bool { false }
     #endif
+    
+    // iPad Sidebar State
+    @State private var isPeopleSidebarVisible: Bool = false
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     // Colors
     private var backgroundColor: Color {
@@ -110,24 +116,33 @@ struct ChatTabView: View {
     
     // MARK: - Body
     var body: some View {
-        VStack(spacing: 0) {
-            // Header
-            headerView
-            
-            Divider()
-                .background(textColor.opacity(0.3))
-            
-            GeometryReader { geometry in
-                messagesList
-                    .frame(width: geometry.size.width, height: geometry.size.height)
+        HStack(spacing: 0) {
+            VStack(spacing: 0) {
+                // Header
+                headerView
+                
+                Divider()
+                    .background(textColor.opacity(0.3))
+                
+                GeometryReader { geometry in
+                    messagesList
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+                .background(backgroundColor)
+                
+                Divider()
+                
+                inputView
             }
             .background(backgroundColor)
             
-            Divider()
-            
-            inputView
+            if isPad && isPeopleSidebarVisible && horizontalSizeClass == .regular {
+                Divider()
+                PeopleTabView(selectedTab: $selectedTab)
+                    .frame(width: 320)
+                    .background(backgroundColor)
+            }
         }
-        .background(backgroundColor)
         // Name Edit Sheet
         .sheet(isPresented: $showingNameEditSheet) {
             editNameSheet
@@ -242,6 +257,20 @@ struct ChatTabView: View {
                 }
                 
                 Spacer()
+                
+                // People toggle for iPad
+                if isPad && horizontalSizeClass == .regular {
+                    Button(action: {
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            isPeopleSidebarVisible.toggle()
+                        }
+                    }) {
+                        Image(systemName: "person.2.fill")
+                            .font(.system(size: 16))
+                            .foregroundColor(isPeopleSidebarVisible ? textColor : secondaryTextColor)
+                            .padding(.trailing, 12)
+                    }
+                }
                 
                 // Channel badge - tappable to go to locations
                 channelBadge
