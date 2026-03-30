@@ -18,42 +18,50 @@ extension Color {
         }
         let h = peerSeed.djb2()
         
-        let baseColors: [[Double]] = [
-            [0, 114, 178],   // Blue
-            [213, 94, 0],    // Vermillion
-            [0, 158, 115],   // Bluish Green
-            [230, 159, 0],   // Orange
-            [204, 121, 167], // Reddish Purple
-            [86, 180, 233],  // Sky Blue
-            [240, 228, 66],  // Yellow
-            [17, 119, 51],   // Dark Green
-            [51, 34, 136],   // Dark Teal
-            [136, 204, 238], // Light Blue
-            [68, 170, 153],  // Mint
-            [153, 153, 51],  // Olive
-            [221, 204, 119], // Sand
-            [204, 102, 119], // Rose
-            [136, 34, 85]    // Wine
+        // 15 bold, distinct colors optimized explicitly for Dark Mode (Neon/Pastel Brights)
+        let darkColors: [[Double]] = [
+            [51, 181, 229],   // Neon Azure
+            [255, 136, 0],    // Neon Orange
+            [0, 200, 81],     // Neon Green
+            [170, 102, 204],  // Bright Purple
+            [255, 68, 68],    // Bright Pink/Rose
+            [255, 223, 0],    // Bright Yellow
+            [0, 229, 255],    // Cyan/Teal
+            [255, 0, 255],    // Bright Magenta
+            [174, 234, 0],    // Lime Green
+            [255, 112, 67],   // Coral
+            [92, 107, 192],   // Bright Indigo
+            [105, 240, 174],  // Bright Mint
+            [255, 202, 40],   // Gold
+            [224, 64, 251],   // Orchid
+            [68, 138, 255]    // Dodger Blue
         ]
         
-        let colorIndex = Int(h % UInt64(baseColors.count))
-        let baseRgb = baseColors[colorIndex]
+        // 15 bold, distinct colors optimized explicitly for Light Mode (Jewel Tones for high contrast)
+        let lightColors: [[Double]] = [
+            [0, 91, 159],     // Deep Azure
+            [230, 81, 0],     // Deep Orange
+            [0, 126, 51],     // Deep Green
+            [106, 27, 154],   // Deep Purple
+            [204, 0, 0],      // Deep Red
+            [245, 127, 23],   // Amber
+            [0, 96, 100],     // Deep Teal
+            [136, 14, 79],    // Deep Magenta
+            [85, 139, 47],    // Olive Green
+            [216, 67, 21],    // Rust
+            [40, 53, 147],    // Navy Indigo
+            [0, 105, 92],     // Deep Mint
+            [255, 143, 0],    // Dark Gold
+            [173, 20, 87],    // Deep Orchid
+            [1, 87, 155]      // Royal Blue
+        ]
         
-        var r = baseRgb[0] / 255.0
-        var g = baseRgb[1] / 255.0
-        var b = baseRgb[2] / 255.0
+        // Choose palette based on current color scheme
+        let activePalette = isDark ? darkColors : lightColors
+        let colorIndex = Int(h % UInt64(activePalette.count))
+        let rgb = activePalette[colorIndex]
         
-        if isDark {
-            r = r + (1.0 - r) * 0.4
-            g = g + (1.0 - g) * 0.4
-            b = b + (1.0 - b) * 0.4
-        } else {
-            r = r * 0.8
-            g = g * 0.8
-            b = b * 0.8
-        }
-        
-        let c = Color(red: r, green: g, blue: b)
+        let c = Color(red: rgb[0] / 255.0, green: rgb[1] / 255.0, blue: rgb[2] / 255.0)
         Self.peerColorCache[cacheKey] = c
         self = c
     }
