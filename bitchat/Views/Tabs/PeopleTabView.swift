@@ -192,6 +192,7 @@ struct PeopleTabView: View {
             }
             #endif
         }
+        .navigationViewStyle(StackNavigationViewStyle())
         .sheet(isPresented: $showVerificationSheet) {
             VerificationSheetView(isPresented: $showVerificationSheet)
                 .environmentObject(viewModel)

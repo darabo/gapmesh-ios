@@ -266,10 +266,16 @@ struct ChatTabView: View {
                         }
                     }) {
                         Image(systemName: "person.2.fill")
-                            .font(.system(size: 16))
-                            .foregroundColor(isPeopleSidebarVisible ? textColor : secondaryTextColor)
-                            .padding(.trailing, 12)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(isPeopleSidebarVisible ? .white : textColor)
+                            .padding(.horizontal, 16)
+                            .padding(.vertical, 8)
+                            .background(
+                                Capsule()
+                                    .fill(isPeopleSidebarVisible ? Color.green : secondaryTextColor.opacity(0.15))
+                            )
                     }
+                    .padding(.trailing, 12)
                 }
                 
                 // Channel badge - tappable to go to locations
@@ -277,6 +283,7 @@ struct ChatTabView: View {
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 10)
+            .padding(.top, isPad ? 48 : 0) // Push down on iPad to clear iPadOS 18 floating TabBar
             
             // Disconnection warning banner for geohash
             if isGeohashDisconnected {
