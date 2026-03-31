@@ -32,8 +32,13 @@ struct PeopleTabView: View {
                 )
                 .environmentObject(viewModel)
             }
+            #if os(iOS)
+            // Match the vertical rhythm used in Settings/Locations by adding
+            // breathing room between the large navigation title and first row.
+            .contentMargins(.top, 20, for: .scrollContent)
+            #endif
             .navigationTitle(LanguageManager.shared.localizedString("tabs.people"))
-            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.large)
             #if os(iOS)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
