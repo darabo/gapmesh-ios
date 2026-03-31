@@ -210,18 +210,17 @@ struct MainTabView: View {
                 }
                 .tag(Tab.locations)
 
-
-            if !isPad {
-                PeopleTabView(selectedTab: $selectedTab)
-                    .tabItem {
-                        Label(
-                            LanguageManager.shared.localizedString("tabs.people"),
-                            systemImage: "person.2.fill"
-                        )
-                    }
-                    .tag(Tab.people)
-                    .badge(peopleCount > 0 ? peopleCount : 0)
-            }
+            // Show People whenever we're in tab mode (iPhone + compact-width iPad).
+            // Regular-width iPad gets People access from the split-view sidebar instead.
+            PeopleTabView(selectedTab: $selectedTab)
+                .tabItem {
+                    Label(
+                        LanguageManager.shared.localizedString("tabs.people"),
+                        systemImage: "person.2.fill"
+                    )
+                }
+                .tag(Tab.people)
+                .badge(peopleCount > 0 ? peopleCount : 0)
 
             SettingsTabView()
                 .tabItem {

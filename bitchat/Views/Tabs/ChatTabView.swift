@@ -57,9 +57,14 @@ struct ChatTabView: View {
     @State private var showImagePickerOptions = false
     @State private var imagePickerSourceType: UIImagePickerController.SourceType = .camera
     private var isPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
+    private var isPadLikeWindowEnvironment: Bool {
+        let idiom = UIDevice.current.userInterfaceIdiom
+        return idiom == .pad || idiom == .mac
+    }
     #else
     @State private var showMacImagePicker = false
     private var isPad: Bool { false }
+    private var isPadLikeWindowEnvironment: Bool { false }
     #endif
     
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
@@ -108,6 +113,23 @@ struct ChatTabView: View {
         case .location(let ch):
             return "#\(ch.geohash)"
         }
+    }
+
+    // Extra breathing room for windowed iPad/pad-like contexts.
+    // Step-by-step:
+    // 1) Keep iPhone unchanged.
+    // 2) Add top offset for compact iPad widths (Split View / Slide Over / Stage Manager).
+    // 3) Also add offset for iOS-on-Mac style windows where title controls can overlay content.
+    private var compactPadHeaderTopInset: CGFloat {
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            return 30
+        }
+        if isPadLikeWindowEnvironment && horizontalSizeClass == .compact {
+            return 24
+        }
+        #endif
+        return 0
     }
     
     // MARK: - Body
@@ -255,7 +277,9 @@ struct ChatTabView: View {
                 channelBadge
             }
             .padding(.horizontal, 10)
-            .padding(.vertical, 8)
+            // Keep original vertical rhythm, but add iPad-compact top clearance.
+            .padding(.top, 8 + compactPadHeaderTopInset)
+            .padding(.bottom, 8)
             
             // Disconnection warning banner for geohash
             if isGeohashDisconnected {

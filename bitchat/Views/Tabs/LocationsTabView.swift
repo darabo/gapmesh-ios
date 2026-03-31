@@ -28,9 +28,38 @@ struct LocationsTabView: View {
 
     #if os(iOS)
     private var isPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
+    private var isPadLikeWindowEnvironment: Bool {
+        let idiom = UIDevice.current.userInterfaceIdiom
+        return idiom == .pad || idiom == .mac
+    }
     #else
     private var isPad: Bool { false }
+    private var isPadLikeWindowEnvironment: Bool { false }
     #endif
+
+    // Extra top spacing for compact/windowed iPad contexts where
+    // system window controls can overlap custom in-content headers.
+    private var compactPadHeaderTopInset: CGFloat {
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            return 30
+        }
+        if isPadLikeWindowEnvironment && horizontalSizeClass == .compact {
+            return 24
+        }
+        #endif
+        return 0
+    }
+
+    // Keep title presentation consistent with Settings in compact iPad/mac-windowed mode:
+    // - use NavigationStack title instead of a custom in-content large title.
+    private var usesNavigationTitleHeader: Bool {
+        #if os(iOS)
+        return isPadLikeWindowEnvironment && horizontalSizeClass == .compact
+        #else
+        return false
+        #endif
+    }
     
     private var textColor: Color {
         colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
@@ -57,19 +86,23 @@ struct LocationsTabView: View {
         NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    // Header title
-                    Text(LanguageManager.shared.localizedString("channels.title"))
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
+                    // In compact iPad/mac-windowed mode, header title is shown in the nav bar
+                    // (matching Settings). In other layouts, keep the in-content title.
+                    if !usesNavigationTitleHeader {
+                        Text(LanguageManager.shared.localizedString("channels.title"))
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .padding(.horizontal)
+                            .padding(.top, 8 + compactPadHeaderTopInset)
+                    }
                     
                     // Description blurb
                     Text(LanguageManager.shared.localizedString("channels.description"))
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.horizontal)
+                        .padding(.top, usesNavigationTitleHeader ? 8 : 0)
                         .padding(.bottom, 8)
                     
                     // Mesh Network Section
@@ -287,9 +320,12 @@ struct LocationsTabView: View {
             }
             .background(backgroundColor)
             #if os(iOS)
-            // Keep nav bar available on iPad split view, hide it on phone-style presentation.
-            .navigationBarHidden(!(isPad && horizontalSizeClass == .regular))
+            // Keep nav bar available:
+            // 1) regular iPad split-view (existing behavior),
+            // 2) compact iPad/mac-windowed mode for header consistency with Settings.
+            .navigationBarHidden(!((isPad && horizontalSizeClass == .regular) || usesNavigationTitleHeader))
             #endif
+            .navigationTitle(usesNavigationTitleHeader ? LanguageManager.shared.localizedString("channels.title") : "")
             #if os(iOS)
             .fullScreenCover(isPresented: $showMapPicker) {
                 GeohashMapPicker(isPresented: $showMapPicker) { geohash in
