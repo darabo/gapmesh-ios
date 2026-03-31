@@ -1,8 +1,7 @@
 //
 //  ChatTabView.swift
-//  bitchat
+//  
 //
-//  Created by Unlicense
 //
 
 import SwiftUI
@@ -11,7 +10,14 @@ import AVFoundation
 import Tor
 
 struct ChatTabView: View {
+    // MARK: Overview
+    // This view renders public chat plus its composer/actions.
+    // Private chat entry is adaptive:
+    // - iPad regular width: ask parent to route inline in split detail.
+    // - compact/phone: open modal private chat sheet.
     @Binding var selectedTab: MainTabView.Tab
+    // On iPad, parent split view injects this so we route private chats inline.
+    var onRequestPrivateChat: ((PeerID) -> Void)? = nil
     @EnvironmentObject var viewModel: ChatViewModel
     @ObservedObject private var locationManager = LocationChannelManager.shared
     @Environment(\.colorScheme) var colorScheme
@@ -20,7 +26,6 @@ struct ChatTabView: View {
     // State from ContentView
     @State private var messageText = ""
     @FocusState private var isTextFieldFocused: Bool
-    @FocusState private var isNicknameFieldFocused: Bool
     
     // Private Chat Sheet
     @State private var showPrivateChatSheet = false
@@ -64,8 +69,6 @@ struct ChatTabView: View {
     private var isPad: Bool { false }
     #endif
     
-    // iPad Sidebar State
-    @State private var isPeopleSidebarVisible: Bool = false
     @Environment(\.horizontalSizeClass) var horizontalSizeClass
     
     // Colors
@@ -116,33 +119,31 @@ struct ChatTabView: View {
     
     // MARK: - Body
     var body: some View {
-        ZStack(alignment: .trailing) {
+        VStack(spacing: 0) {
+            // Step 1: header (channel + status + top actions).
+            headerView
+            
+            Divider()
+                .background(textColor.opacity(0.3))
+            
+            // Step 2: chat timeline + composer.
             VStack(spacing: 0) {
-                // Header
-                headerView
+                GeometryReader { geometry in
+                    messagesList
+                        .frame(width: geometry.size.width, height: geometry.size.height)
+                }
+                .background(backgroundColor)
                 
                 Divider()
-                    .background(textColor.opacity(0.3))
                 
-                // Scrollable Chat Area
-                VStack(spacing: 0) {
-                    GeometryReader { geometry in
-                        messagesList
-                            .frame(width: geometry.size.width, height: geometry.size.height)
-                    }
-                    .background(backgroundColor)
-                    
-                    Divider()
-                    
-                    inputView
-                }
+                inputView
             }
-            .background(backgroundColor)
-            
-            // Sidebar Overlay Layer
-            peopleSidebarOverlay
         }
-        // Name Edit Sheet
+        .background(backgroundColor)
+        // Sheet group:
+        // - nickname editor
+        // - media pickers
+        // - private chat fallback sheet (compact layouts)
         .sheet(isPresented: $showingNameEditSheet) {
             editNameSheet
         }
@@ -222,46 +223,9 @@ struct ChatTabView: View {
                     .environmentObject(viewModel)
             }
         }
-    }
-    
-    // MARK: - Subviews
-    
-    @ViewBuilder
-    private var peopleSidebarOverlay: some View {
-        if isPad && isPeopleSidebarVisible && horizontalSizeClass == .regular {
-            GeometryReader { geometry in
-                ZStack(alignment: .trailing) {
-                    // Catch-all scrim background to dismiss by tapping outside
-                    Color.black.opacity(colorScheme == .dark ? 0.4 : 0.15)
-                        .ignoresSafeArea()
-                        .onTapGesture {
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                                isPeopleSidebarVisible = false
-                            }
-                        }
-                        .transition(.opacity)
-                        .zIndex(1)
-                    
-                    HStack(spacing: 0) {
-                        Divider()
-                            .background(textColor.opacity(0.3))
-                        
-                        PeopleTabView(selectedTab: $selectedTab)
-                            .frame(width: 320)
-                            .background(backgroundColor)
-                    }
-                    .frame(width: 320)
-                    .frame(maxHeight: .infinity)
-                    .background(backgroundColor)
-                    .shadow(color: Color.black.opacity(colorScheme == .dark ? 0.6 : 0.15), radius: 20, x: -10, y: 0)
-                    .transition(.move(edge: .trailing))
-                    .zIndex(2)
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height)
-            }
-            .animation(.spring(response: 0.3, dampingFraction: 0.8), value: isPeopleSidebarVisible)
-            .zIndex(999)
-        }
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
     }
     
     // MARK: - Header View
@@ -297,33 +261,11 @@ struct ChatTabView: View {
                 
                 Spacer()
                 
-                // People toggle for iPad
-                if isPad && horizontalSizeClass == .regular {
-                    Button(action: {
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                            isPeopleSidebarVisible.toggle()
-                        }
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: isPeopleSidebarVisible ? "sidebar.right" : "person.2.fill")
-                                .font(.system(size: 14, weight: .semibold))
-                            Text(LanguageManager.shared.localizedString("tabs.people"))
-                                .font(.bitchatSystem(size: 14, weight: .bold))
-                        }
-                        .foregroundColor(isPeopleSidebarVisible ? backgroundColor : textColor)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(isPeopleSidebarVisible ? textColor : textColor.opacity(0.1))
-                        .clipShape(Capsule())
-                    }
-                    .padding(.trailing, 12)
-                }
-                
                 // Channel badge - tappable to go to locations
                 channelBadge
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 10)
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
             
             // Disconnection warning banner for geohash
             if isGeohashDisconnected {
@@ -389,43 +331,44 @@ struct ChatTabView: View {
     // MARK: - Edit Name Sheet
     
     private var editNameSheet: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text(LanguageManager.shared.localizedString("settings.change_username"))) {
+                    #if os(iOS)
+                    DeterministicTextField(
+                        placeholder: LanguageManager.shared.localizedString("settings.enter_username"),
+                        text: $editingName,
+                        direction: .followsAppLanguage(LanguageManager.shared.currentLanguage),
+                        autocorrectionType: .no,
+                        autocapitalizationType: .none
+                    )
+                    .id("chat-name-input-\(LanguageManager.shared.currentLanguage.rawValue)")
+                    #else
                     TextField(
                         LanguageManager.shared.localizedString("settings.enter_username"),
                         text: $editingName
                     )
                     .autocorrectionDisabled()
-                }
-                
-                Section {
-                    Button(action: saveNewName) {
-                        Text(LanguageManager.shared.localizedString("common.save"))
-                            .foregroundColor(.blue)
-                    }
+                    #endif
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("settings.change_username"))
-            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingNameEditSheet = false }) {
-                        Text(LanguageManager.shared.localizedString("common.cancel"))
-                    }
-                }
-            }
-            #else
-            .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { showingNameEditSheet = false }) {
-                        Text(LanguageManager.shared.localizedString("common.cancel"))
+                    Button(LanguageManager.shared.localizedString("common.cancel")) {
+                        showingNameEditSheet = false
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(LanguageManager.shared.localizedString("common.save")) {
+                        saveNewName()
                     }
                 }
             }
-            #endif
         }
+        .applyLanguageEnvironment(LanguageManager.shared)
+        .id(LanguageManager.shared.refreshID)
     }
     
     private func saveNewName() {
@@ -510,9 +453,7 @@ struct ChatTabView: View {
                                 if item.message.sender != "system" && item.message.sender != viewModel.nickname {
                                     Button {
                                         if let peerID = viewModel.peerIDForNickname(item.message.sender) {
-                                            selectedPeerForChat = peerID
-                                            viewModel.startPrivateChat(with: peerID)
-                                            showPrivateChatSheet = true
+                                            openPrivateChat(peerID)
                                         }
                                     } label: {
                                         Label(LanguageManager.shared.localizedString("content.actions.direct_message"), systemImage: "envelope.fill")
@@ -633,14 +574,16 @@ struct ChatTabView: View {
     
     private var attachmentButton: some View {
         #if os(iOS)
-        Image(systemName: "camera.circle.fill")
-            .font(.bitchatSystem(size: 24))
-            .foregroundColor(composerAccentColor)
-            .frame(width: 36, height: 36)
-            .contentShape(Circle())
-            .onTapGesture {
-                showImagePickerOptions = true
-            }
+        Button(action: {
+            showImagePickerOptions = true
+        }) {
+            Image(systemName: "camera.circle.fill")
+                .font(.bitchatSystem(size: 24))
+                .foregroundColor(composerAccentColor)
+                .frame(width: 36, height: 36)
+        }
+        .buttonStyle(.plain)
+        .hoverEffect(.highlight)
         #else
         Button(action: { showMacImagePicker = true }) {
             Image(systemName: "photo.circle.fill")
@@ -660,11 +603,14 @@ struct ChatTabView: View {
                         .foregroundColor(composerAccentColor)
                         .frame(width: 36, height: 36)
                 }
+                .hoverEffect(.highlight)
             } else {
                 Image(systemName: "mic.circle.fill")
                     .font(.bitchatSystem(size: 24))
                     .foregroundColor((isRecordingVoiceNote || isPreparingVoiceNote) ? .red : composerAccentColor)
                     .frame(width: 36, height: 36)
+                    .contentShape(Circle())
+                    .hoverEffect(.highlight)
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onChanged { _ in startVoiceRecording() }
@@ -688,12 +634,26 @@ struct ChatTabView: View {
                     .font(.bitchatSystem(size: 18))
                     .foregroundColor(.red)
             }
+            .hoverEffect(.highlight)
         }
         .padding(10)
         .background(RoundedRectangle(cornerRadius: 12).fill(Color.red.opacity(0.15)))
     }
     
     // MARK: - Actions
+
+    private func openPrivateChat(_ peerID: PeerID) {
+        // iPad regular-width: delegate to parent so private chat opens in detail pane.
+        if isPad, horizontalSizeClass == .regular, let onRequestPrivateChat {
+            onRequestPrivateChat(peerID)
+            return
+        }
+
+        // Phone/compact: keep existing modal sheet behavior.
+        selectedPeerForChat = peerID
+        viewModel.startPrivateChat(with: peerID)
+        showPrivateChatSheet = true
+    }
     
     private func sendMessage() {
         let trimmed = messageText.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -741,10 +701,12 @@ struct ChatTabView: View {
     // MARK: - Voice Recording
     
     private func startVoiceRecording() {
+        // Guard against duplicate start events from repeated touch changes.
         guard !isRecordingVoiceNote && !isPreparingVoiceNote else { return }
         isPreparingVoiceNote = true
         
         Task { @MainActor in
+            // Step 1: ask for microphone permission.
             let granted = await VoiceRecorder.shared.requestPermission()
             guard granted else {
                 isPreparingVoiceNote = false
@@ -754,6 +716,7 @@ struct ChatTabView: View {
             }
             
             do {
+                // Step 2: begin recording and start live duration timer.
                 _ = try VoiceRecorder.shared.startRecording()
                 recordingDuration = 0
                 recordingStartDate = Date()
@@ -766,6 +729,7 @@ struct ChatTabView: View {
                 isPreparingVoiceNote = false
                 isRecordingVoiceNote = true
             } catch {
+                // Step 3: fail gracefully with user-facing alert.
                 isPreparingVoiceNote = false
                 isRecordingVoiceNote = false
                 recordingAlertMessage = "Failed to start recording"
@@ -775,6 +739,7 @@ struct ChatTabView: View {
     }
     
     private func finishVoiceRecording(send: Bool) {
+        // If a gesture ended while still requesting permission, cancel prep cleanly.
         guard isRecordingVoiceNote else {
             if isPreparingVoiceNote {
                  isPreparingVoiceNote = false
@@ -787,6 +752,7 @@ struct ChatTabView: View {
         recordingStartDate = nil
         
         if send {
+            // Save/send path for valid recordings.
             VoiceRecorder.shared.stopRecording { url in
                 DispatchQueue.main.async {
                     if let url, recordingDuration >= 1.0 {
@@ -912,7 +878,7 @@ struct ChatTabView: View {
             }
             if let id = selectedMessageSenderID {
                 Button("content.actions.direct_message") {
-                    viewModel.startPrivateChat(with: id)
+                    openPrivateChat(id)
                 }
             }
             Button("content.actions.hug") {

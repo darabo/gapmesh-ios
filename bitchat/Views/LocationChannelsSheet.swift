@@ -354,13 +354,33 @@ struct LocationChannelsSheet: View {
                 Text(verbatim: "#")
                     .font(.bitchatSystem(size: 14, design: .monospaced))
                     .foregroundColor(.secondary)
+                #if os(iOS)
+                DeterministicTextField(
+                    placeholder: "geohash",
+                    text: $customGeohash,
+                    direction: .forceLeftToRight,
+                    onSubmit: submitCustomGeohash,
+                    keyboardType: .asciiCapable,
+                    returnKeyType: .go,
+                    autocorrectionType: .no,
+                    autocapitalizationType: .none,
+                    uiFont: .monospacedSystemFont(ofSize: 14, weight: .regular)
+                )
+                .id("teleport-geohash-input-\(LanguageManager.shared.currentLanguage.rawValue)")
+                .onChange(of: customGeohash) { _, newValue in
+                    let allowed = Set("0123456789bcdefghjkmnpqrstuvwxyz")
+                    let filtered = newValue
+                        .lowercased()
+                        .replacingOccurrences(of: "#", with: "")
+                        .filter { allowed.contains($0) }
+                    if filtered.count > 12 {
+                        customGeohash = String(filtered.prefix(12))
+                    } else if filtered != newValue {
+                        customGeohash = filtered
+                    }
+                }
+                #else
                 TextField("geohash", text: $customGeohash)
-                    #if os(iOS)
-                    .textInputAutocapitalization(.never)
-                    .autocorrectionDisabled(true)
-                    .keyboardType(.asciiCapable)
-                    .submitLabel(.go)
-                    #endif
                     .font(.bitchatSystem(size: 14, design: .monospaced))
                     .onChange(of: customGeohash) { _, newValue in
                         let allowed = Set("0123456789bcdefghjkmnpqrstuvwxyz")
@@ -377,6 +397,7 @@ struct LocationChannelsSheet: View {
                     .onSubmit {
                         submitCustomGeohash()
                     }
+                #endif
                 
                 let normalized = customGeohash
                     .trimmingCharacters(in: .whitespacesAndNewlines)

@@ -11,6 +11,9 @@
         }
       }
     },
+    "@%@" : {
+
+    },
     "#%@" : {
 
     },
@@ -6341,7 +6344,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "عضویت با Geohash"
+            "value" : "عضویت با جئوهش"
           }
         }
       }
@@ -6375,7 +6378,7 @@
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Geohash را وارد کنید..."
+            "value" : "جئوهش را وارد کنید..."
           }
         }
       }
@@ -6607,13 +6610,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "#location channels"
+            "value" : "Location Channels"
           }
         },
         "fa" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "#کانال‌های موقعیت"
+            "value" : "کانال‌های موقعیت"
           }
         }
       }
@@ -29403,181 +29406,181 @@
       "localizations" : {
         "ar" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#قنوات الموقع"
           }
         },
         "bn" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#লোকেশন চ্যানেল"
           }
         },
         "de" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#standort-kanäle"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "#location channels"
+            "value" : "Location Channels"
           }
         },
         "es" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#canales de ubicación"
           }
         },
         "fa" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#کانال‌های مکانی"
           }
         },
         "fil" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#mga channel ng lokasyon"
           }
         },
         "fr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#canaux localisation"
           }
         },
         "he" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#ערוצי מיקום"
           }
         },
         "hi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#लोकेशन चैनल"
           }
         },
         "id" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#kanal lokasi"
           }
         },
         "it" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#canali posizione"
           }
         },
         "ja" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#ロケーションチャンネル"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#위치 채널"
           }
         },
         "ms" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#kanal lokasi"
           }
         },
         "ne" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#स्थान च्यानल"
           }
         },
         "nl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#locatiekanalen"
           }
         },
         "pl" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#kanały lokalizacji"
           }
         },
         "pt" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#canais de localização"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#canais de localização"
           }
         },
         "ru" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#каналы локации"
           }
         },
         "sv" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#platskanaler"
           }
         },
         "ta" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#இட சேனல்கள்"
           }
         },
         "th" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#ช่องตามตำแหน่ง"
           }
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#konum kanalları"
           }
         },
         "uk" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#канали локації"
           }
         },
         "ur" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#لوکیشن چینلز"
           }
         },
         "vi" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#kênh vị trí"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#位置频道"
           }
         },
         "zh-Hant" : {
           "stringUnit" : {
-            "state" : "translated",
+            "state" : "needs_review",
             "value" : "#位置頻道"
           }
         }
