@@ -127,6 +127,99 @@ extension View {
     /// Fixes an issue where switching from Farsi (RTL) to English (LTR) leaves
     /// the text cursor and alignment in RTL mode until the app is restarted.
     func forceLocaleForTextField(_ languageManager: LanguageManager) -> some View {
-        self.environment(\.locale, languageManager.currentLanguage.locale)
+        self
+            .environment(\.locale, languageManager.currentLanguage.locale)
+            .environment(\.layoutDirection, languageManager.currentLanguage.layoutDirection)
+    }
+}
+
+// MARK: - Deterministic Text Field (UIKit-backed)
+
+/// Explicit direction policy for deterministic single-line inputs.
+/// Use `.followsAppLanguage` for fields that should mirror selected app language,
+/// or force LTR/RTL for technical fields such as domains, IPs, and codes.
+enum DeterministicTextDirection {
+    case followsAppLanguage(LanguageManager.AppLanguage)
+    case forceLeftToRight
+    case forceRightToLeft
+}
+
+/// UIKit-backed text field to avoid SwiftUI RTL/LTR carry-over bugs when language changes at runtime.
+/// This wrapper sets alignment/semantic direction directly on `UITextField` every update.
+struct DeterministicTextField: UIViewRepresentable {
+    let placeholder: String
+    @Binding var text: String
+    let direction: DeterministicTextDirection
+    var onSubmit: (() -> Void)? = nil
+    var keyboardType: UIKeyboardType = .default
+    var returnKeyType: UIReturnKeyType = .done
+    var autocorrectionType: UITextAutocorrectionType = .no
+    var autocapitalizationType: UITextAutocapitalizationType = .none
+    var uiFont: UIFont = .preferredFont(forTextStyle: .body)
+
+    func makeUIView(context: Context) -> UITextField {
+        let field = UITextField(frame: .zero)
+        field.delegate = context.coordinator
+        field.borderStyle = .none
+        field.backgroundColor = .clear
+        field.adjustsFontForContentSizeCategory = true
+        field.font = uiFont
+        field.addTarget(
+            context.coordinator,
+            action: #selector(Coordinator.textDidChange(_:)),
+            for: .editingChanged
+        )
+        return field
+    }
+
+    func updateUIView(_ uiView: UITextField, context: Context) {
+        if uiView.text != text {
+            uiView.text = text
+        }
+        uiView.placeholder = placeholder
+        uiView.keyboardType = keyboardType
+        uiView.returnKeyType = returnKeyType
+        uiView.autocorrectionType = autocorrectionType
+        uiView.autocapitalizationType = autocapitalizationType
+        uiView.font = uiFont
+
+        // Re-apply direction every update so language switches are always reflected immediately.
+        switch direction {
+        case .followsAppLanguage(let language):
+            if language == .farsi {
+                uiView.textAlignment = .right
+                uiView.semanticContentAttribute = .forceRightToLeft
+            } else {
+                uiView.textAlignment = .left
+                uiView.semanticContentAttribute = .forceLeftToRight
+            }
+        case .forceLeftToRight:
+            uiView.textAlignment = .left
+            uiView.semanticContentAttribute = .forceLeftToRight
+        case .forceRightToLeft:
+            uiView.textAlignment = .right
+            uiView.semanticContentAttribute = .forceRightToLeft
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator(parent: self)
+    }
+
+    final class Coordinator: NSObject, UITextFieldDelegate {
+        private let parent: DeterministicTextField
+
+        init(parent: DeterministicTextField) {
+            self.parent = parent
+        }
+
+        @objc func textDidChange(_ sender: UITextField) {
+            parent.text = sender.text ?? ""
+        }
+
+        func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+            parent.onSubmit?()
+            return true
+        }
     }
 }

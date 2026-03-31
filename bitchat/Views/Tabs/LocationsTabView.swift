@@ -1,8 +1,5 @@
 //
 //  LocationsTabView.swift
-//  bitchat
-//
-//  Created by Unlicense
 //
 
 import SwiftUI
@@ -11,7 +8,14 @@ import UIKit
 #endif
 
 struct LocationsTabView: View {
+    // MARK: Overview
+    // This screen has three jobs:
+    // 1) Show available location channels (mesh, bookmarks, recent, nearby),
+    // 2) Let user join a custom geohash safely (input validation),
+    // 3) Handle location permission gating before entering geohash channels.
     @Binding var selectedTab: MainTabView.Tab
+    // Shared language manager drives live locale/layout changes.
+    @StateObject private var languageManager = LanguageManager.shared
     @EnvironmentObject var viewModel: ChatViewModel
     @ObservedObject private var locationManager = LocationChannelManager.shared
     @ObservedObject private var bookmarks = GeohashBookmarksStore.shared
@@ -20,6 +24,42 @@ struct LocationsTabView: View {
     @State private var showMapPicker = false
     @State private var showLocationPermissionAlert = false
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
+
+    #if os(iOS)
+    private var isPad: Bool { UIDevice.current.userInterfaceIdiom == .pad }
+    private var isPadLikeWindowEnvironment: Bool {
+        let idiom = UIDevice.current.userInterfaceIdiom
+        return idiom == .pad || idiom == .mac
+    }
+    #else
+    private var isPad: Bool { false }
+    private var isPadLikeWindowEnvironment: Bool { false }
+    #endif
+
+    // Extra top spacing for compact/windowed iPad contexts where
+    // system window controls can overlap custom in-content headers.
+    private var compactPadHeaderTopInset: CGFloat {
+        #if os(iOS)
+        if UIDevice.current.userInterfaceIdiom == .mac {
+            return 30
+        }
+        if isPadLikeWindowEnvironment && horizontalSizeClass == .compact {
+            return 24
+        }
+        #endif
+        return 0
+    }
+
+    // Keep title presentation consistent with Settings in compact iPad/mac-windowed mode:
+    // - use NavigationStack title instead of a custom in-content large title.
+    private var usesNavigationTitleHeader: Bool {
+        #if os(iOS)
+        return isPadLikeWindowEnvironment && horizontalSizeClass == .compact
+        #else
+        return false
+        #endif
+    }
     
     private var textColor: Color {
         colorScheme == .dark ? Color.green : Color(red: 0, green: 0.5, blue: 0)
@@ -43,22 +83,26 @@ struct LocationsTabView: View {
     }
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(alignment: .leading, spacing: 16) {
-                    // Header title
-                    Text(LanguageManager.shared.localizedString("channels.title"))
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(colorScheme == .dark ? .white : .black)
-                        .padding(.horizontal)
-                        .padding(.top, 8)
+                    // In compact iPad/mac-windowed mode, header title is shown in the nav bar
+                    // (matching Settings). In other layouts, keep the in-content title.
+                    if !usesNavigationTitleHeader {
+                        Text(LanguageManager.shared.localizedString("channels.title"))
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(colorScheme == .dark ? .white : .black)
+                            .padding(.horizontal)
+                            .padding(.top, 8 + compactPadHeaderTopInset)
+                    }
                     
                     // Description blurb
                     Text(LanguageManager.shared.localizedString("channels.description"))
                         .font(.subheadline)
                         .foregroundColor(.gray)
                         .padding(.horizontal)
+                        .padding(.top, usesNavigationTitleHeader ? 8 : 0)
                         .padding(.bottom, 8)
                     
                     // Mesh Network Section
@@ -146,22 +190,40 @@ struct LocationsTabView: View {
                             .padding(.horizontal, 4)
                         
                         HStack {
+                            #if os(iOS)
+                            // UIKit-backed field is used here because runtime language switching
+                            // can leave SwiftUI TextField in stale RTL/LTR alignment states.
+                            // This wrapper lets us force absolute alignment every update.
+                            DeterministicTextField(
+                                placeholder: LanguageManager.shared.localizedString("channels.enter_geohash"),
+                                text: $customGeohash,
+                                direction: .followsAppLanguage(languageManager.currentLanguage),
+                                onSubmit: joinCustomGeohash,
+                                keyboardType: .asciiCapable,
+                                returnKeyType: .done,
+                                autocorrectionType: .no,
+                                autocapitalizationType: .none
+                            )
+                            // Recreate field when language changes to avoid any stale UIKit text state.
+                            .id("geohash-input-\(languageManager.currentLanguage.rawValue)")
+                            .padding(12)
+                            .background(colorScheme == .dark ? Color(white: 0.1) : Color(white: 0.95))
+                            .cornerRadius(12)
+                            #else
                             TextField(
                                 LanguageManager.shared.localizedString("channels.enter_geohash"),
                                 text: $customGeohash
                             )
                             .textFieldStyle(.plain)
+                            .multilineTextAlignment(languageManager.currentLanguage == .farsi ? .trailing : .leading)
                             .autocorrectionDisabled()
-                            #if os(iOS)
-                            .textInputAutocapitalization(.never)
-                            .submitLabel(SubmitLabel.done)
-                            #endif
                             .onSubmit {
                                 joinCustomGeohash()
                             }
                             .padding()
                             .background(colorScheme == .dark ? Color(white: 0.1) : Color(white: 0.95))
                             .cornerRadius(12)
+                            #endif
                             
                             Button(action: joinCustomGeohash) {
                                 Image(systemName: "arrow.right.circle.fill")
@@ -258,8 +320,12 @@ struct LocationsTabView: View {
             }
             .background(backgroundColor)
             #if os(iOS)
-            .navigationBarHidden(true)
+            // Keep nav bar available:
+            // 1) regular iPad split-view (existing behavior),
+            // 2) compact iPad/mac-windowed mode for header consistency with Settings.
+            .navigationBarHidden(!((isPad && horizontalSizeClass == .regular) || usesNavigationTitleHeader))
             #endif
+            .navigationTitle(usesNavigationTitleHeader ? LanguageManager.shared.localizedString("channels.title") : "")
             #if os(iOS)
             .fullScreenCover(isPresented: $showMapPicker) {
                 GeohashMapPicker(isPresented: $showMapPicker) { geohash in
@@ -287,6 +353,8 @@ struct LocationsTabView: View {
         } message: {
             Text("To join geohash channels, enable location access for Gap Mesh.")
         }
+        // Rebuild view tree when language changes so all labels/placeholders refresh.
+        .id(languageManager.refreshID)
     }
     
     // MARK: - Rows
@@ -509,24 +577,29 @@ struct LocationsTabView: View {
     }
     
     private func joinCustomGeohash() {
+        // Step 1: normalize user input so validation is deterministic.
         let input = customGeohash.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         let allowed = Set("0123456789bcdefghjkmnpqrstuvwxyz")
         
+        // Step 2: basic empty check.
         guard !input.isEmpty else {
             geohashError = LanguageManager.shared.localizedString("channels.error_empty")
             return
         }
         
+        // Step 3: enforce supported geohash length range.
         guard (2...12).contains(input.count) else {
             geohashError = LanguageManager.shared.localizedString("channels.error_length")
             return
         }
         
+        // Step 4: enforce valid base32 geohash character set.
         guard input.allSatisfy({ allowed.contains($0) }) else {
             geohashError = LanguageManager.shared.localizedString("channels.error_invalid")
             return
         }
         
+        // Step 5: clear local input state and switch channel.
         geohashError = nil
         customGeohash = ""
         if selectGeohashChannel(input) {

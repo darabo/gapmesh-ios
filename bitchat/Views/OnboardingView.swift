@@ -308,6 +308,28 @@ private struct IdentityStep: View {
                     
                     if isEditing {
                         HStack {
+                            #if os(iOS)
+                            DeterministicTextField(
+                                placeholder: "Username",
+                                text: $editedName,
+                                direction: .followsAppLanguage(LanguageManager.shared.currentLanguage),
+                                onSubmit: saveAndDismiss,
+                                autocorrectionType: .no,
+                                autocapitalizationType: .none,
+                                uiFont: .monospacedSystemFont(
+                                    ofSize: UIFont.preferredFont(forTextStyle: .title2).pointSize,
+                                    weight: .regular
+                                )
+                            )
+                            .id("onboarding-name-input-\(LanguageManager.shared.currentLanguage.rawValue)")
+                            .textFieldStyle(.roundedBorder)
+                            .focused($isFocused)
+                            .submitLabel(.done)
+                            .onAppear {
+                                // Auto-focus when the field appears
+                                isFocused = true
+                            }
+                            #else
                             TextField("Username", text: $editedName)
                                 .font(.system(.title2, design: .monospaced))
                                 .textFieldStyle(.roundedBorder)
@@ -320,6 +342,7 @@ private struct IdentityStep: View {
                                     // Auto-focus when the field appears
                                     isFocused = true
                                 }
+                            #endif
                             
                             Button(action: saveAndDismiss) {
                                 Image(systemName: "checkmark.circle.fill")
