@@ -323,43 +323,44 @@ struct ChatTabView: View {
     // MARK: - Edit Name Sheet
     
     private var editNameSheet: some View {
-        NavigationView {
+        NavigationStack {
             Form {
                 Section(header: Text(LanguageManager.shared.localizedString("settings.change_username"))) {
+                    #if os(iOS)
+                    DeterministicTextField(
+                        placeholder: LanguageManager.shared.localizedString("settings.enter_username"),
+                        text: $editingName,
+                        direction: .followsAppLanguage(LanguageManager.shared.currentLanguage),
+                        autocorrectionType: .no,
+                        autocapitalizationType: .none
+                    )
+                    .id("chat-name-input-\(LanguageManager.shared.currentLanguage.rawValue)")
+                    #else
                     TextField(
                         LanguageManager.shared.localizedString("settings.enter_username"),
                         text: $editingName
                     )
                     .autocorrectionDisabled()
-                }
-                
-                Section {
-                    Button(action: saveNewName) {
-                        Text(LanguageManager.shared.localizedString("common.save"))
-                            .foregroundColor(.blue)
-                    }
+                    #endif
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("settings.change_username"))
-            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingNameEditSheet = false }) {
-                        Text(LanguageManager.shared.localizedString("common.cancel"))
-                    }
-                }
-            }
-            #else
-            .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { showingNameEditSheet = false }) {
-                        Text(LanguageManager.shared.localizedString("common.cancel"))
+                    Button(LanguageManager.shared.localizedString("common.cancel")) {
+                        showingNameEditSheet = false
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(LanguageManager.shared.localizedString("common.save")) {
+                        saveNewName()
                     }
                 }
             }
-            #endif
         }
+        .applyLanguageEnvironment(LanguageManager.shared)
+        .id(LanguageManager.shared.refreshID)
     }
     
     private func saveNewName() {
