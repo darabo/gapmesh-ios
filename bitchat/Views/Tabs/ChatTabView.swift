@@ -1,7 +1,8 @@
 //
 //  ChatTabView.swift
-//  
+//  bitchat
 //
+//  Created by Unlicense
 //
 
 import SwiftUI
@@ -10,13 +11,7 @@ import AVFoundation
 import Tor
 
 struct ChatTabView: View {
-    // MARK: Overview
-    // This view renders public chat plus its composer/actions.
-    // Private chat entry is adaptive:
-    // - iPad regular width: ask parent to route inline in split detail.
-    // - compact/phone: open modal private chat sheet.
     @Binding var selectedTab: MainTabView.Tab
-    // On iPad, parent split view injects this so we route private chats inline.
     var onRequestPrivateChat: ((PeerID) -> Void)? = nil
     @EnvironmentObject var viewModel: ChatViewModel
     @ObservedObject private var locationManager = LocationChannelManager.shared
@@ -120,13 +115,13 @@ struct ChatTabView: View {
     // MARK: - Body
     var body: some View {
         VStack(spacing: 0) {
-            // Step 1: header (channel + status + top actions).
+            // Header
             headerView
             
             Divider()
                 .background(textColor.opacity(0.3))
             
-            // Step 2: chat timeline + composer.
+            // Scrollable Chat Area
             VStack(spacing: 0) {
                 GeometryReader { geometry in
                     messagesList
@@ -140,10 +135,7 @@ struct ChatTabView: View {
             }
         }
         .background(backgroundColor)
-        // Sheet group:
-        // - nickname editor
-        // - media pickers
-        // - private chat fallback sheet (compact layouts)
+        // Name Edit Sheet
         .sheet(isPresented: $showingNameEditSheet) {
             editNameSheet
         }
@@ -264,8 +256,8 @@ struct ChatTabView: View {
                 // Channel badge - tappable to go to locations
                 channelBadge
             }
-            .padding(.horizontal, 6)
-            .padding(.vertical, 4)
+            .padding(.horizontal, 10)
+            .padding(.vertical, 8)
             
             // Disconnection warning banner for geohash
             if isGeohashDisconnected {
@@ -331,44 +323,43 @@ struct ChatTabView: View {
     // MARK: - Edit Name Sheet
     
     private var editNameSheet: some View {
-        NavigationStack {
+        NavigationView {
             Form {
                 Section(header: Text(LanguageManager.shared.localizedString("settings.change_username"))) {
-                    #if os(iOS)
-                    DeterministicTextField(
-                        placeholder: LanguageManager.shared.localizedString("settings.enter_username"),
-                        text: $editingName,
-                        direction: .followsAppLanguage(LanguageManager.shared.currentLanguage),
-                        autocorrectionType: .no,
-                        autocapitalizationType: .none
-                    )
-                    .id("chat-name-input-\(LanguageManager.shared.currentLanguage.rawValue)")
-                    #else
                     TextField(
                         LanguageManager.shared.localizedString("settings.enter_username"),
                         text: $editingName
                     )
                     .autocorrectionDisabled()
-                    #endif
+                }
+                
+                Section {
+                    Button(action: saveNewName) {
+                        Text(LanguageManager.shared.localizedString("common.save"))
+                            .foregroundColor(.blue)
+                    }
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("settings.change_username"))
+            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button(LanguageManager.shared.localizedString("common.cancel")) {
-                        showingNameEditSheet = false
-                    }
-                }
-                ToolbarItem(placement: .confirmationAction) {
-                    Button(LanguageManager.shared.localizedString("common.save")) {
-                        saveNewName()
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showingNameEditSheet = false }) {
+                        Text(LanguageManager.shared.localizedString("common.cancel"))
                     }
                 }
             }
+            #else
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button(action: { showingNameEditSheet = false }) {
+                        Text(LanguageManager.shared.localizedString("common.cancel"))
+                    }
+                }
+            }
+            #endif
         }
-        .applyLanguageEnvironment(LanguageManager.shared)
-        .id(LanguageManager.shared.refreshID)
     }
     
     private func saveNewName() {
@@ -643,13 +634,11 @@ struct ChatTabView: View {
     // MARK: - Actions
 
     private func openPrivateChat(_ peerID: PeerID) {
-        // iPad regular-width: delegate to parent so private chat opens in detail pane.
         if isPad, horizontalSizeClass == .regular, let onRequestPrivateChat {
             onRequestPrivateChat(peerID)
             return
         }
 
-        // Phone/compact: keep existing modal sheet behavior.
         selectedPeerForChat = peerID
         viewModel.startPrivateChat(with: peerID)
         showPrivateChatSheet = true
@@ -701,12 +690,10 @@ struct ChatTabView: View {
     // MARK: - Voice Recording
     
     private func startVoiceRecording() {
-        // Guard against duplicate start events from repeated touch changes.
         guard !isRecordingVoiceNote && !isPreparingVoiceNote else { return }
         isPreparingVoiceNote = true
         
         Task { @MainActor in
-            // Step 1: ask for microphone permission.
             let granted = await VoiceRecorder.shared.requestPermission()
             guard granted else {
                 isPreparingVoiceNote = false
@@ -716,7 +703,6 @@ struct ChatTabView: View {
             }
             
             do {
-                // Step 2: begin recording and start live duration timer.
                 _ = try VoiceRecorder.shared.startRecording()
                 recordingDuration = 0
                 recordingStartDate = Date()
@@ -729,7 +715,6 @@ struct ChatTabView: View {
                 isPreparingVoiceNote = false
                 isRecordingVoiceNote = true
             } catch {
-                // Step 3: fail gracefully with user-facing alert.
                 isPreparingVoiceNote = false
                 isRecordingVoiceNote = false
                 recordingAlertMessage = "Failed to start recording"
@@ -739,7 +724,6 @@ struct ChatTabView: View {
     }
     
     private func finishVoiceRecording(send: Bool) {
-        // If a gesture ended while still requesting permission, cancel prep cleanly.
         guard isRecordingVoiceNote else {
             if isPreparingVoiceNote {
                  isPreparingVoiceNote = false
@@ -752,7 +736,6 @@ struct ChatTabView: View {
         recordingStartDate = nil
         
         if send {
-            // Save/send path for valid recordings.
             VoiceRecorder.shared.stopRecording { url in
                 DispatchQueue.main.async {
                     if let url, recordingDuration >= 1.0 {
