@@ -22,19 +22,21 @@ enum GeohashChannelLevel: CaseIterable, Codable, Equatable {
     }
 
     var displayName: String {
+        // Use LanguageManager for runtime language switching inside the app.
+        // `String(localized:)` may cache values and lag after in-app language changes.
         switch self {
         case .building:
-            return String(localized: "location_levels.building", comment: "Name for building-level location channel")
+            return LanguageManager.shared.localizedString("location_levels.building")
         case .block:
-            return String(localized: "location_levels.block", comment: "Name for block-level location channel")
+            return LanguageManager.shared.localizedString("location_levels.block")
         case .neighborhood:
-            return String(localized: "location_levels.neighborhood", comment: "Name for neighborhood-level location channel")
+            return LanguageManager.shared.localizedString("location_levels.neighborhood")
         case .city:
-            return String(localized: "location_levels.city", comment: "Name for city-level location channel")
+            return LanguageManager.shared.localizedString("location_levels.city")
         case .province:
-            return String(localized: "location_levels.province", comment: "Name for province-level location channel")
+            return LanguageManager.shared.localizedString("location_levels.province")
         case .region:
-            return String(localized: "location_levels.region", comment: "Name for region-level location channel")
+            return LanguageManager.shared.localizedString("location_levels.region")
         }
     }
 }

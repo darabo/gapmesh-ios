@@ -1,8 +1,6 @@
 //
 //  SettingsTabView.swift
-//  bitchat
 //
-//  Created by Unlicense
 //
 
 import SwiftUI
@@ -153,11 +151,20 @@ struct SettingsTabView: View {
                                 Spacer()
                                 
                                 Picker("", selection: $appearanceMode) {
-                                    Text(LanguageManager.shared.localizedString("settings.theme_system")).tag(0)
-                                    Text(LanguageManager.shared.localizedString("settings.theme_light")).tag(1)
-                                    Text(LanguageManager.shared.localizedString("settings.theme_dark")).tag(2)
+                                    Text(LanguageManager.shared.localizedString("settings.theme_system"))
+                                        .font(.body.weight(.medium))
+                                        .tag(0)
+                                    Text(LanguageManager.shared.localizedString("settings.theme_light"))
+                                        .font(.body.weight(.medium))
+                                        .tag(1)
+                                    Text(LanguageManager.shared.localizedString("settings.theme_dark"))
+                                        .font(.body.weight(.medium))
+                                        .tag(2)
                                 }
                                 .pickerStyle(.menu)
+                                // Larger control makes the theme picker easier to read and tap on iPad.
+                                .font(.body.weight(.semibold))
+                                .controlSize(.large)
                                 .tint(textColor)
                             }
                             .padding()
@@ -186,10 +193,17 @@ struct SettingsTabView: View {
                                 Spacer()
                                 
                                 Picker("", selection: $languageManager.currentLanguage) {
-                                    Text("English").tag(LanguageManager.AppLanguage.english)
-                                    Text("فارسی").tag(LanguageManager.AppLanguage.farsi)
+                                    Text("English")
+                                        .font(.body.weight(.medium))
+                                        .tag(LanguageManager.AppLanguage.english)
+                                    Text("فارسی")
+                                        .font(.body.weight(.medium))
+                                        .tag(LanguageManager.AppLanguage.farsi)
                                 }
                                 .pickerStyle(.menu)
+                                // Keep language picker readable and touch-friendly like the rest of settings.
+                                .font(.body.weight(.semibold))
+                                .controlSize(.large)
                                 .tint(textColor)
                             }
                             .padding()
@@ -301,8 +315,12 @@ struct SettingsTabView: View {
                                         )
                                         .font(.system(.caption, design: .monospaced))
                                         .textFieldStyle(.roundedBorder)
+                                        // Domains should always read left-to-right, regardless of app language.
+                                        .environment(\.layoutDirection, .leftToRight)
+                                        .multilineTextAlignment(.leading)
                                         .autocapitalization(.none)
                                         .disableAutocorrection(true)
+                                        .id("slipstream-domain-\(LanguageManager.shared.currentLanguage.rawValue)")
                                         .padding(.horizontal, 40)
                                         .onChange(of: slipstreamDomain) { _, newValue in
                                             slipstreamManager.domain = newValue
@@ -317,9 +335,13 @@ struct SettingsTabView: View {
                                         TextField("1.1.1.1", text: $slipstreamResolver)
                                             .font(.system(.caption, design: .monospaced))
                                             .textFieldStyle(.roundedBorder)
+                                            // IP addresses should always read left-to-right.
+                                            .environment(\.layoutDirection, .leftToRight)
+                                            .multilineTextAlignment(.leading)
                                             .autocapitalization(.none)
                                             .disableAutocorrection(true)
                                             .keyboardType(.URL)
+                                            .id("slipstream-resolver-\(LanguageManager.shared.currentLanguage.rawValue)")
                                             .padding(.horizontal, 40)
                                             .onChange(of: slipstreamResolver) { _, newValue in
                                                 slipstreamManager.resolver = newValue
@@ -897,43 +919,42 @@ struct SettingsTabView: View {
     // MARK: - Edit Name Sheet
     
     private var editNameSheet: some View {
-        NavigationView {
+        NavigationStack {
             Form {
-                Section(header: Text(LanguageManager.shared.localizedString("settings.change_username"))) {
+                Section {
+                    #if os(iOS)
+                    DeterministicTextField(
+                        placeholder: LanguageManager.shared.localizedString("settings.enter_username"),
+                        text: $editingName,
+                        direction: .followsAppLanguage(LanguageManager.shared.currentLanguage),
+                        autocorrectionType: .no,
+                        autocapitalizationType: .none
+                    )
+                    .id("settings-name-input-\(LanguageManager.shared.currentLanguage.rawValue)")
+                    #else
                     TextField(
                         LanguageManager.shared.localizedString("settings.enter_username"),
                         text: $editingName
                     )
                     .autocorrectionDisabled()
                     .forceLocaleForTextField(LanguageManager.shared)
-                }
-                
-                Section {
-                    Button(action: saveNewName) {
-                        Text(LanguageManager.shared.localizedString("common.save"))
-                            .foregroundColor(.blue)
-                    }
+                    #endif
                 }
             }
             .navigationTitle(LanguageManager.shared.localizedString("settings.change_username"))
-            #if os(iOS)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: { showingNameEditSheet = false }) {
-                        Text(LanguageManager.shared.localizedString("common.cancel"))
-                    }
-                }
-            }
-            #else
-            .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(action: { showingNameEditSheet = false }) {
-                        Text(LanguageManager.shared.localizedString("common.cancel"))
+                    Button(LanguageManager.shared.localizedString("common.cancel")) {
+                        showingNameEditSheet = false
+                    }
+                }
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(LanguageManager.shared.localizedString("common.save")) {
+                        saveNewName()
                     }
                 }
             }
-            #endif
         }
         .applyLanguageEnvironment(LanguageManager.shared)
         .id(LanguageManager.shared.refreshID)
@@ -1182,4 +1203,3 @@ private struct DecoyPINRow: View {
         }
     }
 }
-
