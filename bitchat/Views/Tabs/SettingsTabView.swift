@@ -921,7 +921,7 @@ struct SettingsTabView: View {
     private var editNameSheet: some View {
         NavigationStack {
             Form {
-                Section(header: Text(LanguageManager.shared.localizedString("settings.change_username"))) {
+                Section {
                     #if os(iOS)
                     DeterministicTextField(
                         placeholder: LanguageManager.shared.localizedString("settings.enter_username"),

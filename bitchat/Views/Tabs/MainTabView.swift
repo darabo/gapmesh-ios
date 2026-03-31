@@ -384,7 +384,7 @@ struct MainTabView: View {
         // Save behavior: ignore empty/whitespace-only names.
         NavigationStack {
             Form {
-                Section(header: Text(LanguageManager.shared.localizedString("settings.change_username"))) {
+                Section {
                     #if os(iOS)
                     DeterministicTextField(
                         placeholder: LanguageManager.shared.localizedString("settings.enter_username"),
