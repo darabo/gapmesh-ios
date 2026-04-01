@@ -1886,16 +1886,24 @@ func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeriph
         
         // Clean up peer mappings
         if let peerID {
-            peerToPeripheralUUID.removeValue(forKey: peerID)
-            
-            // Do not remove peer; mark as not connected but retain for reachability
-            collectionsQueue.sync(flags: .barrier) {
-                if var info = peers[peerID] {
-                    info.isConnected = false
-                    peers[peerID] = info
-                }
+            let remainingLink = peripherals.first { _, state in
+                state.peerID == peerID && (state.isConnected || state.isConnecting)
             }
-            clearDirectLink(with: peerID)
+            if let remaining = remainingLink {
+                // Keep peer mapped/connected if another peripheral link for the same peer is alive.
+                peerToPeripheralUUID[peerID] = remaining.key
+            } else {
+                peerToPeripheralUUID.removeValue(forKey: peerID)
+                
+                // Do not remove peer; mark as not connected but retain for reachability
+                collectionsQueue.sync(flags: .barrier) {
+                    if var info = peers[peerID] {
+                        info.isConnected = false
+                        peers[peerID] = info
+                    }
+                }
+                clearDirectLink(with: peerID)
+            }
         }
         
         // Restart scanning with allow duplicates for faster rediscovery
@@ -1914,7 +1922,12 @@ func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeriph
             let currentPeerIDs = self.collectionsQueue.sync { self.currentPeerIDs }
             
             if let peerID {
-                self.notifyPeerDisconnectedDebounced(peerID)
+                let stillConnected = self.peripherals.values.contains { state in
+                    state.peerID == peerID && (state.isConnected || state.isConnecting)
+                }
+                if !stillConnected {
+                    self.notifyPeerDisconnectedDebounced(peerID)
+                }
             }
             self.requestPeerDataPublish()
             self.delegate?.didUpdatePeerList(currentPeerIDs)
@@ -1962,7 +1975,17 @@ extension BLEService {
             return base + rec - penalty - timeoutBias
         }
         connectionCandidates.sort { score($0) > score($1) }
-        let candidate = connectionCandidates.removeFirst()
+        var candidate: ConnectionCandidate?
+        while !connectionCandidates.isEmpty {
+            let next = connectionCandidates.removeFirst()
+            // Avoid spending connection slots on candidates below current dynamic floor.
+            if next.rssi <= dynamicRSSIThreshold {
+                continue
+            }
+            candidate = next
+            break
+        }
+        guard let candidate else { return }
         guard candidate.isConnectable else { return }
         let peripheral = candidate.peripheral
         let peripheralID = peripheral.identifier.uuidString

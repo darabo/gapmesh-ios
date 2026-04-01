@@ -119,6 +119,7 @@ final class NostrRelayManager: ObservableObject {
     func connect() {
         // Global network policy gate
         guard networkService.activationAllowed else { return }
+        guard hasPendingRelayConnectionWork() else { return }
         if connectTask != nil {
             pendingConnectRequested = true
             return
@@ -130,7 +131,9 @@ final class NostrRelayManager: ObservableObject {
                 self.connectTask = nil
                 if self.pendingConnectRequested {
                     self.pendingConnectRequested = false
-                    self.connect()
+                    if self.hasPendingRelayConnectionWork() {
+                        self.connect()
+                    }
                 }
             }
 
@@ -150,6 +153,12 @@ final class NostrRelayManager: ObservableObject {
                 if Task.isCancelled { return }
                 self.connectToRelay(relay.url)
             }
+        }
+    }
+
+    private func hasPendingRelayConnectionWork() -> Bool {
+        relays.contains { relay in
+            connections[relay.url] == nil && !isPermanentlyFailed(relay.url)
         }
     }
     
