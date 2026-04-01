@@ -962,16 +962,24 @@ extension ChatViewModel {
     
     @MainActor
     func handleFavoriteNotificationFromMesh(_ content: String, from peerID: PeerID, senderNickname: String) {
-        // Parse the message format: "[FAVORITED]:npub..." or "[UNFAVORITED]:npub..."
+        // Parse favorite payload (legacy + extended):
+        // - "[FAVORITED]:npub..."
+        // - "[FAVORITED]:npub...:libp2pPeerId"
         let isFavorite = content.hasPrefix("[FAVORITED]")
-        let parts = content.split(separator: ":")
+        let parts = content.split(separator: ":", maxSplits: 2, omittingEmptySubsequences: false)
         
         // Extract Nostr public key if included
         var nostrPubkey: String? = nil
         if parts.count > 1 {
-            nostrPubkey = String(parts[1])
+            let candidate = String(parts[1]).trimmingCharacters(in: .whitespacesAndNewlines)
+            nostrPubkey = candidate.hasPrefix("npub1") ? candidate : nil
             SecureLogger.info("📝 Received Nostr npub in favorite notification: \(nostrPubkey ?? "none")", category: .session)
         }
+        let peerLibp2pId: String? = {
+            guard parts.count > 2 else { return nil }
+            let candidate = String(parts[2]).trimmingCharacters(in: .whitespacesAndNewlines)
+            return candidate.isEmpty ? nil : candidate
+        }()
         
         // Get the noise public key for this peer
         let noiseKey = peerID.noiseKey ?? unifiedPeerService.getPeer(by: peerID)?.noisePublicKey
@@ -988,7 +996,8 @@ extension ChatViewModel {
             peerNoisePublicKey: finalNoiseKey,
             favorited: isFavorite,
             peerNickname: senderNickname,
-            peerNostrPublicKey: nostrPubkey
+            peerNostrPublicKey: nostrPubkey,
+            peerLibp2pId: peerLibp2pId
         )
 
         // If they favorited us and provided their Nostr key, ensure it's stored (log only)

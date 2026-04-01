@@ -48,6 +48,8 @@ final class NostrRelayManager: ObservableObject {
     private var subscriptions: [String: Set<String>] = [:] // relay URL -> active subscription IDs
     private var pendingSubscriptions: [String: [String: String]] = [:] // relay URL -> (subscription id -> encoded REQ JSON)
     private var messageHandlers: [String: (NostrEvent) -> Void] = [:]
+    private var connectTask: Task<Void, Never>?
+    private var pendingConnectRequested = false
     // Coalesce duplicate subscribe requests for the same id within a short window
     private var subscribeCoalesce: [String: Date] = [:]
     private var cancellables = Set<AnyCancellable>()
@@ -65,9 +67,12 @@ final class NostrRelayManager: ObservableObject {
     private struct PendingSend {
         var event: NostrEvent
         var pendingRelays: Set<String>
+        var attemptCount: Int = 0
+        var enqueuedAt: Date = Date()
     }
     private var messageQueue: [PendingSend] = []
     private let messageQueueLock = NSLock()
+    private let maxQueuedSendAttempts = 8
     private let encoder = JSONEncoder()
     private let decoder = JSONDecoder()
     private var networkService: NetworkActivationService { NetworkActivationService.shared }
@@ -114,25 +119,36 @@ final class NostrRelayManager: ObservableObject {
     func connect() {
         // Global network policy gate
         guard networkService.activationAllowed else { return }
-        if shouldUseTor {
-            // Ensure Tor is started early and wait for readiness off-main; then hop back to connect.
-            Task.detached {
-                let ready = await TorManager.shared.awaitReady()
-                await MainActor.run {
-                    if !ready {
-                        SecureLogger.error("❌ Tor not ready; aborting relay connections (fail-closed)", category: .session)
-                        return
-                    }
-                    SecureLogger.debug("🌐 Connecting to \(self.relays.count) Nostr relays (via Tor)", category: .session)
-                    for relay in self.relays {
-                        self.connectToRelay(relay.url)
-                    }
+        if connectTask != nil {
+            pendingConnectRequested = true
+            return
+        }
+
+        connectTask = Task { [weak self] in
+            guard let self = self else { return }
+            defer {
+                self.connectTask = nil
+                if self.pendingConnectRequested {
+                    self.pendingConnectRequested = false
+                    self.connect()
                 }
             }
-        } else {
-            SecureLogger.debug("🌐 Connecting to \(self.relays.count) Nostr relays (direct)", category: .session)
+
+            if self.shouldUseTor {
+                let ready = await TorManager.shared.awaitReady()
+                if Task.isCancelled { return }
+                if !ready {
+                    SecureLogger.error("❌ Tor not ready; aborting relay connections (fail-closed)", category: .session)
+                    return
+                }
+                SecureLogger.debug("🌐 Connecting to \(self.relays.count) Nostr relays (via Tor)", category: .session)
+            } else {
+                SecureLogger.debug("🌐 Connecting to \(self.relays.count) Nostr relays (direct)", category: .session)
+            }
+
             for relay in self.relays {
-                connectToRelay(relay.url)
+                if Task.isCancelled { return }
+                self.connectToRelay(relay.url)
             }
         }
     }
@@ -140,6 +156,9 @@ final class NostrRelayManager: ObservableObject {
     /// Disconnect from all relays
     func disconnect() {
         connectionGeneration &+= 1
+        connectTask?.cancel()
+        connectTask = nil
+        pendingConnectRequested = false
         for (_, task) in connections {
             task.cancel(with: .goingAway, reason: nil)
         }
@@ -224,7 +243,13 @@ final class NostrRelayManager: ObservableObject {
                     if item.pendingRelays.isEmpty {
                         messageQueue.remove(at: i)
                     } else {
-                        messageQueue[i] = item
+                        item.attemptCount += 1
+                        if item.attemptCount >= maxQueuedSendAttempts {
+                            SecureLogger.error("❌ Dropping queued event after max attempts id=\(item.event.id.prefix(16))…", category: .session)
+                            messageQueue.remove(at: i)
+                        } else {
+                            messageQueue[i] = item
+                        }
                     }
                 }
             }
@@ -241,7 +266,13 @@ final class NostrRelayManager: ObservableObject {
                 if item.pendingRelays.isEmpty {
                     messageQueue.remove(at: i)
                 } else {
-                    messageQueue[i] = item
+                    item.attemptCount += 1
+                    if item.attemptCount >= maxQueuedSendAttempts {
+                        SecureLogger.error("❌ Dropping queued event after max attempts id=\(item.event.id.prefix(16))…", category: .session)
+                        messageQueue.remove(at: i)
+                    } else {
+                        messageQueue[i] = item
+                    }
                 }
             }
         }
@@ -284,9 +315,9 @@ final class NostrRelayManager: ObservableObject {
         
         do {
             let message = try encoder.encode(req)
-            guard let messageString = String(data: message, encoding: .utf8) else { 
+            guard let messageString = String(data: message, encoding: .utf8) else {
                 SecureLogger.error("❌ Failed to encode subscription request", category: .session)
-                return 
+                return
             }
             
             // SecureLogger.debug("📋 Subscription filter JSON: \(messageString.prefix(200))...", category: .session)
@@ -417,22 +448,9 @@ final class NostrRelayManager: ObservableObject {
     private func connectToRelay(_ urlString: String) {
         // Global network policy gate
         guard networkService.activationAllowed else { return }
-        guard let url = URL(string: urlString) else { 
+        guard let url = URL(string: urlString) else {
             SecureLogger.warning("Invalid relay URL: \(urlString)", category: .session)
-            return 
-        }
-
-        // NIP-11 pre-flight: skip relays that are paid or require auth (cached check only, non-blocking)
-        Task.detached {
-            if let cachedInfo = await RelayInfoFetcher.shared.getCached(urlString) {
-                if !RelayCapabilityFilter.isUsable(cachedInfo) {
-                    SecureLogger.debug("⏩ Skipping relay (NIP-11 filter): \(urlString) — \(cachedInfo.capabilitiesSummary)", category: .session)
-                    return
-                }
-            } else {
-                // Fire-and-forget: fetch NIP-11 so it's available for next connection attempt
-                _ = await RelayInfoFetcher.shared.fetch(urlString)
-            }
+            return
         }
 
         // Avoid initiating connections while app is backgrounded; we'll reconnect on foreground
@@ -461,6 +479,19 @@ final class NostrRelayManager: ObservableObject {
                 }
             }
             return
+        }
+
+        // NIP-11 pre-flight: skip relays that are paid or require auth (cached check only, non-blocking)
+        Task.detached {
+            if let cachedInfo = await RelayInfoFetcher.shared.getCached(urlString) {
+                if !RelayCapabilityFilter.isUsable(cachedInfo) {
+                    SecureLogger.debug("⏩ Skipping relay (NIP-11 filter): \(urlString) — \(cachedInfo.capabilitiesSummary)", category: .session)
+                    return
+                }
+            } else {
+                // Fire-and-forget: fetch NIP-11 so it's available for next connection attempt
+                _ = await RelayInfoFetcher.shared.fetch(urlString)
+            }
         }
         
         let session = TorURLSession.shared.session
@@ -604,6 +635,8 @@ final class NostrRelayManager: ObservableObject {
                 DispatchQueue.main.async {
                     if let error = error {
                         SecureLogger.error("❌ Failed to send event to \(relayUrl): \(error)", category: .session)
+                        // Requeue this relay target so transient socket churn does not drop chat sends.
+                        self?.requeueEvent(event, relayUrl: relayUrl)
                     } else {
                         // SecureLogger.debug("✅ Event sent to relay: \(relayUrl)", category: .session)
                         // Update relay stats
@@ -616,6 +649,19 @@ final class NostrRelayManager: ObservableObject {
         } catch {
             SecureLogger.error("Failed to encode event: \(error)", category: .session)
         }
+    }
+
+    private func requeueEvent(_ event: NostrEvent, relayUrl: String) {
+        messageQueueLock.lock()
+        defer { messageQueueLock.unlock() }
+        if let idx = messageQueue.firstIndex(where: { $0.event.id == event.id }) {
+            var existing = messageQueue[idx]
+            existing.pendingRelays.insert(relayUrl)
+            messageQueue[idx] = existing
+            return
+        }
+        SecureLogger.debug("📤 Enqueue retry kind=\(event.kind) id=\(event.id.prefix(16))… relay=\(relayUrl)", category: .session)
+        messageQueue.append(PendingSend(event: event, pendingRelays: [relayUrl]))
     }
     
     private func updateRelayStatus(_ url: String, isConnected: Bool, error: Error? = nil) {
@@ -656,7 +702,7 @@ final class NostrRelayManager: ObservableObject {
         // Check if this is a DNS or handshake error; treat as permanent
         let errorDescription = error.localizedDescription.lowercased()
         let ns = error as NSError
-        if errorDescription.contains("hostname could not be found") || 
+        if errorDescription.contains("hostname could not be found") ||
            errorDescription.contains("dns") ||
            (ns.domain == NSURLErrorDomain && ns.code == NSURLErrorBadServerResponse) {
             if relays.first(where: { $0.url == relayUrl })?.lastError == nil {
@@ -728,8 +774,8 @@ final class NostrRelayManager: ObservableObject {
     /// Get detailed status for all relays
     func getRelayStatuses() -> [(url: String, isConnected: Bool, reconnectAttempts: Int, nextReconnectTime: Date?)] {
         return relays.map { relay in
-            (url: relay.url, 
-             isConnected: relay.isConnected, 
+            (url: relay.url,
+             isConnected: relay.isConnected,
              reconnectAttempts: relay.reconnectAttempts,
              nextReconnectTime: relay.nextReconnectTime)
         }

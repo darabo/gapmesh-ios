@@ -218,6 +218,7 @@ struct BitchatApp: App {
                         }
                         // Proactively disconnect Nostr to avoid spurious socket errors while Tor is down
                         NostrRelayManager.shared.disconnect()
+                        P2PTransport.shared.stopServices()
                         didEnterBackground = true
 
                         // Schedule background tasks for relay refresh & media cleanup

@@ -9,6 +9,7 @@ final class FavoritesPersistenceService: ObservableObject {
     struct FavoriteRelationship: Codable {
         let peerNoisePublicKey: Data
         let peerNostrPublicKey: String?
+        let peerLibp2pId: String?
         let peerNickname: String
         let isFavorite: Bool
         let theyFavoritedUs: Bool
@@ -61,6 +62,7 @@ final class FavoritesPersistenceService: ObservableObject {
         let relationship = FavoriteRelationship(
             peerNoisePublicKey: peerNoisePublicKey,
             peerNostrPublicKey: peerNostrPublicKey ?? existing?.peerNostrPublicKey,
+            peerLibp2pId: existing?.peerLibp2pId,
             peerNickname: peerNickname,
             isFavorite: true,
             theyFavoritedUs: existing?.theyFavoritedUs ?? false,
@@ -95,6 +97,7 @@ final class FavoritesPersistenceService: ObservableObject {
             let updated = FavoriteRelationship(
                 peerNoisePublicKey: existing.peerNoisePublicKey,
                 peerNostrPublicKey: existing.peerNostrPublicKey,
+                peerLibp2pId: existing.peerLibp2pId,
                 peerNickname: existing.peerNickname,
                 isFavorite: false,
                 theyFavoritedUs: true,
@@ -124,7 +127,8 @@ final class FavoritesPersistenceService: ObservableObject {
         peerNoisePublicKey: Data,
         favorited: Bool,
         peerNickname: String? = nil,
-        peerNostrPublicKey: String? = nil
+        peerNostrPublicKey: String? = nil,
+        peerLibp2pId: String? = nil
     ) {
         let existing = favorites[peerNoisePublicKey]
         let displayName = peerNickname ?? existing?.peerNickname ?? "Unknown"
@@ -134,6 +138,7 @@ final class FavoritesPersistenceService: ObservableObject {
         let relationship = FavoriteRelationship(
             peerNoisePublicKey: peerNoisePublicKey,
             peerNostrPublicKey: peerNostrPublicKey ?? existing?.peerNostrPublicKey,
+            peerLibp2pId: peerLibp2pId ?? existing?.peerLibp2pId,
             peerNickname: displayName,
             isFavorite: existing?.isFavorite ?? false,
             theyFavoritedUs: favorited,
@@ -177,6 +182,28 @@ final class FavoritesPersistenceService: ObservableObject {
     /// Get favorite status for a peer
     func getFavoriteStatus(for peerNoisePublicKey: Data) -> FavoriteRelationship? {
         favorites[peerNoisePublicKey]
+    }
+
+    /// Update only the stored libp2p peer id association for an existing relationship.
+    func updatePeerLibp2pId(peerNoisePublicKey: Data, peerLibp2pId: String) {
+        guard let existing = favorites[peerNoisePublicKey], !peerLibp2pId.isEmpty else { return }
+        let updated = FavoriteRelationship(
+            peerNoisePublicKey: existing.peerNoisePublicKey,
+            peerNostrPublicKey: existing.peerNostrPublicKey,
+            peerLibp2pId: peerLibp2pId,
+            peerNickname: existing.peerNickname,
+            isFavorite: existing.isFavorite,
+            theyFavoritedUs: existing.theyFavoritedUs,
+            favoritedAt: existing.favoritedAt,
+            lastUpdated: Date()
+        )
+        favorites[peerNoisePublicKey] = updated
+        saveFavorites()
+        NotificationCenter.default.post(
+            name: .favoriteStatusChanged,
+            object: nil,
+            userInfo: ["peerPublicKey": peerNoisePublicKey]
+        )
     }
 
     /// Resolve favorite status by short peer ID (16-hex derived from Noise pubkey)

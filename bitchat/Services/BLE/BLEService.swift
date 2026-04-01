@@ -217,6 +217,7 @@ final class BLEService: NSObject {
 
     // MARK: - Adaptive scanning duty-cycle
     private var scanDutyTimer: DispatchSourceTimer?
+    private var pendingScanRestartWorkItem: DispatchWorkItem?
     private var dutyEnabled: Bool = true
     private var dutyOnDuration: TimeInterval = TransportConfig.bleDutyOnDuration
     private var dutyOffDuration: TimeInterval = TransportConfig.bleDutyOffDuration
@@ -315,6 +316,8 @@ final class BLEService: NSObject {
     deinit {
         maintenanceTimer?.cancel()
         scanDutyTimer?.cancel()
+        pendingScanRestartWorkItem?.cancel()
+        pendingScanRestartWorkItem = nil
         scanDutyTimer = nil
         centralManager?.stopScan()
         peripheralManager?.stopAdvertising()
@@ -550,6 +553,8 @@ final class BLEService: NSObject {
         maintenanceTimer = nil
         scanDutyTimer?.cancel()
         scanDutyTimer = nil
+        pendingScanRestartWorkItem?.cancel()
+        pendingScanRestartWorkItem = nil
         
         centralManager?.stopScan()
         peripheralManager?.stopAdvertising()
@@ -1652,6 +1657,61 @@ extension BLEService: CBCentralManagerDelegate {
             options: [CBCentralManagerScanOptionAllowDuplicatesKey: allowDuplicates]
         )
     }
+
+    private func enqueueConnectionCandidate(
+        peripheral: CBPeripheral,
+        rssi: Int,
+        name: String,
+        isConnectable: Bool
+    ) {
+        let candidate = ConnectionCandidate(
+            peripheral: peripheral,
+            rssi: rssi,
+            name: name,
+            isConnectable: isConnectable,
+            discoveredAt: Date()
+        )
+
+        if let existingIndex = connectionCandidates.firstIndex(where: { $0.peripheral.identifier == peripheral.identifier }) {
+            let existing = connectionCandidates[existingIndex]
+            connectionCandidates[existingIndex] = ConnectionCandidate(
+                peripheral: peripheral,
+                rssi: max(existing.rssi, candidate.rssi),
+                name: candidate.name,
+                isConnectable: existing.isConnectable || candidate.isConnectable,
+                discoveredAt: max(existing.discoveredAt, candidate.discoveredAt)
+            )
+        } else {
+            connectionCandidates.append(candidate)
+        }
+
+        connectionCandidates.sort { a, b in
+            if a.rssi != b.rssi { return a.rssi > b.rssi }
+            return a.discoveredAt < b.discoveredAt
+        }
+        if connectionCandidates.count > TransportConfig.bleConnectionCandidatesMax {
+            connectionCandidates.removeLast(connectionCandidates.count - TransportConfig.bleConnectionCandidatesMax)
+        }
+    }
+
+    private func scheduleScanRestart(
+        after delay: TimeInterval = TransportConfig.bleScanRestartDebounceSeconds,
+        forceRestart: Bool = false
+    ) {
+        pendingScanRestartWorkItem?.cancel()
+        let work = DispatchWorkItem { [weak self] in
+            guard let self = self,
+                  let central = self.centralManager,
+                  central.state == .poweredOn else { return }
+            if forceRestart, central.isScanning {
+                central.stopScan()
+            }
+            self.startScanning()
+            self.pendingScanRestartWorkItem = nil
+        }
+        pendingScanRestartWorkItem = work
+        bleQueue.asyncAfter(deadline: .now() + delay, execute: work)
+    }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String: Any], rssi RSSI: NSNumber) {
         let peripheralID = peripheral.identifier.uuidString
@@ -1664,15 +1724,12 @@ extension BLEService: CBCentralManagerDelegate {
 
         // Skip immediate connect if signal too weak for current conditions; enqueue instead
         if rssiValue <= dynamicRSSIThreshold {
-            connectionCandidates.append(ConnectionCandidate(peripheral: peripheral, rssi: rssiValue, name: String(advertisedName), isConnectable: isConnectable, discoveredAt: Date()))
-            // Keep list tidy
-            connectionCandidates.sort { (a, b) in
-                if a.rssi != b.rssi { return a.rssi > b.rssi }
-                return a.discoveredAt < b.discoveredAt
-            }
-            if connectionCandidates.count > TransportConfig.bleConnectionCandidatesMax {
-                connectionCandidates.removeLast(connectionCandidates.count - TransportConfig.bleConnectionCandidatesMax)
-            }
+            enqueueConnectionCandidate(
+                peripheral: peripheral,
+                rssi: rssiValue,
+                name: String(advertisedName),
+                isConnectable: isConnectable
+            )
             return
         }
         
@@ -1680,26 +1737,24 @@ extension BLEService: CBCentralManagerDelegate {
         let currentCentralLinks = peripherals.values.filter { $0.isConnected || $0.isConnecting }.count
         if currentCentralLinks >= maxCentralLinks {
             // Enqueue as candidate; we'll attempt later as slots open
-            connectionCandidates.append(ConnectionCandidate(peripheral: peripheral, rssi: rssiValue, name: String(advertisedName), isConnectable: isConnectable, discoveredAt: Date()))
-            // Keep candidate list tidy: prefer stronger RSSI, then recency; cap list
-            connectionCandidates.sort { (a, b) in
-                if a.rssi != b.rssi { return a.rssi > b.rssi }
-                return a.discoveredAt < b.discoveredAt
-            }
-            if connectionCandidates.count > TransportConfig.bleConnectionCandidatesMax {
-                connectionCandidates.removeLast(connectionCandidates.count - TransportConfig.bleConnectionCandidatesMax)
-            }
+            enqueueConnectionCandidate(
+                peripheral: peripheral,
+                rssi: rssiValue,
+                name: String(advertisedName),
+                isConnectable: isConnectable
+            )
             return
         }
 
         // Rate limit global connect attempts
         let sinceLast = Date().timeIntervalSince(lastGlobalConnectAttempt)
         if sinceLast < connectRateLimitInterval {
-            connectionCandidates.append(ConnectionCandidate(peripheral: peripheral, rssi: rssiValue, name: String(advertisedName), isConnectable: isConnectable, discoveredAt: Date()))
-            connectionCandidates.sort { (a, b) in
-                if a.rssi != b.rssi { return a.rssi > b.rssi }
-                return a.discoveredAt < b.discoveredAt
-            }
+            enqueueConnectionCandidate(
+                peripheral: peripheral,
+                rssi: rssiValue,
+                name: String(advertisedName),
+                isConnectable: isConnectable
+            )
             // Schedule a deferred attempt after rate-limit interval
             let delay = connectRateLimitInterval - sinceLast + 0.05
             bleQueue.asyncAfter(deadline: .now() + delay) { [weak self] in
@@ -1724,7 +1779,8 @@ extension BLEService: CBCentralManagerDelegate {
         }
         
         // Backoff if this peripheral recently timed out connection within the last 15 seconds
-        if let lastTimeout = recentConnectTimeouts[peripheralID], Date().timeIntervalSince(lastTimeout) < 15 {
+        if let lastTimeout = recentConnectTimeouts[peripheralID],
+           Date().timeIntervalSince(lastTimeout) < TransportConfig.bleConnectTimeoutRetryCooldownSeconds {
             return
         }
 
@@ -1844,11 +1900,8 @@ func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeriph
         
         // Restart scanning with allow duplicates for faster rediscovery
         if centralManager?.state == .poweredOn {
-            // Stop and restart scanning to ensure we get fresh discovery events
-            centralManager?.stopScan()
-            bleQueue.asyncAfter(deadline: .now() + TransportConfig.bleRestartScanDelaySeconds) { [weak self] in
-                self?.startScanning()
-            }
+            // Keep scanning stable during churn; only ensure it's running with debounce.
+            scheduleScanRestart()
         }
         // Attempt to fill freed slot from queue
         bleQueue.async { [weak self] in self?.tryConnectFromQueue() }
@@ -1916,6 +1969,14 @@ extension BLEService {
         // Weak-link cooldown: if we recently timed out and RSSI is very weak, delay retries
         if let lastTO = recentConnectTimeouts[peripheralID] {
             let elapsed = Date().timeIntervalSince(lastTO)
+            // Apply a hard cooldown after timeout before attempting the same peripheral again.
+            if elapsed < TransportConfig.bleConnectTimeoutRetryCooldownSeconds {
+                connectionCandidates.append(candidate)
+                let remaining = TransportConfig.bleConnectTimeoutRetryCooldownSeconds - elapsed
+                let delay = min(max(1.0, remaining), 15.0)
+                bleQueue.asyncAfter(deadline: .now() + delay) { [weak self] in self?.tryConnectFromQueue() }
+                return
+            }
             if elapsed < TransportConfig.bleWeakLinkCooldownSeconds && candidate.rssi <= TransportConfig.bleWeakLinkRSSICutoff {
                 // Requeue the candidate and try again later
                 connectionCandidates.append(candidate)
@@ -3378,10 +3439,7 @@ extension BLEService {
         
         // Efficient deduplication
         // Important: do not dedup fragment packets globally (each piece must pass)
-        // Special case: allow our own packets recovered via sync (TTL==0) to pass
-        // through even if we've marked them as seen at send time.
-        let allowSelfSyncReplay = (packet.ttl == 0) && (senderID == myPeerID)
-        if packet.type != MessageType.fragment.rawValue && !allowSelfSyncReplay && messageDeduplicator.isDuplicate(messageID) {
+        if packet.type != MessageType.fragment.rawValue && messageDeduplicator.isDuplicate(messageID) {
             // Announce packets (type 1) are sent every 10 seconds for peer discovery
             // It's normal to see these as duplicates - don't log them to reduce noise
             if packet.type != MessageType.announce.rawValue {
@@ -3791,7 +3849,15 @@ extension BLEService {
         if peerID == myPeerID {
             let senderHex = packet.senderID.hexEncodedString()
             let dedupID = "\(senderHex)-\(packet.timestamp)-\(packet.type)"
-            resolvedSelfMessageID = selfBroadcastMessageIDs.removeValue(forKey: dedupID)?.id
+            if let mappedID = selfBroadcastMessageIDs[dedupID]?.id {
+                resolvedSelfMessageID = mappedID
+            } else {
+                // Use a deterministic fallback for self sync-replayed packets so repeated
+                // deliveries don't create multiple UI messages with random UUIDs.
+                let fallbackID = "self-\(dedupID)"
+                resolvedSelfMessageID = fallbackID
+                selfBroadcastMessageIDs[dedupID] = (id: fallbackID, timestamp: ts)
+            }
         }
         notifyUI { [weak self] in
             self?.delegate?.didReceivePublicMessage(from: peerID,

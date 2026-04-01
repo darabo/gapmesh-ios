@@ -474,7 +474,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         self.unifiedPeerService = UnifiedPeerService(meshService: meshService, idBridge: idBridge, identityManager: identityManager)
         let nostrTransport = NostrTransport(keychain: keychain, idBridge: idBridge)
         nostrTransport.senderPeerID = meshService.myPeerID
-        self.messageRouter = MessageRouter(transports: [meshService, nostrTransport])
+        self.messageRouter = MessageRouter(transports: [meshService, P2PTransport.shared, nostrTransport])
         // Route receipts from PrivateChatManager through MessageRouter
         self.privateChatManager.messageRouter = self.messageRouter
         // Allow PrivateChatManager to look up peer info for message consolidation
@@ -807,6 +807,8 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
         
         // Start mesh service (BLE)
         meshService.startServices()
+        // Start P2P transport (lightweight scaffold; no-op if disabled)
+        P2PTransport.shared.startServices()
         
         // Initialize WiFi Aware transport if supported (runs alongside BLE)
         initializeWiFiAwareIfAvailable()
@@ -821,6 +823,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     @MainActor
     func stopServicesFromLiveActivity() {
         meshService.stopServices()
+        P2PTransport.shared.stopServices()
         stopWiFiAware()
         endGeohashSampling()
         NostrRelayManager.shared.disconnect()
@@ -2033,6 +2036,7 @@ final class ChatViewModel: ObservableObject, BitchatDelegate, CommandContextProv
     @objc func applicationWillTerminate() {
         // Send leave message to all peers
         meshService.stopServices()
+        P2PTransport.shared.stopServices()
 
         // Save identity state
         saveIdentityState()

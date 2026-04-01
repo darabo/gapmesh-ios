@@ -160,7 +160,13 @@ final class NostrTransport: Transport, @unchecked Sendable {
         Task { @MainActor in
             guard let recipientNpub = resolveRecipientNpub(for: peerID) else { return }
             guard let senderIdentity = try? idBridge.getCurrentNostrIdentity() else { return }
-            let content = isFavorite ? "[FAVORITED]:\(senderIdentity.npub)" : "[UNFAVORITED]:\(senderIdentity.npub)"
+            let action = isFavorite ? "[FAVORITED]" : "[UNFAVORITED]"
+            let content: String
+            if let localP2P = P2PTransport.announcementPeerID() {
+                content = "\(action):\(senderIdentity.npub):\(localP2P)"
+            } else {
+                content = "\(action):\(senderIdentity.npub)"
+            }
             SecureLogger.debug("NostrTransport: preparing FAVORITE(\(isFavorite)) to \(recipientNpub.prefix(16))…", category: .session)
             // Convert recipient npub -> hex
             let recipientHex: String

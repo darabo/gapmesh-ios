@@ -98,8 +98,11 @@ final class NetworkActivationService: ObservableObject {
             if torChanged {
                 // Reset relay sockets when switching transport path (Tor ↔︎ direct)
                 NostrRelayManager.shared.disconnect()
+                NostrRelayManager.shared.connect()
+            } else if statusChanged {
+                // Transitioned from disallowed -> allowed
+                NostrRelayManager.shared.connect()
             }
-            NostrRelayManager.shared.connect()
         } else if statusChanged {
             NostrRelayManager.shared.disconnect()
         }

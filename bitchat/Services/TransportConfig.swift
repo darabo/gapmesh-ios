@@ -158,6 +158,8 @@ enum TransportConfig {
     static let bleInitialAnnounceDelaySeconds: TimeInterval = 0.6
     static let bleConnectTimeoutSeconds: TimeInterval = 8.0
     static let bleRestartScanDelaySeconds: TimeInterval = 0.1
+    static let bleScanRestartDebounceSeconds: TimeInterval = 2.0
+    static let bleConnectTimeoutRetryCooldownSeconds: TimeInterval = 15.0
     static let blePostSubscribeAnnounceDelaySeconds: TimeInterval = 0.05
     static let blePostAnnounceDelaySeconds: TimeInterval = 0.4
     static let bleForceAnnounceMinIntervalSeconds: TimeInterval = 0.15

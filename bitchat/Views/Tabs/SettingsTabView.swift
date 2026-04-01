@@ -30,6 +30,7 @@ struct SettingsTabView: View {
     // Settings states
     @State private var torEnabled = SecureStorageManager.shared.object(forKey: "torEnabled") as? Bool ?? true // Default true on first launch
     @State private var proofOfWorkEnabled = SecureStorageManager.shared.bool(forKey: "proofOfWorkEnabled")
+    @State private var p2pEnabled = P2PTransport.isEnabled
     @State private var legacyCompatibility = UserDefaults.standard.isLegacyCompatibilityEnabled
     
     // Slipstream (censorship bypass) states
@@ -259,6 +260,22 @@ struct SettingsTabView: View {
                             )
                             .onChange(of: proofOfWorkEnabled) { _, newValue in
                                 SecureStorageManager.shared.set(newValue, forKey: "proofOfWorkEnabled")
+                            }
+
+                            ToggleRow(
+                                icon: "network",
+                                title: "P2P Private Routing",
+                                description: "Try libp2p private delivery before Nostr fallback.",
+                                isOn: $p2pEnabled,
+                                accentColor: accentBlue
+                            )
+                            .onChange(of: p2pEnabled) { _, newValue in
+                                P2PTransport.setEnabled(newValue)
+                                if newValue {
+                                    P2PTransport.shared.startServices()
+                                } else {
+                                    P2PTransport.shared.stopServices()
+                                }
                             }
                             
                             // Slipstream (Censorship Bypass) Toggle
