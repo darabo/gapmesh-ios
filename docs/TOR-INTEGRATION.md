@@ -64,3 +64,68 @@ Dev bypass (local only)
 Notes
 - We intentionally do not change any app-level APIs: consumers simply use TorURLSession via existing code paths.
 - When Tor is missing in release builds, the app will not connect (fail-closed), logging a clear reason.
+
+---
+
+## MasterDnsVPN (instead of Slipstream): Feasibility + Implementation Walkthrough
+
+### Goal
+- Replace the planned Slipstream DNS-tunnel path with [MasterDnsVPN](https://github.com/masterking32/MasterDnsVPN) as the censorship-bypass transport that Tor can chain through.
+- During implementation, pin to a specific MasterDnsVPN release tag or commit SHA to keep builds reproducible.
+
+### Feasibility (short answer)
+- **Server side:** High feasibility. MasterDnsVPN has Linux server setup and clear DNS delegation requirements.
+- **macOS app:** Medium feasibility. You can run the MasterDnsVPN client binary as a local SOCKS5 proxy and point Tor to it.
+- **iOS app (in-process):** Low feasibility for a quick migration. MasterDnsVPN is written in Go as a CLI app; iOS cannot spawn arbitrary long-lived subprocesses. You need an embeddable library bridge (C ABI) or a Network Extension architecture.
+
+### Recommended integration path
+1) Start with a desktop proof-of-concept
+   - Run MasterDnsVPN client externally (SOCKS5 listener, e.g. `127.0.0.1:18000`).
+   - Add `Socks5Proxy 127.0.0.1:18000` to Tor config and confirm Tor bootstrap/relay traffic works through it.
+   - Validate Nostr relay connect and `GeoRelayDirectory` fetch still work over `TorURLSession`.
+
+2) Define the app-facing contract first
+   - Keep the same runtime contract as `SlipstreamManager`: start, stop, isRunning, lastLogLine, error state, local SOCKS endpoint.
+   - Add a provider abstraction so Tor can consume `upstreamProxyAddress` without caring whether backend is Slipstream or MasterDnsVPN.
+
+3) Replace UI wiring before transport internals
+   - Update Settings copy and keys from “Slipstream” to “MasterDnsVPN” (domain, resolver list, encryption key).
+   - Keep the feature disabled by default until health checks and crash recovery are complete.
+
+4) Wire Tor to upstream SOCKS proxy
+   - Extend `TorManager.torrcTemplate()` to conditionally add:
+     - `Socks5Proxy 127.0.0.1:18000` (replace with your configured listener)
+   - Use the same host:port configured in the MasterDnsVPN client listener (`LISTEN_IP`/`LISTEN_PORT`).
+   - Regenerate torrc on toggles/restarts and restart Tor cleanly when proxy mode changes.
+
+5) Implement a MasterDnsVPN runtime adapter
+   - **Short-term (macOS):** launch bundled binary with config file and parse logs.
+   - **iOS-ready path:**
+     - Expose a C-callable bridge from Go (`-buildmode=c-archive` + exported C symbols).
+     - Wrap the generated artifacts in an xcframework.
+     - Call the bridge from Swift (same style as current C bridge usage).
+   - Ensure adapter provides non-blocking startup and a deterministic shutdown API.
+
+6) Add operational safeguards
+   - Health probes on local SOCKS port.
+   - Automatic fail-closed behavior when proxy is enabled but unavailable.
+   - Crash notification + Tor restart backoff.
+   - Config validation for tunnel domain(s), resolver(s), and key before start.
+
+7) Rollout plan
+   - Phase A: macOS-only feature flag.
+   - Phase B: internal iOS test builds with bridge-based runtime.
+   - Phase C: remove Slipstream code paths/package once parity is confirmed.
+
+### Repository touch points for migration
+- `bitchat/Services/SlipstreamManager.swift`:
+  - Direct replacement migration: rename this to `MasterDnsVPNManager`.
+  - Multi-backend migration: introduce a generic `DNSTunnelManager` abstraction instead.
+- `bitchat/Views/Tabs/SettingsTabView.swift` → toggle and advanced fields.
+- `bitchat/Localizable.xcstrings` → rename user-facing strings.
+- `localPackages/Tor/Sources/TorManager.swift` → conditional `Socks5Proxy` torrc line.
+
+### Risks to plan for
+- iOS embedding complexity for Go runtime and binary size impact.
+- App Store review sensitivity around bundled censorship-bypass networking.
+- DNS path variance across resolvers/ISPs; requires conservative defaults and telemetry.
