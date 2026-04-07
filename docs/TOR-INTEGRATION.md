@@ -94,7 +94,7 @@ Notes
 
 4) Wire Tor to upstream SOCKS proxy
    - Extend `TorManager.torrcTemplate()` to conditionally add:
-     - `Socks5Proxy <masterdns-local-socks-host:port>` (for example `Socks5Proxy 127.0.0.1:18000`)
+     - `Socks5Proxy 127.0.0.1:18000` (replace with your configured listener)
    - Use the same host:port configured in the MasterDnsVPN client listener (`LISTEN_IP`/`LISTEN_PORT`).
    - Regenerate torrc on toggles/restarts and restart Tor cleanly when proxy mode changes.
 
