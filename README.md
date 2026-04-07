@@ -24,6 +24,7 @@ New to Gap Mesh? Start here:
 
 - 🇺🇸 **[English User Guide](docs/USER_GUIDE_EN.md)** – Complete guide for beginners
 - 🇮🇷 **[راهنمای فارسی](docs/USER_GUIDE_FA.md)** – راهنمای کامل به زبان فارسی
+- 🛡️ **[MasterDnsVPN Integration Walkthrough](docs/TOR-INTEGRATION.md)** – Feasibility and migration steps for DNS-tunnel censorship bypass
 
 ## Features
 
