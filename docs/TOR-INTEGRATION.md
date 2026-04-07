@@ -95,6 +95,7 @@ Notes
 4) Wire Tor to upstream SOCKS proxy
    - Extend `TorManager.torrcTemplate()` to conditionally add:
      - `Socks5Proxy <masterdns-local-socks-host:port>` (for example `Socks5Proxy 127.0.0.1:18000`)
+   - Use the same host:port configured in the MasterDnsVPN client listener (`LISTEN_IP`/`LISTEN_PORT`).
    - Regenerate torrc on toggles/restarts and restart Tor cleanly when proxy mode changes.
 
 5) Implement a MasterDnsVPN runtime adapter
@@ -117,7 +118,7 @@ Notes
    - Phase C: remove Slipstream code paths/package once parity is confirmed.
 
 ### Repository touch points for migration
-- `bitchat/Services/SlipstreamManager.swift` → replace with `MasterDnsVPNManager` (or generic `DNSTunnelManager`).
+- `bitchat/Services/SlipstreamManager.swift` → replace with `MasterDnsVPNManager` first; optionally rename to generic `DNSTunnelManager` only if you need multiple backends (Slipstream + MasterDnsVPN) at runtime.
 - `bitchat/Views/Tabs/SettingsTabView.swift` → toggle and advanced fields.
 - `bitchat/Localizable.xcstrings` → rename user-facing strings.
 - `localPackages/Tor/Sources/TorManager.swift` → conditional `Socks5Proxy` torrc line.
