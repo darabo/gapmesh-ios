@@ -118,8 +118,9 @@ Notes
    - Phase C: remove Slipstream code paths/package once parity is confirmed.
 
 ### Repository touch points for migration
-- `bitchat/Services/SlipstreamManager.swift` → in a direct replacement migration, rename this to `MasterDnsVPNManager`.
-- `bitchat/Services/SlipstreamManager.swift` → if you plan to support multiple DNS-tunnel backends at runtime, introduce a generic `DNSTunnelManager` abstraction instead.
+- `bitchat/Services/SlipstreamManager.swift`:
+  - Direct replacement migration: rename this to `MasterDnsVPNManager`.
+  - Multi-backend migration: introduce a generic `DNSTunnelManager` abstraction instead.
 - `bitchat/Views/Tabs/SettingsTabView.swift` → toggle and advanced fields.
 - `bitchat/Localizable.xcstrings` → rename user-facing strings.
 - `localPackages/Tor/Sources/TorManager.swift` → conditional `Socks5Proxy` torrc line.
