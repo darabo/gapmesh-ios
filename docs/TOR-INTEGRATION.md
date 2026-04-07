@@ -76,7 +76,7 @@ Notes
 ### Feasibility (short answer)
 - **Server side:** High feasibility. MasterDnsVPN has Linux server setup and clear DNS delegation requirements.
 - **macOS app:** Medium feasibility. You can run the MasterDnsVPN client binary as a local SOCKS5 proxy and point Tor to it.
-- **iOS app (in-process):** Medium/Low feasibility for a quick migration. MasterDnsVPN is written in Go as a CLI app; iOS cannot spawn arbitrary long-lived subprocesses. You need an embeddable library bridge (C ABI) or a Network Extension architecture.
+- **iOS app (in-process):** Low feasibility for a quick migration. MasterDnsVPN is written in Go as a CLI app; iOS cannot spawn arbitrary long-lived subprocesses. You need an embeddable library bridge (C ABI) or a Network Extension architecture.
 
 ### Recommended integration path
 1) Start with a desktop proof-of-concept
@@ -118,7 +118,8 @@ Notes
    - Phase C: remove Slipstream code paths/package once parity is confirmed.
 
 ### Repository touch points for migration
-- `bitchat/Services/SlipstreamManager.swift` → replace with `MasterDnsVPNManager` first; optionally rename to generic `DNSTunnelManager` only if you need multiple backends (Slipstream + MasterDnsVPN) at runtime.
+- `bitchat/Services/SlipstreamManager.swift` → in a direct replacement migration, rename this to `MasterDnsVPNManager`.
+- `bitchat/Services/SlipstreamManager.swift` → if you plan to support multiple DNS-tunnel backends at runtime, introduce a generic `DNSTunnelManager` abstraction instead.
 - `bitchat/Views/Tabs/SettingsTabView.swift` → toggle and advanced fields.
 - `bitchat/Localizable.xcstrings` → rename user-facing strings.
 - `localPackages/Tor/Sources/TorManager.swift` → conditional `Socks5Proxy` torrc line.
