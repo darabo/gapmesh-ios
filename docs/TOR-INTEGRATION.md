@@ -98,7 +98,10 @@ Notes
 
 5) Implement a MasterDnsVPN runtime adapter
    - **Short-term (macOS):** launch bundled binary with config file and parse logs.
-   - **iOS-ready path:** expose a C-callable bridge from Go (`-buildmode=c-archive` + exported C symbols), wrap it in an xcframework, then call it from Swift (same style as current C bridge usage).
+   - **iOS-ready path:**
+     - Expose a C-callable bridge from Go (`-buildmode=c-archive` + exported C symbols).
+     - Wrap the generated artifacts in an xcframework.
+     - Call the bridge from Swift (same style as current C bridge usage).
    - Ensure adapter provides non-blocking startup and a deterministic shutdown API.
 
 6) Add operational safeguards
