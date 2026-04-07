@@ -71,6 +71,7 @@ Notes
 
 ### Goal
 - Replace the planned Slipstream DNS-tunnel path with [MasterDnsVPN](https://github.com/masterking32/MasterDnsVPN) as the censorship-bypass transport that Tor can chain through.
+- During implementation, pin to a specific MasterDnsVPN release tag or commit SHA to keep builds reproducible.
 
 ### Feasibility (short answer)
 - **Server side:** High feasibility. MasterDnsVPN has Linux server setup and clear DNS delegation requirements.
@@ -93,7 +94,7 @@ Notes
 
 4) Wire Tor to upstream SOCKS proxy
    - Extend `TorManager.torrcTemplate()` to conditionally add:
-     - `Socks5Proxy <masterdns-local-socks-host:port>`
+     - `Socks5Proxy <masterdns-local-socks-host:port>` (for example `Socks5Proxy 127.0.0.1:18000`)
    - Regenerate torrc on toggles/restarts and restart Tor cleanly when proxy mode changes.
 
 5) Implement a MasterDnsVPN runtime adapter
